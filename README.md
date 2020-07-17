@@ -1,1 +1,1 @@
-# GPIU NAtional Study Platform
+# GPIU National Study Platform
