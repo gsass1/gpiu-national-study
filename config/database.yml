@@ -22,5 +22,5 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['GPIU_NAT_DB_NAME'] || 'postgres' %>
+  database: <%= ENV['GPIU_NAT_DB_NAME'] || 'GpiuNational' %>
 

@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: production
+      POSTGRES_DB: GpiuNational
+      POSTGRES_PASSWORD: gpiu-national
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  web:
+    build: .
+    image: gpiu-national:latest
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      - GPIU_NAT_DB_HOST=db
+      - GPIU_NAT_DB_NAME=GpiuNational
+      - GPIU_NAT_DB_USER=production
+      - GPIU_NAT_DB_PASSWORD=gpiu-national
+volumes:
+  pg_data:

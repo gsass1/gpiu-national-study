@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - gpiu_esiu_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: production
+      POSTGRES_DB: GpiuNational
+      POSTGRES_PASSWORD: gpiu-national
+    networks:
+      - gpiu_national_net
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints: [node.hostname == gpiu-db]
+
+  web:
+    image: gpiu-registry.mni.thm.de/gpiu-national:latest
+    depends_on:
+      - db
+    environment:
+      - GPIU_NAT_DB_HOST=db
+      - GPIU_NAT_DB_NAME=GpiuNational
+      - GPIU_NAT_DB_USER=production
+      - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - RAILS_ENV=production
+    networks:
+      - gpiu_national_net
+      - traefik-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints:
+          - "node.hostname!=gpiu-db"
+      labels:
+        - "traefik.enable=true"
+
+        - "traefik.http.routers.gpiu-national.entrypoints=websecure"
+        - "traefik.http.routers.gpiu-national.rule=Host(`gpiu-master-nat.mni.thm.de`)"
+        - "traefik.http.services.gpiu-national-service.loadbalancer.server.port=3000"
+        - "traefik.http.routers.gpiu-national.tls=true"
+
+volumes:
+  gpiu_esiu_db:
+
+networks:
+  gpiu_national_net:
+    driver: overlay
+  traefik-net:
+    external: true
