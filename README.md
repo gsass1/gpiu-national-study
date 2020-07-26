@@ -21,6 +21,12 @@ In order to get this app running, the following dependencies are required:
 
 #### Database Seed
 
+#### Export PDF
+The export uses [wkhtmltopdf](https://wkhtmltopdf.org).
+It should be included as a binary gem using bundler.
+If this fails, install wkhtmltopdf using your distribution and tell [wicked_pdf](https://github.com/mileszs/wicked_pdf)  where the local installation is.
+Tell bundler to install without the binary by running `bundle install --without wk_binary`.
+
 ## Deployment
 
 ### Setup
