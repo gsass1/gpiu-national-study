@@ -19,7 +19,15 @@ In order to get this app running, the following dependencies are required:
 
 ### Configuration
 
+* To install all Gems, run: `bundle install`
+    * To install without production gems, run: `bundle install --without=production`
+* If `wicked_pdf` fails to install look [here](#export-pdf)
 #### Database Seed
+
+* To fill the development Database with some testing data, run:
+```
+rails db:seed
+```
 
 #### Export PDF
 The export uses [wkhtmltopdf](https://wkhtmltopdf.org).
