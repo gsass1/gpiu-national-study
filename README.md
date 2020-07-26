@@ -21,7 +21,7 @@ In order to get this app running, the following dependencies are required:
 
 * To install all Gems, run: `bundle install`
     * To install without production gems, run: `bundle install --without=production`
-* If `wicked_pdf` fails to install look [here](#export-pdf)
+* If `wicked_pdf` fails to install, tahe a look into chapter [Export PDF](#export-pdf)
 #### Database Seed
 
 * To fill the development Database with some testing data, run:
