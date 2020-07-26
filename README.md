@@ -1,24 +1,29 @@
-# README
+# GPIU - National Study Platform
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Developed by
+* Felix Münscher
+* Gian Sass
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+### Dependencies
+In order to get this app running, the following dependencies are required:
 
-* System dependencies
+* Ruby: 2.7.1
+    * Installation via [rbenv](https://github.com/rbenv/rbenv) recommended
+* SQLite
+    * For development environment 
+* PostgreSQL
+    * For production environment
+    * Installation via [docker](https://hub.docker.com/_/postgres) recommended
 
-* Configuration
+### Configuration
 
-* Database creation
+#### Database Seed
 
-* Database initialization
+## Deployment
 
-* How to run the test suite
+### Setup
 
-* Services (job queues, cache servers, search engines, etc.)
+### CI/CD
 
-* Deployment instructions
-
-* ...
