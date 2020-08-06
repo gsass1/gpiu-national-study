@@ -65,6 +65,10 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    asciidoctor (2.0.10)
+    asciidoctor-rouge (0.4.0)
+      asciidoctor (>= 1.5.6, < 2.1)
+      rouge (>= 2.2, < 4)
     bcrypt (3.1.15)
     better_errors (2.7.1)
       coderay (>= 1.0.0)
@@ -245,6 +249,11 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rouge (3.21.0)
+    rouge-rails (0.2.1)
+      actionview
+      railties
+      rouge
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -320,6 +329,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  asciidoctor
+  asciidoctor-rouge
   better_errors
   binding_of_caller
   bootsnap (>= 1.4.2)
@@ -348,6 +359,8 @@ DEPENDENCIES
   rails-i18n
   rails-plantuml-generator!
   redcarpet
+  rouge
+  rouge-rails
   sass-rails (>= 6)
   selenium-webdriver
   simple_form
