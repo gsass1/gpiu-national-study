@@ -37,6 +37,8 @@ gem 'config'
 gem 'slim'
 gem 'slim-rails'
 
+gem 'kaminari'
+
 gem 'identicon'
 gem 'material_icons'
 gem 'material_design_icons'
@@ -78,6 +80,8 @@ group :development do
   gem 'i18n-debug'
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem 'bullet'
 
   gem 'pry'
   gem 'pry-rails'
