@@ -15,15 +15,19 @@
  */
 
 .top-bar {
-  font-family: 'Droid Serif', serif;
+  font-family: Noto Serif, serif;
 
   a {
     font-size: 1.5em;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Droid Serif', serif;
+  font-family: Noto Serif, serif;
 }
 
 .landing-welcome {
@@ -32,7 +36,7 @@ h1, h2, h3, h4, h5 {
   min-height: 800px;
 
   h1 {
-    font-family: 'Droid Serif', serif;
+    font-family: Noto Serif, serif;
   }
 }
 
@@ -70,4 +74,25 @@ ul.footer-links {
 
 p {
   line-height: 1.75;
+}
+
+.compact_form {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.site-notif {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 300;
+  height: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-menu {
+  border-radius: 0 !important;
 }

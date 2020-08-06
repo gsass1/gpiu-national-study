@@ -8,18 +8,33 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
-  body
-    .container-fluid.box-shadow.bg-primary
-      .container.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.py-3.text-light.top-bar
-        h4.my-0.mr-md-auto.font-weight-normal
-          = "GPIU"
-          br
-          = "National Study"
-        nav.my-2.my-md-0.mr-mid-3
-          a.p-2.text-light[href="/"] Home
-          a.p-2.text-light[href="/"] About
-    .main-content= yield
-    footer.
+  body.d-flex.flex-column.min-vh-100
+    main.flex-grow-1
+      .container-fluid.box-shadow.bg-primary
+        .container.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.py-3.text-light.top-bar
+          h4.my-0.mr-md-auto.font-weight-normal
+            = "GPIU"
+            br
+            = "National Study"
+          nav.my-2.my-md-0.mr-mid-3
+            a.p-3.text-light[href="/"] Home
+            a.p-3.text-light[href="/"] About
+            - if user_signed_in?
+              span.dropdown.show
+                a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] Account
+                .dropdown-menu[aria-labelledby="dropdownMenuLink"]
+                  a.dropdown-item[href="#"] Dashboard
+                  a.dropdown-item[href="#"] Settings
+                  = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
+
+      div class=("main_content #{"pt-5" unless controller_name == "site"}")
+        - unless alert.blank?
+          .container-fluid.bg-danger.text-center.site-notif= alert
+
+        - unless notice.blank?
+          .container-fluid.bg-success.text-center.site-notif= notice
+        = yield
+    footer
       .container.py-5
         .row.mb-3
           .col-md-3.offset-md-3
