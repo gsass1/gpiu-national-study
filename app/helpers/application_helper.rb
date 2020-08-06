@@ -29,4 +29,7 @@ module ApplicationHelper
     end
   end
 
+  def is_landing_page?
+    controller_name == "site" && action_name == "index"
+  end
 end

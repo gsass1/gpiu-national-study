@@ -19,7 +19,7 @@ html
             = "National Study"
           nav.my-2.my-md-0.mr-mid-3
             a.p-3.text-light[href="/"] Home
-            a.p-3.text-light[href="/"] About
+            a.p-3.text-light[href="/about"] About
             - if user_signed_in?
               span.dropdown.show
                 a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] Account
@@ -28,7 +28,7 @@ html
                   a.dropdown-item[href="#"] Settings
                   = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
 
-      div class=("main_content #{"pt-5" unless controller_name == "site"}")
+      div class=("main_content #{"pt-5" unless is_landing_page?}")
         .container
           - flash.each do |message_type, message|
             = content_tag :div, class: "alert #{bootstrap_class_for_flash(message_type)} alert-dismissible fade show", role: :alert do
