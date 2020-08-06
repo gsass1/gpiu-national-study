@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    title GPIU - National
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    .container-fluid.box-shadow.bg-primary
+      .container.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.py-3.text-light.top-bar
+        h4.my-0.mr-md-auto.font-weight-normal
+          = "GPIU"
+          br
+          = "National Study"
+        nav.my-2.my-md-0.mr-mid-3
+          a.p-2.text-light[href="/"] Home
+          a.p-2.text-light[href="/"] About
+    .main-content= yield
+    footer.
+      .container.py-5
+        .row.mb-3
+          .col-md-3.offset-md-3
+            h4.my-0.mr-md-auto.font-weight-normal.text-light
+              = "GPIU"
+              br
+              = "National Study"
+
+        .row.mt-4
+          .col-md-6.offset-md-3
+            p.text-light.lead The GPIU study is grateful for the unconditional funding support by Merian Iselin Clinic provided in 2017.
+
+        hr.footer-spacer
+        .row.mt-4
+          .col-md-3.offset-md-3
+            p.font-weight-bold.text-light.lead Links
+            ul.footer-links
+              li
+                a.text-light[href="/"] Home
+              li
+                a.text-light[href="/"] About
+              li
+                a.text-light[href="/"] Contact
+
+          .col-md-3
+            p.font-weight-bold.text-light.lead GPIU
+            ul.footer-links
+              li
+                a.text-light[href="/"] Home
+              li
+                a.text-light[href="/"] About
+              li
+                a.text-light[href="/"] Contact
+        .text-center.mt-4
+          hr.footer-spacer
+          p.text-light Copyright &copy; GPIU National Study
