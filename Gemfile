@@ -54,8 +54,6 @@ gem 'asciidoctor-rouge'
 gem 'rouge'
 gem 'rouge-rails'
 
-gem 'slack-notifier'
-
 gem 'wicked_pdf'
 group :wk_binary do
   gem 'wkhtmltopdf-binary'
@@ -84,6 +82,7 @@ group :development do
   gem 'binding_of_caller'
 
   gem 'bullet'
+  gem 'slack-notifier'
 
   gem 'pry'
   gem 'pry-rails'
