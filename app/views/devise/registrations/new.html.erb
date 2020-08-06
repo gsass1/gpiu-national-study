@@ -28,7 +28,7 @@
                 autofocus: true,
                 input_html: { autocomplete: "email" }%>
 
-    <%= f.input :country,
+    <%= f.input :country_id,
                 collection: Country.all,
                 label_method: :name,
                 value_method: :id,

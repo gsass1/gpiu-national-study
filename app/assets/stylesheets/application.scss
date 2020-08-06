@@ -10,6 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require material_icons
  *= require_tree .
  *= require_self
  */
@@ -77,20 +78,17 @@ p {
 }
 
 .compact_form {
-  max-width: 500px;
+  max-width: 700px;
+  padding: 20px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.site-notif {
-  color: #fff;
-  font-size: 1.25rem;
-  font-weight: 300;
-  height: 3rem;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.flash-message-wrapper {
+  position: fixed;
+  top: 40px;
+  right: 100px;
+  width: 500px;
 }
 
 .dropdown-menu {
