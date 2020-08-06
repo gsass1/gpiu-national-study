@@ -25,7 +25,7 @@ html
                 a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] Account
                 .dropdown-menu[aria-labelledby="dropdownMenuLink"]
                   a.dropdown-item[href="#"] Dashboard
-                  a.dropdown-item[href="#"] Settings
+                  = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
                   = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
 
       div class=("main_content #{"pt-5" unless is_landing_page?}")

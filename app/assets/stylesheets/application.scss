@@ -96,3 +96,10 @@ p {
 .form-control {
   border-radius: 0 !important
 }
+
+.back-button {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}

@@ -3,6 +3,10 @@
 
     <h1>Sign up</h1>
 
+    <p>Once you sign up you'll be able to input patient data into our database.</p>
+
+    <hr>
+
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.error_notification %>
 
@@ -14,6 +18,7 @@
               autofocus: true,
               input_html: { autocomplete: "first-name" }%>
           </div>
+
           <div class="col-sm-6">
             <%= f.input :last_name,
               required: true,
