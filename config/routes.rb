@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
 
+  get '/about' => 'site#about'
+  get '/contact' => 'site#contact'
   root 'site#index'
 end

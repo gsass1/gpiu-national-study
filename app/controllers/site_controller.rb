@@ -6,4 +6,7 @@ class SiteController < ApplicationController
 
     @user = User.new
   end
+
+  def contact; end
+  def about; end
 end

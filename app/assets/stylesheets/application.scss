@@ -15,9 +15,11 @@
  *= require_self
  */
 
-.top-bar {
-  font-family: Noto Serif, serif;
+body {
+  font-family: Lato, sans-serif !important;
+}
 
+.top-bar {
   a {
     font-size: 1.5em;
 
@@ -27,18 +29,10 @@
   }
 }
 
-h1, h2, h3, h4, h5 {
-  font-family: Noto Serif, serif;
-}
-
 .landing-welcome {
   background: url("https://st2.depositphotos.com/3889193/8319/i/450/depositphotos_83197346-stock-photo-medical-team.jpg") no-repeat center center fixed;
   background-size: cover;
   min-height: 800px;
-
-  h1 {
-    font-family: Noto Serif, serif;
-  }
 }
 
 .landing-description {
@@ -93,4 +87,12 @@ p {
 
 .dropdown-menu {
   border-radius: 0 !important;
+}
+
+.btn {
+  border-radius: 0 !important
+}
+
+.form-control {
+  border-radius: 0 !important
 }

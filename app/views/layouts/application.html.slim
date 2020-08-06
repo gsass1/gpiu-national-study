@@ -7,6 +7,7 @@ html
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    link[rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato"]
 
   body.d-flex.flex-column.min-vh-100
     main.flex-grow-1
@@ -49,7 +50,7 @@ html
 
         .row.mt-4
           .col-md-6.offset-md-3
-            p.text-light.lead The GPIU study is grateful for the unconditional funding support by Merian Iselin Clinic provided in 2017.
+            p.text-light The GPIU study is grateful for the unconditional funding support by Merian Iselin Clinic provided in 2017.
 
         hr.footer-spacer
         .row.mt-4
@@ -59,19 +60,19 @@ html
               li
                 a.text-light[href="/"] Home
               li
-                a.text-light[href="/"] About
+                a.text-light[href="/about"] About
               li
-                a.text-light[href="/"] Contact
+                a.text-light[href="/contact"] Contact
 
           .col-md-3
             p.font-weight-bold.text-light.lead GPIU
             ul.footer-links
               li
-                a.text-light[href="/"] Home
+                a.text-light[href="https://gpiu.esiu.org"] Annual Study
               li
-                a.text-light[href="/"] About
+                a.text-light[href="https://gpiu-com.org"] Community Study
               li
-                a.text-light[href="/"] Contact
+                a.text-light[href="/"] National Study
         .text-center.mt-4
           hr.footer-spacer
           p.text-light Copyright &copy; GPIU National Study
