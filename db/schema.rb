@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_06_215715) do
+ActiveRecord::Schema.define(version: 2020_08_10_161626) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -33,14 +33,21 @@ ActiveRecord::Schema.define(version: 2020_08_06_215715) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "employees", force: :cascade do |t|
+  create_table "departments", force: :cascade do |t|
     t.integer "hospital_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "discarded_at"
+    t.string "name"
+    t.integer "patient_counter"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["discarded_at"], name: "index_employees_on_discarded_at"
-    t.index ["hospital_id"], name: "index_employees_on_hospital_id"
+    t.index ["hospital_id"], name: "index_departments_on_hospital_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.integer "department_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
@@ -68,15 +75,18 @@ ActiveRecord::Schema.define(version: 2020_08_06_215715) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["country_id"], name: "index_users_on_country_id"
+    t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "addresses", "countries"
-  add_foreign_key "employees", "hospitals"
+  add_foreign_key "departments", "hospitals"
+  add_foreign_key "employees", "departments"
   add_foreign_key "employees", "users"
   add_foreign_key "hospitals", "addresses"
 end

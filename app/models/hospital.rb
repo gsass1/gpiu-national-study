@@ -3,4 +3,5 @@ class Hospital < ApplicationRecord
 
   belongs_to :country
   has_one :address, dependent: :destroy
+  has_many :departments
 end
