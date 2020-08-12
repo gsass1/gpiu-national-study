@@ -1,0 +1,17 @@
+.container
+  .compact_form
+    h1 New Hospital
+    hr
+    = simple_form_for(@hospital, method: :post) do |f|
+      .form-inputs
+        = f.error_notification
+        = f.input :name, required: true
+
+        = f.simple_fields_for :address, @hospital.address do |addr|
+          = addr.input :street, required: true
+          .row
+            .col-sm-6= addr.input :postal_code, required: true
+            .col-sm-6= addr.input :city, required: true
+      .form-actions
+        = f.button :submit, "Create", class: 'btn btn-lg btn-outline-primary'
+

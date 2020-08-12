@@ -1,0 +1,14 @@
+.container
+  h1 Hospitals
+  div
+    span.lead Find your hospital in our database.
+    = link_to "Create", new_hospital_path, class: 'btn btn-outline-primary float-right'
+
+  table.table.mt-4
+    tr
+      th Name
+      th City
+    - @hospitals.each do |hospital|
+      tr
+        td= hospital.name
+        td= hospital.address.city

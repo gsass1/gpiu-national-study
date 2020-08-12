@@ -12,7 +12,7 @@
           = "Hospitals"
       - unless current_user.is_employed?
         p.lead You have not checked into any hospital yet.
-        a.lead[href="#"] You can search for your hospital here.
+        = link_to "You can search for national hospitals here.", hospitals_path, class: 'lead'
 
     .box.bg-success.text-dark
       h2

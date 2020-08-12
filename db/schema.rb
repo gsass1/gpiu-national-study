@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 2020_08_10_161626) do
     t.string "street"
     t.string "postal_code"
     t.string "city"
-    t.integer "hospital_id", null: false
+    t.string "addressable_type"
+    t.bigint "addressable_id"
     t.integer "country_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["country_id"], name: "index_addresses_on_country_id"
     t.index ["discarded_at"], name: "index_addresses_on_discarded_at"
-    t.index ["hospital_id"], name: "index_addresses_on_hospital_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -53,11 +53,9 @@ ActiveRecord::Schema.define(version: 2020_08_10_161626) do
 
   create_table "hospitals", force: :cascade do |t|
     t.string "name"
-    t.integer "address_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_hospitals_on_address_id"
     t.index ["discarded_at"], name: "index_hospitals_on_discarded_at"
   end
 
@@ -88,5 +86,4 @@ ActiveRecord::Schema.define(version: 2020_08_10_161626) do
   add_foreign_key "departments", "hospitals"
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "users"
-  add_foreign_key "hospitals", "addresses"
 end
