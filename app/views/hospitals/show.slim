@@ -7,7 +7,16 @@
       .card
         .card-body
           strong.lead.card-title Departments
-          p No departments have been created yet. Create?
+          - unless @hospital.departments.any?
+            p
+              = "No departments have been created yet."
+              = link_to "Create?", new_hospital_department_path(@hospital)
+          - else
+            - @hospital.departments.each do |department|
+              .card
+                .card-body
+                  strong.card-title
+                  = link_to department.name, [@hospital, department]
     .col-sm-4
       .card
         .card-body

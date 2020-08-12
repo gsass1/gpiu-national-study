@@ -4,7 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can [:create, :read, :update], [Hospital, Address]
+    can [:create, :read, :update], [Hospital, Address, Department]
 
     # Define abilities for the passed in user here. For example:
     #

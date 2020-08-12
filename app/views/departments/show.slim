@@ -1,0 +1,7 @@
+.container
+  = link_to :back, class: "back-button" do
+    .d-flex.flex-row.align-items-center
+      i.material-icons.md-18 arrow_back
+      = @department.hospital.name
+  h1= @department.name
+  hr
