@@ -10,5 +10,5 @@
       th City
     - @hospitals.each do |hospital|
       tr
-        td= hospital.name
+        td= link_to hospital.name, hospital
         td= hospital.address.city

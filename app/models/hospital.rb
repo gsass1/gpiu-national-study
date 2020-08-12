@@ -7,4 +7,6 @@ class Hospital < ApplicationRecord
   has_many :departments
 
   validates :name, presence: true
+
+  default_scope { order(name: :desc) }
 end
