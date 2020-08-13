@@ -1,6 +1,6 @@
 .container
   h1= "Welcome back, #{current_user.first_name}."
-  p.lead This is your user dashboard. From here you can manage everything!
+  p This is your user dashboard. From here you can manage everything!
 
   hr
 
@@ -11,7 +11,7 @@
           i.material-icons.md-36 local_hospital
           = "Hospitals"
       - unless current_user.is_employed?
-        p.lead You have not checked into any hospital yet.
+        p You have not checked into any hospital yet.
         = link_to "You can search for national hospitals here.", hospitals_path, class: 'lead'
 
     .box.bg-success.text-dark
@@ -19,11 +19,11 @@
         .d-flex.flex-row.align-items-center
           i.material-icons.md-36 accessibility
           = "Patients"
-        p.lead You have not registered any patients yet.
+      p You have not registered any patients yet.
 
     .box.bg-success.text-dark
       h2
         .d-flex.flex-row.align-items-center
           i.material-icons.md-36 accessibility
           = "Patients"
-        p.lead You have not registered any patients yet.
+      p You have not registered any patients yet.
