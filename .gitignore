@@ -245,3 +245,4 @@ $RECYCLE.BIN/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/diagramm.puml
