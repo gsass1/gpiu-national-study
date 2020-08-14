@@ -5,8 +5,8 @@
         .col-lg-5
           .text-light.bg-primary.p-5
             h2
-            h2 = t('site.landing.welcome')
-            p.lead = t('site.landing.description_short')
+            h2 = t('sites.landing.welcome')
+            p.lead = t('sites.landing.description_short')
 
         .col-lg-7
           .p-5
@@ -14,5 +14,5 @@
             = render 'devise/shared/login_form', user: User.new
 .landing-description
   .container.my-5
-    h1 = t('site.landing.what')
-    p = t('site.landing.description_long')
+    h1 = t('sites.landing.what')
+    p = t('sites.landing.description_long')

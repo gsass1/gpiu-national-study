@@ -30,7 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  site:
+  sites:
     landing:
       welcome: 'Welcome to the National GPIU Study!'
       description_short: 'The Global Prevalence Study on Infections in Urology (GPIU-study) aims to study Urinary tract infections (UTI) and surgical site infections (SSI) in hospitalised urological patients.'
