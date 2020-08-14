@@ -14,17 +14,15 @@ html
       .container-fluid.box-shadow.bg-primary
         .container.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.py-3.text-light.top-bar
           h5.my-0.mr-md-auto.font-weight-normal
-            = "GPIU"
-            br
-            = "National Study"
+            = t('application.nav.title_html')
           nav.my-2.my-md-0.mr-mid-3
-            a.p-3.text-light[href="/"] Home
-            a.p-3.text-light[href="/about"] About
+            a.p-3.text-light[href="/"] = t('application.nav.home')
+            a.p-3.text-light[href="/about"] = t('application.nav.about')
             - if user_signed_in?
               span.dropdown.show
-                a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] Account
+                a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] = t('application.nav.account')
                 .dropdown-menu[aria-labelledby="dropdownMenuLink"]
-                  a.dropdown-item[href="#"] Dashboard
+                  a.dropdown-item[href="#"] = t('application.nav.dashboard')
                   = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
                   = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
 
@@ -44,35 +42,33 @@ html
         .row.mb-3
           .col-md-3.offset-md-3
             h4.my-0.mr-md-auto.font-weight-normal.text-light
-              = "GPIU"
-              br
-              = "National Study"
+              = t('application.nav.title_html')
 
         .row.mt-4
           .col-md-6.offset-md-3
-            p.text-light The GPIU study is grateful for the unconditional funding support by Merian Iselin Clinic provided in 2017.
+            p.text-light = t('application.footer.funding')
 
         hr.footer-spacer
         .row.mt-4
           .col-md-3.offset-md-3
-            p.font-weight-bold.text-light.lead Links
+            p.font-weight-bold.text-light.lead = t('application.footer.links')
             ul.footer-links
               li
-                a.text-light[href="/"] Home
+                a.text-light[href="/"] = t('application.footer.home')
               li
-                a.text-light[href="/about"] About
+                a.text-light[href="/about"] = t('application.footer.about')
               li
-                a.text-light[href="/contact"] Contact
+                a.text-light[href="/contact"] = t('application.footer.contact')
 
           .col-md-3
-            p.font-weight-bold.text-light.lead GPIU
+            p.font-weight-bold.text-light.lead = t('application.footer.other_studies')
             ul.footer-links
               li
-                a.text-light[href="https://gpiu.esiu.org"] Annual Study
+                a.text-light[href="https://gpiu.esiu.org"] = t('application.footer.annual_study')
               li
-                a.text-light[href="https://gpiu-com.org"] Community Study
+                a.text-light[href="https://gpiu-com.org"] = t('application.footer.com_study')
               li
-                a.text-light[href="/"] National Study
+                a.text-light[href="/"] = t('application.footer.natianal_study')
         .text-center.mt-4
           hr.footer-spacer
           p.text-light Copyright &copy; GPIU National Study
