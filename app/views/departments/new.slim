@@ -1,6 +1,6 @@
 .container
   .compact_form
-    h1 New Department
+    h1 = t('departments.new.new_department')
     hr
       = simple_form_for([:hospital, @department], method: :post) do |f|
         = f.error_notification
@@ -10,4 +10,4 @@
         .form-inputs
           = f.input :name, required: true
         .form-actions
-          = f.button :submit, "Create", class: 'btn btn-lg btn-outline-primary'
+          = f.button :submit, t('departments.new.create'), class: 'btn btn-lg btn-outline-primary'

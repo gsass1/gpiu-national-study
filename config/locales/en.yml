@@ -70,6 +70,10 @@ en:
     show:
       departments: 'Departments'
       no_departments: 'No departments have been created yet.'
+  departments:
+    new:
+      new_department: 'New Department'
+      create: 'Create'
   sites:
     landing:
       welcome: 'Welcome to the National GPIU Study!'
