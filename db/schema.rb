@@ -27,10 +27,12 @@ ActiveRecord::Schema.define(version: 2020_08_10_161626) do
   end
 
   create_table "countries", force: :cascade do |t|
-    t.string "iso"
+    t.string "iso_2", null: false
+    t.string "iso_3", null: false
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["iso_2", "iso_3", "name"], name: "index_countries_on_iso_2_and_iso_3_and_name", unique: true
   end
 
   create_table "departments", force: :cascade do |t|

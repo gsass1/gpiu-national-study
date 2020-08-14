@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Setup participating countries
-Country.create(iso: "GBR", name: "United Kingdom")
-Country.create(iso: "TUR", name: "Turkey")
-Country.create(iso: "FRA", name: "France")
-Country.create(iso: "CZE", name: "Czech Republic")
-Country.create(iso: "NOR", name: "Norway")
-Country.create(iso: "IRN", name: "Iran")
+Country.create(iso_2: "GB", iso_3: "GBR", name: "United Kingdom")
+Country.create(iso_2: "TR", iso_3: "TUR", name: "Turkey")
+Country.create(iso_2: "FR", iso_3: "FRA", name: "France")
+Country.create(iso_2: "CZ", iso_3: "CZE", name: "Czech Republic")
+Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
+Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
