@@ -30,4 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  site:
+    landing:
+      welcome: 'Welcome to the National GPIU Study!'
+      description_short: 'The Global Prevalence Study on Infections in Urology (GPIU-study) aims to study Urinary tract infections (UTI) and surgical site infections (SSI) in hospitalised urological patients.'
+      what: 'What is the GPIU-study?'
+      description_long: 'Health-care associated (HAI) affecting the urinary tract or surgical sites pose a serious threat to patients in urology departments. Increasing antimicrobial resistance worldwide is also a cause of concern since pathogens do not respect geographical borders. The prevalence and outcome of HAI is an important quality parameter that is routinely collected by monitors of healthcare in a number of countries. Reducing the risk and hence prevalence of HAI is a key priority in all healthcare systems and is made easier by local and international monitoring. In addition community - acquired urinary tract infection (UTI) is a common reason for admission to urology departments and adds to the burden of infectious disease seen in the specialty. <br> The Global Prevalence Study on Infections in Urology (GPIU-study) is an international internet-based audit carried out through the UROWEB portal of the European Section of Infections in Urology (ESIU) of the European Association of Urology (EAU)(http://www.uroweb.org/). All uploaded patient information will be reported anonymously to the central study file. All participating departments will be allocated their own separate study page where their patients are listed anonymously according to subject numbers.'
