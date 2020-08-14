@@ -6,10 +6,10 @@
     .col-sm-8
       .card
         .card-body
-          strong.lead.card-title Departments
+          strong.lead.card-title = t('hospitals.show.departments')
           - unless @hospital.departments.any?
             p
-              = "No departments have been created yet."
+              = t('hospitals.show.no_departments')
               = link_to "Create?", new_hospital_department_path(@hospital)
           - else
             - @hospital.departments.each do |department|

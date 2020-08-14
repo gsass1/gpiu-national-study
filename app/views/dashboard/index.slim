@@ -1,6 +1,6 @@
 .container
-  h1= "Welcome back, #{current_user.first_name}."
-  p This is your user dashboard. From here you can manage everything!
+  h1= "#{t('dashboard.welcome_back')}, #{current_user.first_name}."
+  p = t('dashboard.description')
 
   hr
 
@@ -9,21 +9,21 @@
       h2
         .d-flex.flex-row.align-items-center
           i.material-icons.md-36 local_hospital
-          = "Hospitals"
+          = t('dashboard.hospitals')
       - unless current_user.is_employed?
-        p You have not checked into any hospital yet.
-        = link_to "You can search for national hospitals here.", hospitals_path, class: 'lead'
+        p = t('dashboard.no_hospitals')
+        = link_to t('dashboard.hospital_search'), hospitals_path
 
     .box.bg-success.text-dark
       h2
         .d-flex.flex-row.align-items-center
           i.material-icons.md-36 accessibility
-          = "Patients"
-      p You have not registered any patients yet.
+          = t('dashboard.patients')
+      p = t('dashboard.no_patients')
 
     .box.bg-success.text-dark
       h2
         .d-flex.flex-row.align-items-center
           i.material-icons.md-36 accessibility
-          = "Patients"
-      p You have not registered any patients yet.
+          = t('dashboard.patients')
+      p = t('dashboard.no_patients')

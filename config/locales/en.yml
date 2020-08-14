@@ -49,6 +49,27 @@ en:
       annual_study: 'Annual Study'
       com_study: 'Community Study'
       natianal_study: 'National Study'
+  dashboard:
+    welcome_back: 'Welcome back'
+    description: 'This is your user dashboard. From here you can manage everything!'
+    hospitals: 'Hospitals'
+    no_hospitals: 'You have not checked into any hospital yet.'
+    hospital_search: 'You can search for national hospitals here.'
+    patients: 'Patients'
+    no_patients: 'You have not registered any patients yet.'
+  hospitals:
+    index:
+      hospitals: 'Hospitals'
+      find: 'Find your hospital in our database.'
+      create: 'Create'
+      name: 'Name'
+      city: 'City'
+    new:
+      new_hospital: 'New Hospital'
+      create: 'Create'
+    show:
+      departments: 'Departments'
+      no_departments: 'No departments have been created yet.'
   sites:
     landing:
       welcome: 'Welcome to the National GPIU Study!'

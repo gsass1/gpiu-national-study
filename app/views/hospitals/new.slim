@@ -1,6 +1,6 @@
 .container
   .compact_form
-    h1 New Hospital
+    h1 = t('hospitals.new.new_hospital')
     hr
     = simple_form_for(@hospital, method: :post) do |f|
       .form-inputs
@@ -13,5 +13,5 @@
             .col-sm-6= addr.input :postal_code, required: true
             .col-sm-6= addr.input :city, required: true
       .form-actions
-        = f.button :submit, "Create", class: 'btn btn-lg btn-outline-primary'
+        = f.button :submit, t('hospitals.new.create'), class: 'btn btn-lg btn-outline-primary'
 

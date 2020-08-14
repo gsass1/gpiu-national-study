@@ -1,13 +1,13 @@
 .container
-  h1 Hospitals
+  h1 = t('hospitals.index.hospitals')
   div
-    span.lead Find your hospital in our database.
-    = link_to "Create", new_hospital_path, class: 'btn btn-outline-primary float-right'
+    span = t('hospitals.index.find')
+    = link_to t('hospitals.index.create'), new_hospital_path, class: 'btn btn-outline-primary float-right'
 
   table.table.mt-4
     tr
-      th Name
-      th City
+      th = t('hospitals.index.name')
+      th = t('hospitals.index.city')
     - @hospitals.each do |hospital|
       tr
         td= link_to hospital.name, hospital
