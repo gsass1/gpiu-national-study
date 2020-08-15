@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   rolify
+  after_create :assign_default_role
+
   include Discard::Model
 
   # Include default devise modules. Others available are:
@@ -14,5 +16,9 @@ class User < ApplicationRecord
 
   def is_employed?
     employed.any?
+  end
+
+  def assign_default_role
+    self.add_role(:user) if self.roles.blank?
   end
 end
