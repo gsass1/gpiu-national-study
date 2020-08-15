@@ -13,3 +13,10 @@ Country.create(iso_2: "FR", iso_3: "FRA", name: "France")
 Country.create(iso_2: "CZ", iso_3: "CZE", name: "Czech Republic")
 Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
 Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
+
+if Rails.env.development?
+  puts 'Generating Test User'
+  user = User.create!(first_name: 'Admin', last_name: 'Adminson', email: 'admin@test.de', country: Country.first, password: 'test123', password_confirmation: 'test123')
+  user.add_role :admin
+  user.save!
+end
