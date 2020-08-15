@@ -15,8 +15,36 @@ Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
 Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
 
 if Rails.env.development?
-  puts 'Generating Test User'
-  user = User.create!(first_name: 'Admin', last_name: 'Adminson', email: 'admin@test.de', country: Country.first, password: 'test123', password_confirmation: 'test123')
-  user.add_role :admin
-  user.save!
+  puts 'Generating Test Users'
+
+  puts 'Admin'
+  admin = User.new(first_name: Faker::Name.first_name,
+                      last_name: Faker::Name.middle_name,
+                      email: 'admin@test.de',
+                      country: Country.all.sample,
+                      password: 'test123',
+                      password_confirmation: 'test123')
+  admin.add_role :admin
+  admin.save!
+
+  puts 'Regional Admin'
+  region = Country.all.sample
+  radmin = User.new(first_name: Faker::Name.first_name,
+                   last_name: Faker::Name.middle_name,
+                   email: 'regional@test.de',
+                   country: region,
+                   password: 'test123',
+                   password_confirmation: 'test123')
+  radmin.add_role :regional_admin, region
+  radmin.save!
+
+  puts 'Users'
+  5.times do |i|
+    User.create!(first_name: Faker::Name.first_name,
+             last_name: Faker::Name.middle_name,
+             email: "user#{i}@test.de",
+             country: Country.all.sample,
+             password: 'test123',
+             password_confirmation: 'test123')
+  end
 end
