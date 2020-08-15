@@ -34,6 +34,8 @@ gem 'discard'
 gem 'simple_form'
 gem 'config'
 
+gem "rolify"
+
 gem 'slim'
 gem 'slim-rails'
 
