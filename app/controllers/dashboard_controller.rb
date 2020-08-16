@@ -1,6 +1,5 @@
 class DashboardController < ApplicationController
   include Authenticated
 
-  def index
-  end
+  def index; end
 end

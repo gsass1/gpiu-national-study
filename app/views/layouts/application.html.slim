@@ -12,19 +12,23 @@ html
   body.d-flex.flex-column.min-vh-100
     main.flex-grow-1
       .container-fluid.box-shadow.bg-primary
-        .container.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.py-3.text-light.top-bar
-          h5.my-0.mr-md-auto.font-weight-normal
-            = t('application.nav.title_html')
+        .container.d-flex.flex-column.flex-md-row.align-items-center.py-3.py-3.text-light.top-bar
+          h5.my-0.mr-md-auto.font-weight-normal.national-study
+            = link_to t('application.nav.title_html'), root_path
           nav.my-2.my-md-0.mr-mid-3
-            a.p-3.text-light[href="/"] = t('application.nav.home')
-            a.p-3.text-light[href="/about"] = t('application.nav.about')
+            / a.p-3.text-light[href="/"] = t('application.nav.home')
+            / a.p-3.text-light[href="/about"] = t('application.nav.about')
             - if user_signed_in?
               span.dropdown.show
                 a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] = t('application.nav.account')
                 .dropdown-menu[aria-labelledby="dropdownMenuLink"]
-                  a.dropdown-item[href="#"] = t('application.nav.dashboard')
+                  = link_to t('application.nav.dashboard'), dashboard_index_path, class: "dropdown-item"
                   = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
                   = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
+
+      - if breadcrumbs.any?
+        .breadcrumbs-nav
+          .container= render_breadcrumbs tag: 'span', separator: ' / '
 
       div class=("main_content #{"pt-5" unless is_landing_page?}")
         .container

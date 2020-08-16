@@ -27,6 +27,12 @@ body {
       text-decoration: none;
     }
   }
+
+  .national-study a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+  }
 }
 
 .landing-welcome {
@@ -101,5 +107,25 @@ p {
   text-decoration: none;
   &:hover {
     text-decoration: none;
+  }
+}
+
+.breadcrumbs-nav {
+  height: 1.5em;
+  // background-color: #09141e;
+  background-color: #00747a;
+  font-size: 1em;
+  color: #ccc;
+
+  span {
+    color: #ffe367;
+  }
+
+  a {
+    font-weight: normal;
+
+    &:visited {
+      color: #fff;
+    }
   }
 }

@@ -70,6 +70,7 @@ en:
     show:
       departments: 'Departments'
       no_departments: 'No departments have been created yet.'
+      create_new_department: 'Create'
   departments:
     new:
       new_department: 'New Department'

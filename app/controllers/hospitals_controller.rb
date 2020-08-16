@@ -2,14 +2,20 @@ class HospitalsController < ApplicationController
   include Authenticated
   load_and_authorize_resource
 
+  add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
+  add_breadcrumb I18n.t("hospitals.index.hospitals"), :hospitals_path
+
   before_action :ensure_country, only: :create
   before_action :only_local_hospitals
 
   def index; end
-  def show; end
+  def show
+    add_breadcrumb @hospital.name
+  end
 
   def new
     @hospital.build_address
+    add_breadcrumb I18n.t("hospitals.new.new_hospital")
   end
 
   def create

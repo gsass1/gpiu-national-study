@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
   resources :hospitals do
-    resources :departments
+    resources :departments, only: [:new, :create]
   end
 
   get '/about' => 'site#about'
