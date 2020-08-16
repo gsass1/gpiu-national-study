@@ -64,6 +64,7 @@ en:
       create: 'Create'
       name: 'Name'
       city: 'City'
+      search: 'Search'
     new:
       new_hospital: 'New Hospital'
       create: 'Create'

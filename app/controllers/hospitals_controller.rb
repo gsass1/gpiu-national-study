@@ -8,7 +8,12 @@ class HospitalsController < ApplicationController
   before_action :ensure_country, only: :create
   before_action :only_local_hospitals
 
-  def index; end
+  def index
+    unless params[:q].blank?
+      @hospitals = @hospitals.where("name LIKE ?", "%#{params[:q]}%")
+    end
+  end
+
   def show
     add_breadcrumb @hospital.name
   end

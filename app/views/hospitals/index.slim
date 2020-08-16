@@ -1,8 +1,16 @@
 .container
-  h1 = t('hospitals.index.hospitals')
+  div.d-flex.flex-row.align-items-center
+    h1 = t('hospitals.index.hospitals')
+    = form_tag hospitals_path, role: "search", method: :get, class: "ml-auto" do
+      .input-group
+        = text_field_tag :q, params[:q], class: "form-control", placeholder: t('hospitals.index.search')
+        .input-group-btn
+          button.btn.btn-primary[type="submit"]
+            i.material-icons.md-18 search
   div
     span = t('hospitals.index.find')
     = link_to t('hospitals.index.create'), new_hospital_path, class: 'btn btn-outline-primary float-right'
+
 
   table.table.mt-4
     tr
