@@ -47,4 +47,6 @@ if Rails.env.development?
              password: 'test123',
              password_confirmation: 'test123')
   end
+
+  #TODO: Seed Hospitals / Departments / etc...
 end
