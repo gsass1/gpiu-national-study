@@ -4,7 +4,6 @@
     = f.input :password, required: false, input_html: { autocomplete: "current-password" }
   .form-actions
     .d-flex.flex-row.align-items-center
-      = f.button :submit, "Log in", class: 'btn btn-lg btn-success'
-      p.lead.ml-auto
-        = "Don't have an account yet? "
-        = link_to "Sign up now.", new_user_registration_url
+      = f.button :submit, "Log in", class: 'btn btn-success'
+      p.ml-auto
+        = link_to "Sign up", new_user_registration_url
