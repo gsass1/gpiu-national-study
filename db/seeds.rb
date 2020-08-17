@@ -20,6 +20,7 @@ if Rails.env.development?
   puts 'Admin'
   admin = User.new(first_name: Faker::Name.first_name,
                       last_name: Faker::Name.middle_name,
+                      title: User::TITLES.sample,
                       email: 'admin@test.de',
                       country: Country.all.sample,
                       password: 'test123',
@@ -31,6 +32,7 @@ if Rails.env.development?
   region = Country.all.sample
   radmin = User.new(first_name: Faker::Name.first_name,
                    last_name: Faker::Name.middle_name,
+                   title: User::TITLES.sample,
                    email: 'regional@test.de',
                    country: region,
                    password: 'test123',
@@ -43,6 +45,7 @@ if Rails.env.development?
     User.create!(first_name: Faker::Name.first_name,
              last_name: Faker::Name.middle_name,
              email: "user#{i}@test.de",
+             title: User::TITLES.sample,
              country: Country.all.sample,
              password: 'test123',
              password_confirmation: 'test123')

@@ -27,6 +27,14 @@
           </div>
         </div>
 
+        <%= f.input :title,
+          required: true,
+          autofocus: true,
+          collection: User::TITLES %>
+
+        <%= f.input :suffix,
+          required: false %>
+
         <%= f.input :email, required: true, autofocus: true %>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

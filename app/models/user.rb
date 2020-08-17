@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   rolify
+
+  TITLES = %w[Mr Miss Dr Prof].freeze
+
   after_create :assign_default_role
 
   include Discard::Model
@@ -13,6 +16,7 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :title, presence: true, inclusion: { in: TITLES }
   validates :email, presence: true
 
   def is_employed?
@@ -21,5 +25,13 @@ class User < ApplicationRecord
 
   def assign_default_role
     self.add_role(:user) if self.roles.blank?
+  end
+
+  def to_s
+    "#{title}. #{first_name} #{last_name} #{suffix}"
+  end
+
+  def short_name
+    "#{title}. #{last_name}"
   end
 end
