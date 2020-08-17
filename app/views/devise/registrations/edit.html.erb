@@ -11,6 +11,22 @@
       <%= f.error_notification %>
 
       <div class="form-inputs">
+        <div class="row">
+          <div class="col-sm-6">
+            <%= f.input :first_name,
+              required: true,
+              autofocus: true,
+              input_html: { autocomplete: "first-name" }%>
+          </div>
+
+          <div class="col-sm-6">
+            <%= f.input :last_name,
+              required: true,
+              autofocus: true,
+              input_html: { autocomplete: "last-name" }%>
+          </div>
+        </div>
+
         <%= f.input :email, required: true, autofocus: true %>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
