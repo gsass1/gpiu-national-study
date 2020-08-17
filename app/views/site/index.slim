@@ -1,12 +1,12 @@
 .landing-welcome.d-flex.align-items-center.justify-content-center
   .container.landing-box
     .row
-      .bg-primary.col-lg-7.d-flex.align-items-center
+      .bg-primary.col-lg-6.d-flex.align-items-center
         .text-light.p-5
           h4 = t('sites.landing.welcome')
           p = t('sites.landing.description_short')
 
-      .bg-light.col-lg-5.p-5
+      .bg-light.col-lg-6.p-5
         h4 Log in
         = render 'devise/shared/login_form', user: User.new
 .landing-description
