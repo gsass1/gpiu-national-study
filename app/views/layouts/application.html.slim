@@ -28,7 +28,7 @@ html
 
       - if breadcrumbs.any?
         .breadcrumbs-nav
-          .container= render_breadcrumbs tag: 'span', separator: ' / '
+          .container= render_breadcrumbs tag: 'span', separator: ' > '
 
       div class=("main_content #{"pt-5" unless is_landing_page?}")
         .container
