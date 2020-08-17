@@ -1,15 +1,31 @@
 .container
-  .compact_form
-    h1 = t('hospitals.new.new_hospital')
-    hr
-    = simple_form_for(@hospital, method: :post, wrapper: :horizontal_form) do |f|
-      .form-inputs
-        = f.error_notification
-        = f.input :name, required: true
+  h1 = t('hospitals.new.new_hospital')
+  hr
+  = simple_form_for(@hospital, method: :post, wrapper: :horizontal_form) do |f|
+    .form-inputs
+      = f.error_notification
 
-        = f.simple_fields_for :address, @hospital.address do |addr|
-          = addr.input :street, required: true
-          = addr.input :postal_code, required: true
-          = addr.input :city, required: true
-      .form-actions
-        = f.button :submit, t('hospitals.new.create'), class: 'btn btn-lg btn-outline-primary float-right'
+      .row
+        .col-lg-4
+          strong= t('hospitals.new.general_info')
+          p= t('hospitals.new.general_hint')
+        .col-lg-8
+          = f.input :name, required: true, hint: t('hospitals.new.name_hint')
+
+          = f.simple_fields_for :address, @hospital.address do |addr|
+            = addr.input :street, required: true
+            = addr.input :postal_code, required: true
+            = addr.input :city, required: true
+
+      hr
+
+      .row
+        .col-lg-4
+          strong= t('hospitals.new.department_info')
+          p= t('hospitals.new.department_hint')
+        .col-lg-8
+          = f.input:first_department_name, required: true, placeholder: "Urology"
+
+    hr
+    .form-actions
+      = f.button :submit, t('hospitals.new.create'), class: 'btn btn-lg btn-outline-primary float-right'

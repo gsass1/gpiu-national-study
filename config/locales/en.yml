@@ -66,8 +66,13 @@ en:
       city: 'City'
       search: 'Search'
     new:
+      general_info: '1. General info'
+      general_hint: 'Fill in the hospital name and address information.'
+      department_info: '2. Department info'
+      department_hint: 'Input the name of one department in your hospital, e.g. "Urology". You can add more departments later.'
       new_hospital: 'New Hospital'
       create: 'Create'
+      name_hint: 'Make sure your hospital is not already included in our database by using the search function.'
     show:
       departments: 'Departments'
       no_departments: 'No departments have been created yet.'

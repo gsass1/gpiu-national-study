@@ -46,6 +46,6 @@ class HospitalsController < ApplicationController
   end
 
   def hospital_params
-    params.require(:hospital).permit(:name, address_attributes: [:street, :postal_code, :city])
+    params.require(:hospital).permit(:name, :first_department_name, address_attributes: [:street, :postal_code, :city])
   end
 end
