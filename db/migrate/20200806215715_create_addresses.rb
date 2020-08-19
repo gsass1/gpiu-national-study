@@ -4,9 +4,7 @@ class CreateAddresses < ActiveRecord::Migration[6.0]
       t.string :street
       t.string :postal_code
       t.string :city
-      t.string :addressable_type
-      t.bigint :addressable_id
-      t.belongs_to :country, null: false, foreign_key: true
+      #t.references :hospital
       t.datetime :discarded_at
       t.index :discarded_at
 

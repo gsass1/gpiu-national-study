@@ -1,7 +1,8 @@
 class Hospital < ApplicationRecord
   include Discard::Model
 
-  has_one :address, as: :addressable, dependent: :destroy
+  belongs_to :address, dependent: :destroy
+  belongs_to :country
   accepts_nested_attributes_for :address
 
   has_many :departments

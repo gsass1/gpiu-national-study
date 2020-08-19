@@ -1,8 +1,7 @@
 class Address < ApplicationRecord
   include Discard::Model
 
-  belongs_to :addressable, polymorphic: true
-  belongs_to :country
+  has_one :hospital
 
   validates :city, presence: true
   validates :street, presence: true
