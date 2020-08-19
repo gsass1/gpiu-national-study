@@ -14,6 +14,8 @@ Country.create(iso_2: "CZ", iso_3: "CZE", name: "Czech Republic")
 Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
 Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
 
+EXAMPLE_SUFFIXES = ["B.Sc.", "M.Sc.", "PhD", "MD", ""].freeze
+
 if Rails.env.development?
   puts 'Generating Test Users'
 
@@ -21,6 +23,7 @@ if Rails.env.development?
   admin = User.new(first_name: Faker::Name.first_name,
                       last_name: Faker::Name.middle_name,
                       title: User::TITLES.sample,
+                      suffix: EXAMPLE_SUFFIXES.sample,
                       email: 'admin@test.de',
                       country: Country.all.sample,
                       password: 'test123',
@@ -33,6 +36,7 @@ if Rails.env.development?
   radmin = User.new(first_name: Faker::Name.first_name,
                    last_name: Faker::Name.middle_name,
                    title: User::TITLES.sample,
+                   suffix: EXAMPLE_SUFFIXES.sample,
                    email: 'regional@test.de',
                    country: region,
                    password: 'test123',
@@ -46,6 +50,7 @@ if Rails.env.development?
              last_name: Faker::Name.middle_name,
              email: "user#{i}@test.de",
              title: User::TITLES.sample,
+             suffix: EXAMPLE_SUFFIXES.sample,
              country: Country.all.sample,
              password: 'test123',
              password_confirmation: 'test123')
