@@ -36,12 +36,12 @@ class HospitalsController < ApplicationController
   private
 
   def ensure_country
-    @hospital.address.country = current_user.country
+    @hospital.country = current_user.country
   end
 
   def only_local_hospitals
     unless @hospitals.nil?
-      @hospitals = @hospitals.includes(:address).where(:addresses => { country_id: current_user.country_id })
+      @hospitals = @hospitals.where(country_id: current_user.country_id)
     end
   end
 

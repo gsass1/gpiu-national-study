@@ -9,11 +9,11 @@
           strong.lead.card-title= @hospital.name
           div= @hospital.address.street
           div= "#{@hospital.address.postal_code} #{@hospital.address.city}"
-          div= @hospital.address.country.name
+          div= @hospital.country.name
     .col-sm-8
       .card
         .card-body
-          strong.lead.card-title.
+          strong.lead.card-title
             = t('hospitals.show.departments')
             = link_to t('hospitals.show.create_new_department'), new_hospital_department_path(@hospital), class: 'btn btn-sm btn-outline-primary mx-2'
           - unless @hospital.departments.any?
