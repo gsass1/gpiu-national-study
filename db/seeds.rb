@@ -14,12 +14,20 @@ Country.create(iso_2: "CZ", iso_3: "CZE", name: "Czech Republic")
 Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
 Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
 
-EXAMPLE_SUFFIXES = ["B.Sc.", "M.Sc.", "PhD", "MD", ""].freeze
-
 if Rails.env.development?
+  NUM_USERS = 5
+  NUM_HOSPITALS = 5
+  NUM_MAX_DEPTS = 5
+
+  EXAMPLE_SUFFIXES = ["B.Sc.", "M.Sc.", "PhD", "MD", ""].freeze
+
+  def dept_name
+    "#{Faker::Movies::StarWars.planet} #{Faker::Movies::StarWars.call_sign}"
+  end
+
   puts 'Generating Test Users'
 
-  puts 'Admin'
+  puts "\t* Admin"
   admin = User.new(first_name: Faker::Name.first_name,
                       last_name: Faker::Name.middle_name,
                       title: User::TITLES.sample,
@@ -31,7 +39,7 @@ if Rails.env.development?
   admin.add_role :admin
   admin.save!
 
-  puts 'Regional Admin'
+  puts "\t* Regional Admin"
   region = Country.all.sample
   radmin = User.new(first_name: Faker::Name.first_name,
                    last_name: Faker::Name.middle_name,
@@ -44,8 +52,8 @@ if Rails.env.development?
   radmin.add_role :regional_admin, region
   radmin.save!
 
-  puts 'Users'
-  5.times do |i|
+  puts "\t* #{NUM_USERS} Users"
+  NUM_USERS.times do |i|
     User.create!(first_name: Faker::Name.first_name,
              last_name: Faker::Name.middle_name,
              email: "user#{i}@test.de",
@@ -56,5 +64,20 @@ if Rails.env.development?
              password_confirmation: 'test123')
   end
 
-  #TODO: Seed Hospitals / Departments / etc...
+  puts "#{NUM_HOSPITALS} Hospitals with up to #{NUM_MAX_DEPTS} Departments"
+  NUM_HOSPITALS.times do |i|
+    address = Address.create!(street: Faker::Address.street_address,
+                              zip_code: Faker::Address.zip_code,
+                              city: Faker::Address.city)
+
+    hospital = Hospital.create!(name: "#{Faker::Movies::StarWars.character} Hospital",
+                                country: Country.all.sample,
+                                address: address,
+                                first_department_name: dept_name)
+
+    rand(0..NUM_MAX_DEPTS-1).times do |dept_i|
+      dept = Department.create!(hospital: hospital,
+                                name: dept_name)
+    end
+  end
 end

@@ -2,12 +2,12 @@
 
 one:
   street: MyString
-  postal_code: MyString
+  zip_code: MyString
   city: MyString
   country: one
 
 two:
   street: MyString
-  postal_code: MyString
+  zip_code: MyString
   city: MyString
   country: two

@@ -7,5 +7,6 @@ class CreateDepartments < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :departments, [:hospital_id, :name], unique: true
   end
 end

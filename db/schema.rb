@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_08_15_100117) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
-    t.string "postal_code"
+    t.string "zip_code"
     t.string "city"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_08_15_100117) do
     t.integer "patient_counter"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["hospital_id", "name"], name: "index_departments_on_hospital_id_and_name", unique: true
     t.index ["hospital_id"], name: "index_departments_on_hospital_id"
   end
 

@@ -41,11 +41,11 @@ class HospitalsController < ApplicationController
 
   def only_local_hospitals
     unless @hospitals.nil?
-      @hospitals = @hospitals.where(country_id: current_user.country_id)
+      @hospitals = @hospitals.includes([:address]).where(country_id: current_user.country_id)
     end
   end
 
   def hospital_params
-    params.require(:hospital).permit(:name, :first_department_name, address_attributes: [:street, :postal_code, :city])
+    params.require(:hospital).permit(:name, :first_department_name, address_attributes: [:street, :zip_code, :city])
   end
 end

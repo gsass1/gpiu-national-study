@@ -52,7 +52,7 @@ class Country  {
 class Address  {
     id
     street
-    postal_code
+    zip_code
     city
 
     created_at

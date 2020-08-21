@@ -8,7 +8,7 @@
         .card-body
           strong.lead.card-title= @hospital.name
           div= @hospital.address.street
-          div= "#{@hospital.address.postal_code} #{@hospital.address.city}"
+          div= "#{@hospital.address.zip_code} #{@hospital.address.city}"
           div= @hospital.country.name
     .col-sm-8
       .card
