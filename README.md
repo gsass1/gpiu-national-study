@@ -41,7 +41,7 @@ In `development` mode the following test data will be created:
     * E-Mail: admin@test.org 
     * Password: test123
 * 1 Regional Admin User for each country
-    * E-Mail: regional_<iso2-code>@test.org
+    * E-Mail: regional_\<iso2-code\>@test.org
     * Password: test123
 * 5 Random Users
     * E-Mail: user<i>@test.org
