@@ -69,8 +69,8 @@ if Rails.env.development?
 
   puts "Generating #{NUM_HOSPITALS} Hospitals with up to #{NUM_MAX_DEPTS} Departments"
   NUM_HOSPITALS.times do |i|
-    address = Address.create!(street: Faker::Address.street_address,
-                              zip_code: Faker::Address.zip_code,
+    address = Address.create!(street: "#{Faker::Address.street_name} #{rand(1..200)}",
+                              zip_code: rand(10000..99999).to_s,
                               city: Faker::Address.city)
 
     hospital = Hospital.create!(name: "#{Faker::Movies::StarWars.unique.character} Hospital",
