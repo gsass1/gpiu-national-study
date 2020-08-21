@@ -24,10 +24,32 @@ In order to get this app running, the following dependencies are required:
 * If `wicked_pdf` fails to install, take a look into chapter [Export PDF](#export-pdf)
 #### Database Seed
 
-* To fill the development Database with some testing data, run:
+The database has to be applied for any new instance of the application. 
+
+* In `production` only the participating countries are initialized.
+* In `development` the seed will not only initialize the participating countries, but setup a suite of test data. See below.
+
+To apply the seed, the following command has to be executed
 ```
 rails db:seed
 ```
+
+##### Development Test Data
+In `development` mode the following test data will be created:
+
+* 1 Admin User
+    * E-Mail: admin@test.org 
+    * Password: test123
+* 1 Regional Admin User for each country
+    * E-Mail: regional_<iso2-code>@test.org
+    * Password: test123
+* 5 Random Users
+    * E-Mail: user<i>@test.org
+        * i can be 1 - 5
+    * Password: test 123
+* 10 Hospitals for random countries
+    * With 1-5 random departments
+    
 
 #### Export PDF
 The export uses [wkhtmltopdf](https://wkhtmltopdf.org).

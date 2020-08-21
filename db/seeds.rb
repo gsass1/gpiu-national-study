@@ -18,7 +18,7 @@ Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
 
 if Rails.env.development?
   NUM_USERS = 5
-  NUM_HOSPITALS = 5
+  NUM_HOSPITALS = 10
   NUM_MAX_DEPTS = 5
 
   EXAMPLE_SUFFIXES = ["B.Sc.", "M.Sc.", "PhD", "MD", ""].freeze
@@ -34,7 +34,7 @@ if Rails.env.development?
                       last_name: Faker::Name.middle_name,
                       title: User::TITLES.sample,
                       suffix: EXAMPLE_SUFFIXES.sample,
-                      email: 'admin@test.de',
+                      email: 'admin@test.org',
                       country: Country.all.sample,
                       password: 'test123',
                       password_confirmation: 'test123')
@@ -47,20 +47,19 @@ if Rails.env.development?
                      last_name: Faker::Name.middle_name,
                      title: User::TITLES.sample,
                      suffix: EXAMPLE_SUFFIXES.sample,
-                     email: "regional_#{country.iso_2}@test.de",
+                     email: "regional_#{country.iso_2}@test.org",
                      country: country,
                      password: 'test123',
                      password_confirmation: 'test123')
     radmin.add_role :regional_admin, country
     radmin.save!
-    puts radmin
   end
 
   puts "\t* #{NUM_USERS} Users"
   NUM_USERS.times do |i|
     User.create!(first_name: Faker::Name.first_name,
              last_name: Faker::Name.middle_name,
-             email: "user#{i}@test.de",
+             email: "user#{i+1}@test.org",
              title: User::TITLES.sample,
              suffix: EXAMPLE_SUFFIXES.sample,
              country: Country.all.sample,
