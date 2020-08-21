@@ -66,11 +66,11 @@ if Rails.env.development?
 
   puts "#{NUM_HOSPITALS} Hospitals with up to #{NUM_MAX_DEPTS} Departments"
   NUM_HOSPITALS.times do |i|
-    address = Address.create(street: Faker::Address.street_address,
+    address = Address.create!(street: Faker::Address.street_address,
                               zip_code: Faker::Address.zip_code,
                               city: Faker::Address.city)
 
-    hospital = Hospital.create(name: "#{Faker::Movies::StarWars.character} Hospital",
+    hospital = Hospital.create!(name: "#{Faker::Movies::StarWars.unique.character} Hospital",
                                 country: Country.all.sample,
                                 address: address,
                                 first_department_name: dept_name)
