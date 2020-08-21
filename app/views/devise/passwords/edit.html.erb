@@ -1,7 +1,7 @@
 <div class="container">
   <div class="compact_form">
 
-    <h2>Change your password</h2>
+    <h2><%= t("devise.views.passwords.edit.heading") %></h2>
     <hr>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
@@ -12,19 +12,19 @@
 
       <div class="form-inputs">
         <%= f.input :password,
-          label: "New password",
+          label: t("devise.views.passwords.edit.new_pw"),
           required: true,
           autofocus: true,
-          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+          hint: ("#{@minimum_password_length} #{t("devise.views.passwords.edit.char_min")}" if @minimum_password_length),
           input_html: { autocomplete: "new-password" } %>
         <%= f.input :password_confirmation,
-          label: "Confirm your new password",
+          label: t("devise.views.passwords.edit.confirm_pw"),
           required: true,
           input_html: { autocomplete: "new-password" } %>
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Change my password", class: "btn btn-lg btn-outline-primary" %>
+        <%= f.button :submit, t("devise.views.passwords.edit.change"), class: "btn btn-lg btn-outline-primary" %>
       </div>
     <% end %>
 

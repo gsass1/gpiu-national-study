@@ -1,9 +1,9 @@
 <div class="container">
   <div class="compact_form">
 
-    <h1>Sign up</h1>
+    <h1><%= t("devise.views.registrations.new.heading") %></h1>
 
-    <p>Once you sign up you'll be able to input patient data into our database.</p>
+    <p><%= t("devise.views.registrations.new.greeting") %></p>
 
     <hr>
 
@@ -44,7 +44,7 @@
 
         <%= f.input :password,
           required: true,
-          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+          hint: ("#{@minimum_password_length} #{t("devise.views.registrations.new.char_min")}" if @minimum_password_length),
           input_html: { autocomplete: "new-password" } %>
         <%= f.input :password_confirmation,
           required: true,
@@ -52,7 +52,7 @@
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Sign up", class: 'btn btn-lg btn-outline-primary float-right' %>
+        <%= f.button :submit, t("devise.views.registrations.new.sign_up"), class: 'btn btn-lg btn-outline-primary float-right' %>
       </div>
     <% end %>
 

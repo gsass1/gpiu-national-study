@@ -4,6 +4,6 @@
     = f.input :password, required: false, input_html: { autocomplete: "current-password" }
   .form-actions
     .d-flex.flex-row.align-items-center
-      = f.button :submit, "Log in", class: 'btn btn-success'
+      = f.button :submit, t("devise.views.shared.login.login"), class: 'btn btn-success'
       p.ml-auto
-        = link_to "Sign up", new_user_registration_url
+        = link_to t("devise.views.shared.login.sign_up"), new_user_registration_url

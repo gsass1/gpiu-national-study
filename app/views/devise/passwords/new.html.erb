@@ -1,7 +1,7 @@
 <div class="container">
   <div class="compact_form">
 
-    <h2>Forgot your password?</h2>
+    <h2><%= t("devise.views.passwords.new.heading") %></h2>
 
     <hr>
 
@@ -16,7 +16,7 @@
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Send me reset password instructions", class: "btn btn-lg btn-outline-primary" %>
+        <%= f.button :submit, t("devise.views.passwords.new.send"), class: "btn btn-lg btn-outline-primary" %>
       </div>
     <% end %>
 
