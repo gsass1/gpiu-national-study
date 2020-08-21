@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Setup participating countries
+puts "Seeding Database..."
+puts "Seeding participating countries"
 Country.create(iso_2: "GB", iso_3: "GBR", name: "United Kingdom")
 Country.create(iso_2: "TR", iso_3: "TUR", name: "Turkey")
 Country.create(iso_2: "FR", iso_3: "FRA", name: "France")
@@ -25,7 +27,7 @@ if Rails.env.development?
     "#{Faker::Movies::StarWars.planet} #{Faker::Movies::StarWars.call_sign}"
   end
 
-  puts 'Generating Test Users'
+  puts 'Generating Test Users:'
 
   puts "\t* Admin"
   admin = User.new(first_name: Faker::Name.first_name,
@@ -39,18 +41,20 @@ if Rails.env.development?
   admin.add_role :admin
   admin.save!
 
-  puts "\t* Regional Admin"
-  region = Country.all.sample
-  radmin = User.new(first_name: Faker::Name.first_name,
-                   last_name: Faker::Name.middle_name,
-                   title: User::TITLES.sample,
-                   suffix: EXAMPLE_SUFFIXES.sample,
-                   email: 'regional@test.de',
-                   country: region,
-                   password: 'test123',
-                   password_confirmation: 'test123')
-  radmin.add_role :regional_admin, region
-  radmin.save!
+  puts "\t* Regional Admin for each Country"
+  Country.all.each do |country|
+    radmin = User.new(first_name: Faker::Name.first_name,
+                     last_name: Faker::Name.middle_name,
+                     title: User::TITLES.sample,
+                     suffix: EXAMPLE_SUFFIXES.sample,
+                     email: "regional_#{country.iso_2}@test.de",
+                     country: country,
+                     password: 'test123',
+                     password_confirmation: 'test123')
+    radmin.add_role :regional_admin, country
+    radmin.save!
+    puts radmin
+  end
 
   puts "\t* #{NUM_USERS} Users"
   NUM_USERS.times do |i|
@@ -64,7 +68,7 @@ if Rails.env.development?
              password_confirmation: 'test123')
   end
 
-  puts "#{NUM_HOSPITALS} Hospitals with up to #{NUM_MAX_DEPTS} Departments"
+  puts "Generating #{NUM_HOSPITALS} Hospitals with up to #{NUM_MAX_DEPTS} Departments"
   NUM_HOSPITALS.times do |i|
     address = Address.create!(street: Faker::Address.street_address,
                               zip_code: Faker::Address.zip_code,
@@ -81,3 +85,4 @@ if Rails.env.development?
     end
   end
 end
+puts "Seed has been applied"
