@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   rolify
 
-  TITLES = %w[Mr Miss Dr Prof].freeze
+  TITLES = %w[Mr. Ms. Dr. Prof.].freeze
 
   after_create :assign_default_role
 
