@@ -25,4 +25,11 @@
               .card.my-2
                 .card-body
                   strong.card-title = department.name
-
+                  - unless current_user.is_employed_in?(department)
+                    = simple_form_for([@hospital, department, Employee.new], method: :post) do |f|
+                      = f.hidden_field :department_id, value: department.id
+                      = f.button :submit, t('hospitals.show.check_into_department'), class: 'btn btn-success'
+                  - else
+                    = simple_form_for([@hospital, department, current_user.employement_for(department)], method: :delete) do |f|
+                      = f.hidden_field :department_id, value: department.id
+                      = f.button :submit, t('hospitals.show.check_out_of_department'), class: 'btn btn-danger'

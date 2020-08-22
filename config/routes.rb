@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
   resources :hospitals do
-    resources :departments, only: [:new, :create]
+    resources :departments, only: [:new, :create] do
+      resources :employees, only: [:create, :destroy]
+    end
   end
 
   get '/about' => 'site#about'
