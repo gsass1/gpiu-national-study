@@ -103,6 +103,8 @@ class StudyIteration {
     id
     name
     country_id
+    acceptance_state: enum
+    (States: Pending, accepted, declined)
 }
 
 class Patient {
