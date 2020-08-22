@@ -6,7 +6,7 @@ class HospitalsController < ApplicationController
   add_breadcrumb I18n.t("hospitals.index.hospitals"), :hospitals_path
 
   before_action :ensure_country, only: :create
-  before_action :only_local_hospitals
+  before_action :include_address, only: :index
 
   def index
     unless params[:q].blank?
@@ -39,9 +39,9 @@ class HospitalsController < ApplicationController
     @hospital.country = current_user.country
   end
 
-  def only_local_hospitals
+  def include_address
     unless @hospitals.nil?
-      @hospitals = @hospitals.includes([:address]).where(country_id: current_user.country_id)
+      @hospitals = @hospitals.includes(:address)
     end
   end
 
