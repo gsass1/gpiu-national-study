@@ -77,6 +77,8 @@ en:
       departments: 'Departments'
       no_departments: 'No departments have been created yet.'
       create_new_department: 'Create'
+      check_into_department: 'Check In'
+      check_out_of_department: 'Check Out'
   departments:
     new:
       new_department: 'New Department'
