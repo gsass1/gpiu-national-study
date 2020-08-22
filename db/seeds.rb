@@ -10,11 +10,12 @@
 puts "Seeding Database..."
 puts "Seeding participating countries"
 Country.create(iso_2: "GB", iso_3: "GBR", name: "United Kingdom")
+Country.create(iso_2: "DE", iso_3: "DEU", name: "Germany")
+Country.create(iso_2: "ES", iso_3: "ESP", name: "Spain")
 Country.create(iso_2: "TR", iso_3: "TUR", name: "Turkey")
-Country.create(iso_2: "FR", iso_3: "FRA", name: "France")
-Country.create(iso_2: "CZ", iso_3: "CZE", name: "Czech Republic")
 Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
 Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
+#Country.create(iso_2: "CZ", iso_3: "CZE", name: "Czech Republic")
 
 if Rails.env.development?
   NUM_USERS = 5
