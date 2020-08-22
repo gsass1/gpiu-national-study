@@ -1,0 +1,93 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+de:
+  application:
+    control:
+      back: 'Zurück'
+    nav:
+      title_html: 'GPIU<br>National Study'
+      home: 'Home'
+      about: 'Über'
+      account: 'Profil'
+      dashboard: 'Dashboard'
+    footer:
+      funding: 'Die GPIU Studie ist der Merian Iselin Klinik für ihre bedingungslose finanzielle Unterstützung seit 2017 dankbar.'
+      links: 'Links'
+      home: 'Home'
+      about: 'Über'
+      contact: 'Kontakt'
+      other_studies: 'Andere Studien'
+      annual_study: 'Jährliche Studie'
+      com_study: 'Community Studie'
+      natianal_study: 'Nationale Studie'
+  dashboard:
+    welcome_back: 'Willkommen zurück'
+    description: 'Dies ist Ihr Benutzer-Dashboard. Von hier aus können Sie alles verwalten!'
+    hospitals: 'Krankenhäuser'
+    no_hospitals: 'Sie sind noch in keinem Krankenhaus beigetreten.'
+    hospital_search: 'Hier können Sie nach nationalen Krankenhäusern suchen.'
+    patients: 'Patienten'
+    no_patients: 'Sie haben noch keine Patienten eingegeben.'
+  hospitals:
+    index:
+      hospitals: 'Krankenhäuser'
+      find: 'Finden Sie Ihr Krankenhaus in unserer Datenbank.'
+      create: 'Erstellen'
+      name: 'Name'
+      city: 'Stadt'
+      search: 'Suchen'
+    new:
+      general_info: '1. Generelle Informationen'
+      general_hint: 'Geben Sie den Namen und die Adresse des Krankenhauses ein.'
+      department_info: '2. Abteilungs Informationen'
+      department_hint: 'Geben Sie den Namen der Abteilung Ihres Krankenhauses ein, z.B. "Urologie". Sie können später weitere Abteilungen hinzufügen.'
+      new_hospital: 'Neues Krankenhaus'
+      create: 'Erstellen'
+      name_hint: 'Stellen Sie sicher, dass Ihr Krankenhaus nicht bereits in unserer Datenbank enthalten ist, indem Sie die Suchfunktion verwenden.'
+    show:
+      departments: 'Abteilung'
+      no_departments: 'Es wurden noch keine Abteilungen eingerichtet.'
+      create_new_department: 'Erstellen'
+  departments:
+    new:
+      new_department: 'Neue Abteilung'
+      create: 'Erstellen'
+  sites:
+    landing:
+      welcome: 'Willkommen zur nationalen GPIU-Studie!'
+      description_short: 'Die Globale Prävalenzstudie zu Infektionen in der Urologie (GPIU-Studie) zielt darauf ab, Harnwegsinfektionen (UTI) und Infektionen an der Operationsstelle (SSI) bei hospitalisierten urologischen Patienten zu untersuchen.'
+      what: 'Was ist die GPIU-Studie?'
+      description_long_html: 'Gesundheitsassoziierte Infektionen (HAI), die die Harnwege oder Operationsstellen betreffen, stellen eine ernsthafte Bedrohung für Patienten in urologischen Abteilungen dar. Die weltweit zunehmende Resistenz gegen antimikrobielle Mittel gibt ebenfalls Anlass zur Sorge, da Krankheitserreger keine geographischen Grenzen respektieren. Die Prävalenz und der Ausgang von HAI ist ein wichtiger Qualitätsparameter, der routinemässig von den Monitoren des Gesundheitswesens in einer Reihe von Ländern erhoben wird. Die Verringerung des Risikos und damit der Prävalenz von HAI ist eine Schlüsselpriorität in allen Gesundheitssystemen und wird durch lokale und internationale Überwachung erleichtert. Darüber hinaus sind ambulant erworbene Harnwegsinfektionen (Harnwegsinfektionen) ein häufiger Grund für die Aufnahme in urologische Abteilungen und tragen zur Belastung durch Infektionskrankheiten in diesem Fachgebiet bei. <br> Die Globale Prävalenzstudie zu Infektionen in der Urologie (GPIU-Studie) ist eine internationale internetbasierte Prüfung, die über das UROWEB-Portal der Europäischen Sektion für Infektionen in der Urologie (ESIU) der European Association of Urology (EAU) (http://www.uroweb.org/) durchgeführt wird. Alle hochgeladenen Patienteninformationen werden anonymisiert an die zentrale Studiendatei gemeldet. Alle teilnehmenden Abteilungen erhalten eine eigene, separate Studienseite, auf der ihre Patienten anonym nach Probandennummern aufgelistet werden.'
+    contact:
+      contact: 'Kontakt'
+    about:
+      about: 'Über'

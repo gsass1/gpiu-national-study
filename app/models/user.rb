@@ -32,6 +32,6 @@ class User < ApplicationRecord
   end
 
   def short_name
-    "#{title}. #{last_name}"
+    "#{title} #{last_name}"
   end
 end
