@@ -2,68 +2,68 @@ de:
   devise:
     views:
       confirmations:
-        heading: 'Resend confirmation instructions'
-        submit: 'Resend confirmation instructions'
+        heading: 'Bestätigungsanweisungen erneut senden'
+        submit: 'Bestätigungsanweisungen erneut senden'
       passwords:
         edit:
-          heading: "Change your password"
-          new_pw: "New password"
-          confirm_pw: "Confirm your new password"
-          char_min: "characters minimum"
-          change: "Change my password"
+          heading: "Ändern Sie Ihr Passwort"
+          new_pw: "Neues Passwort"
+          confirm_pw: "Bestätigen sie ihr neues Passwort"
+          char_min: "Zeichen minimal"
+          change: "Ändern"
         new:
-          heading: "Forgot your password?"
-          send: "Send me reset password instructions"
+          heading: "Passwort vergessen?"
+          send: "Senden"
       registrations:
         edit:
-          heading: "Account Settings"
-          waiting_for: "Currently waiting confirmation for:"
-          blank: "leave it blank if you don't want to change it"
-          current_pass_needed: "we need your current password to confirm your changes"
-          submit: "Update"
-          delete: "Delete Account"
-          delete_note: "Note that deleting your account will also remove all your patients from our database."
+          heading: "Profil Einstellungen"
+          waiting_for: "Wartet derzeit auf die Bestätigung von:"
+          blank: "lassen Sie es leer, wenn Sie es nicht ändern wollen"
+          current_pass_needed: "Wir benötigen Ihr aktuelles Passwort, um Ihre Änderungen zu bestätigen."
+          submit: "Speichern"
+          delete: "Profil löschen"
+          delete_note: "Beachten Sie, dass die Löschung Ihres Kontos auch all Ihre Patienten aus unserer Datenbank entfernt."
         new:
-          heading: 'Sign up'
-          greeting: "Once you sign up you'll be able to input patient data into our database."
-          char_min: 'characters minimum'
-          sign_up: 'Sign up'
+          heading: 'Registrieren'
+          greeting: "Sobald Sie sich angemeldet haben, können Sie Patientendaten in unsere Datenbank eingeben."
+          char_min: 'Zeichen minimal'
+          sign_up: 'Regfistrieren'
       sessions:
         new:
           heading: 'Log in'
       shared:
         links:
           login: 'Log in'
-          forgot_pw: 'Forgot your password?'
-          no_confirmation: "Didn't receive confirmation instructions?"
-          no_unlock: "Didn't receive unlock instructions?"
-          sign_in_width: 'Sign in with'
+          forgot_pw: 'Passwort vergessen?'
+          no_confirmation: "Haben sie keine Bestätigungsanweisungen erhalten?"
+          no_unlock: "Haben sie keine Freischaltanweisungen erhalten?"
+          sign_in_width: 'Anmelden mit'
         login:
           login: 'Log in'
-          sign_up: 'Sign up'
+          sign_up: 'Registrieren'
       unlocks:
         new:
-          heading: "Resend unlock instructions"
-          submit: "Resend unlock instructions"
+          heading: "Freischaltanweisungen erneut senden"
+          submit: "Freischaltanweisungen erneut senden"
       mailer:
         confirmation:
-          welcome: 'Welcome'
-          confirm_text: 'You can confirm your account email through the link below:'
-          confirm: 'Confirm my account'
+          welcome: 'Willkommen'
+          confirm_text: 'Sie können Ihre E-Mail Adresse über den untenstehenden Link bestätigen:'
+          confirm: 'Mein Konto bestätigen'
         mail_changed:
-          hello: 'Hello'
-          text: "We're contacting you to notify you that your email is being changed to"
+          hello: 'Hallo'
+          text: "Wir kontaktieren Sie, um Ihnen mitzuteilen, dass Ihre E-Mail geändert wird in"
         pass_changed:
-          hello: 'Hello'
-          text: "We're contacting you to notify you that your password has been changed."
+          hello: 'Hallo'
+          text: "Wir kontaktieren Sie, um Ihnen mitzuteilen, dass Ihr Passwort geändert wurde."
         pass_reset:
-          hello: 'Hello'
-          requested: "Someone has requested a link to change your password. You can do this through the link below."
-          change: 'Change my password'
-          didnt_request: "If you didn't request this, please ignore this email."
-          no_change: "Your password won't change until you access the link above and create a new one."
+          hello: 'Hallo'
+          requested: "Jemand hat einen Link zur Änderung Ihres Passworts angefordert. Sie können dies über den untenstehenden Link tun."
+          change: 'Mein Passwort ändern'
+          didnt_request: "Falls Sie dies nicht angefordert haben, ignorieren Sie bitte diese E-Mail."
+          no_change: "Ihr Passwort ändert sich erst, wenn Sie auf den obigen Link zugreifen und ein neues Passwort erstellen."
         unlock:
-          hello: 'Hello'
-          acc_locked: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
-          link_description: "Click the link below to unlock your account:"
-          unlock: 'Unlock my account'
+          hello: 'Hallo'
+          acc_locked: "Ihr Konto wurde aufgrund einer übermäßigen Anzahl erfolgloser Anmeldeversuche gesperrt."
+          link_description: "Klicken Sie auf den Link unten, um Ihr Konto freizuschalten:"
+          unlock: 'Mein Konto freischalten'
