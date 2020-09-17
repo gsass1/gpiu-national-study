@@ -13,8 +13,11 @@ html
     main.flex-grow-1
       .container-fluid.box-shadow.bg-primary
         .container.d-flex.flex-column.flex-md-row.align-items-center.py-3.py-3.text-light.top-bar
-          h5.my-0.mr-md-auto.font-weight-normal.national-study
-            = link_to t('application.nav.title_html'), root_path
+          div.my-0.mr-md-auto.d-flex.flex-row.align-items-center
+            h5.font-weight-normal.national-study
+              = link_to t('application.nav.title_html'), root_path
+            - if user_signed_in?
+              = flag_image current_user.country.iso_2
           nav.my-2.my-md-0.mr-mid-3
             / a.p-3.text-light[href="/"] = t('application.nav.home')
             / a.p-3.text-light[href="/about"] = t('application.nav.about')

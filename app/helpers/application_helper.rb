@@ -32,4 +32,8 @@ module ApplicationHelper
   def is_landing_page?
     controller_name == "site" && action_name == "index"
   end
+
+  def flag_image(code)
+    image_tag "https://www.countryflags.io/#{code.downcase}/flat/48.png", class: "national-flag"
+  end
 end
