@@ -12,7 +12,12 @@
           = t('dashboard.hospitals')
       - unless current_user.is_employed?
         p = t('dashboard.no_hospitals')
-        = link_to t('dashboard.hospital_search'), hospitals_path
+      - else
+        - current_user.hospitals.each do |hospital|
+          div= link_to hospital do
+            strong= hospital.name
+      = link_to t('dashboard.hospital_search'), hospitals_path
+
 
     .box.bg-success.text-dark
       h2

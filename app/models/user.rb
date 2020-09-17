@@ -13,6 +13,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   belongs_to :country
   has_many :employed, dependent: :destroy, class_name: "Employee"
+  has_many :departments, through: :employed
+  has_many :hospitals, through: :departments
 
   validates :first_name, presence: true
   validates :last_name, presence: true
