@@ -45,4 +45,12 @@ class User < ApplicationRecord
   def employement_for(department)
     employed.where(department_id: department.id).first
   end
+
+  def self.admin_table_fields
+    [:title, :first_name, :last_name, :email, :country]
+  end
+
+  def self.admin_form_fields
+    [:title, :first_name, :last_name, :email]
+  end
 end

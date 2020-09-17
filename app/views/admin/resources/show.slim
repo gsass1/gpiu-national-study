@@ -1,0 +1,8 @@
+.container-fluid
+  h1= "#{@resource} (#{@resource.id})"
+
+  table.table
+    - @resource_class.admin_form_fields.prepend(:id).each do |field|
+      tr
+        th= @resource_class.human_attribute_name field
+        td= @resource.send field
