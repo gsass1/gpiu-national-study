@@ -36,4 +36,14 @@ module ApplicationHelper
   def flag_image(code)
     image_tag "https://www.countryflags.io/#{code.downcase}/flat/48.png", class: "national-flag"
   end
+
+  def admin_sidepanel_link(resource)
+    content_tag :li do
+      link_to "/admin/#{resource}" do
+        content_tag :strong do
+          controller_name == resource ? "> #{resource}" : resource
+        end
+      end
+    end
+  end
 end

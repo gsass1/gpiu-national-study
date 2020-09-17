@@ -1,0 +1,39 @@
+// Place all the styles related to the admin/dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.admin-sidepanel {
+  display: flex;
+  height: calc(100vh - 87px);
+  flex-direction: column;
+  background-color: #09141e;
+  width: 300px;
+  color: #fff;
+  padding: 20px;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a:hover {
+    color: inherit;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  strong {
+    text-transform: uppercase;
+  }
+}
+
+
+.admin-maincontent {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 20px;
+}

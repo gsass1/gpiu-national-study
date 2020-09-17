@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= @title || "GPIU National"
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    link[rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato"]
+
+  body.d-flex.flex-column.min-vh-100
+    main.flex-grow-1
+      = render 'shared/navbar'
+      .d-flex
+        aside.admin-sidepanel= render 'shared/admin/sidepanel'
+        .admin-maincontent= yield

@@ -1,0 +1,18 @@
+.container-fluid.box-shadow.bg-primary
+  .container.d-flex.flex-column.flex-md-row.align-items-center.py-3.py-3.text-light.top-bar
+    div.my-0.mr-md-auto.d-flex.flex-row.align-items-center
+      h5.font-weight-normal.national-study
+        = link_to t('application.nav.title_html'), root_path
+      - if user_signed_in?
+        = flag_image current_user.country.iso_2
+    nav.my-2.my-md-0.mr-mid-3
+      / a.p-3.text-light[href="/"] = t('application.nav.home')
+      / a.p-3.text-light[href="/about"] = t('application.nav.about')
+      - if user_signed_in?
+        span.dropdown.show
+          a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] = t('application.nav.account')
+          .dropdown-menu[aria-labelledby="dropdownMenuLink"]
+            = link_to t('application.nav.dashboard'), dashboard_index_path, class: "dropdown-item"
+            = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
+            = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
+
