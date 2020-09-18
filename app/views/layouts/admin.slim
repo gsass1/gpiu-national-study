@@ -15,6 +15,9 @@ html
       .d-flex
         aside.admin-sidepanel= render 'shared/admin/sidepanel'
         .admin-maincontent
+          - if breadcrumbs.any?
+            .breadcrumbs-nav
+              .container= render_breadcrumbs tag: 'span', separator: ' > '
           .container-fluid
             - flash.each do |message_type, message|
               = content_tag :div, class: "alert #{bootstrap_class_for_flash(message_type)} alert-dismissible fade show", role: :alert do

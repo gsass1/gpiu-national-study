@@ -1,0 +1,14 @@
+.container-fluid
+  h1= "New #{@resource_class}"
+
+  = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/admin/#{@resource_class.name.downcase.pluralize}", html: { method: :post }, wrapper: :horizontal_form) do |f|
+    = f.error_notification
+
+    - @resource_class.admin_form_fields.each do |field|
+      - if @resource_associations.include?(field)
+        = f.input (field.to_s + "_id").to_sym, collection: field.to_s.capitalize.classify.constantize.all, selected: (@resource.send(field).nil? ? nil : @resource.send(field))
+      - else
+        = f.input field
+
+    .form-actions
+      = f.button :submit, "Create", class: "btn btn-lg btn-success float-right"

@@ -8,6 +8,8 @@ ul
       strong= resource_name.upcase
       ul.sidepanel-section-items
         li
+          a[href="/admin/#{resource_name}/new"] New
+        li
           a[href="/admin/#{resource_name}"] Index
         li
           a[href="/admin/#{resource_name}?deleted=true"] Deleted

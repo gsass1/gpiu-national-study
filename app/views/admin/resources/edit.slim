@@ -1,0 +1,15 @@
+.container-fluid
+  h1= "Editing #{@resource} (#{@resource.id})"
+  = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/admin/#{@resource_class.name.downcase.pluralize}/#{@resource.id}", html: { method: :patch }, wrapper: :horizontal_form) do |f|
+    = f.error_notification
+
+    = f.input :id, as: :hidden
+
+    - @resource_class.admin_form_fields.each do |field|
+      - if @resource_associations.include?(field)
+        = f.input (field.to_s + "_id").to_sym, collection: field.to_s.capitalize.classify.constantize.all, selected: @resource.send(field).id
+      - else
+        = f.input field
+
+    .form-actions
+      = f.button :submit, "Update", class: "btn btn-lg btn-outline-primary float-right"

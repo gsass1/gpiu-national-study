@@ -26,7 +26,7 @@ class User < ApplicationRecord
   end
 
   def to_s
-    "#{title}. #{first_name} #{last_name} #{suffix}"
+    "#{title} #{first_name} #{last_name} #{suffix}"
   end
 
   def short_name

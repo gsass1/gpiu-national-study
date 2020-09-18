@@ -17,6 +17,18 @@ class Hospital < ApplicationRecord
   after_create :create_first_department
   validates :first_department_name, presence: true, on: :create
 
+  def self.admin_table_fields
+    [:name, :address, :country]
+  end
+
+  def self.admin_form_fields
+    [:name, :address, :country]
+  end
+
+  def to_s
+    name
+  end
+
   private
 
   def create_first_department
