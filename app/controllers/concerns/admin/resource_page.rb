@@ -5,12 +5,15 @@ module Admin::ResourcePage
   end
 
   class_methods do
-    def index
-    end
   end
 
   def index
     @resources = resource_class.includes(resource_associations)
+    if params[:deleted]
+      @resources = @resources.discarded
+    else
+      @resources = @resources.kept
+    end
     respond_to do |format|
       format.html { render template: "admin/resources/index" }
     end
@@ -21,6 +24,21 @@ module Admin::ResourcePage
     respond_to do |format|
       format.html { render template: "admin/resources/show" }
     end
+  end
+
+  # NOTE(gian): this is endpoint for both deleting and restoring because I'm
+  # lazy. Change this later
+  def destroy
+    @resource = resource_class.find params[:id]
+    if @resource.discarded?
+      @resource.undiscard!
+      flash[:notice] = "Resource was restored."
+    else
+      @resource.discard!
+      flash[:notice] = "Resource was discarded."
+    end
+
+    redirect_back fallback_location: admin_dashboard_index_path
   end
 
   private

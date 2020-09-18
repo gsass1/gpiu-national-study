@@ -1,4 +1,13 @@
 ul
-  = admin_sidepanel_link "dashboard"
-  = admin_sidepanel_link "users"
-  = admin_sidepanel_link "hospitals"
+  /= admin_sidepanel_link "users"
+  li
+    strong
+      a[href="/admin/dashboard"] Dashboard
+  - ["users", "hospitals"].each do |resource_name|
+    li
+      strong= resource_name.upcase
+      ul.sidepanel-section-items
+        li
+          a[href="/admin/#{resource_name}"] Index
+        li
+          a[href="/admin/#{resource_name}?deleted=true"] Deleted
