@@ -46,6 +46,10 @@ class User < ApplicationRecord
     employed.where(department_id: department.id).first
   end
 
+  def admin?
+    has_role? :admin
+  end
+
   def self.admin_table_fields
     [:title, :first_name, :last_name, :email, :country]
   end
