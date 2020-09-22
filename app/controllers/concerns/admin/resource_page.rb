@@ -35,7 +35,7 @@ module Admin::ResourcePage
   end
 
   def index
-    @resources = resource_class.includes(resource_associations)
+    @resources = resource_class.accessible_by(current_ability).includes(resource_associations)
     if params[:deleted]
       @resources = @resources.discarded
     else
@@ -47,7 +47,7 @@ module Admin::ResourcePage
   end
 
   def show
-    @resource = resource_class.find(params[:id])
+    @resource = resource_class.accessible_by(current_ability).find(params[:id])
     add_breadcrumb @resource, "/admin/#{@resource_name}/#{@resource.id}"
     respond_to do |format|
       format.html { render template: "admin/resources/show" }
@@ -55,7 +55,7 @@ module Admin::ResourcePage
   end
 
   def edit
-    @resource = resource_class.find(params[:id])
+    @resource = resource_class.accessible_by(current_ability).find(params[:id])
     # NOTE(gian): load resource associations
     resource_associations
     add_breadcrumb "Edit #{@resource}", "/admin/#{@resource_name}/#{@resource.id}/edit"
@@ -65,7 +65,7 @@ module Admin::ResourcePage
   end
 
   def update
-    @resource = resource_class.find(params[:id])
+    @resource = resource_class.accessible_by(current_ability).find(params[:id])
     if @resource.update_attributes(resource_params)
       flash[:success] = "Resource was updated."
       redirect_back fallback_location: admin_dashboard_index_path
@@ -80,7 +80,7 @@ module Admin::ResourcePage
   # NOTE(gian): this is endpoint for both deleting and restoring because I'm
   # lazy. Change this later
   def destroy
-    @resource = resource_class.find params[:id]
+    @resource = resource_class.accessible_by(current_ability).find(params[:id])
     if @resource.discarded?
       @resource.undiscard!
       flash[:notice] = "Resource was restored."
