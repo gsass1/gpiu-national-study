@@ -12,6 +12,11 @@ Rails.application.routes.draw do
       resources :dashboard, only: :index
       resources :users
       resources :hospitals
+
+      resources :study_iterations do
+        post :create_study_range
+        delete '/delete_study_range/:study_range_id' => 'study_iterations#delete_study_range', as: :delete_study_range
+      end
     end
   end
 

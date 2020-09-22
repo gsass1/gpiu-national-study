@@ -2,6 +2,9 @@ ul.sidepanel-sections
   li
     strong
       = link_to "Dashboard", regional_admin_country_dashboard_index_path(@country.iso_2)
+  li
+    strong
+      = link_to "Study Iterations", regional_admin_country_study_iterations_path(@country.iso_2)
   - ["users", "hospitals"].each do |resource_name|
     li
       strong= resource_name.upcase

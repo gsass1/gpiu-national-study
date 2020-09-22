@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_15_100117) do
+ActiveRecord::Schema.define(version: 2020_09_22_181630) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -73,6 +73,28 @@ ActiveRecord::Schema.define(version: 2020_08_15_100117) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "study_iterations", force: :cascade do |t|
+    t.string "name"
+    t.integer "country_id", null: false
+    t.integer "acceptance_state"
+    t.string "rejection_reason"
+    t.datetime "discarded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_study_iterations_on_country_id"
+    t.index ["discarded_at"], name: "index_study_iterations_on_discarded_at"
+  end
+
+  create_table "study_ranges", force: :cascade do |t|
+    t.date "start"
+    t.date "end"
+    t.text "comment"
+    t.integer "study_iteration_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["study_iteration_id"], name: "index_study_ranges_on_study_iteration_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -111,4 +133,6 @@ ActiveRecord::Schema.define(version: 2020_08_15_100117) do
   add_foreign_key "employees", "users"
   add_foreign_key "hospitals", "addresses"
   add_foreign_key "hospitals", "countries"
+  add_foreign_key "study_iterations", "countries"
+  add_foreign_key "study_ranges", "study_iterations"
 end

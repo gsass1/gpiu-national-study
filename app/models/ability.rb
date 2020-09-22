@@ -20,6 +20,8 @@ class Ability
         if user.has_role? :regional_admin, country
           can :manage, User, country_id: country.id
           can :manage, Hospital, country_id: country.id
+          can :manage, StudyIteration, country_id: country.id
+          can :manage, StudyRange, study_iteration: { country_id: country.id }
         end
       end
     end
