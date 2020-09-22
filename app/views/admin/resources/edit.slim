@@ -1,6 +1,6 @@
 .container-fluid
   h1= "Editing #{@resource} (#{@resource.id})"
-  = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/admin/#{@resource_class.name.downcase.pluralize}/#{@resource.id}", html: { method: :patch }, wrapper: :horizontal_form) do |f|
+  = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/#{@link_prefix}/#{@resource_class.name.downcase.pluralize}/#{@resource.id}", html: { method: :patch }, wrapper: :horizontal_form) do |f|
     = f.error_notification
 
     = f.input :id, as: :hidden

@@ -1,5 +1,6 @@
 class Hospital < ApplicationRecord
   include Discard::Model
+  include AdminResource
 
   belongs_to :address, dependent: :destroy
   belongs_to :country
@@ -17,13 +18,8 @@ class Hospital < ApplicationRecord
   after_create :create_first_department
   validates :first_department_name, presence: true, on: :create
 
-  def self.admin_table_fields
-    [:name, :address, :country]
-  end
-
-  def self.admin_form_fields
-    [:name, :address, :country]
-  end
+  viewable_admin_table_fields :name, :address, :country
+  editable_admin_fields :name, :address, :country
 
   def to_s
     name

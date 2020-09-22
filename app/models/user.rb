@@ -6,6 +6,7 @@ class User < ApplicationRecord
   after_create :assign_default_role
 
   include Discard::Model
+  include AdminResource
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -20,6 +21,9 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :title, presence: true, inclusion: { in: TITLES }
   validates :email, presence: true
+
+  viewable_admin_table_fields :title, :first_name, :last_name, :email, :country
+  editable_admin_fields :title, :first_name, :last_name, :email
 
   def assign_default_role
     self.add_role(:user) if self.roles.blank?
@@ -48,13 +52,5 @@ class User < ApplicationRecord
 
   def admin?
     has_role? :admin
-  end
-
-  def self.admin_table_fields
-    [:title, :first_name, :last_name, :email, :country]
-  end
-
-  def self.admin_form_fields
-    [:title, :first_name, :last_name, :email]
   end
 end

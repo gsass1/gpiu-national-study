@@ -1,18 +1,20 @@
+# NOTE(gian): This handles the CRUD logic for resources on BOTH admin control
+# panels (super admin and regional)
+#
+# Either we do it like this, having it all in one module and having it be a bit
+# dirty or all the code so both ACPs have their own ResourcePage module.
 module Admin::ResourcePage
   extend ActiveSupport::Concern
 
   included do
-    @resource_name ||= self.controller_name.remove('Admin::')
+    @resource_name ||= self.controller_name
 
-    add_breadcrumb "Admin", :admin_dashboard_index_path
-    add_breadcrumb @resource_name.capitalize, "/admin/#{@resource_name}"
-  end
-
-  class_methods do
+    before_action :link_prefix
+    before_action :add_breadcrumbs
   end
 
   def new
-    add_breadcrumb "New", "/admin/#{@resource_name}/new"
+    add_breadcrumb "New", "/#{@link_prefix}/#{@resource_name}/new"
     @resource = resource_class.new
     # NOTE(gian): load resource associations
     resource_associations
@@ -25,7 +27,7 @@ module Admin::ResourcePage
     @resource = resource_class.new(resource_params)
     if @resource.save
       flash[:success] = "Resource was created."
-      redirect_back fallback_location: admin_dashboard_index_path
+      redirect_back_dashboard
     else
       flash[:danger] = "Failed to create resource."
       respond_to do |format|
@@ -47,18 +49,20 @@ module Admin::ResourcePage
   end
 
   def show
+    link_prefix
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
-    add_breadcrumb @resource, "/admin/#{@resource_name}/#{@resource.id}"
+    add_breadcrumb @resource, "/#{@link_prefix}/#{@resource_name}/#{@resource.id}"
     respond_to do |format|
       format.html { render template: "admin/resources/show" }
     end
   end
 
   def edit
+    link_prefix
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
     # NOTE(gian): load resource associations
     resource_associations
-    add_breadcrumb "Edit #{@resource}", "/admin/#{@resource_name}/#{@resource.id}/edit"
+    add_breadcrumb "Edit #{@resource}", "/#{@link_prefix}/#{@resource_name}/#{@resource.id}/edit"
     respond_to do |format|
       format.html { render template: "admin/resources/edit" }
     end
@@ -68,7 +72,7 @@ module Admin::ResourcePage
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
     if @resource.update_attributes(resource_params)
       flash[:success] = "Resource was updated."
-      redirect_back fallback_location: admin_dashboard_index_path
+      redirect_back_dashboard
     else
       flash[:danger] = "Failed to update resource."
       respond_to do |format|
@@ -89,7 +93,7 @@ module Admin::ResourcePage
       flash[:notice] = "Resource was discarded."
     end
 
-    redirect_back fallback_location: admin_dashboard_index_path
+    redirect_back_dashboard
   end
 
   def resource_name
@@ -119,5 +123,32 @@ module Admin::ResourcePage
 
   def resource_params
     params.require(resource_class.name.parameterize.underscore.to_sym).permit(*(resource_fields_excluding_associations + resource_association_id_fields))
+  end
+
+  def prefix
+    # NOTE(gian): Either 'admin' or 'regional_admin'
+    @prefix ||= self.controller_path.split('/')[0]
+  end
+
+  def link_prefix
+    @link_prefix ||= (prefix == "admin" ? "admin" : "regional_admin/#{@country.iso_2}")
+  end
+
+  def dashboard_path
+    # NOTE(gian): Redirects to either one of the dashboards depending on the prefix
+    if prefix == "admin"
+      admin_dashboard_index_path
+    else
+      regional_admin_country_dashboard_index_path(@country.iso_2)
+    end
+  end
+
+  def redirect_back_dashboard
+    redirect_back fallback_location: dashboard_path
+  end
+
+  def add_breadcrumbs
+    add_breadcrumb "Admin", dashboard_path
+    add_breadcrumb resource_name.capitalize, "/#{@link_prefix}/#{@resource_name}"
   end
 end

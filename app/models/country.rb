@@ -10,4 +10,8 @@ class Country < ApplicationRecord
   def to_s
     name
   end
+
+  def to_param
+    iso_2.upcase
+  end
 end

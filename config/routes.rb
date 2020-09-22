@@ -7,6 +7,14 @@ Rails.application.routes.draw do
     resources :hospitals
   end
 
+  namespace :regional_admin do
+    scope '/:country', as: :country do
+      resources :dashboard, only: :index
+      resources :users
+      resources :hospitals
+    end
+  end
+
   resources :dashboard, only: [:index]
   resources :hospitals do
     resources :departments, only: [:new, :create] do
