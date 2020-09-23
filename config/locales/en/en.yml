@@ -93,3 +93,6 @@ en:
       contact: 'Contact'
     about:
       about: 'About'
+  notifications:
+    title: 'Notifications'
+    none: 'You have no current notifications'

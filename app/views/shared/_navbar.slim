@@ -5,7 +5,10 @@
         = link_to t('application.nav.title_html'), root_path
       - if user_signed_in?
         = flag_image current_user.country.iso_2
-    nav.my-2.my-md-0.mr-mid-3
+    nav.my-2.my-md-0.mr-mid-3.d-flex.flex-row.align-items-center
+      a.text-light.d-flex.flex-row.align-items-center[href=notifications_path]
+        i.material-icons.md-36 mail
+        = unread_notifications_badge
       - if user_signed_in?
         span.dropdown.show
           a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] = t('application.nav.account')

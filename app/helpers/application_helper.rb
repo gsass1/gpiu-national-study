@@ -45,4 +45,13 @@ module ApplicationHelper
       end
     end
   end
+
+  def unread_notifications_badge
+    unread = current_user.unread_notifications_count
+    if unread > 0
+      content_tag :span, class: "badge badge-pill badge-danger" do
+        unread.to_s
+      end
+    end
+  end
 end

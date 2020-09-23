@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_181630) do
+ActiveRecord::Schema.define(version: 2020_09_23_201811) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 2020_09_22_181630) do
     t.index ["address_id"], name: "index_hospitals_on_address_id"
     t.index ["country_id"], name: "index_hospitals_on_country_id"
     t.index ["discarded_at"], name: "index_hospitals_on_discarded_at"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "recipient_id"
+    t.integer "actor_id"
+    t.datetime "read_at"
+    t.string "action"
+    t.integer "notifiable_id"
+    t.string "notifiable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "roles", force: :cascade do |t|

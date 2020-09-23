@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :notifications, only: [:index]
+
   namespace :admin do
     resources :dashboard, only: :index
     resources :users

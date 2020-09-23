@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :employed, dependent: :destroy, class_name: "Employee"
   has_many :departments, through: :employed
   has_many :hospitals, through: :departments
+  has_many :notifications, foreign_key: :recipient_id
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -52,5 +53,13 @@ class User < ApplicationRecord
 
   def admin?
     has_role? :admin
+  end
+
+  def unread_notifications_count
+    unread_notifications.count
+  end
+
+  def unread_notifications
+    Notification.where(recipient: self, read_at: nil)
   end
 end
