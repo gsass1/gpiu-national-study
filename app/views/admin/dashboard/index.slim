@@ -1,2 +1,25 @@
 .container
   h1 Admin Dashboard
+  hr
+
+  .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
+    .box.bg-primary.text-light.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 accessibility
+        span= "#{User.count} Users"
+
+    .box.bg-success.text-dark.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 local_hospital
+        span= "#{Hospital.count} Hospitals"
+
+    .box.bg-primary.text-light.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 local_hospital
+        span= "#{Department.count} Departments"
+
+    .box.bg-success.text-dark.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 alarm
+        span= "#{StudyIteration.count} Study Iterations"
+
