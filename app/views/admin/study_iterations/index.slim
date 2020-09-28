@@ -1,0 +1,37 @@
+.container-fluid
+  h1 Study Iterations
+  hr
+  table.table
+    tr
+      th ID
+      th Name
+      th Active
+      th State
+      th First Date
+      th Last Date
+      th Actions
+    - @study_iterations.each do |itr|
+      tr
+        td= itr.id
+        td= itr.name
+        td= itr.active? ? "No" : "Yes"
+        td
+          - if itr.pending?
+            span Pending
+          - if itr.accepted?
+            strong Accepted
+          - if itr.declined?
+            strong Declined
+        td
+          - if itr.study_ranges.any?
+            strong= itr.study_ranges.first.start
+          - else
+            strong N/A
+        td
+          - if itr.study_ranges.any?
+            strong= itr.study_ranges.last.end
+          - else
+            strong N/A
+        td
+          .btn-group
+            = link_to "Show", admin_study_iteration_path(itr), class: "btn btn-sm btn-primary"

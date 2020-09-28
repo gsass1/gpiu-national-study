@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     resources :dashboard, only: :index
     resources :users
     resources :hospitals
+    resources :study_iterations, only: [:index, :show] do
+      post :approve
+      post :reject
+    end
   end
 
   namespace :regional_admin do
