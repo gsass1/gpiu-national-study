@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   include Authenticated
 
   def index
-    @notifications = Notification.where(recipient: current_user).order(created_at: :desc)
+    @notifications = Notification.where(recipient: current_user).order(created_at: :desc).includes(:notifiable)
 
     # Update unread notifications
     current_user.unread_notifications.update_all(read_at: DateTime.now)

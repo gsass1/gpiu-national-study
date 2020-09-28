@@ -8,7 +8,7 @@ class Notifier
     #
     # Currently only on-site notifications. Emails later.
 
-    create_on_site_notification options
+    create_on_site_notification OpenStruct.new(options)
 
     # create_email_notification(options) if options.recipient.enabled_email_notifs?
   end

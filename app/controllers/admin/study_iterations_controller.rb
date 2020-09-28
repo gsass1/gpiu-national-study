@@ -13,6 +13,11 @@ class Admin::StudyIterationsController < ApplicationController
     @study_iteration = StudyIteration.find(params[:study_iteration_id])
     if @study_iteration.update_attributes(acceptance_state: :accepted)
       flash[:success] = "Approved study iteration \"#{@study_iteration.name}\""
+
+      # Notify all regional admins of that particular country
+      User.with_role(:regional_admin, @study_iteration.country).each do |user|
+        Notifier.new.notify(recipient: user, actor: current_user, notifiable: @study_iteration, action: 'study_iterations.approved')
+      end
     else
       flash[:danger] = "Failed approving study iteration"
     end
@@ -25,6 +30,11 @@ class Admin::StudyIterationsController < ApplicationController
     @study_iteration.acceptance_state = :declined
     if @study_iteration.update_attributes(rejection_params)
       flash[:success] = "Rejected study iteration \"#{@study_iteration.name}\""
+
+      # Notify all regional admins of that particular country
+      User.with_role(:regional_admin, @study_iteration.country).each do |user|
+        Notifier.new.notify(recipient: user, actor: current_user, notifiable: @study_iteration, action: 'study_iterations.rejected')
+      end
     else
       flash[:danger] = "Failed rejecting study iteration"
     end

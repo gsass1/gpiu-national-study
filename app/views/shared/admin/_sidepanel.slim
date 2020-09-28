@@ -6,7 +6,7 @@ ul.sidepanel-sections
     strong
       a.d-flex.flex-row.align-items-center[href="/admin/study_iterations"]
         = "Study Iterations "
-        span.badge.badge-primary= StudyIteration.where.not(acceptance_state: 0).count
+        span.badge.badge-primary= StudyIteration.where(acceptance_state: 0).count
   - ["users", "hospitals"].each do |resource_name|
     li
       strong= resource_name.upcase
