@@ -1,4 +1,5 @@
 .card.mb-3
   .card-body
     strong.card-title= t('notifications.header', date: l(notification.created_at))
+
     p= t("notifications.action.#{notification.action}", **(notification.notifiable.attributes.merge(notifiable: notification.notifiable)).symbolize_keys)

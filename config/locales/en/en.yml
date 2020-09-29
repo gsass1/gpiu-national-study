@@ -99,5 +99,5 @@ en:
     none: 'You have no current notifications'
     action:
       study_iterations:
-        approved: 'Your study iteration titled "%{name}" has been approved.'
+        accepted: 'Your study iteration titled "%{name}" has been approved.'
         rejected: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}'
