@@ -8,8 +8,13 @@ class StudyIteration < ApplicationRecord
 
   before_create :set_pending
 
+  # TODO(gian): this creates a lot of SQL queries I think. For production we need a fast SQL query
   def active?
     study_ranges.any? { |range| range.active?  }
+  end
+
+  def passed?
+    study_ranges.all? { |range| range.passed?  }
   end
 
   def duration

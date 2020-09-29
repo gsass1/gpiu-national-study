@@ -4,6 +4,15 @@
 
   hr
 
+  - unless @study_iteration.nil?
+    .alert.alert-danger
+      p Thank you for registering with the GPIU study. The study dates are as follows.
+      - @study_iteration.study_ranges.each do |range|
+        strong= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
+        br
+
+    hr
+
   .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
     .box.bg-primary.text-light
       h2

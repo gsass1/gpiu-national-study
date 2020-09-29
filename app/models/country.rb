@@ -15,4 +15,13 @@ class Country < ApplicationRecord
   def to_param
     iso_2.upcase
   end
+
+  # TODO(gian): maybe cache this.
+  def current_study_iteration
+    study_iterations.where(:acceptance_state => :accepted).select { |si| si.active? }.first
+  end
+
+  def next_or_current_study_iteration
+    study_iterations.where(:acceptance_state => :accepted).select { |si| si.active? && !si.passed? }.first
+  end
 end
