@@ -33,6 +33,13 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
 
   def create_study_range
     @study_iteration = StudyIteration.find(params[:study_iteration_id])
+
+    unless @study_iteration.pending?
+      flash[:danger] = "This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration."
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+      return
+    end
+
     @study_range = StudyRange.new(study_range_params)
     @study_range.study_iteration_id = @study_iteration.id
 
@@ -46,6 +53,13 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
 
   def delete_study_range
     @study_iteration = StudyIteration.find(params[:study_iteration_id])
+
+    unless @study_iteration.pending?
+      flash[:danger] = "This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration."
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+      return
+    end
+
     @study_range = @study_iteration.study_ranges.find(params[:study_range_id])
 
     if @study_range.active? || @study_range.passed?

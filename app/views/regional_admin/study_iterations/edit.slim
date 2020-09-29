@@ -9,7 +9,15 @@
       - elsif @study_iteration.declined?
         span.badge.badge-danger.ml-3 Declined
   hr
-  .alert.alert-warning Here you can add study ranges to your study iteration. Study ranges are consecutive days during which patient data is accepted into the database.
+
+  - if @study_iteration.pending?
+    .alert.alert-warning Here you can add study ranges to your study iteration. Study ranges are consecutive days during which patient data is accepted into the database.
+  - elsif @study_iteration.accepted?
+    .alert.alert-success This study iteration was accepted. Users of your respective country will be able to enter patient data during the given study ranges.
+  - elsif @study_iteration.declined?
+    .alert.alert-warning
+      p This study iteration was declined by an administrator. Please create a new study iteration.
+      p= "Reason: #{@study_iteration.rejection_reason}"
   
   h3= "Study Ranges (#{@study_iteration.study_ranges.count} in total)"
 
@@ -25,7 +33,8 @@
         th Duration
         th State
         th Comment
-        th Actions
+        - if @study_iteration.pending?
+          th Actions
       - @study_iteration.study_ranges.each do |range|
         tr
           td= range.start
@@ -33,21 +42,24 @@
           td= "#{range.duration} day(s)"
           td= range_state(range)
           td= range.comment
-          td
-            .btn-group
-              = link_to "Delete", regional_admin_country_study_iteration_delete_study_range_path(@country, @study_iteration, range), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to remove this study range?" }
+          - if @study_iteration.pending?
+            td
+              .btn-group
+                = link_to "Delete", regional_admin_country_study_iteration_delete_study_range_path(@country, @study_iteration, range), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to remove this study range?" }
 
-  hr
-  h3 Add Range
-  hr
-  = simple_form_for(@study_range, method: :post, url: regional_admin_country_study_iteration_create_study_range_path(@country, @study_iteration), wrapper: :horizontal_form) do |f|
-    .form-inputs
-      = f.error_notification
-      .row
-        .col-lg-6= f.input :start, required: true, hint: "Start date of the range."
-        .col-lg-6= f.input :end, required: true, hint: "End date of the range."
-      hr
-      = f.input :comment, hint: "Notes for this study range. Optional."
-      hr
-      .form-actions
-        = f.button :submit, "Add Range", class: 'btn btn-lg btn-success float-right'
+
+  - if @study_iteration.pending?
+    hr
+    h3 Add Range
+    hr
+    = simple_form_for(@study_range, method: :post, url: regional_admin_country_study_iteration_create_study_range_path(@country, @study_iteration), wrapper: :horizontal_form) do |f|
+      .form-inputs
+        = f.error_notification
+        .row
+          .col-lg-6= f.input :start, required: true, hint: "Start date of the range."
+          .col-lg-6= f.input :end, required: true, hint: "End date of the range."
+        hr
+        = f.input :comment, hint: "Notes for this study range. Optional."
+        hr
+        .form-actions
+          = f.button :submit, "Add Range", class: 'btn btn-lg btn-success float-right'
