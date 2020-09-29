@@ -21,6 +21,10 @@ class StudyIteration < ApplicationRecord
     study_ranges.sum { |range| range.duration }
   end
 
+  def to_s
+    name
+  end
+
   private
   def set_pending
     self.acceptance_state = 0

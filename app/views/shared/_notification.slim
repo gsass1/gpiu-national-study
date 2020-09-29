@@ -1,5 +1,12 @@
 .card.mb-3
   .card-body
-    strong.card-title= t('notifications.header', date: l(notification.created_at))
-
-    p= t("notifications.action.#{notification.action}", **(notification.notifiable.attributes.merge(notifiable: notification.notifiable)).symbolize_keys)
+    div
+      /strong.card-title= t('notifications.header', date: l(notification.created_at, format: :short))
+      strong.card-title= t("notifications.action.#{notification.action}.title")
+      .float-right= l(notification.created_at, format: :long)
+    hr
+    div= "From: #{notification.actor}"
+    div= "To: #{notification.recipient}"
+    div= "Subject: #{notification.notifiable}"
+    hr
+    p= t("notifications.action.#{notification.action}.message", **(notification.notifiable.attributes.merge(notifiable: notification.notifiable)).symbolize_keys)
