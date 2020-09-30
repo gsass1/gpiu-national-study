@@ -22,9 +22,9 @@
       - unless current_user.is_employed?
         p = t('dashboard.no_hospitals')
       - else
-        - current_user.hospitals.each do |hospital|
-          div= link_to hospital do
-            strong= hospital.name
+        - current_user.departments.includes(:hospital).each do |department|
+          div= link_to department.hospital do
+            strong= "#{department.hospital.name} - #{department.name}"
       = link_to t('dashboard.hospital_search'), hospitals_path
 
 
