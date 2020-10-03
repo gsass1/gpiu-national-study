@@ -3,8 +3,10 @@ ul.sidepanel-sections
     strong
       = link_to "Dashboard", regional_admin_country_dashboard_index_path(@country.iso_2)
   li
-    strong
-      = link_to "Study Iterations", regional_admin_country_study_iterations_path(@country.iso_2)
+    strong Study Iterations
+    ul.sidepanel-section-items
+      li= link_to "New", new_regional_admin_country_study_iteration_path(@country.iso_2)
+      li= link_to "Index", regional_admin_country_study_iterations_path(@country.iso_2)
   - ["users", "hospitals"].each do |resource_name|
     li
       strong= resource_name.upcase

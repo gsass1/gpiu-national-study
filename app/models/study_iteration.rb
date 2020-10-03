@@ -2,6 +2,7 @@ class StudyIteration < ApplicationRecord
   belongs_to :country
 
   has_many :study_ranges
+  has_many :patients
 
   enum acceptance_state: [:pending, :accepted, :declined]
   validates :name, presence: true

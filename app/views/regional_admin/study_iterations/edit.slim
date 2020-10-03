@@ -1,4 +1,4 @@
-.container-fluid
+.container
   div
     h1.d-flex.flex-row.align-items-center
       span= "Study Iteration \"#{@study_iteration.name}\""
@@ -36,7 +36,7 @@
         - if @study_iteration.pending?
           th Actions
       - @study_iteration.study_ranges.each do |range|
-        tr
+        tr[class=range_color_table(range)]
           td= range.start
           td= range.end
           td= "#{range.duration} day(s)"
@@ -47,6 +47,27 @@
               .btn-group
                 = link_to "Delete", regional_admin_country_study_iteration_delete_study_range_path(@country, @study_iteration, range), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to remove this study range?" }
 
+  - if @study_iteration.accepted?
+    h3 Insight
+    hr
+    p In the duration of this study iteration:
+    table.table
+      tr
+        td.table-primary Number of participating hospitals
+        td.table-success.text-center
+          strong= @study_iteration.patients.includes(:department => :hospital).pluck(:hospital_id).uniq.count
+      tr
+        td.table-primary Total Patients
+        td.table-success.text-center
+          strong= @study_iteration.patients.count
+      tr
+        td.table-primary UTI/SSI Patients
+        td.table-success.text-center
+          strong= @study_iteration.patients.uti_ssi.count
+      tr
+        td.table-primary Prostate Biopsy Patients
+        td.table-success.text-center
+          strong= @study_iteration.patients.prostate_biopsy.count
 
   - if @study_iteration.pending?
     hr

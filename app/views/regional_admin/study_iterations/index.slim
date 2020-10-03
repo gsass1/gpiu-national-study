@@ -1,5 +1,6 @@
-.container-fluid
+.container
   h1 Study Iterations
+  hr
 
   - unless @study_iterations.any?
     .alert.alert-warning
@@ -15,17 +16,21 @@
         th Last Date
         th Actions
       - @study_iterations.each do |itr|
-        tr
+        tr[class=itr_color_table(itr)]
           td= itr.id
           td= itr.name
           td= itr.active? ? "No" : "Yes"
           td
-            - if itr.pending?
-              span Pending
-            - if itr.accepted?
-              strong Accepted
-            - if itr.declined?
-              strong Declined
+            span.d-flex.flex-row.align-items-center
+              - if itr.pending?
+                strong= "Pending "
+                i.material-icons.18 access_alarm
+              - if itr.accepted?
+                strong= "Accepted "
+                i.material-icons.18 check_circle
+              - if itr.declined?
+                strong Declined
+                i.material-icons.18 error
           td
             - if itr.study_ranges.any?
               strong= itr.study_ranges.first.start
