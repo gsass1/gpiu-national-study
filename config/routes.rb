@@ -30,10 +30,11 @@ Rails.application.routes.draw do
   resources :hospitals do
     resources :departments, only: [:new, :create] do
       resources :employees, only: [:create, :destroy]
+      resources :patients, only: [:new, :create]
     end
   end
 
-  resources :patients, only: [:index, :new, :create]
+  resources :patients, only: [:index]
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'

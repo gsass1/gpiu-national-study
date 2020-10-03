@@ -9,11 +9,13 @@
   hr
   p= t('patients.index.uti_ssi.description')
 
-  - if current_user.departments.any?
-    - current_user.departments.each do |department|
+  - if @departments.any?
+    - @departments.each do |department|
       .card.mb-3
-        .card-header
+        .card-header.bg-primary.text-light
           strong.lead= "#{department.hospital.name} - #{department.name}"
+          - if study_active?
+            .float-right= link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'uti_ssi'), class: 'btn btn-sm btn-success'
         .card-body.department-patients
           table.table.table-striped
             tr
@@ -22,6 +24,13 @@
               th= t('patients.index.uti_ssi.table.include_form')
               th= t('patients.index.uti_ssi.table.uti_form')
               th= t('patients.index.uti_ssi.table.ssi_form')
+            - department.patients.uti_ssi.each do |patient|
+              tr
+                td= patient.id
+                td= patient.initial
+                td= link_to 'Open Include Form', '#', class: "btn btn-sm btn-success"
+                td= link_to 'Open UTI Form', '#', class: "btn btn-sm btn-success"
+                td= link_to 'Open SSI Form', '#', class: "btn btn-sm btn-success"
   - else
     .alert.alert-danger
       strong= t('patients.index.no_departments')
@@ -30,11 +39,13 @@
   hr
   p= t('patients.index.biopsy.description')
 
-  - if current_user.departments.any?
-    - current_user.departments.each do |department|
+  - if @departments.any?
+    - @departments.each do |department|
       .card.mb-3
-        .card-header
+        .card-header.bg-primary.text-light
           strong.lead= "#{department.hospital.name} - #{department.name}"
+          - if study_active?
+            .float-right= link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'prostate_biopsy'), class: 'btn btn-sm btn-success'
         .card-body.department-patients
           table.table.table-striped
             tr
@@ -42,6 +53,13 @@
               th= t('patients.index.biopsy.table.initials')
               th= t('patients.index.biopsy.table.biopsy_form')
               th= t('patients.index.biopsy.table.biopsy_outcome_form')
+            - department.patients.prostate_biopsy.each do |patient|
+              tr
+                td= patient.id
+                td= patient.initial
+                td= link_to 'Open Biopsy Form', '#', class: "btn btn-sm btn-success"
+                td= link_to 'Open Biopsy Outcome Form', '#', class: "btn btn-sm btn-success"
+
   - else
     .alert.alert-danger
       strong= t('patients.index.no_departments')

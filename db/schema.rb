@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2020_10_03_113506) do
   end
 
   create_table "patients", force: :cascade do |t|
-    t.integer "type"
+    t.integer "patient_type"
     t.string "initial"
     t.integer "department_id", null: false
     t.integer "creator_id", null: false
@@ -178,9 +178,9 @@ ActiveRecord::Schema.define(version: 2020_10_03_113506) do
   add_foreign_key "hospitals", "addresses"
   add_foreign_key "hospitals", "countries"
   add_foreign_key "patient_identifications", "patients"
-  add_foreign_key "patients", "creators"
   add_foreign_key "patients", "departments"
   add_foreign_key "patients", "study_iterations"
+  add_foreign_key "patients", "users", column: "creator_id"
   add_foreign_key "study_iterations", "countries"
   add_foreign_key "study_ranges", "study_iterations"
 end

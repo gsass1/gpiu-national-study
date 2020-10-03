@@ -113,6 +113,7 @@ en:
     index:
       title: 'Patients'
       no_departments: 'Please check into a department first before creating patients.'
+      new_patient: 'New Patient'
       uti_ssi:
         title: 'Included UTI/SSI Patients'
         description: "This list contains all the UTI/SSI patients you have included so far. For every included patient, you will need to fill out a Patient Include form. Depending on the patient's condition indicated in this form, you will need to fill out a UTI-form and/or an SSI-form."
@@ -130,4 +131,6 @@ en:
           initials: "Initials"
           biopsy_form: "Biopsy Form"
           biopsy_outcome_form: "Biopsy Outcome Form"
-
+    new:
+      title: 'New Patient'
+      initial_hint: 'The initial is an ID of your choosing that helps you associate this patient with a patient in your hospital database. Please do not input any personal details of the patient such as their name.'

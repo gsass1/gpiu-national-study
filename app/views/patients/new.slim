@@ -1,0 +1,11 @@
+.container
+  h1= t('patients.new.title')
+  hr
+  = simple_form_for @patient, url: hospital_department_patients_path(@hospital, @department), html: { method: :post }, wrapper: :horizontal_form do |f|
+    = f.error_notification
+    = f.input :department_id, as: :hidden
+    = f.input :patient_type, as: :hidden
+    = f.input :initial, required: true, hint: t('patients.new.initial_hint')
+
+    .form-actions
+      = f.button :submit, "Create", class: "btn btn-lg btn-outline-primary float-right"

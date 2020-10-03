@@ -6,7 +6,7 @@ class Patient < ApplicationRecord
   belongs_to :creator, class_name: 'User'
   belongs_to :study_iteration
 
-  enum type: [:uti_ssi, :prostate_biopsy]
+  enum patient_type: [:uti_ssi, :prostate_biopsy]
 
   has_one :patient_identification, inverse_of: :patient, dependent: :destroy
   questionnaire_state :identification_state
@@ -17,7 +17,9 @@ class Patient < ApplicationRecord
   questionnaire_state :prostate_biopsy_outcome_state
 
   validates :department_id, presence: true
-  validates :creator_id, presence: true
   validates :study_iteration_id, presence: true
-  validates :type, presence: true
+  validates :patient_type, presence: true
+
+  scope :uti_ssi, -> { where(patient_type: :uti_ssi) }
+  scope :prostate_biopsy, -> { where(patient_type: :prostate_biopsy) }
 end
