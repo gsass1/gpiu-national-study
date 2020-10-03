@@ -3,7 +3,7 @@ module QuestionnaireStates
 
   class_methods do
     def questionnaire_state(name)
-      enum name => [:valid, :invalid, :waiting, :locked, :field_error, :missing, :info, :open]
+      enum name => [:missing, :valid, :invalid, :waiting, :locked, :field_error, :info, :open], _prefix: name
     end
   end
 end

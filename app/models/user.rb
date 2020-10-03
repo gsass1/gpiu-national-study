@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :departments, through: :employed
   has_many :hospitals, through: :departments
   has_many :notifications, foreign_key: :recipient_id
+  has_many :patients, dependent: :destroy, foreign_key: :creator_id
 
   validates :first_name, presence: true
   validates :last_name, presence: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_03_112958) do
+ActiveRecord::Schema.define(version: 2020_10_03_113506) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -71,6 +71,20 @@ ActiveRecord::Schema.define(version: 2020_10_03_112958) do
     t.string "notifiable_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "patient_identifications", force: :cascade do |t|
+    t.integer "patient_id", null: false
+    t.integer "birth_year"
+    t.integer "sex"
+    t.boolean "pregnancy"
+    t.date "admission_date"
+    t.integer "admission_infection"
+    t.integer "infection_type"
+    t.datetime "discarded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_patient_identifications_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -163,6 +177,7 @@ ActiveRecord::Schema.define(version: 2020_10_03_112958) do
   add_foreign_key "employees", "users"
   add_foreign_key "hospitals", "addresses"
   add_foreign_key "hospitals", "countries"
+  add_foreign_key "patient_identifications", "patients"
   add_foreign_key "patients", "creators"
   add_foreign_key "patients", "departments"
   add_foreign_key "patients", "study_iterations"

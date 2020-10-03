@@ -44,7 +44,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
     @study_range.study_iteration_id = @study_iteration.id
 
     if @study_range.save
-      flash[:success] = "Added new study iteration."
+      flash[:success] = "Added new study range."
       redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
     else
       render :edit

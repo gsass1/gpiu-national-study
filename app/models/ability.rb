@@ -15,6 +15,9 @@ class Ability
       can :create, Employee, department: { hospital: { country_id: user.country_id } }
       can :destroy, Employee, user_id: user.id
 
+      can [:create, :read, :update], Patient, creator_id: user.id
+      can [:create, :read, :update], PatientIdentification, patient: { creator_id: user.id }
+
       # Regional admin abilities
       Country.all.each do |country|
         if user.has_role? :regional_admin, country
