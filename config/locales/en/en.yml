@@ -52,6 +52,9 @@ en:
   dashboard:
     welcome_back: 'Welcome back'
     description: 'This is your user dashboard. From here you can manage everything!'
+    si_dates_header: 'Thank you for registering with the GPIU study. The study dates are as follows.'
+    si_current_range_active: 'The current study range is active from %{start} to %{end}. You may submit data during this period.'
+    si_no_current_active_ranges: 'No study range is active at the moment. Please wait until %next_date before inputting more datato.'
     hospitals: 'Hospitals'
     no_hospitals: 'You have not checked into any hospital yet.'
     hospital_search: 'You can search for national hospitals here.'

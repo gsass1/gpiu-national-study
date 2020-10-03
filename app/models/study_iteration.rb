@@ -13,6 +13,10 @@ class StudyIteration < ApplicationRecord
     study_ranges.any? { |range| range.active?  }
   end
 
+  def active_range
+    study_ranges.select { |range| range.active?  }.first
+  end
+
   def passed?
     study_ranges.all? { |range| range.passed?  }
   end
