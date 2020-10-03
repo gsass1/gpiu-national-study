@@ -5,20 +5,7 @@
   hr
 
   - unless @study_iteration.nil?
-    .alert.alert-danger
-      p= t('dashboard.si_dates_header')
-      - @study_iteration.study_ranges.each do |range|
-        - if range.active?
-          strong= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
-        - else
-          span= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
-        br
-      - unless @active_range.nil?
-        br
-        strong= t('dashboard.si_current_range_active', start: l(@active_range.start, format: :long), end: l(@active_range.end, format: :long))
-      - else
-        strong= t('dashboard.si_no_current_active_ranges')
-
+    = render 'shared/study_dates', study_iteration: @study_iteration, active_range: @active_range
     hr
 
   .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
