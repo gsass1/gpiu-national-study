@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_10_03_113506) do
     t.integer "sex"
     t.boolean "pregnancy"
     t.date "admission_date"
+    t.boolean "evidence_infection"
     t.integer "admission_infection"
     t.integer "infection_type"
     t.datetime "discarded_at"

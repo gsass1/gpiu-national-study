@@ -24,6 +24,17 @@ class Patient < ApplicationRecord
   scope :prostate_biopsy, -> { where(patient_type: :prostate_biopsy) }
 
   def self.within_study_iteration(study_iteration)
-    self.where(study_iteration_id: study_iteration.id)
+    unless study_iteration.nil?
+      self.where(study_iteration_id: study_iteration.id)
+    else
+      []
+    end
+  end
+
+  after_create :create_questionnaires
+
+  private
+  def create_questionnaires
+    self.create_patient_identification
   end
 end

@@ -28,7 +28,7 @@
               tr
                 td= patient.id
                 td= patient.initial
-                td= link_to 'Open Include Form', '#', class: "btn btn-sm btn-success"
+                td= link_to 'Open Include Form', edit_patient_identification_path(patient, patient.patient_identification), class: "btn btn-sm btn-success"
                 td= link_to 'Open UTI Form', '#', class: "btn btn-sm btn-success"
                 td= link_to 'Open SSI Form', '#', class: "btn btn-sm btn-success"
   - else

@@ -18,6 +18,8 @@ require("channels")
 
 import 'css/site'
 
+import 'controllers'
+
 import 'jquery'
 import 'popper.js'
 import 'bootstrap'

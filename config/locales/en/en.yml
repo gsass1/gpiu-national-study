@@ -134,3 +134,24 @@ en:
     new:
       title: 'New Patient'
       initial_hint: 'The initial is an ID of your choosing that helps you associate this patient with a patient in your hospital database. Please do not input any personal details of the patient such as their name.'
+  patient_identifications:
+    edit:
+      title: 'Patient Identification'
+      update: 'Update Patient Identification'
+      sex:
+        male: 'Male'
+        female: 'Female'
+      female_questions: 'If Female'
+      admission_date:
+        hint: "Date of admission: (to the hospital)"
+      evidence_infection:
+        hint: "When the patient was admitted to the hospital, was there any evidence that the infection was already present or incubating, i.e. became evident within first 48 hours after hospital admission without any specific intervention causing this infection?"
+      admission_infection:
+        hint: "From where was the patient admitted?"
+        home: 'Home'
+        nursing: 'Nursing'
+        other_hospital: 'Other Hospital'
+      infection_type:
+        uti: "UTI"
+        ssi: "SSI"
+        both: "Both"

@@ -16,7 +16,7 @@ class Ability
       can :destroy, Employee, user_id: user.id
 
       can [:create, :read, :update], Patient, creator_id: user.id
-      can [:create, :read, :update], PatientIdentification, patient: { creator_id: user.id }
+      can [:edit, :update], PatientIdentification, patient: { creator_id: user.id }
 
       # Regional admin abilities
       Country.all.each do |country|

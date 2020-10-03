@@ -1,0 +1,25 @@
+.container[data-controller="patient-identification"]
+  h1 Patient Identification
+  hr
+
+  = simple_form_for(@patient_identification, method: :patch, wrapper: :horizontal_form) do |f|
+    .form-inputs
+      = f.error_notification
+
+    .card
+      .card-header.bg-primary.text-light= t('.title')
+      .card-body
+        ol
+          li= f.input :birth_year, collection: (Date.today.year-100)..Date.today.year, required: true
+          li= f.input :sex, as: :radio_buttons, collection: radio_button_collection(:sex, :male, :female), label_method: :second, value_method: :first, required: true, input_html: { data: { action: "change->patient-identification#onSexSelection" } }
+          ol[data-target="patient-identification.pregnancyInput"]
+            li= f.input :pregnancy
+          li= f.input :admission_date, required: true, hint: t('.admission_date.hint')
+          li= f.input :evidence_infection, input_html: { data: { action: 'change->patient-identification#onEvidenceInfectionSelected', target: 'patient-identification.evidenceInfectionInput' }  }, required: true, hint: t('.evidence_infection.hint')
+          ol[data-target="patient-identification.admissionInfectionInput"]
+            li= f.input :admission_infection, as: :radio_buttons, collection: radio_button_collection(:admission_infection, :home, :nursing, :other_hospital), label_method: :second, value_method: :first, hint: t('.admission_infection.hint')
+          li= f.input :infection_type, as: :radio_buttons, collection: radio_button_collection(:infection_type, :uti, :ssi, :both), label_method: :second, value_method: :first, required: true
+    hr
+
+    .form-actions
+      = f.button :submit, t('patient_identifications.edit.update'), class: 'btn btn-lg btn-outline-primary float-right'

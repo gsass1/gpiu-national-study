@@ -6,6 +6,7 @@ class CreatePatientIdentifications < ActiveRecord::Migration[6.0]
       t.integer :sex
       t.boolean :pregnancy
       t.date :admission_date
+      t.boolean :evidence_infection
       t.integer :admission_infection
       t.integer :infection_type
       t.datetime :discarded_at

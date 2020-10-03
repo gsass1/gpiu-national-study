@@ -5,7 +5,7 @@ class PatientsController < ApplicationController
   add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
   add_breadcrumb I18n.t("patients.index.title"), :patients_path
 
-  requires_active_study_iteration [:new, :create]
+  requires_active_study_iteration only: [:new, :create]
 
   before_action :load_study_iteration, only: [:index, :new]
   before_action :load_hospital_department, only: [:new]

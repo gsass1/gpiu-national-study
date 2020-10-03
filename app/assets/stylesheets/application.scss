@@ -142,3 +142,11 @@ p {
   display: inline-block;
   margin-left: 15px;
 }
+
+.was-validated .form-control:valid, .form-control.is-valid {
+  border-color: #28a745 !important;
+}
+
+.form-check-label {
+  color: #28a745 !important;
+}

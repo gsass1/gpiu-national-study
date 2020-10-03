@@ -7,10 +7,21 @@ class PatientIdentification < ApplicationRecord
   enum admission_infection: [:home, :nursing, :other_hospital]
   enum infection_type: [:uti, :ssi, :both]
 
-  validates :birth_year, presence: true
-  validates :sex, presence: true
-  validates :pregnancy, presence: true
-  validates :admission_date, presence: true
-  validates :admission_infection, presence: true
-  validates :infection_type, presence: true
+  with_options unless: :new_record? do |edit|
+    edit.validates :birth_year, presence: true
+    edit.validates :sex, presence: true
+    edit.validates :pregnancy, inclusion: { in: [true, false] }, if: Proc.new { |f| f.female? }
+    edit.validates :admission_date, presence: true
+    edit.validate :admission_date_is_in_past
+    edit.validates :evidence_infection, inclusion: { in: [true, false] }
+    edit.validates :admission_infection, presence: true, if: Proc.new { |f| f.evidence_infection? }
+    edit.validates :infection_type, presence: true
+  end
+
+  private
+  def admission_date_is_in_past 
+    if self.admission_date >= Date.today
+      errors.add(:admission_date, "cannot be in future.")
+    end
+  end
 end

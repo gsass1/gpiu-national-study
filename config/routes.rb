@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :patients, only: [:index]
+  resources :patients, only: [:index] do
+    resources :patient_identifications, only: [:edit, :update], path: :identifications, as: :identifications
+  end
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'

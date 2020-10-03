@@ -6,8 +6,8 @@ module ActiveStudyIteration
   end
 
   class_methods do
-    def requires_active_study_iteration(actions)
-      before_action :check_current_study_iteration!, only: actions
+    def requires_active_study_iteration(options={})
+      before_action :check_current_study_iteration!, options
     end
   end
 
@@ -17,7 +17,7 @@ module ActiveStudyIteration
 
   def check_current_study_iteration!
     unless study_active?
-      flash[:warning] = 'The study is not currently active.'
+      flash[:alert] = 'You cannot perform this while the study is not currently active for your country.'
       redirect_back fallback_location: (current_user.nil? ? root_path : dashboard_index_path)
     end
   end
