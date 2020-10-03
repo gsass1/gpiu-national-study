@@ -20,6 +20,7 @@
         - current_user.departments.includes(:hospital).each do |department|
           div= link_to department.hospital do
             strong= "#{department.hospital.name} - #{department.name}"
+        br
       = link_to t('dashboard.hospital_search'), hospitals_path
 
 
@@ -28,7 +29,9 @@
         .d-flex.flex-row.align-items-center
           i.material-icons.md-36 accessibility
           = t('dashboard.patients')
-      p = t('dashboard.no_patients')
+      - unless current_user.patients.any?
+        p = t('dashboard.no_patients')
+      = link_to t('dashboard.patients_site'), patients_path
 
     .box.bg-success.text-dark
       h2

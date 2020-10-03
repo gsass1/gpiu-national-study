@@ -60,6 +60,7 @@ en:
     hospital_search: 'You can search for national hospitals here.'
     patients: 'Patients'
     no_patients: 'You have not registered any patients yet.'
+    patients_site: 'You can create and edit patients here.'
   hospitals:
     index:
       hospitals: 'Hospitals'
@@ -108,3 +109,25 @@ en:
         rejected:
           title: 'Study Iteration Rejected'
           message: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}'
+  patients:
+    index:
+      title: 'Patients'
+      no_departments: 'Please check into a department first before creating patients.'
+      uti_ssi:
+        title: 'Included UTI/SSI Patients'
+        description: "This list contains all the UTI/SSI patients you have included so far. For every included patient, you will need to fill out a Patient Include form. Depending on the patient's condition indicated in this form, you will need to fill out a UTI-form and/or an SSI-form."
+        table:
+          id: "Patient #"
+          initials: "Initials"
+          include_form: "Include Form"
+          uti_form: "UTI Form"
+          ssi_form: "SSI Form"
+      biopsy:
+        title: 'GPIU Prostate Biopsies Side Study'
+        description: "Prostate biopsy is an extremely important and frequent procedure in urology. Infective complications following prostate biopsy are world wide increasing in number and severity due to reduced sensitivity of pathogens to antibiotics used for prophylaxis. The European Section of Infection in Urology (ESIU) of the EAU is currently performing a prostate biopsies side study to the Global Prevalence Study of Infections in Urology (GPIU)."
+        table:
+          id: "Patient #"
+          initials: "Initials"
+          biopsy_form: "Biopsy Form"
+          biopsy_outcome_form: "Biopsy Outcome Form"
+

@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :patients, only: [:index, :new, :create]
+
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
   root 'site#index'

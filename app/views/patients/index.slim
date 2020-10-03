@@ -1,0 +1,47 @@
+.container
+  h1= t('patients.index.title')
+  hr
+  - unless @study_iteration.nil?
+    = render 'shared/study_dates', study_iteration: @study_iteration, active_range: @active_range
+    hr
+
+  h2= t('patients.index.uti_ssi.title')
+  hr
+  p= t('patients.index.uti_ssi.description')
+
+  - if current_user.departments.any?
+    - current_user.departments.each do |department|
+      .card.mb-3
+        .card-header
+          strong.lead= "#{department.hospital.name} - #{department.name}"
+        .card-body.department-patients
+          table.table.table-striped
+            tr
+              th= t('patients.index.uti_ssi.table.id')
+              th= t('patients.index.uti_ssi.table.initials')
+              th= t('patients.index.uti_ssi.table.include_form')
+              th= t('patients.index.uti_ssi.table.uti_form')
+              th= t('patients.index.uti_ssi.table.ssi_form')
+  - else
+    .alert.alert-danger
+      strong= t('patients.index.no_departments')
+
+  h2= t('patients.index.biopsy.title')
+  hr
+  p= t('patients.index.biopsy.description')
+
+  - if current_user.departments.any?
+    - current_user.departments.each do |department|
+      .card.mb-3
+        .card-header
+          strong.lead= "#{department.hospital.name} - #{department.name}"
+        .card-body.department-patients
+          table.table.table-striped
+            tr
+              th= t('patients.index.biopsy.table.id')
+              th= t('patients.index.biopsy.table.initials')
+              th= t('patients.index.biopsy.table.biopsy_form')
+              th= t('patients.index.biopsy.table.biopsy_outcome_form')
+  - else
+    .alert.alert-danger
+      strong= t('patients.index.no_departments')
