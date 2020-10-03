@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_23_201811) do
+ActiveRecord::Schema.define(version: 2020_10_03_112958) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -71,6 +71,25 @@ ActiveRecord::Schema.define(version: 2020_09_23_201811) do
     t.string "notifiable_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.integer "type"
+    t.string "initial"
+    t.integer "department_id", null: false
+    t.integer "creator_id", null: false
+    t.integer "study_iteration_id", null: false
+    t.datetime "discarded_at"
+    t.integer "identification_state", default: 0
+    t.integer "uti_state", default: 0
+    t.integer "ssi_state", default: 0
+    t.integer "prostate_biopsy_state", default: 0
+    t.integer "prostate_biopsy_outcome_state", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["creator_id"], name: "index_patients_on_creator_id"
+    t.index ["department_id"], name: "index_patients_on_department_id"
+    t.index ["study_iteration_id"], name: "index_patients_on_study_iteration_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -144,6 +163,9 @@ ActiveRecord::Schema.define(version: 2020_09_23_201811) do
   add_foreign_key "employees", "users"
   add_foreign_key "hospitals", "addresses"
   add_foreign_key "hospitals", "countries"
+  add_foreign_key "patients", "creators"
+  add_foreign_key "patients", "departments"
+  add_foreign_key "patients", "study_iterations"
   add_foreign_key "study_iterations", "countries"
   add_foreign_key "study_ranges", "study_iterations"
 end
