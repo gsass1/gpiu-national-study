@@ -1,9 +1,10 @@
-.container-fluid
+.container
   h1 Study Iterations
   hr
   table.table
     tr
       th ID
+      th Country
       th Name
       th Active
       th State
@@ -13,8 +14,9 @@
     - @study_iterations.each do |itr|
       tr
         td= itr.id
+        td= itr.country
         td= itr.name
-        td= itr.active? ? "No" : "Yes"
+        td= itr.active? ? "Yes" : "No"
         td
           - if itr.pending?
             span Pending

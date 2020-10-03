@@ -13,16 +13,16 @@ table.table
         .btn-group
           / TODO(gian): Exceptionally ugly, refactor this later
           - if @prefix == 'admin'
-            = link_to "Show", send("admin_#{@resource_class.name.downcase}_path", resource.id), class: "btn btn-sm btn-primary"
-            = link_to "Edit", send("edit_admin_#{@resource_class.name.downcase}_path", resource.id), class: "btn btn-sm btn-secondary"
+            = link_to "Show", send("admin_#{@resource_class.name.underscore.downcase}_path", resource.id), class: "btn btn-sm btn-primary"
+            = link_to "Edit", send("edit_admin_#{@resource_class.name.underscore.downcase}_path", resource.id), class: "btn btn-sm btn-secondary"
             - if resource.discarded?
-              = link_to "Restore", send("admin_#{@resource_class.name.downcase}_path", resource.id), method: :delete, class: "btn btn-sm btn-success"
+              = link_to "Restore", send("admin_#{@resource_class.name.underscore.downcase}_path", resource.id), method: :delete, class: "btn btn-sm btn-success"
             - else
-              = link_to "Delete", send("admin_#{@resource_class.name.downcase}_path", resource.id), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"
+              = link_to "Delete", send("admin_#{@resource_class.name.underscore.downcase}_path", resource.id), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"
           - elsif @prefix == 'regional_admin'
-            = link_to "Show", send("regional_admin_country_#{@resource_class.name.downcase}_path", @country.iso_2, resource.id), class: "btn btn-sm btn-primary"
-            = link_to "Edit", send("edit_regional_admin_country_#{@resource_class.name.downcase}_path", @country.iso_2, resource.id), class: "btn btn-sm btn-secondary"
+            = link_to "Show", send("regional_admin_country_#{@resource_class.name.underscore.downcase}_path", @country.iso_2, resource.id), class: "btn btn-sm btn-primary"
+            = link_to "Edit", send("edit_regional_admin_country_#{@resource_class.name.underscore.downcase}_path", @country.iso_2, resource.id), class: "btn btn-sm btn-secondary"
             - if resource.discarded?
-              = link_to "Restore", send("regional_admin_country_#{@resource_class.name.downcase}_path", @country.iso_2, resource.id), method: :delete, class: "btn btn-sm btn-success"
+              = link_to "Restore", send("regional_admin_country_#{@resource_class.name.underscore.downcase}_path", @country.iso_2, resource.id), method: :delete, class: "btn btn-sm btn-success"
             - else
-              = link_to "Delete", send("regional_admin_country_#{@resource_class.name.downcase}_path", @country.iso_2, resource.id), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"
+              = link_to "Delete", send("regional_admin_country_#{@resource_class.name.underscore.downcase}_path", @country.iso_2, resource.id), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"

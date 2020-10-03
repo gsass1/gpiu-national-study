@@ -1,7 +1,7 @@
 .container-fluid
   h1= "New #{@resource_class}"
 
-  = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/#{@link_prefix}/#{@resource_class.name.downcase.pluralize}", html: { method: :post }, wrapper: :horizontal_form) do |f|
+  = simple_form_for(@resource, as: @resource_class.name.underscore.downcase, url: "/#{@link_prefix}/#{@resource_class.name.underscore.downcase.pluralize}", html: { method: :post }, wrapper: :horizontal_form) do |f|
     = f.error_notification
 
     - @resource_class.admin_form_fields.each do |field|

@@ -18,5 +18,6 @@
             - Country.with_role(:regional_admin, current_user).each do |country|
               = link_to "#{country.name} Admin", regional_admin_country_dashboard_index_path(country.iso_2.upcase), class: "dropdown-item"
             = link_to t('application.nav.dashboard'), dashboard_index_path, class: "dropdown-item"
+            = link_to "Help", new_support_request_path, class: "dropdown-item"
             = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
             = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"

@@ -3,10 +3,13 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [:index]
 
+  resources :support_requests, only: [:new, :create]
+
   namespace :admin do
     resources :dashboard, only: :index
     resources :users
     resources :hospitals
+    resources :support_requests
     resources :study_iterations, only: [:index, :show] do
       post :approve
       post :reject

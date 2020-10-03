@@ -155,3 +155,14 @@ en:
         uti: "UTI"
         ssi: "SSI"
         both: "Both"
+  support_requests:
+    new:
+      title: "Help"
+      create: "Create a support request"
+      submit: "Submit"
+      support_type: "Type"
+      custom_support_type: "Problem"
+    support_types:
+      site_help: "I need help with using the site"
+      bug: "I think I found a bug in the application"
+      other_reason: "Other (please specify)"
