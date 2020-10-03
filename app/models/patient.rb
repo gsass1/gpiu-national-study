@@ -10,7 +10,6 @@ class Patient < ApplicationRecord
 
   has_one :patient_identification, inverse_of: :patient, dependent: :destroy
   questionnaire_state :identification_state
-
   questionnaire_state :uti_state
   questionnaire_state :ssi_state
   questionnaire_state :prostate_biopsy_state
@@ -32,6 +31,14 @@ class Patient < ApplicationRecord
   end
 
   after_create :create_questionnaires
+
+  def uti_form_needed?
+    self.uti_ssi? && [:uti, :both].include?(self.patient_identification.infection_type.to_sym)
+  end
+
+  def ssi_form_needed?
+    self.uti_ssi? && [:ssi, :both].include?(self.patient_identification.infection_type.to_sym)
+  end
 
   private
   def create_questionnaires

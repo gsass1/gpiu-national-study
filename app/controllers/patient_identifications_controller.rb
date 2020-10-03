@@ -5,6 +5,13 @@ class PatientIdentificationsController < ApplicationController
   load_and_authorize_resource
   requires_active_study_iteration
 
+  add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
+  add_breadcrumb I18n.t("patients.index.title"), :patients_path
+
+  def edit
+    add_breadcrumb I18n.t("patient_identifications.edit.title")
+  end
+
   def update
     if @patient_identification.update_attributes(patient_identification_params)
       flash[:success] = "Updated patient identification form"

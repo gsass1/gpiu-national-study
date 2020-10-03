@@ -1,7 +1,6 @@
 class PatientIdentification < ApplicationRecord
   include Discard::Model
-
-  belongs_to :patient
+  include Questionnaire
 
   enum sex: [:male, :female]
   enum admission_infection: [:home, :nursing, :other_hospital]
