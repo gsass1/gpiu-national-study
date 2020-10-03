@@ -58,4 +58,8 @@ module ApplicationHelper
   def study_active?
     !@current_study_iteration.nil? && @current_study_iteration.active?
   end
+
+  def current_study_iteration
+    @current_study_iteration
+  end
 end

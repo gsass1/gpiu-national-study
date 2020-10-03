@@ -6,8 +6,8 @@
     - else
       span= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
     br
-  - unless active_range.nil?
+  - unless study_iteration.active_range.nil?
     br
-    strong= t('dashboard.si_current_range_active', start: l(active_range.start, format: :long), end: l(active_range.end, format: :long))
+    strong= t('dashboard.si_current_range_active', start: l(study_iteration.active_range.start, format: :long), end: l(study_iteration.active_range.end, format: :long))
   - else
     strong= t('dashboard.si_no_current_active_ranges')

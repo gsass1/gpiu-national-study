@@ -22,4 +22,8 @@ class Patient < ApplicationRecord
 
   scope :uti_ssi, -> { where(patient_type: :uti_ssi) }
   scope :prostate_biopsy, -> { where(patient_type: :prostate_biopsy) }
+
+  def self.within_study_iteration(study_iteration)
+    self.where(study_iteration_id: study_iteration.id)
+  end
 end

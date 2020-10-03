@@ -1,8 +1,8 @@
 .container
   h1= t('patients.index.title')
   hr
-  - unless @study_iteration.nil?
-    = render 'shared/study_dates', study_iteration: @study_iteration, active_range: @active_range
+  - unless current_study_iteration.nil?
+    = render 'shared/study_dates', study_iteration: current_study_iteration
     hr
 
   h2= t('patients.index.uti_ssi.title')
@@ -24,7 +24,7 @@
               th= t('patients.index.uti_ssi.table.include_form')
               th= t('patients.index.uti_ssi.table.uti_form')
               th= t('patients.index.uti_ssi.table.ssi_form')
-            - department.patients.uti_ssi.each do |patient|
+            - department.patients.uti_ssi.within_study_iteration(current_study_iteration).each do |patient|
               tr
                 td= patient.id
                 td= patient.initial
@@ -53,7 +53,7 @@
               th= t('patients.index.biopsy.table.initials')
               th= t('patients.index.biopsy.table.biopsy_form')
               th= t('patients.index.biopsy.table.biopsy_outcome_form')
-            - department.patients.prostate_biopsy.each do |patient|
+            - department.patients.prostate_biopsy.within_study_iteration(current_study_iteration).each do |patient|
               tr
                 td= patient.id
                 td= patient.initial

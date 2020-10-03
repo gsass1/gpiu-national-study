@@ -4,8 +4,8 @@
 
   hr
 
-  - unless @study_iteration.nil?
-    = render 'shared/study_dates', study_iteration: @study_iteration, active_range: @active_range
+  - unless current_study_iteration.nil?
+    = render 'shared/study_dates', study_iteration: current_study_iteration
     hr
 
   .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
