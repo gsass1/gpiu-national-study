@@ -19,9 +19,11 @@
         tr[class=itr_color_table(itr)]
           td= itr.id
           td= itr.name
-          td= itr.active? ? "No" : "Yes"
+          td= itr.active? ? "Yes" : "No"
           td
             span.d-flex.flex-row.align-items-center
+              - if itr.unsubmitted?
+                strong Unsubmitted
               - if itr.pending?
                 strong= "Pending "
                 i.material-icons.18 access_alarm
