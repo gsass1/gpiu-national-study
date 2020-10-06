@@ -62,4 +62,8 @@ module ApplicationHelper
   def current_study_iteration
     @current_study_iteration
   end
+
+  def next_or_current_study_iteration
+    @next_or_current_study_iteration
+  end
 end

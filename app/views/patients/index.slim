@@ -1,9 +1,10 @@
 .container
   h1= t('patients.index.title')
   hr
-  - unless current_study_iteration.nil?
-    = render 'shared/study_dates', study_iteration: current_study_iteration
-    hr
+
+  = render 'shared/study_dates', study_iteration: next_or_current_study_iteration
+
+  hr
 
   h2= t('patients.index.uti_ssi.title')
   hr
@@ -28,17 +29,17 @@
               tr
                 td= patient.id
                 td= patient.initial
-                td= link_to 'Open Include Form', edit_patient_identification_path(patient, patient.patient_identification), class: "btn btn-sm btn-success"
+                td= link_to t('.uti_ssi.table.open_include_form'), edit_patient_identification_path(patient, patient.patient_identification), class: "btn btn-sm btn-success"
                 td
                   - if patient.uti_form_needed?
-                    = link_to 'Open UTI Form', '#', class: "btn btn-sm btn-success"
+                    = link_to t('.uti_ssi.table.open_uti_form'), '#', class: "btn btn-sm btn-success"
                   - else
-                    .text-muted Not needed
+                    .text-muted= t('.uti_ssi.table.form_not_needed')
                 td
                   - if patient.ssi_form_needed?
-                    = link_to 'Open SSI Form', '#', class: "btn btn-sm btn-success"
+                    = link_to t('.uti_ssi.table.open_ssi_form'), '#', class: "btn btn-sm btn-success"
                   - else
-                    .text-muted Not needed
+                    .text-muted= t('.uti_ssi.table.form_not_needed')
   - else
     .alert.alert-danger
       strong= t('patients.index.no_departments')
@@ -65,8 +66,8 @@
               tr
                 td= patient.id
                 td= patient.initial
-                td= link_to 'Open Biopsy Form', '#', class: "btn btn-sm btn-success"
-                td= link_to 'Open Biopsy Outcome Form', '#', class: "btn btn-sm btn-success"
+                td= link_to t('.open_biopsy_form'), '#', class: "btn btn-sm btn-success"
+                td= link_to t('.open_biopsy_outcome_form'), '#', class: "btn btn-sm btn-success"
 
   - else
     .alert.alert-danger

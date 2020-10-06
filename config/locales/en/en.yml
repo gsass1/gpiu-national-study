@@ -54,7 +54,8 @@ en:
     description: 'This is your user dashboard. From here you can manage everything!'
     si_dates_header: 'Thank you for registering with the GPIU study. The study dates are as follows.'
     si_current_range_active: 'The current study range is active from %{start} to %{end}. You may submit data during this period.'
-    si_no_current_active_ranges: 'No study range is active at the moment. Please wait until %next_date before inputting more datato.'
+    si_no_current_active_ranges: 'No study range is active at the moment. Please wait until %{next_date} before inputting data.'
+    no_planned_si: 'The study has not yet been planned for your country. Please wait until the administrators of your country have set up the study dates. You will not be able to input data until then.'
     hospitals: 'Hospitals'
     no_hospitals: 'You have not checked into any hospital yet.'
     hospital_search: 'You can search for national hospitals here.'
@@ -123,6 +124,12 @@ en:
           include_form: "Include Form"
           uti_form: "UTI Form"
           ssi_form: "SSI Form"
+          open_include_form: "Open Include Form"
+          open_uti_form: "Open UTI Form"
+          open_ssi_form: "Open SSI Form"
+          open_biopsy_form: "Open Biopsy Form"
+          open_biopsy_outcome_form: "Open Biopsy Outcome_Form"
+          form_not_needed: "N/A"
       biopsy:
         title: 'GPIU Prostate Biopsies Side Study'
         description: "Prostate biopsy is an extremely important and frequent procedure in urology. Infective complications following prostate biopsy are world wide increasing in number and severity due to reduced sensitivity of pathogens to antibiotics used for prophylaxis. The European Section of Infection in Urology (ESIU) of the EAU is currently performing a prostate biopsies side study to the Global Prevalence Study of Infections in Urology (GPIU)."

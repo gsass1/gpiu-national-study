@@ -19,7 +19,7 @@ class PatientIdentification < ApplicationRecord
 
   private
   def admission_date_is_in_past 
-    if self.admission_date >= Date.today
+    if self.admission_date > Date.today
       errors.add(:admission_date, "cannot be in future.")
     end
   end

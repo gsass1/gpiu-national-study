@@ -4,6 +4,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @study_iterations = @study_iterations.includes([:study_ranges])
   end
 
   def new
@@ -15,7 +16,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
 
     if @study_iteration.save
       flash[:success] = "Created study iteration with name \"#{@study_iteration.name}\""
-      redirect_to regional_admin_country_study_iterations_path(@country)
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
     else
       render :new
     end

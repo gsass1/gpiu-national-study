@@ -2,7 +2,7 @@ module ActiveStudyIteration
   extend ActiveSupport::Concern
 
   included do
-    before_action :current_study_iteration
+    before_action :current_study_iteration, :next_or_current_study_iteration
   end
 
   class_methods do
@@ -12,7 +12,11 @@ module ActiveStudyIteration
   end
 
   def current_study_iteration
-    @current_study_iteration ||= (current_user.nil? ? nil : current_user.country.next_or_current_study_iteration)
+    @current_study_iteration ||= (current_user.nil? ? nil : current_user.country.current_study_iteration)
+  end
+
+  def next_or_current_study_iteration
+    @next_or_current_study_iteration ||= (current_user.nil? ? nil : current_user.country.next_or_current_study_iteration)
   end
 
   def check_current_study_iteration!

@@ -4,9 +4,8 @@
 
   hr
 
-  - unless current_study_iteration.nil?
-    = render 'shared/study_dates', study_iteration: current_study_iteration
-    hr
+  = render 'shared/study_dates', study_iteration: next_or_current_study_iteration
+  hr
 
   .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
     .box.bg-primary.text-light

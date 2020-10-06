@@ -33,10 +33,12 @@ class Patient < ApplicationRecord
   after_create :create_questionnaires
 
   def uti_form_needed?
+    return false unless self.identification_state_valid?
     self.uti_ssi? && [:uti, :both].include?(self.patient_identification.infection_type.to_sym)
   end
 
   def ssi_form_needed?
+    return false unless self.identification_state_valid?
     self.uti_ssi? && [:ssi, :both].include?(self.patient_identification.infection_type.to_sym)
   end
 

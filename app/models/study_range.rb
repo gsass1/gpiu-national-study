@@ -18,6 +18,10 @@ class StudyRange < ApplicationRecord
     Date.today > self.end
   end
 
+  def pending?
+    Date.today < self.start
+  end
+
   def duration
     (self.end - self.start).to_i
   end
@@ -25,7 +29,7 @@ class StudyRange < ApplicationRecord
   private
   def is_in_the_future
     if self.start <= Date.today
-      errors.add(:start, "has to start in the future!")
+      errors.add(:start, "has to occur in the future!")
     end
   end
 
@@ -38,7 +42,7 @@ class StudyRange < ApplicationRecord
   def no_overlaps 
     self.study_iteration.study_ranges.each do |range|
       if self.start <= range.end && range.start <= self.end
-        errors.add(:start, "Chosen date range overlaps with other range")
+        errors.add(:start, "is overlapping with another range. Please check above.")
       end
     end
   end

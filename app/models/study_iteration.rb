@@ -9,6 +9,8 @@ class StudyIteration < ApplicationRecord
 
   before_create :set_pending
 
+  scope :accepted, -> { where(:acceptance_state => :accepted) }
+
   # TODO(gian): this creates a lot of SQL queries I think. For production we need a fast SQL query
   def active?
     study_ranges.any? { |range| range.active?  }
@@ -24,6 +26,10 @@ class StudyIteration < ApplicationRecord
 
   def duration
     study_ranges.sum { |range| range.duration }
+  end
+
+  def next_range
+    study_ranges.select { |range| range.pending? }.first
   end
 
   def to_s

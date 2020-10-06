@@ -18,10 +18,10 @@ class Country < ApplicationRecord
 
   # TODO(gian): maybe cache this.
   def current_study_iteration
-    study_iterations.where(:acceptance_state => :accepted).select { |si| si.active? }.first
+    study_iterations.accepted.select { |si| si.active? }.first
   end
 
   def next_or_current_study_iteration
-    study_iterations.where(:acceptance_state => :accepted).select { |si| si.active? && !si.passed? }.first
+    study_iterations.accepted.select { |si| si.active? || !si.passed? }.first
   end
 end
