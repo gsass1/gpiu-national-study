@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_03_165417) do
+ActiveRecord::Schema.define(version: 2020_10_06_134715) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 2020_10_03_165417) do
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "notifications_mask"
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true

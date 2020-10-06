@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Bitmask
   rolify
 
   TITLES = %w[Mr. Ms. Dr. Prof.].freeze
@@ -27,6 +28,8 @@ class User < ApplicationRecord
 
   viewable_admin_table_fields :title, :first_name, :last_name, :email, :country
   editable_admin_fields :title, :first_name, :last_name, :email
+
+  bitmask :notifications_mask, [:email_notifications]
 
   def assign_default_role
     self.add_role(:user) if self.roles.blank?
