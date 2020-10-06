@@ -9,4 +9,4 @@
     div= "To: #{notification.recipient}"
     div= "Subject: #{notification.notifiable}"
     hr
-    p= t("notifications.action.#{notification.action}.message", **(notifiable_attributes(notification.notifiable)).symbolize_keys)
+    p= render('shared/notification_message', notification: notification)

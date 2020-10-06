@@ -8,13 +8,20 @@ class Notifier
     #
     # Currently only on-site notifications. Emails later.
 
-    create_on_site_notification OpenStruct.new(options)
+    notification = OpenStruct.new(options.merge(created_at: DateTime.now))
 
+    create_on_site_notification notification
+
+    create_email_notification notification
     # create_email_notification(options) if options.recipient.enabled_email_notifs?
   end
 
   private
   def create_on_site_notification(options)
     Notification.create(recipient: options.recipient, actor: options.actor, action: options.action, notifiable: options.notifiable)
+  end
+
+  def create_email_notification(options)
+    NotificationsMailer.with(notification: options).notification_email.deliver_now
   end
 end
