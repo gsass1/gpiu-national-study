@@ -9,6 +9,8 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
     else
+      can [:create, :read], SupportRequest, user_id: user.id
+
       can [:create, :read, :update], [Address, Department]
       can [:create, :read, :update], Hospital, country_id: user.country_id
 
