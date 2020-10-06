@@ -110,6 +110,9 @@ en:
         rejected:
           title: 'Study Iteration Rejected'
           message: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}'
+        submission:
+          title: 'Study Iteration Submitted For Approval'
+          message: 'A new study iteration titled "%{name}" from %{country_name} has been submitted for approval.'
   patients:
     index:
       title: 'Patients'

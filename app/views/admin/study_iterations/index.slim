@@ -18,6 +18,8 @@
         td= itr.name
         td= itr.active? ? "Yes" : "No"
         td
+          - if itr.unsubmitted?
+            span Unsubmitted
           - if itr.pending?
             span Pending
           - if itr.accepted?

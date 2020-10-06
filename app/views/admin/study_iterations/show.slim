@@ -1,7 +1,9 @@
-.container-fluid
+.container
   div
     h1.d-flex.flex-row.align-items-center
       span= "Study Iteration \"#{@study_iteration.name}\""
+      - if @study_iteration.unsubmitted?
+        span.badge.badge-info.ml-3 Unsubmitted
       - if @study_iteration.pending?
         span.badge.badge-primary.ml-3 Pending
       - elsif @study_iteration.accepted?

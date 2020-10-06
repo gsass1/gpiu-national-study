@@ -6,7 +6,9 @@ class Admin::StudyIterationsController < ApplicationController
   # FIXME(gian): how to make cancan load the resource in non-CRUD actions??
   before_action :load_study_iteration, only: [:approve, :reject]
 
-  def index; end
+  def index
+    @study_iterations = @study_iterations.includes([:country, :study_ranges])
+  end
   def show; end
 
   def approve

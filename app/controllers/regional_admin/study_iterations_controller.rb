@@ -65,6 +65,10 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
 
   def submit
     if @study_iteration.update_attribute(:acceptance_state, :pending)
+      User.with_role(:admin).each do |user|
+        Notifier.new.notify(recipient: user, actor: current_user, notifiable: @study_iteration, action: "study_iterations.submission")
+      end
+
       flash[:success] = "Submitted for approval."
     else
       flash[:danger] = "Failed to submit for approval."
