@@ -14,7 +14,11 @@ class StudyRange < ApplicationRecord
   default_scope { order(start: :asc) }
 
   def active?
-    Date.today >= self.start && Date.today <= self.end
+    active_on? Date.today
+  end
+
+  def active_on?(date)
+    date >= self.start && date <= self.end
   end
 
   def passed?

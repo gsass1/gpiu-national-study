@@ -1,0 +1,23 @@
+strong= "#{t('date.month_names')[month]}, #{year}"
+
+table.table.table-bordered.my-3
+  tr
+    th
+      th= t('date.day_names')[1][0]
+    th= t('date.day_names')[2][0]
+    th= t('date.day_names')[3][0]
+    th= t('date.day_names')[4][0]
+    th= t('date.day_names')[5][0]
+    th= t('date.day_names')[6][0]
+    th= t('date.day_names')[0][0]
+  - month_weeks(month, year).each do |week|
+    tr[class=calendar_week_class(week.first.cweek)]
+      th= week.first.cweek
+      - week.each do |day|
+        / NOTE(gian): Only highlight dates that are actually in this month,
+        / since the previous and next month always "spill" into the current
+        / month, if you know what I mean? Else we'd have duplicates since we have duplicate dates
+        - if day.month == month
+          td[class=calendar_study_itr_color(day, study_iterations)]= day.day
+        - else
+          td.text-muted= day.day

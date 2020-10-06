@@ -176,3 +176,11 @@ en:
       site_help: "I need help with using the site"
       bug: "I think I found a bug in the application"
       other_reason: "Other (please specify)"
+  study_calendar:
+    index:
+      title: "Study Calendar"
+      legend:
+        title: "Legend"
+        current_study_day: "Current active study day"
+        study_day: "Upcoming"
+        passed: "Passed"

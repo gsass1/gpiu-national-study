@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :support_requests, only: [:new, :create]
 
+  resources :study_calendar, only: [:index]
+
   namespace :admin do
     resources :dashboard, only: :index
     resources :users

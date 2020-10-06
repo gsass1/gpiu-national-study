@@ -7,7 +7,9 @@
         = flag_image current_user.country.iso_2
     nav.my-2.my-md-0.mr-mid-3.d-flex.flex-row.align-items-center
       - if user_signed_in?
-        a.text-light.d-flex.flex-row.align-items-center[href=notifications_path]
+        a.text-light.d-flex.flex-row.align-items-center[href=study_calendar_index_path]
+          i.material-icons.md-36 date_range
+        a.pl-3.text-light.d-flex.flex-row.align-items-center[href=notifications_path]
           i.material-icons.md-36 mail
           = unread_notifications_badge
         span.dropdown.show
