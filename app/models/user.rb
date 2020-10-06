@@ -31,6 +31,8 @@ class User < ApplicationRecord
 
   bitmask :notifications_mask, [:email_notifications]
 
+  before_create :set_default_notification_settings
+
   def assign_default_role
     self.add_role(:user) if self.roles.blank?
   end
@@ -66,5 +68,10 @@ class User < ApplicationRecord
 
   def unread_notifications
     Notification.where(recipient: self, read_at: nil)
+  end
+
+  private
+  def set_default_notification_settings
+    self.email_notifications = true
   end
 end

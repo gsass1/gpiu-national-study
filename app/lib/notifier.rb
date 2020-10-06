@@ -12,8 +12,7 @@ class Notifier
 
     create_on_site_notification notification
 
-    create_email_notification notification
-    # create_email_notification(options) if options.recipient.enabled_email_notifs?
+    create_email_notification notification if notification.recipient.email_notifications?
   end
 
   private
