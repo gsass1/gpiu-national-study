@@ -11,8 +11,10 @@ module RegionalAdmin::StudyIterationsHelper
   end
 
   def itr_color_table(itr)
-    if itr.pending?
+    if itr.unsubmitted?
       "table-default"
+    elsif itr.pending?
+      "table-info"
     elsif itr.accepted?
       "table-success"
     elsif itr.declined?

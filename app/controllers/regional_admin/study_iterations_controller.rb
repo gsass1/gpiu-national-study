@@ -3,6 +3,9 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   layout 'regional_admin'
   load_and_authorize_resource
 
+  before_action :load_si, :check_si_is_editable, only: [:create_study_range, :delete_study_range, :submit]
+  before_action :check_has_ranges, only: [:submit]
+
   def index
     @study_iterations = @study_iterations.includes([:study_ranges])
   end
@@ -33,14 +36,6 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   end
 
   def create_study_range
-    @study_iteration = StudyIteration.find(params[:study_iteration_id])
-
-    unless @study_iteration.pending?
-      flash[:danger] = "This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration."
-      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
-      return
-    end
-
     @study_range = StudyRange.new(study_range_params)
     @study_range.study_iteration_id = @study_iteration.id
 
@@ -53,14 +48,6 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   end
 
   def delete_study_range
-    @study_iteration = StudyIteration.find(params[:study_iteration_id])
-
-    unless @study_iteration.pending?
-      flash[:danger] = "This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration."
-      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
-      return
-    end
-
     @study_range = @study_iteration.study_ranges.find(params[:study_range_id])
 
     if @study_range.active? || @study_range.passed?
@@ -76,6 +63,16 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
     redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
   end
 
+  def submit
+    if @study_iteration.update_attribute(:acceptance_state, :pending)
+      flash[:success] = "Submitted for approval."
+    else
+      flash[:danger] = "Failed to submit for approval."
+    end
+
+    redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+  end
+
   private
   def study_iteration_params
     params.require(:study_iteration).permit(:name)
@@ -83,5 +80,22 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
 
   def study_range_params
     params.require(:study_range).permit(:start, :end, :comment)
+  end
+
+  def load_si
+    @study_iteration = StudyIteration.find(params[:study_iteration_id])
+  end
+
+  def check_has_ranges
+    unless @study_iteration.study_ranges.any?
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration), flash: { danger: "A minimum of one study range is required." }
+    end
+  end
+
+  def check_si_is_editable
+    unless @study_iteration.unsubmitted?
+      flash[:danger] = "This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration."
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+    end
   end
 end

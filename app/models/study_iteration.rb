@@ -4,7 +4,7 @@ class StudyIteration < ApplicationRecord
   has_many :study_ranges
   has_many :patients
 
-  enum acceptance_state: [:pending, :accepted, :declined]
+  enum acceptance_state: [:unsubmitted, :pending, :accepted, :declined]
   validates :name, presence: true
 
   before_create :set_pending

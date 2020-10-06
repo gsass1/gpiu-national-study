@@ -1,10 +1,13 @@
 class StudyRange < ApplicationRecord
+  START_TRESHOLD = 14
+
   belongs_to :study_iteration
 
   validates :start, presence: true
   validates :end, presence: true
 
   validate :is_in_the_future
+  validate :start_after_treshold
   validate :end_after_start
   validate :no_overlaps
 
@@ -30,6 +33,12 @@ class StudyRange < ApplicationRecord
   def is_in_the_future
     if self.start <= Date.today
       errors.add(:start, "has to occur in the future!")
+    end
+  end
+
+  def start_after_treshold
+    if self.start < (Date.today + START_TRESHOLD.days)
+      errors.add(:start, "has to occur at least #{START_TRESHOLD} days in the future!")
     end
   end
 
