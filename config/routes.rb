@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :users
     resources :hospitals
     resources :support_requests
+    resources :patients
     resources :study_iterations, only: [:index, :show] do
       post :approve
       post :reject

@@ -1,17 +1,15 @@
 .container-fluid
-  h1= "Editing #{@resource} (#{@resource.id})"
-  = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/#{@link_prefix}/#{@resource_class.name.underscore.downcase.pluralize}/#{@resource.id}", html: { method: :patch }, wrapper: :horizontal_form) do |f|
-    = f.error_notification
+  .card
+    .card-header.bg-primary.text-light
+      strong= "Editing #{@resource} (#{@resource.id})"
+    .card-body
+      = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/#{@link_prefix}/#{@resource_class.name.underscore.downcase.pluralize}/#{@resource.id}", html: { method: :patch }, wrapper: :horizontal_form) do |f|
+        = f.error_notification
 
-    = f.input :id, as: :hidden
+        = f.input :id, as: :hidden
 
-    - @resource_class.admin_form_fields.each do |field|
-      - if @resource_associations.include?(field)
-        = f.input (field.to_s + "_id").to_sym, collection: field.to_s.capitalize.classify.constantize.all, selected: @resource.send(field).id
-      - elsif @resource_class.try(field.to_s.pluralize.to_sym)
-        = f.input field, collection: @resource_class.send(field.to_s.pluralize.to_sym).keys
-      - else
-        = f.input field
+        - @resource_class.admin_form_fields.each do |field|
+          = resource_form_input(f, field)
 
-    .form-actions
-      = f.button :submit, "Update", class: "btn btn-lg btn-outline-primary float-right"
+        .form-actions
+          = f.button :submit, "Update", class: "btn btn-lg btn-outline-primary float-right"

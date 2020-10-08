@@ -1,4 +1,5 @@
 class Patient < ApplicationRecord
+  include AdminResource
   include Discard::Model
   include QuestionnaireStates
 
@@ -14,6 +15,9 @@ class Patient < ApplicationRecord
   questionnaire_state :ssi_state
   questionnaire_state :prostate_biopsy_state
   questionnaire_state :prostate_biopsy_outcome_state
+
+  viewable_admin_table_fields :initial, :creator, :study_iteration
+  editable_admin_fields :initial, :creator, :study_iteration
 
   validates :department_id, presence: true
   validates :study_iteration_id, presence: true
@@ -40,6 +44,10 @@ class Patient < ApplicationRecord
   def ssi_form_needed?
     return false unless self.identification_state_valid?
     self.uti_ssi? && [:ssi, :both].include?(self.patient_identification.infection_type.to_sym)
+  end
+
+  def to_s
+    "Patient #{self.id}-#{self.initial}-#{self.study_iteration.name}"
   end
 
   private

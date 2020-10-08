@@ -49,6 +49,7 @@ module Admin::ResourcePage
   end
 
   def show
+    resource_associations
     link_prefix
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
     add_breadcrumb @resource, "/#{@link_prefix}/#{@resource_name}/#{@resource.id}"
