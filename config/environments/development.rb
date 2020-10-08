@@ -80,7 +80,11 @@ Rails.application.configure do
     # Bullet.airbrake = true
     # Bullet.rollbar = true
     # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
-    # Bullet.stacktrace_excludes = [ 'their_gem', 'their_middleware', ['my_file.rb', 'my_method'], ['my_file.rb', 16..20] ]
+
+    # NOTE(gian): Preventing unused eager loading with my admin framework is
+    # kind of a hassle. We don't really need top performance on the admin pages
+    # anyway
+    Bullet.stacktrace_excludes = [ 'admin' ]
   end
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }

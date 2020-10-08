@@ -1,4 +1,4 @@
-.container-fluid
+.container
   .card
     .card-header.bg-primary.text-light
       strong= "#{@resource} (#{@resource.id})"
@@ -11,11 +11,24 @@
           tr
             th= @resource_class.human_attribute_name field
             td= resource_field_value(@resource, field)
+        - @resource_class.admin_associations.each do |assoc_field|
+          tr
+            th= "#{assoc_field.to_s.capitalize} (#{@resource.send(assoc_field).count})"
+            td
+              ul
+                - @resource.send(assoc_field).each do |assoc|
+                  li= resource_association(assoc)
+        - unless @resource_class.admin_custom_actions_proc.nil?
+          tr
+            th Custom Actions
+            td
+              .btn-group= resource_custom_actions(@resource, @resource_class)
         tr
           th Actions
           td
             = link_to "Edit", resource_action_path(@resource, :edit), class: "btn btn-sm btn-secondary"
-            - if @resource.discarded?
-              = link_to "Restore", resource_action_path(@resource), method: :delete, class: "btn btn-sm btn-success"
-            - else
-              = link_to "Delete", resource_action_path(@resource), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"
+            - unless @resource.try(:discarded?).nil?
+              - if @resource.discarded?
+                = link_to "Restore", resource_action_path(@resource), method: :delete, class: "btn btn-sm btn-success"
+              - else
+                = link_to "Delete", resource_action_path(@resource), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"

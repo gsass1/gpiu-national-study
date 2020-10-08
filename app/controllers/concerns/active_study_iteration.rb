@@ -20,7 +20,7 @@ module ActiveStudyIteration
   end
 
   def check_current_study_iteration!
-    unless study_active?
+    unless study_active? || current_user.admin?
       flash[:alert] = 'You cannot perform this while the study is not currently active for your country.'
       redirect_back fallback_location: (current_user.nil? ? root_path : dashboard_index_path)
     end

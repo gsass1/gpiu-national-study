@@ -16,8 +16,17 @@ class Patient < ApplicationRecord
   questionnaire_state :prostate_biopsy_state
   questionnaire_state :prostate_biopsy_outcome_state
 
-  viewable_admin_table_fields :initial, :creator, :study_iteration
-  editable_admin_fields :initial, :creator, :study_iteration
+  viewable_admin_table_fields :initial, :creator, :study_iteration, :department, :patient_type, :identification_state, :uti_state, :ssi_state, :prostate_biopsy_state, :prostate_biopsy_outcome_state
+  editable_admin_fields :initial, :creator, :study_iteration, :patient_type
+  admin_custom_actions :admin_actions
+
+  def admin_actions
+    [{
+      name: "Open Include Form",
+      color: :success,
+      route: [:edit_patient_identification_path, self.patient_identification.id],
+    }]
+  end
 
   validates :department_id, presence: true
   validates :study_iteration_id, presence: true

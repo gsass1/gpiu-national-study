@@ -4,9 +4,10 @@ class Hospital < ApplicationRecord
 
   belongs_to :address, dependent: :destroy
   belongs_to :country
+  has_many :departments
+  has_many :patients, through: :departments
   accepts_nested_attributes_for :address
 
-  has_many :departments
 
   validates :name, presence: true
 
@@ -19,6 +20,7 @@ class Hospital < ApplicationRecord
   validates :first_department_name, presence: true, on: :create
 
   viewable_admin_table_fields :name, :address, :country
+  viewable_admin_associations :departments, :patients
   editable_admin_fields :name, :address, :country
 
   def to_s

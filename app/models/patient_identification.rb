@@ -1,6 +1,10 @@
 class PatientIdentification < ApplicationRecord
+  include AdminResource
   include Discard::Model
   include Questionnaire
+
+  viewable_admin_table_fields :patient
+  editable_admin_fields :patient
 
   enum sex: [:male, :female]
   enum admission_infection: [:home, :nursing, :other_hospital]
@@ -15,6 +19,10 @@ class PatientIdentification < ApplicationRecord
     edit.validates :evidence_infection, inclusion: { in: [true, false] }
     edit.validates :admission_infection, presence: true, if: Proc.new { |f| f.evidence_infection? }
     edit.validates :infection_type, presence: true
+  end
+
+  def to_s
+    "Include Form #{patient}"
   end
 
   private

@@ -13,7 +13,8 @@ table.table.table-bordered
         .btn-group
           = link_to "Show", resource_action_path(resource), class: "btn btn-sm btn-primary"
           = link_to "Edit", resource_action_path(resource, :edit), class: "btn btn-sm btn-secondary"
-          - if resource.discarded?
-            = link_to "Restore", resource_action_path(resource), method: :delete, class: "btn btn-sm btn-success"
-          - else
-            = link_to "Delete", resource_action_path(resource), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"
+          - unless resource.try(:discarded?).nil?
+            - if resource.discarded?
+              = link_to "Restore", resource_action_path(resource), method: :delete, class: "btn btn-sm btn-success"
+            - else
+              = link_to "Delete", resource_action_path(resource), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"

@@ -1,4 +1,6 @@
 class Country < ApplicationRecord
+  include AdminResource
+
   resourcify
 
   has_many :hospitals
@@ -7,6 +9,9 @@ class Country < ApplicationRecord
   validates :iso_2, presence: true
   validates :iso_3, presence: true
   validates :name, presence: true
+
+  viewable_admin_table_fields :name, :iso_2, :iso_3
+  editable_admin_fields :name, :iso_2, :iso_3
 
   def to_s
     name

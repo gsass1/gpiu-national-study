@@ -41,7 +41,9 @@ module Admin::ResourcePage
     if params[:deleted]
       @resources = @resources.discarded
     else
-      @resources = @resources.kept
+      if @resources.try(:kept)
+        @resources = @resources.kept
+      end
     end
     respond_to do |format|
       format.html { render template: "admin/resources/index" }
