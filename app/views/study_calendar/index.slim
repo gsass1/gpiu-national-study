@@ -3,16 +3,4 @@
   hr
   = render 'shared/study_dates', study_iteration: next_or_current_study_iteration
   - if @study_iterations.any?
-    - @months.each do |m|
-      hr
-      = render 'shared/calendar_month', month: m[:month], year: m[:year], study_iterations: @study_iterations
-    div.mt-5
-      strong= t('.legend.title')
-      .float-right
-        span.legend-color.bg-success.text-dark
-          strong= t('.legend.current_study_day')
-        span.legend-color.bg-primary.text-light
-          strong= t('.legend.study_day')
-        span.legend-color.bg-secondary.text-light
-          strong= t('.legend.passed')
-
+    = render 'shared/study_calendar', months: @months, study_iterations: @study_iterations
