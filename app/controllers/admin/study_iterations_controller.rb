@@ -9,7 +9,11 @@ class Admin::StudyIterationsController < ApplicationController
   def index
     @study_iterations = @study_iterations.includes([:country, :study_ranges])
   end
-  def show; end
+
+  def show
+    @study_ranges = @study_iteration.study_ranges
+    @months = CalendarUtil::collect_months(@study_ranges.first.start, @study_ranges.last.end)
+  end
 
   def approve
     if @study_iteration.update_attributes(acceptance_state: :accepted)

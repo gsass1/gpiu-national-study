@@ -75,6 +75,10 @@
         td.table-success.text-center
           strong= @study_iteration.patients.prostate_biopsy.count
 
+  - if @study_ranges.any?
+    h3 Calendar View
+    = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
+
   - if @study_iteration.unsubmitted?
     .card.mb-3
       .card-header.bg-primary.text-light

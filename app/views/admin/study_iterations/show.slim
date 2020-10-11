@@ -34,6 +34,11 @@
           td= range_state(range)
           td= range.comment
 
+
+  - if @study_ranges.any?
+    h3 Calendar View
+    = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
+
   - if @study_iteration.pending?
     hr
 
