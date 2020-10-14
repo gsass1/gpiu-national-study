@@ -1,9 +1,9 @@
-.container[data-controller="questionnaire"]
+.container.questionnaire[data-controller="questionnaire"]
   - unless study_active?
     .alert.alert-danger
       strong= t('application.not_editable_hint')
 
-  = simple_form_for(@department_questionnaire, method: :patch, wrapper: :horizontal_form, url: hospital_department_department_questionnaire_path(@department_questionnaire.department.hospital, @department_questionnaire.department, @department_questionnaire)) do |f|
+  = simple_form_for(@department_questionnaire, method: :patch, url: hospital_department_department_questionnaire_path(@department_questionnaire.department.hospital, @department_questionnaire.department, @department_questionnaire)) do |f|
     .form-inputs
       = f.error_notification
 
@@ -25,11 +25,62 @@
         ol
           li= f.input :hospital_beds, label: t('.sections.2.hospital_beds')
           li= f.input :hospital_type, as: :radio_buttons, collection: radio_button_collection('sections.2.hospital_types', :university, :teaching, :district, :other), label_method: :second, value_method: :first, required: true, input_html: { data: { action: "change->questionnaire#onTriggerChange", condition: "other", elem: "other-hospital-type-input" } }, label: t('.sections.2.hospital_type')
-          li#other-hospital-type-input= f.input :hospital_othertype
+          li#other-hospital-type-input= f.input :hospital_othertype, label: t('.sections.2.hospital_othertype')
 
       = sub_section t('.sections.3.title')
         ol
           li= f.input :department_beds, label: t('.sections.3.department_beds')
-          li= f.input :department_admissions, label: t('.sections.3.department_admissions', year: Date.today.year)
+          li= f.input :department_admissions, label: t('.sections.3.department_admissions', year: @department_questionnaire.study_iteration.study_year)
           li= f.input :department_stay, label: t('.sections.3.department_stay')
-          li= f.input :department_urinecultures, label: t('.sections.3.department_urinecultures', year: Date.today.year)
+          li= f.input :department_urinecultures, label: t('.sections.3.department_urinecultures', year: @department_questionnaire.study_iteration.study_year)
+
+      = sub_section t('.sections.4.title')
+        ol
+          li
+            .font-weight-bold= t('.sections.4.1.title')
+            ol
+              li= f.input :patient_male, label: t('.sections.4.1.patient_male')
+              li= f.input :patient_female, label: t('.sections.4.1.patient_female')
+          li
+            .font-weight-bold= t('.sections.4.2.title')
+            ol
+              li= f.input :patient_category1, label: t('.sections.4.2.patient_category1')
+              li= f.input :patient_category2, label: t('.sections.4.2.patient_category2')
+              li= f.input :patient_category3, label: t('.sections.4.2.patient_category3')
+          li
+            .font-weight-bold= t('.sections.4.3.title')
+            ol
+              li= f.input :patient_opensurgery, label: t('.sections.4.3.patient_opensurgery')
+              li= f.input :patient_endoscopic, label: t('.sections.4.3.patient_endoscopic')
+              li= f.input :patient_laparoscopic, label: t('.sections.4.3.patient_laparoscopic')
+              li= f.input :patient_prostaticbiopsy, label: t('.sections.4.3.patient_prostaticbiopsy')
+          li
+            .font-weight-bold= t('.sections.4.4.title')
+            ol
+              li
+                .font-weight-bold = t('.sections.4.4.transurethral')
+                ol
+                  li= f.input :patient_transurethral_closed, label: t('.sections.4.4.patient_transurethral_closed')
+                  li= f.input :patient_transurethral_open, label: t('.sections.4.4.patient_transurethral_open')
+              li= f.input :patient_intermittent, label: t('.sections.4.4.patient_intermittent')
+              li= f.input :patient_suprapubic, label: t('.sections.4.4.patient_suprapubic')
+              li= f.input :patient_nephrostromy, label: t('.sections.4.4.patient_nephrostromy')
+              li= f.input :patient_ureteral, label: t('.sections.4.4.patient_ureteral')
+          li
+            .font-weight-bold= t('.sections.4.5.title')
+            ol
+              li= f.input :patient_provenuti, label: t('.sections.4.5.patient_provenuti')
+              li= f.input :patient_suspecteduti, label: t('.sections.4.5.patient_suspecteduti')
+              li= f.input :patient_otherinfections, label: t('.sections.4.5.patient_otherinfections')
+              li= f.input :patient_prophylaxis, label: t('.sections.4.5.patient_prophylaxis')
+
+      = sub_section t('.sections.5.title')
+        ol
+          li= f.input :perioperative, as: :radio_buttons, label: t('.sections.5.perioperative')
+          li= f.input :urinary, as: :radio_buttons, label: t('.sections.5.urinary')
+          li= f.input :nautireports, as: :radio_buttons, label: t('.sections.5.nautireports')
+          li
+            .font-weight-bold= t('.sections.5.annual_reports')
+            ol
+              li= f.input :pathogens, as: :radio_buttons, label: t('.sections.5.pathogens')
+              li= f.input :resistance, as: :radio_buttons, label: t('.sections.5.resistance')

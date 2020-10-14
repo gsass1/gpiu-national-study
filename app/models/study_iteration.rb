@@ -42,6 +42,10 @@ class StudyIteration < ApplicationRecord
     study_ranges.any? { |range| range.active_on?(date)  }
   end
 
+  def study_year
+    study_ranges.first.start.year
+  end
+
   def to_s
     name
   end

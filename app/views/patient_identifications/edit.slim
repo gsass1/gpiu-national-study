@@ -1,9 +1,9 @@
-.container[data-controller="questionnaire"]
+.container.questionnaire[data-controller="questionnaire"]
   - unless study_active?
     .alert.alert-danger
       strong= t('application.not_editable_hint')
 
-  = simple_form_for(@patient_identification, method: :patch, wrapper: :horizontal_form) do |f|
+  = simple_form_for(@patient_identification, method: :patch) do |f|
     .form-inputs
       = f.error_notification
 

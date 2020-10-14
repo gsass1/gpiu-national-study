@@ -204,6 +204,7 @@ en:
             teaching: "Teaching hospital"
             district: "District hospital"
             other: "Other hospital (please specify)"
+          hospital_othertype: "Other type of hospital"
         3:
           title: "3. Description of the department of urology"
           department_beds: "Number of beds"
@@ -212,7 +213,43 @@ en:
           department_urinecultures: "Number of urine cultures from bed-department (for urological in-patients) per year (%{year})"
         4:
           title: "4. Description of urological in-patients on Study day"
+          1:
+            title: "Number of patients hospitalised on Study day by sex"
+            patient_male: "Number of males"
+            patient_female: "Number of females"
+          2:
+            title: "Age (both males and females)"
+            patient_category1: "15 and younger"
+            patient_category2: "16 to 60"
+            patient_category3: "60 or older"
+          3:
+            title: "Number of patients having undergone surgical procedures up to and including Study day"
+            patient_opensurgery: "Open surgery"
+            patient_endoscopic: "Endoscopic"
+            patient_laparoscopic: "Laparoscopic"
+            patient_prostaticbiopsy: "Prostatic biopsy"
+          4:
+            title: "Number of patients with urinary catheter on Study day (a patient can be reported to have more than one catheter)"
+            transurethral: "Transurethral"
+            patient_transurethral_closed: "Closed continuous drainage"
+            patient_transurethral_open: "Open (e.g. with a plug or flip valve)"
+            patient_intermittent: "Clean intermittent catheterisation"
+            patient_suprapubic: "Suprapubic"
+            patient_nephrostromy: "Nephrostromy"
+            patient_ureteral: "Ureteral stent"
+          5:
+            title: "Number of patients that are receiving antibiotics on Study day"
+            patient_provenuti: "For a microbiologically proven UTI"
+            patient_suspecteduti: "For a clinically suspected UTI without a microbiologically proven diagnosis"
+            patient_otherinfections: "For other infections"
+            patient_prophylaxis: "For prophylaxis"
         5:
           title: "5. Infection control program"
+          perioperative: "Do you have an approved (by hospital authorities) protocol for perioperative antibiotic prophylaxis?"
+          urinary: "Do you have an approved protocol for urinary catheter insertion and catheter care?"
+          nautireports: "Do you prepare annual reports on the number of NAUTI in the urology department?"
+          annual_reports: "Do you prepare annual reports on:"
+          pathogens: "pathogens causing NAUTI?"
+          resistance: "resistance patterns for the above?"
         6:
           title: "6. Antimicrobial prophylaxis"

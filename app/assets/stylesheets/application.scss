@@ -150,3 +150,31 @@ p {
 .form-check-label {
   color: #28a745 !important;
 }
+
+.questionnaire {
+  legend, label {
+    font-weight: bold;
+  }
+
+  .card {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .card-body {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  ol {
+    padding-left: 2em;
+    padding-right: 2em;
+    list-style-type: lower-roman;
+
+    ol {
+      list-style-type: lower-latin;
+    }
+  }
+
+  small {
+    font-size: 1rem;
+  }
+}
