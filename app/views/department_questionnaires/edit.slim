@@ -25,7 +25,7 @@
         ol
           li= f.input :hospital_beds, label: t('.sections.2.hospital_beds')
           li= f.input :hospital_type, as: :radio_buttons, collection: radio_button_collection('sections.2.hospital_types', :university, :teaching, :district, :other), label_method: :second, value_method: :first, required: true, input_html: { data: { action: "change->questionnaire#onTriggerChange", condition: "other", elem: "other-hospital-type-input" } }, label: t('.sections.2.hospital_type')
-          li#other-hospital-type-input[style="display: none"]= f.input :hospital_othertype
+          li#other-hospital-type-input= f.input :hospital_othertype
 
       = sub_section t('.sections.3.title')
         ol
