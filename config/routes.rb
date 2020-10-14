@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
   resources :hospitals do
     resources :departments, only: [:new, :create] do
-      resources :employees, only: [:create, :destroy]
+      resources :employees, only: [:create, :destroy] do
+        resources :department_questionnaires, only: [:edit, :update]
+      end
       resources :patients, only: [:new, :create]
     end
   end
