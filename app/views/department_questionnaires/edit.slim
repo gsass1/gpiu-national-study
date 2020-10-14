@@ -1,4 +1,8 @@
-.container.questionnaire[data-controller="questionnaire"]
+.container.questionnaire[data-controller="questionnaire department-questionnaire"]
+  h2= t('.title')
+  p.lead.text-muted= "#{@hospital.name} - #{@department.name}"
+  hr
+
   - unless study_active?
     .alert.alert-danger
       strong= t('application.not_editable_hint')
@@ -84,3 +88,106 @@
             ol
               li= f.input :pathogens, as: :radio_buttons, label: t('.sections.5.pathogens')
               li= f.input :resistance, as: :radio_buttons, label: t('.sections.5.resistance')
+      = sub_section t('.sections.6.title')
+        .font-weight-bold= t('.sections.6.question.start')
+        p= t('.sections.6.question.end')
+
+        - group_i = 0
+        - antimicrobial_prophylaxis_list.each do |key,list|
+          table.table.table_antibiotics.table-sm
+            thead
+              tr#antibiotics_head
+                th colspan='2'
+                  div: span
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.trimethoprim')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.co_trimoxazole')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.amoxycillin_or_ampicillin')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.amox_ampicillin_beta_lactamase_inhibitor')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.2nd_gen_cephalospoin')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.cefotaxime_ceftriaxon')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.ceftazidime')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.cefepime')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.imipenem_meropenem')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.fosfomycin_trometamol')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.nitrofurantoin')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.ciprofloxacin_ofloxacin')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.gentamycin')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.tobramycin')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.amikacin')
+                th.legenda_antibiotics
+                  div: span = t('department_questionnaires.antibiotics_table.label.others')
+                th
+              tr
+                th colspan='19' = key
+            tbody
+              ruby:
+              - list.each do |name|
+                - group_i += 1
+                tr
+                  td colspan='19': strong = name
+                tr
+                  td = t('department_questionnaires.antibiotics_table.label.not_relevant_for_our_department')
+                  td.a = f.radio_button "b_#{group_i}_99", 1, data: { antimicrobial_opposite: 0, antimicrobial_group: group_i, action: 'change->department-questionnaire#onAntimicrobialOppositeChanged' }
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td &nbsp;&nbsp;
+                tr
+                  td = t('department_questionnaires.antibiotics_table.label.not_routinely')
+                  td.a = f.radio_button "b_#{group_i}_0", 1, data: { antimicrobial_opposite: 99, antimicrobial_group: group_i, action: 'change->department-questionnaire#onAntimicrobialOppositeChanged' }, value: 1
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td.b
+                  td.a
+                  td &nbsp;&nbsp;
+                - yes_group = [t('department_questionnaires.antibiotics_table.label.yes_in_case_of_high_risk_of_infection'), t('department_questionnaires.antibiotics_table.label.yes_routinely')]
+                - yes_group.each_with_index do |value, index|
+                  tr
+                    td = value
+                    td.a
+                    - (1..16).each do |idx|
+                      td[class="#{["a", "b"][idx%2]}"]= f.radio_button "b_#{group_i}_#{idx}", index + 1, name: "department_questionnaire[b_#{group_i}_#{idx}]", data: { antimicrobial_controlled_by: group_i, action: "change->department-questionnaire#onAntimicrobialControlledByChanged" }
+                    td &nbsp;&nbsp;
+    - if study_active?
+      .form-actions
+        = f.button :submit, t('.submit'), class: 'btn btn-lg btn-outline-primary float-right'
