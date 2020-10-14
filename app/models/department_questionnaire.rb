@@ -19,7 +19,7 @@ class DepartmentQuestionnaire < ApplicationRecord
   with_options unless: :new_record? do |edit|
     # 2.
     edit.validates :hospital_beds, numericality: { greater_than_or_equal_to: 0}
-    #edit.validates :hospital_type, inclusion: { in: %w(university teaching district other), message: 'Please select' }
+    edit.validates :hospital_type, presence: true
     edit.validates :hospital_othertype, presence: true, if: Proc.new {|f| f.hospital_type == :other }
 
     # 3.
