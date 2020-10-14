@@ -1,7 +1,8 @@
 class CreateDepartmentQuestionnaires < ActiveRecord::Migration[6.0]
   def change
     create_table :department_questionnaires do |t|
-      t.belongs_to :department, index: true, foreign_key: true
+      t.references :department, nulll: false, foreign_key: true
+      t.references :study_iteration, null: false, foreign_key: true
 
       t.integer :state, default: 0
       t.datetime :discarded_at

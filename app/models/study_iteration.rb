@@ -13,6 +13,8 @@ class StudyIteration < ApplicationRecord
 
   scope :accepted, -> { where(:acceptance_state => :accepted) }
 
+  after_update :create_records_if_approved
+
   notify_with Proc.new { |f| { country_name: f.country.name } }
 
   # TODO(gian): this creates a lot of SQL queries I think. For production we need a fast SQL query
@@ -47,5 +49,11 @@ class StudyIteration < ApplicationRecord
   private
   def set_pending
     self.acceptance_state = 0
+  end
+
+  def create_records_if_approved
+    if self.acceptance_state_previously_changed? && self.accepted?
+      Department.includes(:hospital).where(hospitals: { country_id: self.country_id }).each(&:create_department_questionnaire)
+    end
   end
 end

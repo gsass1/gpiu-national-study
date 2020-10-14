@@ -1,8 +1,11 @@
 class DepartmentQuestionnaire < ApplicationRecord
   include Discard::Model
   include QuestionnaireStates
+  include StudyIterationScoped
 
   belongs_to :department
+  belongs_to :study_iteration
+
   has_many :patients, through: :department
   has_one :country, through: :department
 

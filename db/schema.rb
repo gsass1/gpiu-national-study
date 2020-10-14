@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
 
   create_table "department_questionnaires", force: :cascade do |t|
     t.integer "department_id"
+    t.integer "study_iteration_id", null: false
     t.integer "state", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
@@ -429,6 +430,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
     t.integer "b_20_15", limit: 1
     t.integer "b_20_16", limit: 1
     t.index ["department_id"], name: "index_department_questionnaires_on_department_id"
+    t.index ["study_iteration_id"], name: "index_department_questionnaires_on_study_iteration_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -589,6 +591,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
   end
 
   add_foreign_key "department_questionnaires", "departments"
+  add_foreign_key "department_questionnaires", "study_iterations"
   add_foreign_key "departments", "hospitals"
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "users"
