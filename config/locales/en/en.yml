@@ -30,6 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  errors:
+    format: "%{message}"
   application:
     no_active_si: 'You cannot perform this action while the study is not currently active for your country.'
     not_editable_hint: 'This form cannot be modified while the study is not currently active for your country. Please check the study calendar'
