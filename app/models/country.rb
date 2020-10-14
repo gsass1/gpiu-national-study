@@ -23,7 +23,7 @@ class Country < ApplicationRecord
 
   # TODO(gian): maybe cache this.
   def current_study_iteration
-    study_iterations.accepted.select { |si| si.active? }.first
+    study_iterations.accepted.select { |si| !si.passed? }.first
   end
 
   def next_or_current_study_iteration

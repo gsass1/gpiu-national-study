@@ -3,7 +3,7 @@ class PatientIdentificationsController < ApplicationController
   include ActiveStudyIteration
 
   load_and_authorize_resource
-  requires_active_study_iteration
+  requires_active_study_iteration only: [:update]
 
   add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
   add_breadcrumb I18n.t("patients.index.title"), :patients_path
