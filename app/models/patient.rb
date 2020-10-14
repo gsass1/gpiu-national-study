@@ -2,6 +2,7 @@ class Patient < ApplicationRecord
   include AdminResource
   include Discard::Model
   include QuestionnaireStates
+  include StudyIterationScoped
 
   belongs_to :department
   belongs_to :creator, class_name: 'User'
@@ -34,14 +35,6 @@ class Patient < ApplicationRecord
 
   scope :uti_ssi, -> { where(patient_type: :uti_ssi) }
   scope :prostate_biopsy, -> { where(patient_type: :prostate_biopsy) }
-
-  def self.within_study_iteration(study_iteration)
-    unless study_iteration.nil?
-      self.where(study_iteration_id: study_iteration.id)
-    else
-      []
-    end
-  end
 
   after_create :create_questionnaires
 
