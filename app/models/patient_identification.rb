@@ -2,6 +2,7 @@ class PatientIdentification < ApplicationRecord
   include AdminResource
   include Discard::Model
   include Questionnaire
+  include SaveWithErrors
 
   viewable_admin_table_fields :patient
   editable_admin_fields :patient
@@ -28,7 +29,7 @@ class PatientIdentification < ApplicationRecord
   private
   def admission_date_is_in_past 
     if self.admission_date > Date.today
-      errors.add(:admission_date, "cannot be in future.")
+      errors.add(:admission_date, "Patient cannot be admitted in the future")
     end
   end
 end

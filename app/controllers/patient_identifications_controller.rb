@@ -10,15 +10,18 @@ class PatientIdentificationsController < ApplicationController
 
   def edit
     add_breadcrumb I18n.t("patient_identifications.edit.title")
+    @patient_identification.valid?
   end
 
   def update
-    if @patient_identification.update_attributes(patient_identification_params)
+    add_breadcrumb I18n.t("patient_identifications.edit.title")
+    @patient_identification.update_attributes(patient_identification_params)
+    if @patient_identification.save_with_errors
       flash[:success] = "Updated patient identification form"
-      redirect_to patients_path
     else
-      render :edit
+      flash[:danger] = "Failed to update form"
     end
+    render :edit
   end
 
   private
