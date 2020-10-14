@@ -20,6 +20,8 @@ class Ability
       can [:create, :read, :update], Patient, creator_id: user.id
       can [:edit, :update], PatientIdentification, patient: { creator_id: user.id }
 
+      can [:edit, :update], DepartmentQuestionnaire, department: { users: { id: user.id } }
+
       # Regional admin abilities
       Country.all.each do |country|
         if user.has_role? :regional_admin, country

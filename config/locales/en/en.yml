@@ -120,6 +120,7 @@ en:
       title: 'Patients'
       no_departments: 'Please check into a department first before creating patients.'
       new_patient: 'New Patient'
+      open_department_questionnaire: 'Open Department Questionnaire'
       uti_ssi:
         title: 'Included UTI/SSI Patients'
         description: "This list contains all the UTI/SSI patients you have included so far. For every included patient, you will need to fill out a Patient Include form. Depending on the patient's condition indicated in this form, you will need to fill out a UTI-form and/or an SSI-form."
@@ -186,3 +187,32 @@ en:
         current_study_day: "Current active study day"
         study_day: "Upcoming"
         passed: "Passed"
+  department_questionnaires:
+    edit:
+      sections:
+        1: 
+          title: "1. Name and address of the hospital and department of urology"
+          hospital_name: "Hospital Name"
+          department_name: "Department Name"
+          hospital_address: "Postal Address"
+        2:
+          title: "2. Description of the hospital"
+          hospital_beds: "Total number of beds in the hospital (somatic patients only)"
+          hospital_type: "Type of Hospital"
+          hospital_types:
+            university: "University hospital"
+            teaching: "Teaching hospital"
+            district: "District hospital"
+            other: "Other hospital (please specify)"
+        3:
+          title: "3. Description of the department of urology"
+          department_beds: "Number of beds"
+          department_admissions: "Number of admissions in %{year}"
+          department_stay: "Average hospital stay"
+          department_urinecultures: "Number of urine cultures from bed-department (for urological in-patients) per year (%{year})"
+        4:
+          title: "4. Description of urological in-patients on Study day"
+        5:
+          title: "5. Infection control program"
+        6:
+          title: "6. Antimicrobial prophylaxis"

@@ -1,0 +1,35 @@
+.container[data-controller="questionnaire"]
+  - unless study_active?
+    .alert.alert-danger
+      strong= t('application.not_editable_hint')
+
+  = simple_form_for(@department_questionnaire, method: :patch, wrapper: :horizontal_form, url: hospital_department_department_questionnaire_path(@department_questionnaire.department.hospital, @department_questionnaire.department, @department_questionnaire)) do |f|
+    .form-inputs
+      = f.error_notification
+
+      = sub_section t('.sections.1.title')
+        ol
+          li
+            .font-weight-bold= t('.sections.1.hospital_name')
+            = @hospital.name
+          li
+            .font-weight-bold= t('.sections.1.department_name')
+            = @department.name
+          li
+            .font-weight-bold= t('.sections.1.hospital_address')
+            div= @hospital.address.street
+            div= "#{@hospital.address.zip_code} #{@hospital.address.city}"
+            div= @hospital.country.name
+
+      = sub_section t('.sections.2.title')
+        ol
+          li= f.input :hospital_beds, label: t('.sections.2.hospital_beds')
+          li= f.input :hospital_type, as: :radio_buttons, collection: radio_button_collection('sections.2.hospital_types', :university, :teaching, :district, :other), label_method: :second, value_method: :first, required: true, input_html: { data: { action: "change->questionnaire#onTriggerChange", condition: "other", elem: "other-hospital-type-input" } }, label: t('.sections.2.hospital_type')
+          li#other-hospital-type-input[style="display: none"]= f.input :hospital_othertype
+
+      = sub_section t('.sections.3.title')
+        ol
+          li= f.input :department_beds, label: t('.sections.3.department_beds')
+          li= f.input :department_admissions, label: t('.sections.3.department_admissions', year: Date.today.year)
+          li= f.input :department_stay, label: t('.sections.3.department_stay')
+          li= f.input :department_urinecultures, label: t('.sections.3.department_urinecultures', year: Date.today.year)
