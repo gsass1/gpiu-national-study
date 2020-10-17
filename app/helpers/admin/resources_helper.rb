@@ -53,9 +53,11 @@ module Admin::ResourcesHelper
   def resource_custom_actions(resource, resource_class)
     actions = resource.send(resource_class.admin_custom_actions_proc)
 
-    content_tag :div do
-      actions.collect do |action|
-        concat(link_to action[:name], send(*action[:route]), class: "btn btn-#{action[:color].nil? ? "primary" : action[:color]}")
+    unless actions.nil?
+      content_tag :div do
+        actions.collect do |action|
+          concat(link_to action[:name], send(*action[:route]), class: "btn btn-#{action[:color].nil? ? "primary" : action[:color]}")
+        end
       end
     end
   end
