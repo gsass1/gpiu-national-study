@@ -66,11 +66,11 @@ module Admin::ResourcesHelper
     @prefix == 'admin'
   end
 
-  def resource_page_path(p, order = @order, sort = @sort)
+  def resource_page_path(p, order = @order, sort = @sort, per = @per.to_s)
     if admin_controller?
-      "/admin/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{@per}&order=#{order}&sort=#{sort}"
+      "/admin/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{per.downcase}&order=#{order}&sort=#{sort}"
     else
-      "/regional_admin/#{@country.iso_2}/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{@per}&order=#{order}&sort=#{sort}"
+      "/regional_admin/#{@country.iso_2}/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{per.downcase}&order=#{order}&sort=#{sort}"
     end
   end
 

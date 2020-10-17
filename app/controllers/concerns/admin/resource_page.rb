@@ -177,9 +177,14 @@ module Admin::ResourcePage
       end
     end
 
-    p @p
-    p @total_pages
+    @total_count = @resources.count
 
-    @resources = @resources.offset((@p-1)*@per).limit(@per)
+    unless params[:per] == 'all'
+      @resources = @resources.offset((@p-1)*@per).limit(@per)
+    else
+      @p = 1
+      @total_pages = 1
+      @per = 'all'
+    end
   end
 end
