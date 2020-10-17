@@ -3,4 +3,9 @@
   hr
 
   = render "shared/admin/resource_table"
-  = render "shared/admin/pagination"
+
+  hr
+
+  span
+    = render "shared/admin/pagination"
+    .float-right= "Displaying #{@resource_class.name.pluralize} <b>#{(@p-1)*@per+1} - #{(@p*@per)+1}</b>".html_safe

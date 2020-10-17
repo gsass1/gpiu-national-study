@@ -165,15 +165,20 @@ module Admin::ResourcePage
 
     @resources = resource_class.accessible_by(current_ability).includes(resource_associations).order("#{@sort} #{@order}")
 
-    @total_pages = (@resources.count / @per).ceil
+    @total_pages = (@resources.count / @per.to_f).ceil
 
     if params[:deleted]
-      @resources = @resources.discarded
+      if @resources.try(:discarded)
+        @resources = @resources.discarded
+      end
     else
       if @resources.try(:kept)
         @resources = @resources.kept
       end
     end
+
+    p @p
+    p @total_pages
 
     @resources = @resources.offset((@p-1)*@per).limit(@per)
   end

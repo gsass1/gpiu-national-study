@@ -66,11 +66,27 @@ module Admin::ResourcesHelper
     @prefix == 'admin'
   end
 
-  def resource_page_path(p)
+  def resource_page_path(p, order = @order, sort = @sort)
     if admin_controller?
-      "/admin/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{@per}&order=#{@order}&sort=#{@sort}"
+      "/admin/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{@per}&order=#{order}&sort=#{sort}"
     else
-      "/regional_admin/#{@country.iso_2}/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{@per}&order=#{@order}&sort=#{@sort}"
+      "/regional_admin/#{@country.iso_2}/#{@resource_class.name.underscore.downcase.pluralize}/?page=#{p}&per=#{@per}&order=#{order}&sort=#{sort}"
+    end
+  end
+
+  def can_sort_by_field?(field)
+    @resource_class.column_names.include? field.to_s
+  end
+
+  def resource_table_header_link(field)
+    if @sort == field.to_s
+      if @order == "asc"
+        resource_page_path @p, "desc", @sort
+      else
+        resource_page_path @p, "asc", @sort
+      end
+    else
+      resource_page_path @p, "asc", field
     end
   end
 end

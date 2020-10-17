@@ -1,8 +1,15 @@
 table.table.table-bordered.table-striped
   tr.bg-primary.text-light
-    th ID
-    - @resource_class.admin_table_fields.each do |field|
-      th= @resource_class.human_attribute_name field
+    - ([:id] + @resource_class.admin_table_fields).each do |field|
+      th
+        - if can_sort_by_field?(field)
+          = link_to resource_table_header_link(field), class: "admin-resource-table-header-link" do
+            .d-flex
+              = @resource_class.human_attribute_name(field)
+              i.material-icons sort
+
+        - else
+          = @resource_class.human_attribute_name(field)
     th Actions
   - @resources.each do |resource|
     tr
