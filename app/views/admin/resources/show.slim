@@ -13,7 +13,7 @@
             td= resource_field_value(@resource, field)
         - @resource_class.admin_associations.each do |assoc_field|
           tr
-            th= "#{assoc_field.to_s.capitalize} (#{@resource.send(assoc_field).count})"
+            th= "#{assoc_field.to_s.split('_').map(&:capitalize).join(' ')} (#{@resource.send(assoc_field).count})"
             td
               ul
                 - @resource.send(assoc_field).each do |assoc|

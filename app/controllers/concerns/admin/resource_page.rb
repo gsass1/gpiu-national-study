@@ -152,6 +152,6 @@ module Admin::ResourcePage
 
   def add_breadcrumbs
     add_breadcrumb "Admin", dashboard_path
-    add_breadcrumb resource_name.capitalize, "/#{@link_prefix}/#{@resource_name}"
+    add_breadcrumb resource_name.split('_').map(&:capitalize).join(' '), "/#{@link_prefix}/#{@resource_name}"
   end
 end

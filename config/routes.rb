@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :patient_identifications
     resources :countries
     resources :departments
+    resources :department_questionnaires
     resources :study_iterations, only: [:index, :show] do
       post :approve
       post :reject

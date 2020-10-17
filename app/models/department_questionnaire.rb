@@ -1,4 +1,5 @@
 class DepartmentQuestionnaire < ApplicationRecord
+  include AdminResource
   include Discard::Model
   include QuestionnaireStates
   include SaveWithErrors
@@ -13,8 +14,19 @@ class DepartmentQuestionnaire < ApplicationRecord
   questionnaire_state :state
   enum hospital_type: [:university, :teaching, :district, :other]
 
-  before_update :set_state
+  viewable_admin_table_fields :department, :study_iteration, :state
+  editable_admin_fields :department, :study_iteration, :state
+  admin_custom_actions :admin_actions
 
+  def admin_actions
+    [{
+      name: "Open Questionnaire",
+      color: :success,
+      route: [:edit_hospital_department_department_questionnaire_path, self.department.hospital, self.department, self]
+    }]
+  end
+
+  before_update :set_state
 
   with_options unless: :new_record? do |edit|
     # 2.
@@ -55,6 +67,10 @@ class DepartmentQuestionnaire < ApplicationRecord
     edit.validates :nautireports, inclusion: { in: [true, false], message: 'Please select' }
     edit.validates :pathogens, inclusion: { in: [true, false], message: 'Please select' }
     edit.validates :resistance, inclusion: { in: [true, false], message: 'Please select' }
+  end
+
+  def to_s
+    "DQ #{self.department}-#{self.study_iteration.name}"
   end
 
   private
