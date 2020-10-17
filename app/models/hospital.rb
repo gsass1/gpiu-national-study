@@ -11,8 +11,6 @@ class Hospital < ApplicationRecord
 
   validates :name, presence: true
 
-  default_scope { order(name: :desc) }
-
   # NOTE(gian): this gets assigned by the 'new hospital' form. This is a bit
   # more elegant than having the controller do everything
   attr_accessor :first_department_name

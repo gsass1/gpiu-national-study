@@ -37,14 +37,7 @@ module Admin::ResourcePage
   end
 
   def index
-    @resources = resource_class.accessible_by(current_ability).includes(resource_associations)
-    if params[:deleted]
-      @resources = @resources.discarded
-    else
-      if @resources.try(:kept)
-        @resources = @resources.kept
-      end
-    end
+    resource_query
     respond_to do |format|
       format.html { render template: "admin/resources/index" }
     end
@@ -52,6 +45,7 @@ module Admin::ResourcePage
 
   def show
     resource_associations
+    resource_class
     link_prefix
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
     add_breadcrumb @resource, "/#{@link_prefix}/#{@resource_name}/#{@resource.id}"
@@ -153,5 +147,34 @@ module Admin::ResourcePage
   def add_breadcrumbs
     add_breadcrumb "Admin", dashboard_path
     add_breadcrumb resource_name.split('_').map(&:capitalize).join(' '), "/#{@link_prefix}/#{@resource_name}"
+  end
+
+  def resource_query
+    @p = params[:page].to_i || 1
+    if @p <= 0
+      @p = 1
+    end
+
+    @order = params[:order] || 'asc'
+    @sort = params[:sort] || 'id'
+    @per = params[:per].to_i || 10
+
+    if @per <= 0
+      @per = 10
+    end
+
+    @resources = resource_class.accessible_by(current_ability).includes(resource_associations).order("#{@sort} #{@order}")
+
+    @total_pages = (@resources.count / @per).ceil
+
+    if params[:deleted]
+      @resources = @resources.discarded
+    else
+      if @resources.try(:kept)
+        @resources = @resources.kept
+      end
+    end
+
+    @resources = @resources.offset((@p-1)*@per).limit(@per)
   end
 end
