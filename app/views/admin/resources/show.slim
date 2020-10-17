@@ -9,8 +9,8 @@
           td= @resource.id
         - @resource_class.admin_form_fields.each do |field|
           tr
-            th= @resource_class.human_attribute_name field
-            td= resource_field_value(@resource, field)
+            th[style="width: 20%;"]= @resource_class.human_attribute_name field
+            td[style="width: 80%;"]= resource_field_value(@resource, field)
         - @resource_class.admin_associations.each do |assoc_field|
           tr
             th= "#{assoc_field.to_s.split('_').map(&:capitalize).join(' ')} (#{@resource.send(assoc_field).count})"
