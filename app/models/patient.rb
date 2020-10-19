@@ -11,11 +11,16 @@ class Patient < ApplicationRecord
   enum patient_type: [:uti_ssi, :prostate_biopsy]
 
   has_one :patient_identification, inverse_of: :patient, dependent: :destroy
+  has_one :uti_questionnaire, inverse_of: :patient, dependent: :destroy
+  has_one :ssi_questionnaire, inverse_of: :patient, dependent: :destroy
+  has_one :biopsy_questionnaire, inverse_of: :patient, dependent: :destroy
+  has_one :biopsy_outcome_questionnaire, inverse_of: :patient, dependent: :destroy
+
   questionnaire_state :identification_state
   questionnaire_state :uti_state
   questionnaire_state :ssi_state
-  questionnaire_state :prostate_biopsy_state
-  questionnaire_state :prostate_biopsy_outcome_state
+  questionnaire_state :biopsy_state
+  questionnaire_state :biopsy_outcome_state
 
   viewable_admin_table_fields :initial, :creator, :study_iteration, :department, :patient_type, :identification_state, :uti_state, :ssi_state, :prostate_biopsy_state, :prostate_biopsy_outcome_state
   editable_admin_fields :initial, :creator, :study_iteration, :patient_type
@@ -55,5 +60,9 @@ class Patient < ApplicationRecord
   private
   def create_questionnaires
     self.create_patient_identification
+    self.create_ssi_questionnaire
+    self.create_uti_questionnaire
+    self.create_biopsy_questionnaire
+    self.create_biopsy_outcome_questionnaire
   end
 end

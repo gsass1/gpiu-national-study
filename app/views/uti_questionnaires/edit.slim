@@ -1,0 +1,19 @@
+.container.questionnaire[data-controller="questionnaire"]
+  - unless study_active?
+    .alert.alert-danger
+      strong= t('application.not_editable_hint')
+
+  = simple_form_for(@uti_questionnaire, method: :patch, url: patient_uti_questionnaire_path(@uti_questionnaire.patient, @uti_questionnaire)) do |f|
+    .form-inputs
+      = f.error_notification
+
+    .card.mb-3
+      .card-header.bg-primary.text-light
+        strong= t('.title')
+      .card-body
+        ol
+          li= f.input :test
+
+    - if study_active?
+      .form-actions
+        = f.button :submit, t('.submit'), class: 'btn btn-lg btn-outline-primary float-right'

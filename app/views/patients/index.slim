@@ -35,12 +35,12 @@
                 td= link_to t('.uti_ssi.table.open_include_form'), edit_patient_identification_path(patient, patient.patient_identification), class: "btn btn-sm btn-success"
                 td
                   - if patient.uti_form_needed?
-                    = link_to t('.uti_ssi.table.open_uti_form'), '#', class: "btn btn-sm btn-success"
+                    = link_to t('.uti_ssi.table.open_uti_form'), edit_patient_uti_questionnaire_path(patient, patient.uti_questionnaire), class: "btn btn-sm btn-success"
                   - else
                     .text-muted= t('.uti_ssi.table.form_not_needed')
                 td
                   - if patient.ssi_form_needed?
-                    = link_to t('.uti_ssi.table.open_ssi_form'), '#', class: "btn btn-sm btn-success"
+                    = link_to t('.uti_ssi.table.open_ssi_form'), edit_patient_ssi_questionnaire_path(patient, patient.ssi_questionnaire), class: "btn btn-sm btn-success"
                   - else
                     .text-muted= t('.uti_ssi.table.form_not_needed')
   - else
@@ -69,8 +69,8 @@
               tr
                 td= patient.id
                 td= patient.initial
-                td= link_to t('.open_biopsy_form'), '#', class: "btn btn-sm btn-success"
-                td= link_to t('.open_biopsy_outcome_form'), '#', class: "btn btn-sm btn-success"
+                td= link_to t('.open_biopsy_form'), edit_patient_biopsy_questionnaire_path(patient, patient.biopsy_questionnaire), class: "btn btn-sm btn-success"
+                td= link_to t('.open_biopsy_outcome_form'), edit_patient_biopsy_outcome_questionnaire_path(patient, patient.biopsy_outcome_questionnaire), class: "btn btn-sm btn-success"
 
   - else
     .alert.alert-danger

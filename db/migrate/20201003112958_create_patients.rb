@@ -10,8 +10,8 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.integer :identification_state, default: 0
       t.integer :uti_state, default: 0
       t.integer :ssi_state, default: 0
-      t.integer :prostate_biopsy_state, default: 0
-      t.integer :prostate_biopsy_outcome_state, default: 0
+      t.integer :biopsy_state, default: 0
+      t.integer :biopsy_outcome_state, default: 0
 
       t.timestamps
     end

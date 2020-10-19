@@ -48,6 +48,10 @@ Rails.application.routes.draw do
 
   resources :patients, only: [:index] do
     resources :patient_identifications, only: [:edit, :update], path: :identifications, as: :identifications
+      resources :uti_questionnaires, only: [:edit, :update]
+      resources :ssi_questionnaires, only: [:edit, :update]
+      resources :biopsy_questionnaires, only: [:edit, :update]
+      resources :biopsy_outcome_questionnaires, only: [:edit, :update]
   end
 
   get '/about' => 'site#about'

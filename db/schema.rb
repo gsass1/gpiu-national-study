@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_121957) do
+ActiveRecord::Schema.define(version: 2020_10_19_171253) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -20,6 +20,24 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["discarded_at"], name: "index_addresses_on_discarded_at"
+  end
+
+  create_table "biopsy_outcome_questionnaires", force: :cascade do |t|
+    t.integer "patient_id", null: false
+    t.integer "test"
+    t.datetime "discarded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_biopsy_outcome_questionnaires_on_patient_id"
+  end
+
+  create_table "biopsy_questionnaires", force: :cascade do |t|
+    t.integer "patient_id", null: false
+    t.integer "test"
+    t.datetime "discarded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_biopsy_questionnaires_on_patient_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -500,8 +518,8 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
     t.integer "identification_state", default: 0
     t.integer "uti_state", default: 0
     t.integer "ssi_state", default: 0
-    t.integer "prostate_biopsy_state", default: 0
-    t.integer "prostate_biopsy_outcome_state", default: 0
+    t.integer "biopsy_state", default: 0
+    t.integer "biopsy_outcome_state", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_patients_on_creator_id"
@@ -518,6 +536,15 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "ssi_questionnaires", force: :cascade do |t|
+    t.integer "patient_id", null: false
+    t.integer "test"
+    t.datetime "discarded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_ssi_questionnaires_on_patient_id"
   end
 
   create_table "study_iterations", force: :cascade do |t|
@@ -590,6 +617,17 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "uti_questionnaires", force: :cascade do |t|
+    t.integer "patient_id", null: false
+    t.integer "test"
+    t.datetime "discarded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_uti_questionnaires_on_patient_id"
+  end
+
+  add_foreign_key "biopsy_outcome_questionnaires", "patients"
+  add_foreign_key "biopsy_questionnaires", "patients"
   add_foreign_key "department_questionnaires", "departments"
   add_foreign_key "department_questionnaires", "study_iterations"
   add_foreign_key "departments", "hospitals"
@@ -601,7 +639,9 @@ ActiveRecord::Schema.define(version: 2020_10_14_121957) do
   add_foreign_key "patients", "departments"
   add_foreign_key "patients", "study_iterations"
   add_foreign_key "patients", "users", column: "creator_id"
+  add_foreign_key "ssi_questionnaires", "patients"
   add_foreign_key "study_iterations", "countries"
   add_foreign_key "study_ranges", "study_iterations"
   add_foreign_key "support_requests", "users"
+  add_foreign_key "uti_questionnaires", "patients"
 end

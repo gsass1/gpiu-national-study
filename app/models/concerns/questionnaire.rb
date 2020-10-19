@@ -20,7 +20,7 @@ module Questionnaire
 
   # Updates the state of this questionnaire in the patient
   def set_state_in_patient!
-    name = "#{self.class.name.gsub('Patient', '').underscore}_state".to_sym
+    name = "#{self.class.name.gsub('Patient', '').gsub('Questionnaire', '').underscore}_state".to_sym
     self.patient.update_attribute(name, self.state)
   end
 end

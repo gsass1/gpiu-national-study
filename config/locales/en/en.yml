@@ -308,3 +308,22 @@ en:
         lymph_node_dissection: "Lymph node dissection"
         prostatectomy: "Prostatectomy"
         cystectomy_with_bladder_replacement: "Cystectomy with bladder replacement"
+
+  uti_questionnaires:
+    edit:
+      title: "Edit UTI Form"
+      submit: "Submit"
+
+  ssi_questionnaires:
+    edit:
+      title: "Edit SSI Form"
+      submit: "Submit"
+
+  biopsy_questionnaires:
+    edit:
+      title: "Edit Biopsy Form"
+      submit: "Submit"
+  biopsy_outcome_questionnaires:
+    edit:
+      title: "Edit Biopsy Outcome Form"
+      submit: "Submit"
