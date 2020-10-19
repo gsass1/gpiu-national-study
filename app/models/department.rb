@@ -1,5 +1,6 @@
 class Department < ApplicationRecord
   include AdminResource
+  include CsvCollection
 
   belongs_to :hospital
   has_many :department_questionnaires
