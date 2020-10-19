@@ -10,14 +10,20 @@ table.table.table-bordered.table-striped
 
         - else
           = @resource_class.human_attribute_name(field)
-    th Actions
+    th
+      = "Actions"
+      - if can_be_exported?(@resource_class)
+        .float-right
+          = link_to "Export All", resource_index_path(@resource_class) + ".csv", class: "btn btn-sm btn-info"
   - @resources.each do |resource|
     tr
       td= resource.id
       - @resource_class.admin_table_fields.each do |field|
         td= resource_field_value(resource, field)
       td
-        .btn-group
+        .float-right.btn-group
+          - if can_be_exported?(@resource_class)
+            = link_to "Export", resource_action_path(resource) + ".csv", class: "btn btn-sm btn-info"
           = link_to "Show", resource_action_path(resource), class: "btn btn-sm btn-primary"
           = link_to "Edit", resource_action_path(resource, :edit), class: "btn btn-sm btn-secondary"
           - unless resource.try(:discarded?).nil?

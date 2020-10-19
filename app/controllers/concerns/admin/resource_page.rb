@@ -40,6 +40,10 @@ module Admin::ResourcePage
     resource_query
     respond_to do |format|
       format.html { render template: "admin/resources/index" }
+      format.csv {
+        csv_data = resource_class.as_csv_collection(resource_class.accessible_by(current_ability).includes(resource_associations))
+        send_data csv_data, filename: resource_name.pluralize + ".csv"
+      }
     end
   end
 
@@ -51,6 +55,10 @@ module Admin::ResourcePage
     add_breadcrumb @resource, "/#{@link_prefix}/#{@resource_name}/#{@resource.id}"
     respond_to do |format|
       format.html { render template: "admin/resources/show" }
+      format.csv {
+        csv_data = resource_class.as_csv_collection([@resource])
+        send_data csv_data, filename: @resource.to_s + ".csv"
+      }
     end
   end
 

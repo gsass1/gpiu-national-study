@@ -17,6 +17,14 @@ module Admin::ResourcesHelper
     end
   end
 
+  def resource_index_path(resource_class)
+    if admin_controller?
+      send("admin_#{resource_class.name.pluralize.underscore.downcase}_path")
+    else
+      send("regional_admin_country_#{resource_class.name.pluralize.underscore.downcase}_path", @country.iso_2id)
+    end
+  end
+
   def resource_form_input(f, field)
     if @resource_associations.include?(field)
       assoc = @resource.send(field)
@@ -88,5 +96,9 @@ module Admin::ResourcesHelper
     else
       resource_page_path @p, "asc", field
     end
+  end
+
+  def can_be_exported?(clazz)
+    clazz.included_modules.include?(CsvCollection)
   end
 end
