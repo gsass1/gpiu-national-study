@@ -1,3 +1,5 @@
+require 'csv'
+
 class Csv::Writer
   def initialize
     @column_names = []
@@ -22,15 +24,23 @@ class Csv::Writer
   end
 
   def to_s
-    s = ""
+    # s = ""
 
-    # Column headers
-    s += @column_names.join(",") + "\n"
+    # # Column headers
+    # s += @column_names.join(",") + "\n"
 
-    @rows.each do |row|
-      s += @column_names.map { |column_name| row.dig(column_name) }.map { |val| val.nil? ? "" : val  }.join(",") + "\n"
+    # @rows.each do |row|
+    #   s += @column_names.map { |column_name| row.dig(column_name) }.map { |val| val.nil? ? "" : val  }.join(",") + "\n"
+    # end
+
+    # s
+    
+    CSV.generate do |csv|
+      csv << @column_names
+
+      @rows.each do |row|
+        csv << @column_names.map { |column_name| row.dig(column_name) }
+      end
     end
-
-    s
   end
 end

@@ -36,12 +36,7 @@ class Department < ApplicationRecord
 
   # TODO: create department_questionnaires when a study iteration is approvd
   def current_department_questionnaire
-    study_iteration = self.hospital.country.current_study_iteration
-    unless study_iteration.nil?
-      @current_department_questionnaire ||= self.department_questionnaires.within_study_iteration(study_iteration).first
-    else
-      nil
-    end
+    @current_department_questionnaire ||= load_current_department_questionnaire
   end
 
   def create_department_questionnaire
@@ -50,6 +45,16 @@ class Department < ApplicationRecord
       if current_department_questionnaire.nil?
         self.department_questionnaires.create study_iteration_id: study_iteration.id
       end
+    end
+  end
+
+  private
+  def load_current_department_questionnaire
+    study_iteration = self.hospital.country.current_study_iteration
+    unless study_iteration.nil?
+      self.department_questionnaires.within_study_iteration(study_iteration).first
+    else
+      nil
     end
   end
 end
