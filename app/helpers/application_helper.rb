@@ -66,4 +66,19 @@ module ApplicationHelper
   def next_or_current_study_iteration
     @next_or_current_study_iteration
   end
+
+  def sub_section(name, &block)
+    content_tag :div, class: 'card mb-3' do
+      (content_tag :div, class: "card-header bg-primary text-light" do
+        content_tag :strong, name
+      end) +
+      (content_tag :div, class: "card-body" do
+        yield
+      end)
+    end
+  end
+
+  def form_trigger(elem, condition)
+    { data: { action: "change->questionnaire#onTriggerChange", condition: condition, elem: elem } }
+  end
 end

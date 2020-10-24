@@ -2,7 +2,11 @@ class UtiQuestionnairesController < ApplicationController
   include Authenticated
   include ActiveStudyIteration
 
+  before_action :load_patient, :load_uti_questionnaire
+
   load_and_authorize_resource
+  skip_load_resource
+
   requires_active_study_iteration only: [:update]
 
   add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
@@ -25,6 +29,14 @@ class UtiQuestionnairesController < ApplicationController
   end
 
   private
+  def load_patient
+    @patient = Patient.find(params[:patient_id])
+  end
+
+  def load_uti_questionnaire
+    @uti_questionnaire = UtiQuestionnaire.find_by(id: params[:id], patient_id: @patient.id, form_type: :uti)
+  end
+
   def uti_questionnaire_params
     params.require(:uti_questionnaire).permit(:test)
   end

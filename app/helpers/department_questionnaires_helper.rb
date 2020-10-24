@@ -1,15 +1,4 @@
 module DepartmentQuestionnairesHelper
-  def sub_section(name, &block)
-    content_tag :div, class: 'card mb-3' do
-      (content_tag :div, class: "card-header bg-primary text-light" do
-        content_tag :strong, name
-      end) +
-      (content_tag :div, class: "card-body" do
-        yield
-      end)
-    end
-  end
-
   def antimicrobial_prophylaxis_list
     {
       I18n.t('department_questionnaires.antibiotics_table.label.diagnostic_procedures') =>

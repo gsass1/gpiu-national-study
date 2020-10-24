@@ -169,8 +169,15 @@ p {
     padding-right: 2em;
     list-style-type: lower-roman;
 
+    > li > ol > li {
+      fieldset {
+        margin-bottom: 0;
+      }
+    }
+
     ol {
       list-style-type: lower-latin;
+      margin-bottom: 1em;
     }
   }
 

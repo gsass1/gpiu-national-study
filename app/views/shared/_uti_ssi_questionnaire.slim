@@ -1,0 +1,34 @@
+= sub_section t(".subsections.2.#{questionnaire.form_type}")
+  ol
+    li= f.input :previous, as: :radio_buttons, label: t(".previous.question.#{questionnaire.form_type}")
+
+    li= f.input :tractobstruction, as: :radio_buttons, label: t(".tractobstruction.question"), input_html: form_trigger("tractobstruction_question", "true")
+
+    ol#tractobstruction_question
+      li= f.input :tractobjstructionspecify, label: t('.tractobjstructionspeficy.question'), help: t('.tractobjstructionspeficy.help')
+
+    li
+      .font-weight-bold= t('.urinarystones.question')
+      ol
+        li= f.input :urinarystones_calyceal, label: t('.urinarystones.answers.calyceal')
+        li= f.input :urinarystones_renalpelvic, label: t('.urinarystones.answers.renalpelvic')
+        li= f.input :urinarystones_ureteral, label: t('.urinarystones.answers.ureteral')
+        li= f.input :urinarystones_bladder, label: t('.urinarystones.answers.bladder')
+
+    li= f.input :treatment, as: :radio_buttons, label: t('.treatment.question'), input_html: form_trigger("treatment_questions", "true")
+
+    ol#treatment_questions
+      li= f.input :treatmentspecify, label: t('.treatmentspeficy.question'), help: t('.treatmentspeficy.help')
+
+    li= f.input :hospitalisation, as: :radio_buttons, label: t('.hospitalisation.question')
+
+    li
+      .font-weight-bold= t(".catheter.question.#{questionnaire.form_type}")
+      ol
+        li= f.input :catheter_urethral,      label: t('.catheter.answers.urethral')
+        li= f.input :catheter_suprapubic,    label: t('.catheter.answers.suprapubic')
+        li= f.input :catheter_ureteralstent, label: t('.catheter.answers.ureteralstent')
+        li= f.input :catheter_nephrostomy,   label: t('.catheter.answers.nephrostomy')
+        li= f.input :catheter_others,        label: t('.catheter.answers.others')
+
+    li= f.input :catheterduration, label: t(".catheterduration.question.#{questionnaire.form_type.downcase}"), append: t('.catheterduration.append'), hint: t('.catheterduration.help')
