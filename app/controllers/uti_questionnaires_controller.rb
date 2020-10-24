@@ -34,7 +34,7 @@ class UtiQuestionnairesController < ApplicationController
   end
 
   def load_uti_questionnaire
-    @uti_questionnaire = UtiQuestionnaire.find_by(id: params[:id], patient_id: @patient.id, form_type: :uti)
+    @uti_questionnaire = UtiQuestionnaire.find_by(id: params[:id], patient_id: @patient.id)
   end
 
   def uti_questionnaire_params

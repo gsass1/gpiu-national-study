@@ -7,12 +7,7 @@
     .form-inputs
       = f.error_notification
 
-    .card.mb-3
-      .card-header.bg-primary.text-light
-        strong= t('.title')
-      .card-body
-        ol
-          li= f.input :test
+    = render 'shared/uti_ssi_questionnaire', f: f, questionnaire: @ssi_questionnaire
 
     - if study_active?
       .form-actions

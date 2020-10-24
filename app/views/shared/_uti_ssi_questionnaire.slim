@@ -51,3 +51,81 @@
 
     li= f.input :intervention_others, as: :radio_buttons, label: t('.intervention_others.quesion'), collection: [["ESWL", t('.intervention_others.answers')]], label_method: :second, value_method: :first
     li= f.input :intervention_contamination, as: :radio_buttons, label: t(".intervention_contamination.question.#{questionnaire.form_type.downcase}"), collection: radio_button_collection("intervention_contamination.answers", 'clean', 'cleancontaminated', 'cleancontaminatedbowel', 'contaminated', 'infected', 'nointervention'), label_method: :second, value_method: :first
+
+= sub_section t(".subsections.4.#{questionnaire.form_type.downcase}")
+  ol
+    li= f.input :diagnosedate, label: t(".diagnosedate.question.#{questionnaire.form_type.downcase}")
+    - if questionnaire.uti?
+      li= f.input :clinicaldiagnosis, as: :radio_buttons, label: t('.clinicaldiagnosis.quesion'), collection: radio_button_collection("clinicaldiagnosis.answers.uti", 'cystitis', 'pyelonephritis_moderate', 'pyelonephritis_severe', 'urosepsissimple', 'urosepsissevere', 'urosepsisshock', 'other'), label_method: :second, value_method: :first, input_html: form_trigger("clinicaldiagnosis_question", "other")
+    - elsif questionnaire.ssi?
+      li= f.input :clinicaldiagnosis, as: :radio_buttons, label: t('.clinicaldiagnosis.quesion'), collection: radio_button_collection("clinicaldiagnosis.answers.ssi", 'urosepsissimple', 'urosepsissevere', 'urosepsisshock', 'pyelonephritis_moderate', 'pyelonephritis_severe', 'cystitis', 'asymptomatic', 'epididymoorchitis', 'prostatitis', 'other'), label_method: :second, value_method: :first, input_html: form_trigger("clinicaldiagnosis_question", "other")
+
+    ol#clinicaldiagnosis_question
+      li= f.input :clinicaldiagnosisspecify, label: t('.clinicaldiagnosisspecify.quesion'), hint: t('.clinicaldiagnosisspecify.help')
+
+    li
+      - if questionnaire.uti?
+        p.question= t('.cdc.question.uti')
+        ol
+          li= f.input :symptomaticutiandbacteriuria, label: t('.symptomaticutiandbacteriuria.answers')
+          li= f.input :symptomaticutiandother, label: t('.symptomaticutiandother.answers')
+          li= f.input :asymptomaticbactcath, label: t('.asymptomaticbactcath.answers')
+          li= f.input :asymptomaticbactnocath, label: t('.asymptomaticbactnocath.answers')
+          li= f.input :otheruti, label: t('.otheruti.answers')
+      - elsif questionnaire.ssi?
+        p.question= t('.cdc.question.ssi')
+        ol
+          li= f.input :superficialssi, label: t('.superficialssi.answers')
+          li= f.input :deepssi, label: t('.deepssi.answers')
+          li= f.input :organssi, label: t('.organssi.answers')
+
+
+  / ol
+  /   li = f.date_select :diagnosedate, label: t(".diagnosedate.question.#{form_type.downcase}")
+  /   li = f.form_group :clinicaldiagnosis, label: { text: t('.clinicaldiagnosis.quesion')}
+  /     ol
+  /       - if form_type == 'uti'
+  /         li = f.radio_button :clinicaldiagnosis, 'cystitis',                label: t('.clinicaldiagnosis.answers.uti.cystitis'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_moderate', label: t('.clinicaldiagnosis.answers.uti.pyelonephritis_moderate'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_severe',   label: t('.clinicaldiagnosis.answers.uti.pyelonephritis_severe'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissimple',         label: t('.clinicaldiagnosis.answers.uti.urosepsissimple'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissevere',         label: t('.clinicaldiagnosis.answers.uti.urosepsissevere'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'urosepsisshock',          label: t('.clinicaldiagnosis.answers.uti.urosepsisshock'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /       - elsif form_type == 'ssi'
+  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissimple', label: t('.clinicaldiagnosis.answers.ssi.urosepsissimple'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissevere', label: t('.clinicaldiagnosis.answers.ssi.urosepsissevere'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'urosepsisshock', label: t('.clinicaldiagnosis.answers.ssi.urosepsisshock'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_moderate', label: t('.clinicaldiagnosis.answers.ssi.pyelonephritis_moderate'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_severe', label: t('.clinicaldiagnosis.answers.ssi.pyelonephritis_severe'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'cystitis', label: t('.clinicaldiagnosis.answers.ssi.crystitis'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'asymptomatic', label: t('.clinicaldiagnosis.answers.ssi.asymtomatic'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'epididymoorchitis', label: t('.clinicaldiagnosis.answers.ssi.epididymoorchitis'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /         li = f.radio_button :clinicaldiagnosis, 'prostatitis', label: t('.clinicaldiagnosis.answers.ssi.prostatitis'), data: { should_hide: '#clinicaldiagnosis_question'}
+  /       li
+  /         = f.radio_button :clinicaldiagnosis, 'other', label: t('.clinicaldiagnosis.answers.other'), data: { should_show: '#clinicaldiagnosis_question'}
+  /         ol#clinicaldiagnosis_question
+  /           li = f.text_area :clinicaldiagnosisspecify, label: t('.clinicaldiagnosisspecify.quesion'), help: t('.clinicaldiagnosisspecify.help')
+  /   - if form_type == 'uti'
+  /     li
+  /       p.question = t('.cdc.question.uti')
+  /       ol
+  /         li = f.form_group :symptomaticutiandbacteriuria
+  /           = f.check_box :symptomaticutiandbacteriuria,      label: t('.symptomaticutiandbacteriauria.answers')
+  /         li = f.form_group :symptomaticutiandother
+  /           = f.check_box :symptomaticutiandother,  label: t('.symptomaticutiandother.answers')
+  /         li = f.form_group :asymptomaticbactcath
+  /           = f.check_box :asymptomaticbactcath,    label: t('.asymptomaticbactcath.answers')
+  /         li = f.form_group :asymptomaticbactnocath
+  /           = f.check_box :asymptomaticbactnocath,  label: t('.asymptomaticbactnocath.answers')
+  /         li = f.form_group :otheruti
+  /           = f.check_box :otheruti,                label: t('.otheruti.answers')
+  /   - elsif form_type == 'ssi'
+  /     li
+  /       p.question = t('.cdc.question.ssi')
+  /       ol
+  /         li = f.form_group :superficialssi
+  /           = f.check_box :superficialssi, label: t('.superficialssi.answers')
+  /         li = f.form_group :deepssi
+  /           = f.check_box :deepssi, label: t('.deepssi.answers')
+  /         li = f.form_group :organssi
+  /           = f.check_box :organssi, label: t('.organssi.answers')
