@@ -34,3 +34,20 @@
         li= f.input :catheter_others,        label: t('.catheter.answers.others')
 
     li= f.input :catheterduration, label: t(".catheterduration.question.#{questionnaire.form_type.downcase}"), append: t('.catheterduration.append'), hint: t('.catheterduration.help')
+
+
+= sub_section t('.subsections.3.text')
+  .question= t(".subsections.3.question.#{questionnaire.form_type}")
+  ol
+    li= f.input :intervention_endoscopic, as: :radio_buttons, label: t('.intervention_endoscopic.quesion'), collection: radio_button_collection("intervention_endoscopic.answers", 'Cystoscopy', 'Diagnostic_ureterorenoscopy', 'TUR-P', 'TUR-BT', 'URS_with_stone_treatment', 'PCNL', 'ureteral_stent_placement'), label_method: :second, value_method: :first
+    li= f.input :intervention_percutaneous, as: :radio_buttons, label: t('.intervention_percutaneous.question'), collection: [["percutaneous", t('.intervention_percutaneous.answers')]], label_method: :second, value_method: :first
+    li= f.input :intervention_laparoscopic, as: :radio_buttons, label: t('.intervention_laparoscopic.question'), collection: radio_button_collection("intervention_laparoscopic.answers", 'kidney_abdominal_testis', 'Lymph_node_dissection', 'Prostatectomy', 'Cystectomy_and_urinary_diversion', 'Other'), label_method: :second, value_method: :first
+    li= f.input :intervention_opensurgery, as: :radio_buttons, label: t('.intervention_opensurgery.question'), collection: radio_button_collection("intervention_opensurgery.answers", 'Vasectomy', 'Inguinal_scrotal_and_penile', 'RPLND', 'Open_prostatectomy', 'Simple_nephrectomy', 'Radical_nephrectomy', 'RRP', 'Cystectomy_and_urinary_diversion'), label_method: :second, value_method: :first
+
+    - if questionnaire.uti?
+      li= f.input :protatebiopsy, as: :radio_buttons, label: t('.protatebiopsy.question'), collection: radio_button_collection("prostatebiopsy.answers", 'transrectal', 'perineal'), label_method: :second, value_method: :first
+    - elsif questionnaire.ssi?
+      li= f.input :trus_biopsy, label: t('.trus_biopsy.quesion'), hint: t('.trus_biopsy.help')
+
+    li= f.input :intervention_others, as: :radio_buttons, label: t('.intervention_others.quesion'), collection: [["ESWL", t('.intervention_others.answers')]], label_method: :second, value_method: :first
+    li= f.input :intervention_contamination, as: :radio_buttons, label: t(".intervention_contamination.question.#{questionnaire.form_type.downcase}"), collection: radio_button_collection("intervention_contamination.answers", 'clean', 'cleancontaminated', 'cleancontaminatedbowel', 'contaminated', 'infected', 'nointervention'), label_method: :second, value_method: :first
