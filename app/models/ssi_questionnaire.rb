@@ -1,8 +1,8 @@
-class SsiQuestionnaire < ApplicationRecord
-  include AdminResource
-  include Discard::Model
-  include Questionnaire
-  include SaveWithErrors
+class SsiQuestionnaire < UtiSsiQuestionnaire
+  custom_questionnaire_state :ssi_state
 
-  belongs_to :patient
+
+  after_initialize do
+    self.form_type = :ssi
+  end
 end

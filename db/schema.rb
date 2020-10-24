@@ -538,15 +538,6 @@ ActiveRecord::Schema.define(version: 2020_10_19_171253) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
-  create_table "ssi_questionnaires", force: :cascade do |t|
-    t.integer "patient_id", null: false
-    t.integer "test"
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["patient_id"], name: "index_ssi_questionnaires_on_patient_id"
-  end
-
   create_table "study_iterations", force: :cascade do |t|
     t.string "name"
     t.integer "country_id", null: false
@@ -617,13 +608,55 @@ ActiveRecord::Schema.define(version: 2020_10_19_171253) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  create_table "uti_questionnaires", force: :cascade do |t|
+  create_table "uti_ssi_questionnaires", force: :cascade do |t|
     t.integer "patient_id", null: false
-    t.integer "test"
     t.datetime "discarded_at"
+    t.integer "form_type"
+    t.boolean "previous"
+    t.boolean "tractobstruction"
+    t.text "tractobjstructionspecify"
+    t.boolean "urinarystones_calyceal"
+    t.boolean "urinarystones_renalpelvic"
+    t.boolean "urinarystones_ureteral"
+    t.boolean "urinarystones_bladder"
+    t.boolean "treatment"
+    t.text "treatmentspecify"
+    t.boolean "hospitalisation"
+    t.boolean "catheter_urethral"
+    t.boolean "catheter_suprapubic"
+    t.boolean "catheter_ureteralstent"
+    t.boolean "catheter_nephrostomy"
+    t.boolean "catheter_others"
+    t.bigint "catheterduration"
+    t.string "intervention_endoscopic", limit: 255
+    t.string "intervention_laparoscopic", limit: 255
+    t.string "intervention_percutaneous", limit: 255
+    t.string "intervention_opensurgery", limit: 255
+    t.string "protatebiopsy", limit: 255
+    t.text "trus_biopsy"
+    t.string "intervention_others", limit: 255
+    t.string "intervention_contamination", limit: 255
+    t.date "diagnosedate"
+    t.string "clinicaldiagnosis", limit: 255
+    t.text "clinicaldiagnosisspecify"
+    t.boolean "symptomaticutiandbacteriuria"
+    t.boolean "symptomaticutiandother"
+    t.boolean "asymptomaticbactcath"
+    t.boolean "asymptomaticbactnocath"
+    t.boolean "otheruti"
+    t.boolean "superficialssi"
+    t.boolean "deepssi"
+    t.boolean "organssi"
+    t.boolean "provennauti"
+    t.boolean "culturetissue_urine"
+    t.boolean "culturetissue_blood"
+    t.boolean "culturetissue_fluidswab"
+    t.boolean "culturetissue_other"
+    t.text "culturetissue_specify"
+    t.string "antibioticculture", limit: 7
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["patient_id"], name: "index_uti_questionnaires_on_patient_id"
+    t.index ["patient_id"], name: "index_uti_ssi_questionnaires_on_patient_id"
   end
 
   add_foreign_key "biopsy_outcome_questionnaires", "patients"
@@ -639,9 +672,8 @@ ActiveRecord::Schema.define(version: 2020_10_19_171253) do
   add_foreign_key "patients", "departments"
   add_foreign_key "patients", "study_iterations"
   add_foreign_key "patients", "users", column: "creator_id"
-  add_foreign_key "ssi_questionnaires", "patients"
   add_foreign_key "study_iterations", "countries"
   add_foreign_key "study_ranges", "study_iterations"
   add_foreign_key "support_requests", "users"
-  add_foreign_key "uti_questionnaires", "patients"
+  add_foreign_key "uti_ssi_questionnaires", "patients"
 end
