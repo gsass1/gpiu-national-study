@@ -1,3 +1,5 @@
+= render 'shared/appendix_comorbidity', f: f, appendix_comorbidity: questionnaire.appendix_comorbidity
+
 = sub_section t(".subsections.2.#{questionnaire.form_type}")
   ol
     li= f.input :previous, as: :radio_buttons, label: t(".previous.question.#{questionnaire.form_type}")

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_19_171253) do
+ActiveRecord::Schema.define(version: 2020_10_24_145606) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -20,6 +20,34 @@ ActiveRecord::Schema.define(version: 2020_10_19_171253) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["discarded_at"], name: "index_addresses_on_discarded_at"
+  end
+
+  create_table "appendix_comorbidities", force: :cascade do |t|
+    t.integer "questionnaire_id"
+    t.string "questionnaire_type", limit: 255
+    t.integer "pos_id"
+    t.boolean "myocardialinfarction"
+    t.boolean "congestiveheartfailure"
+    t.boolean "vasculardisease"
+    t.boolean "cerebrovascular"
+    t.boolean "dementia"
+    t.boolean "pulmonary"
+    t.boolean "tissuedisease"
+    t.boolean "ulcerdisease"
+    t.boolean "mildliver"
+    t.boolean "diabetes"
+    t.boolean "hemiplegia"
+    t.boolean "renaldisease"
+    t.boolean "diabetesorgandamage"
+    t.boolean "tumor"
+    t.boolean "leukaemia"
+    t.boolean "lymphoma"
+    t.boolean "severeliverdamage"
+    t.boolean "metastatictumor"
+    t.boolean "aids"
+    t.datetime "discarded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "biopsy_outcome_questionnaires", force: :cascade do |t|

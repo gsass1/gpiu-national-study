@@ -4,6 +4,8 @@ class UtiSsiQuestionnaire < ApplicationRecord
   include Questionnaire
   include SaveWithErrors
 
+  include Comorbidity
+
   belongs_to :patient
 
   enum form_type: [:uti, :ssi]
