@@ -9,6 +9,9 @@ export default class extends Controller {
 
   onTriggerChange(e) {
     const elem = document.getElementById(e.target.getAttribute('data-elem'));
+
+    if (elem == null) return;
+
     const cond = e.target.getAttribute('data-condition');
 
     let conditionMatched = false;

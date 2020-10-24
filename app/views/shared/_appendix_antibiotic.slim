@@ -1,0 +1,222 @@
+= f.fields_for :appendix_antibiotic, appendix_antibiotic do |l|
+  = l.hidden_field :pos_id
+  /= l.errors_on :other, hide_attribute_name: true
+
+  ol
+    li
+      = l.input :aminoglycosides, label: t('.aminoglycosides.group'), input_html: form_trigger("#{l.object.pos_id}_aminoglycosides_div", "true")
+      ol id="#{l.object.pos_id}_aminoglycosides_div"
+        li
+          = l.input :aminoglycosides_gentamicin, label: t('.aminoglycosides.gentamicin'), input_html: form_trigger("antibiotic_appendix_regimens_#{0}", "true")
+        li
+          = l.input :aminoglycosides_amikacin, label: t('.aminoglycosides.amikacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{1}", "true")
+        li
+          = l.input :aminoglycosides_other, label: t('.aminoglycosides.other'), input_html: form_trigger("antibiotic_appendix_regimens_#{2}", "true")
+    li
+      = l.input :carbapenems, label: t('.carbapenems.group'), input_html: form_trigger("#{l.object.pos_id}_carbapenems_div", "true")
+      ol id="#{l.object.pos_id}_carbapenems_div"
+        li
+          = l.input :carbapenems_ertapenem, label: t('.carbapenems.ertapenem'), input_html: form_trigger("antibiotic_appendix_regimens_#{3}", "true")
+        li
+          = l.input :carbapenems_imipenem, label: t('.carbapenems.imipenem'), input_html: form_trigger("antibiotic_appendix_regimens_#{4}", "true")
+        li
+          = l.input :carbapenems_doripenem, label: t('.carbapenems.doripenem'), input_html: form_trigger("antibiotic_appendix_regimens_#{5}", "true")
+        li
+          = l.input :carbapenems_meropenem, label: t('.carbapenems.meropenem'), input_html: form_trigger("antibiotic_appendix_regimens_#{6}", "true")
+    li
+      = l.input :first_generation_cephalosporins, label: t('.first_generation_cephalosporins.group'), input_html: form_trigger("#{l.object.pos_id}_first_generation_cephalosporins_div", "true")
+      ol id="#{l.object.pos_id}_first_generation_cephalosporins_div"
+        li
+          = l.input :first_generation_cephalosporins_cefadroxil, label: t('.first_generation_cephalosporins.cefadroxil'), input_html: form_trigger("antibiotic_appendix_regimens_#{7}", "true")
+        li
+          = l.input :first_generation_cephalosporins_cefazolin, label: t('.first_generation_cephalosporins.cefazolin'), input_html: form_trigger("antibiotic_appendix_regimens_#{8}", "true")
+        li
+          = l.input :first_generation_cephalosporins_cefalexin, label: t('.first_generation_cephalosporins.cefalexin'), input_html: form_trigger("antibiotic_appendix_regimens_#{9}", "true")
+    li
+      = l.input :second_generation_cephalosporins, label: t('.second_generation_cephalosporins.group'), input_html: form_trigger("#{l.object.pos_id}_second_generation_cephalosporins_div", "true")
+      ol id="#{l.object.pos_id}_second_generation_cephalosporins_div"
+        li
+          = l.input :second_generation_cephalosporins_cefaclor, label: t('.second_generation_cephalosporins.cefaclor'), input_html: form_trigger("antibiotic_appendix_regimens_#{10}", "true")
+        li
+          = l.input :second_generation_cephalosporins_cefprozil, label: t('.second_generation_cephalosporins.cefprozil'), input_html: form_trigger("antibiotic_appendix_regimens_#{11}", "true")
+        li
+          = l.input :second_generation_cephalosporins_cefuroxime, label: t('.second_generation_cephalosporins.cefuroxime'), input_html: form_trigger("antibiotic_appendix_regimens_#{12}", "true")
+    li
+      = l.input :third_generation_cephalosporins, label: t('.third_generation_cephalosporins.group'), input_html: form_trigger("#{l.object.pos_id}_third_generation_cephalosporins_div", "true")
+      ol id="#{l.object.pos_id}_third_generation_cephalosporins_div"
+        li
+          = l.input :third_generation_cephalosporins_cefixim, label: t('.third_generation_cephalosporins.cefixim'), input_html: form_trigger("antibiotic_appendix_regimens_#{13}", "true")
+        li
+          = l.input :third_generation_cephalosporins_cefdinir, label: t('.third_generation_cephalosporins.cefdinir'), input_html: form_trigger("antibiotic_appendix_regimens_#{14}", "true")
+        li
+          = l.input :third_generation_cephalosporins_cefotaxime, label: t('.third_generation_cephalosporins.cefotaxime'), input_html: form_trigger("antibiotic_appendix_regimens_#{15}", "true")
+        li
+          = l.input :third_generation_cephalosporins_cefpodoxime, label: t('.third_generation_cephalosporins.cefpodoxime'), input_html: form_trigger("antibiotic_appendix_regimens_#{16}", "true")
+        li
+          = l.input :third_generation_cephalosporins_ceftazidime, label: t('.third_generation_cephalosporins.ceftazidime'), input_html: form_trigger("antibiotic_appendix_regimens_#{17}", "true")
+        li
+          = l.input :third_generation_cephalosporins_ceftibuten, label: t('.third_generation_cephalosporins.ceftibuten'), input_html: form_trigger("antibiotic_appendix_regimens_#{18}", "true")
+        li
+          = l.input :third_generation_cephalosporins_ceftriaxone, label: t('.third_generation_cephalosporins.ceftriaxone'), input_html: form_trigger("antibiotic_appendix_regimens_#{19}", "true")
+    li
+      = l.input :fourth_generation_cephalosporins, label: t('.forth_generation_cephalosporins.group'), input_html: form_trigger("#{l.object.pos_id}_fourth_generation_cephalosporins_div", "true")
+      ol id="#{l.object.pos_id}_fourth_generation_cephalosporins_div"
+        li
+          = l.input :fourth_generation_cephalosporins_cefepime, label: t('.forth_generation_cephalosporins.cefepime'), input_html: form_trigger("antibiotic_appendix_regimens_#{20}", "true")
+    li
+      = l.input :fifth_generation_cephalosporins, label: t('.fifth_generation_cephalosporins.group'), input_html: form_trigger("#{l.object.pos_id}_fifth_generation_cephalosporins_div", "true")
+      ol id="#{l.object.pos_id}_fifth_generation_cephalosporins_div"
+        li
+          = l.input :fifth_generation_cephalosporins_ceftaroline_fosamil, label: t('.fifth_generation_cephalosporins.ceftaroline_fosamil'), input_html: form_trigger("antibiotic_appendix_regimens_#{21}", "true")
+        li
+          = l.input :fifth_generation_cephalosporins_ceftobiprole, label: t('.fifth_generation_cephalosporins.ceftobiprole'), input_html: form_trigger("antibiotic_appendix_regimens_#{22}", "true")
+    li
+      = l.input :glycopeptides, label: t('.glycopeptides.group'), input_html: form_trigger("#{l.object.pos_id}_glycopeptides_div", "true")
+      ol id="#{l.object.pos_id}_glycopeptides_div"
+        li
+          = l.input :glycopeptides_teicoplanin, label: t('.glycopeptides.teicoplanin'), input_html: form_trigger("antibiotic_appendix_regimens_#{23}", "true")
+        li
+          = l.input :glycopeptides_vancomycin, label: t('.glycopeptides.vancomycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{24}", "true")
+        li
+          = l.input :glycopeptides_telavancin, label: t('.glycopeptides.telavancin'), input_html: form_trigger("antibiotic_appendix_regimens_#{25}", "true")
+    li
+      = l.input :lincosamides, label: t('.lincosamides.group'), input_html: form_trigger("#{l.object.pos_id}_lincosamides_div", "true")
+      ol id="#{l.object.pos_id}_lincosamides_div"
+        li
+          = l.input :lincosamides_clindamycin, label: t('.lincosamides.clindamycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{26}", "true")
+        li
+          = l.input :lincosamides_lincomycin, label: t('.lincosamides.lincomycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{27}", "true")
+    li
+      = l.input :macrolides, label: t('.macrolides.group'), input_html: form_trigger("#{l.object.pos_id}_macrolides_div", "true")
+      ol id="#{l.object.pos_id}_macrolides_div"
+        li
+          = l.input :macrolides_azithromycin, label: t('.macrolides.azithromycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{28}", "true")
+        li
+          = l.input :macrolides_clarithromycin, label: t('.macrolides.clarithromycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{29}", "true")
+        li
+          = l.input :macrolides_erythromycin, label: t('.macrolides.erythromycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{30}", "true")
+        li
+          = l.input :macrolides_roxithromycin, label: t('.macrolides.roxithromycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{31}", "true")
+        li
+          = l.input :macrolides_telithromycin, label: t('.macrolides.telithromycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{32}", "true")
+        li
+          = l.input :macrolides_spiramycin, label: t('.macrolides.spiramycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{33}", "true")
+    li
+      = l.input :monobactams, label: t('.monobactams.group'), input_html: form_trigger("#{l.object.pos_id}_monobactams_div", "true")
+      ol id="#{l.object.pos_id}_monobactams_div"
+        li = l.input :monobactams_aztreonam, label: t('.monobactams.aztreonam')
+    li
+      = l.input :nitrofurans, label: t('.nitrofurans.group'), input_html: form_trigger("#{l.object.pos_id}_nitrofurans_div", "true")
+      ol id="#{l.object.pos_id}_nitrofurans_div"
+        li
+          = l.input :nitrofurans_furazolidine, label: t('.nitrofurans.furazolidine'), input_html: form_trigger("antibiotic_appendix_regimens_#{34}", "true")
+        li
+          = l.input :nitrofurans_nitrofurantoin, label: t('.nitrofurans.nitrofurantoin'), input_html: form_trigger("antibiotic_appendix_regimens_#{35}", "true")
+    li
+      = l.input :penicillins, label: t('.penicillins.group'), input_html: form_trigger("#{l.object.pos_id}_penicillins_div", "true")
+      ol id="#{l.object.pos_id}_penicillins_div"
+        li
+          = l.input :penicillins_amoxicillin, label: t('.penicillins.amoxicillin'), input_html: form_trigger("antibiotic_appendix_regimens_#{36}", "true")
+        li
+          = l.input :penicillins_ampicillin, label: t('.penicillins.ampicillin'), input_html: form_trigger("antibiotic_appendix_regimens_#{37}", "true")
+        li
+          = l.input :penicillins_nafcillin, label: t('.penicillins.nafcillin'), input_html: form_trigger("antibiotic_appendix_regimens_#{38}", "true")
+        li
+          = l.input :penicillins_oxacillin, label: t('.penicillins.oxacillin'), input_html: form_trigger("antibiotic_appendix_regimens_#{39}", "true")
+        li
+          = l.input :penicillins_ticarcillin, label: t('.penicillins.ticarcillin'), input_html: form_trigger("antibiotic_appendix_regimens_#{40}", "true")
+        li
+          = l.input :penicillins_penicillin_g, label: t('.penicillins.penicillin_g'), input_html: form_trigger("antibiotic_appendix_regimens_#{41}", "true")
+        li
+          = l.input :penicillins_methicillin, label: t('.penicillins.methicillin'), input_html: form_trigger("antibiotic_appendix_regimens_#{42}", "true")
+        li
+          = l.input :penicillins_penicillin_combinations, label: t('.penicillins.penicillin_combinations.group'), input_html: form_trigger("#{l.object.pos_id}_penicillins_penicillin_combinations_div", "true")
+          ol id="#{l.object.pos_id}_penicillins_penicillin_combinations_div"
+            li
+              = l.input :penicillins_penicillin_combinations_amoxicillin_clavulunate, label: t('.penicillins.penicillin_combinations.amoxicillin_clavulunate'), input_html: form_trigger("antibiotic_appendix_regimens_#{43}", "true")
+            li
+              = l.input :penicillins_penicillin_combinations_ampicillin_sulbactam, label: t('.penicillins.penicillin_combinations.ampicillin_sulbactam'), input_html: form_trigger("antibiotic_appendix_regimens_#{44}", "true")
+            li
+              = l.input :penicillins_penicillin_combinations_piperacillin_tazobactam, label: t('.penicillins.penicillin_combinations.piperacillin_tazobactam'), input_html: form_trigger("antibiotic_appendix_regimens_#{45}", "true")
+            li
+              = l.input :penicillins_penicillin_combinations_ticarcillin_claculunate, label: t('.penicillins.penicillin_combinations.ticarcillin_claculunate'), input_html: form_trigger("antibiotic_appendix_regimens_#{46}", "true")
+    li
+      = l.input :polypeptides, label: t('.polypeptides.group'), input_html: form_trigger("#{l.object.pos_id}_polypeptides_div", "true")
+      ol id="#{l.object.pos_id}_polypeptides_div"
+        li
+          = l.input :polypeptides_bacitracin, label: t('.polypeptides.bacitracin'), input_html: form_trigger("antibiotic_appendix_regimens_#{47}", "true")
+        li
+          = l.input :polypeptides_colistin, label: t('.polypeptides.colistin'), input_html: form_trigger("antibiotic_appendix_regimens_#{48}", "true")
+        li
+          = l.input :polypeptides_polymyxin_b, label: t('.polypeptides.polymycin_b'), input_html: form_trigger("antibiotic_appendix_regimens_#{49}", "true")
+    li
+      = l.input :quinolones, label: t('.quinolones.group'), input_html: form_trigger("#{l.object.pos_id}_quinolones_div", "true")
+      ol id="#{l.object.pos_id}_quinolones_div"
+        li
+          = l.input :quinolones_ciprofloxacin, label: t('.quinolones.ciprofloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{50}", "true")
+        li
+          = l.input :quinolones_enoxacin, label: t('.quinolones.enoxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{51}", "true")
+        li
+          = l.input :quinolones_gatifloxacin, label: t('.quinolones.gatifloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{52}", "true")
+        li
+          = l.input :quinolones_gemifloxacin, label: t('.quinolones.gemifloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{53}", "true")
+        li
+          = l.input :quinolones_levofloxacin, label: t('.quinolones.levofloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{54}", "true")
+        li
+          = l.input :quinolones_lomefloxacin, label: t('.quinolones.lomefloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{55}", "true")
+        li
+          = l.input :quinolones_moxifloxacin, label: t('.quinolones.moxifloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{56}", "true")
+        li
+          = l.input :quinolones_nalidixic_acid, label: t('.quinolones.nalidixic_acid'), input_html: form_trigger("antibiotic_appendix_regimens_#{57}", "true")
+        li
+          = l.input :quinolones_norfloxacin, label: t('.quinolones.norfloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{58}", "true")
+        li
+          = l.input :quinolones_ofloxacin, label: t('.quinolones.ofloxacin'), input_html: form_trigger("antibiotic_appendix_regimens_#{59}", "true")
+    li
+      = l.input :sulfonamides, label: t('.sulfonamides.group'), input_html: form_trigger("#{l.object.pos_id}_sulfonamides_div", "true")
+      ol id="#{l.object.pos_id}_sulfonamides_div"
+        li
+          = l.input :sulfonamides_sulfamethoxazole, label: t('.sulfonamides.sulfamethoxazole'), input_html: form_trigger("antibiotic_appendix_regimens_#{60}", "true")
+        li
+          = l.input :sulfonamides_trimephtoprim_sulfamethoxazole, label: t('.sulfonamides.trimephtoprim_sulfamethoxazole'), input_html: form_trigger("antibiotic_appendix_regimens_#{61}", "true")
+    li
+      = l.input :tetracyclines, label: t('.tetracyclines.group'), input_html: form_trigger("#{l.object.pos_id}_tetracyclines_div", "true")
+      ol id="#{l.object.pos_id}_tetracyclines_div"
+        li
+          = l.input :tetracyclines_doxycycline, label: t('.tetracyclines.doxycycline'), input_html: form_trigger("antibiotic_appendix_regimens_#{62}", "true")
+        li
+          = l.input :tetracyclines_tetracycline, label: t('.tetracyclines.tetracycline'), input_html: form_trigger("antibiotic_appendix_regimens_#{63}", "true")
+    li
+      = l.input :antimycobacterial_drugs, label: t('.antimycobacterial_drugs.group'), input_html: form_trigger("#{l.object.pos_id}_antimycobacterial_drugs_div", "true")
+      ol id="#{l.object.pos_id}_antimycobacterial_drugs_div"
+        li
+          = l.input :antimycobacterial_drugs_clofazimine, label: t('.antimycobacterial_drugs.clofazimine'), input_html: form_trigger("antibiotic_appendix_regimens_#{64}", "true")
+        li
+          = l.input :antimycobacterial_drugs_dapsone, label: t('.antimycobacterial_drugs.dapsone'), input_html: form_trigger("antibiotic_appendix_regimens_#{65}", "true")
+        li
+          = l.input :antimycobacterial_drugs_capreomycin, label: t('.antimycobacterial_drugs.capreomycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{66}", "true")
+        li
+          = l.input :antimycobacterial_drugs_cycloserine, label: t('.antimycobacterial_drugs.cycloserine'), input_html: form_trigger("antibiotic_appendix_regimens_#{67}", "true")
+        li
+          = l.input :antimycobacterial_drugs_ethembutol, label: t('.antimycobacterial_drugs.ethembutol'), input_html: form_trigger("antibiotic_appendix_regimens_#{68}", "true")
+        li
+          = l.input :antimycobacterial_drugs_ethionamide, label: t('.antimycobacterial_drugs.ethionamide'), input_html: form_trigger("antibiotic_appendix_regimens_#{69}", "true")
+        li
+          = l.input :antimycobacterial_drugs_isoniazid, label: t('.antimycobacterial_drugs.isoniazid'), input_html: form_trigger("antibiotic_appendix_regimens_#{70}", "true")
+        li
+          = l.input :antimycobacterial_drugs_pyranizamide, label: t('.antimycobacterial_drugs.pyranizamide'), input_html: form_trigger("antibiotic_appendix_regimens_#{71}", "true")
+        li
+          = l.input :antimycobacterial_drugs_rifampicin, label: t('.antimycobacterial_drugs.rifampicin'), input_html: form_trigger("antibiotic_appendix_regimens_#{72}", "true")
+        li
+          = l.input :antimycobacterial_drugs_streptomycin, label: t('.antimycobacterial_drugs.streptomycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{73}", "true")
+    li
+      = l.input :others, label: t('.other_drugs.group'), input_html: form_trigger("#{l.object.pos_id}_others_div", "true")
+      ol id="#{l.object.pos_id}_others_div"
+        li
+          = l.input :others_chloramphenicol, label: t('.other_drugs.chloramphenicol'), input_html: form_trigger("antibiotic_appendix_regimens_#{74}", "true")
+        li
+          = l.input :others_fosfomycin, label: t('.other_drugs.fosfomycin'), input_html: form_trigger("antibiotic_appendix_regimens_#{75}", "true")
+        li
+          = l.input :others_metronidazole, label: t('.other_drugs.metronidazole'), input_html: form_trigger("antibiotic_appendix_regimens_#{76}", "true")
+        li
+          = l.input :others_trimethoprim, label: t('.other_drugs.trimethoprim'), input_html: form_trigger("antibiotic_appendix_regimens_#{77}", "true")
