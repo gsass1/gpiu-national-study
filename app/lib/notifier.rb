@@ -4,10 +4,6 @@
 #
 class Notifier
   def notify(options = {})
-    # TODO: this is where we would deliver notifications to users in all ways possible.
-    #
-    # Currently only on-site notifications. Emails later.
-
     notification = OpenStruct.new(options.merge(created_at: DateTime.now))
 
     create_on_site_notification notification

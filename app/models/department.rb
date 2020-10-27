@@ -34,7 +34,6 @@ class Department < ApplicationRecord
     name_with_hospital
   end
 
-  # TODO: create department_questionnaires when a study iteration is approvd
   def current_department_questionnaire
     @current_department_questionnaire ||= load_current_department_questionnaire
   end
