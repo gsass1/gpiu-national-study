@@ -20,10 +20,12 @@ class Ability
       can [:create, :read, :update], Patient, creator_id: user.id
       can [:edit, :update], PatientIdentification, patient: { creator_id: user.id }
 
-      can [:edit, :update], SsiQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
-      can [:edit, :update], UtiQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
-      can [:edit, :update], BiopsyQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
-      can [:edit, :update], BiopsyOutcomeQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
+      unless user.country.current_study_iteration.nil?
+        can [:edit, :update], SsiQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
+        can [:edit, :update], UtiQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
+        can [:edit, :update], BiopsyQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
+        can [:edit, :update], BiopsyOutcomeQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
+      end
 
       can [:edit, :update], DepartmentQuestionnaire, department: { users: { id: user.id } }
 
