@@ -1,4 +1,6 @@
 .container.questionnaire[data-controller="questionnaire department-questionnaire"]
+  = render "shared/back_button"
+
   h2= t('.title')
   p.lead.text-muted= "#{@hospital.name} - #{@department.name}"
   hr

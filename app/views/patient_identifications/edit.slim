@@ -1,4 +1,6 @@
 .container.questionnaire[data-controller="questionnaire"]
+  = render "shared/back_button"
+
   - unless study_active?
     .alert.alert-danger
       strong= t('application.not_editable_hint')
