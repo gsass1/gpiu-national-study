@@ -28,8 +28,7 @@ module Admin::ResourcesHelper
   def resource_form_input(f, field)
     if @resource_associations.include?(field)
       assoc = @resource.send(field)
-      # FIXME(gian): "selected" doesn't select the right value from the collection anymore??
-      f.input (field.to_s + "_id").to_sym, collection: assoc.nil? ? nil : assoc.class.all, selected: assoc, label_method: :to_s
+      f.input (field.to_s + "_id").to_sym, collection: assoc.nil? ? nil : assoc.class.all, selected: assoc.id, label_method: :to_s
     elsif !@resource_class.try(field.to_s.pluralize.to_sym).nil?
       f.input field, collection: @resource_class.send(field.to_s.pluralize.to_sym).keys
     else
