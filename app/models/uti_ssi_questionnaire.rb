@@ -6,6 +6,7 @@ class UtiSsiQuestionnaire < ApplicationRecord
 
   include Antibiotics
   include Comorbidity
+  include CultureResult
 
   belongs_to :patient
 

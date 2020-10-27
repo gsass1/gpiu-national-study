@@ -94,11 +94,9 @@
       ol#culturetissue_other_question
         li= f.input :culturetissue_specify, label: t('.culturetissue_specify.answers'), hint: t('.culturetissue_specify.help')
 
-    li = f.input :antibioticculture, as: :radio_buttons, label: t('.antibioticculture.question'), collection: radio_button_collection('antibioticculture.answers', 'yes', 'no', 'unknown'), label_method: :second, value_method: :first, input_html: form_trigger("antibioticculture_questions", "yes")
+    li= f.input :antibioticculture, as: :radio_buttons, label: t('.antibioticculture.question'), collection: radio_button_collection('antibioticculture.answers', 'yes', 'no', 'unknown'), label_method: :second, value_method: :first, input_html: form_trigger("antibioticculture_questions", "yes")
 
-
-    #antibioticculture_questions = render 'shared/appendix_antibiotic', f: f, appendix_antibiotic: f.object.get_appendix_antibiotics_at(0)
-
+    #antibioticculture_questions= render 'shared/appendix_antibiotic', f: f, appendix_antibiotic: f.object.get_appendix_antibiotics_at(0)
 
 
 / = sub_section t(".subsection.5.#{form_type.downcase}")
