@@ -12,7 +12,12 @@ class Admin::StudyIterationsController < ApplicationController
 
   def show
     @study_ranges = @study_iteration.study_ranges
-    @months = CalendarUtil::collect_months(@study_ranges.first.start, @study_ranges.last.end)
+
+    if @study_ranges.any?
+      @months = CalendarUtil::collect_months(@study_ranges.first.start, @study_ranges.last.end)
+    else
+      @months = []
+    end
   end
 
   def approve
