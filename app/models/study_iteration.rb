@@ -1,3 +1,4 @@
+
 class StudyIteration < ApplicationRecord
   include Notifiable
 
@@ -17,7 +18,6 @@ class StudyIteration < ApplicationRecord
 
   notify_with Proc.new { |f| { country_name: f.country.name } }
 
-  # TODO(gian): this creates a lot of SQL queries I think. For production we need a fast SQL query
   def active?
     study_ranges.any? { |range| range.active?  }
   end

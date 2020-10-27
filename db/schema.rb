@@ -890,7 +890,7 @@ ActiveRecord::Schema.define(version: 2020_10_24_163634) do
   create_table "study_iterations", force: :cascade do |t|
     t.string "name"
     t.integer "country_id", null: false
-    t.integer "acceptance_state"
+    t.integer "acceptance_state", default: 0
     t.string "rejection_reason"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
