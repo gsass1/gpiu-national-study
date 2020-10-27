@@ -22,7 +22,7 @@ class Patient < ApplicationRecord
   questionnaire_state :biopsy_state
   questionnaire_state :biopsy_outcome_state
 
-  viewable_admin_table_fields :initial, :creator, :study_iteration, :department, :patient_type, :identification_state, :uti_state, :ssi_state, :prostate_biopsy_state, :prostate_biopsy_outcome_state
+  viewable_admin_table_fields :initial, :creator, :study_iteration, :department, :patient_type, :identification_state, :uti_state, :ssi_state, :biopsy_state, :biopsy_outcome_state
   editable_admin_fields :initial, :creator, :study_iteration, :patient_type
   admin_custom_actions :admin_actions
 
