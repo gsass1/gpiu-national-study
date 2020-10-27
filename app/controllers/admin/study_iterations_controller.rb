@@ -3,7 +3,6 @@ class Admin::StudyIterationsController < ApplicationController
   layout 'admin'
   load_and_authorize_resource
 
-  # FIXME(gian): how to make cancan load the resource in non-CRUD actions??
   before_action :load_study_iteration, only: [:approve, :reject]
 
   def index
