@@ -15,24 +15,3 @@
   .col-sm-12
     ol start='3'
       li= render "shared/appendix_culture_susceptibility", place: place, g: g
-
-
-/.row
-/  .col-sm-6
-/    ol
-/      li
-/        = l.input "#{place}_pathogen".to_sym, grouped_options_for_select(PatientAppendixCultureResult::PATHOGEN_OPTIONS, l.object.send("#{place}_pathogen")), {prompt: true},
-/          data: { should_show: "##{place}_pathogen_specify_#{l.object.pos_id}",
-/                  show_when: "Other enterobacteriaceae.,Other non-fermenter.,Other gram-positive cocci.,Other bacteria,Other fungi." }
-/        div id="#{place}_pathogen_specify_#{l.object.pos_id}"
-/          = l.text_field "#{place}_pathogen_specify".to_sym, label: t('patient_appendix_culture_results.pathogen.please_specify')
-/  .col-sm-6
-/    ol start='2'
-/      li = l.select "#{place}_pathogen_enter_cfu_ml".to_sym,
-/        {'≥ 10^2': '1','≥ 10^3': '2','≥ 10^4': '3','≥ 10^5': '4','≥ 10^6': '5'},
-/        include_blank: true,
-/        label: t('patient_appendix_culture_results.pathogen.enter_cfu_ml')
-/.row
-/  .col-sm-12
-/    ol start='3'
-/      /li = render partial:"patient_appendix_culture_results/susceptibility_test.html", locals: {l: l, place: place}

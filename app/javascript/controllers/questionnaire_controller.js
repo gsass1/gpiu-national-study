@@ -17,6 +17,12 @@ export default class extends Controller {
     let conditionMatched = false;
     if (e.target.type == "radio") {
       conditionMatched = (e.target.value == cond) && e.target.checked;
+
+      if (cond.includes(",")) {
+        conditionMatched = cond.split(",").includes(e.target.value) && e.target.checked;
+      } else {
+        conditionMatched = (e.target.value == cond) && e.target.checked;
+      }
     } else if (e.target.type == "checkbox") {
       conditionMatched = e.target.checked == (cond == "true");
     } else {

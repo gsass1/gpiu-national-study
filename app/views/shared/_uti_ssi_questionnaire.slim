@@ -100,83 +100,11 @@
 
     = render 'shared/appendix_culture', f: f, single: true, appendix_culture: f.object.appendix_culture_result
 
-
-/ = sub_section t(".subsection.5.#{form_type.downcase}")
-/   ol
-/     li = f.form_group :provennauti, label: { text: t(".provennauti.question.#{form_type.downcase}")}
-/       ol
-/         li
-/           = f.radio_button :provennauti, 'yes', label: t('.provennauti.answers.yes'), data: {should_show: '#provennauti_questions'}
-/           ol#provennauti_questions
-/             li = f.form_group :culturetissue_urine
-/               = f.check_box :culturetissue_urine, label: t('.culturetissue_urine.answers'), data: {should_hide: '#culturetissue_other_question'}
-/             li = f.form_group :culturetissue_blood
-/               = f.check_box :culturetissue_blood, label: t('.culturetissue_blood.answers'), data: {should_hide: '#culturetissue_other_question'}
-/             li = f.form_group :culturetissue_fluidswab
-/               = f.check_box :culturetissue_fluidswab, label: t(".culturetissue_fluidswab.answers.#{form_type.downcase}"), data: {should_hide: '#culturetissue_other_question'}
-/             li = f.form_group :culturetissue_other
-/               = f.check_box :culturetissue_other, label: t('.culturetissue_other.answers'), data: {should_show: '#culturetissue_other_question'}
-/               ol#culturetissue_other_question
-/                 li = f.text_area :culturetissue_specify, label: t('.culturetissue_specify.answers'), help: t('.culturetissue_specify.help')
-
-/         li = f.radio_button :provennauti, 'no', label: t('.provennauti.answers.no'), data: {should_hide: '#provennauti_questions'}
-/     li = f.form_group :antibioticculture, label: { text: t('.antibioticculture.question')}
-/       ol
-/         li
-/           = f.radio_button :antibioticculture, 'yes', label: t('.antibioticculture.answers.yes'), data: { should_show: '#antibioticculture_questions'}
-/           #antibioticculture_questions = render partial: 'patient_appendix_antibiotics/form', locals: {f: f, patient_antibiotic: f.object.get_appendix_antibiotics_at(0)}
-/         li = f.radio_button :antibioticculture, 'no', label: t('.antibioticculture.answers.no'), data: { should_hide: '#antibioticculture_questions'}
-/         l.appendix_antibiotics_counti = f.radio_button :antibioticculture, 'unknown', label: t('.antibioticculture.answers.unknown'), data: { should_hide: '#antibioticculture_questions'}
-/     = render partial: 'patient_appendix_culture_results/form', locals: {f: f, single: true, patient_culture_result: f.object.appendix_culture_result}
-
-
-
-  / ol
-  /   li = f.date_select :diagnosedate, label: t(".diagnosedate.question.#{form_type.downcase}")
-  /   li = f.form_group :clinicaldiagnosis, label: { text: t('.clinicaldiagnosis.quesion')}
-  /     ol
-  /       - if form_type == 'uti'
-  /         li = f.radio_button :clinicaldiagnosis, 'cystitis',                label: t('.clinicaldiagnosis.answers.uti.cystitis'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_moderate', label: t('.clinicaldiagnosis.answers.uti.pyelonephritis_moderate'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_severe',   label: t('.clinicaldiagnosis.answers.uti.pyelonephritis_severe'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissimple',         label: t('.clinicaldiagnosis.answers.uti.urosepsissimple'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissevere',         label: t('.clinicaldiagnosis.answers.uti.urosepsissevere'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'urosepsisshock',          label: t('.clinicaldiagnosis.answers.uti.urosepsisshock'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /       - elsif form_type == 'ssi'
-  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissimple', label: t('.clinicaldiagnosis.answers.ssi.urosepsissimple'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'urosepsissevere', label: t('.clinicaldiagnosis.answers.ssi.urosepsissevere'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'urosepsisshock', label: t('.clinicaldiagnosis.answers.ssi.urosepsisshock'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_moderate', label: t('.clinicaldiagnosis.answers.ssi.pyelonephritis_moderate'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'pyelonephritis_severe', label: t('.clinicaldiagnosis.answers.ssi.pyelonephritis_severe'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'cystitis', label: t('.clinicaldiagnosis.answers.ssi.crystitis'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'asymptomatic', label: t('.clinicaldiagnosis.answers.ssi.asymtomatic'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'epididymoorchitis', label: t('.clinicaldiagnosis.answers.ssi.epididymoorchitis'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /         li = f.radio_button :clinicaldiagnosis, 'prostatitis', label: t('.clinicaldiagnosis.answers.ssi.prostatitis'), data: { should_hide: '#clinicaldiagnosis_question'}
-  /       li
-  /         = f.radio_button :clinicaldiagnosis, 'other', label: t('.clinicaldiagnosis.answers.other'), data: { should_show: '#clinicaldiagnosis_question'}
-  /         ol#clinicaldiagnosis_question
-  /           li = f.text_area :clinicaldiagnosisspecify, label: t('.clinicaldiagnosisspecify.quesion'), help: t('.clinicaldiagnosisspecify.help')
-  /   - if form_type == 'uti'
-  /     li
-  /       p.question = t('.cdc.question.uti')
-  /       ol
-  /         li = f.form_group :symptomaticutiandbacteriuria
-  /           = f.check_box :symptomaticutiandbacteriuria,      label: t('.symptomaticutiandbacteriauria.answers')
-  /         li = f.form_group :symptomaticutiandother
-  /           = f.check_box :symptomaticutiandother,  label: t('.symptomaticutiandother.answers')
-  /         li = f.form_group :asymptomaticbactcath
-  /           = f.check_box :asymptomaticbactcath,    label: t('.asymptomaticbactcath.answers')
-  /         li = f.form_group :asymptomaticbactnocath
-  /           = f.check_box :asymptomaticbactnocath,  label: t('.asymptomaticbactnocath.answers')
-  /         li = f.form_group :otheruti
-  /           = f.check_box :otheruti,                label: t('.otheruti.answers')
-  /   - elsif form_type == 'ssi'
-  /     li
-  /       p.question = t('.cdc.question.ssi')
-  /       ol
-  /         li = f.form_group :superficialssi
-  /           = f.check_box :superficialssi, label: t('.superficialssi.answers')
-  /         li = f.form_group :deepssi
-  /           = f.check_box :deepssi, label: t('.deepssi.answers')
-  /         li = f.form_group :organssi
-  /           = f.check_box :organssi, label: t('.organssi.answers')
+= sub_section t(".subsections.6.#{questionnaire.form_type}")
+  ol
+    li
+      p.question= t('.antimicrobical_treatment.question')
+      = f.input :treatment, label: "", as: :radio_buttons, collection: radio_button_collection("antimicrobical_treatment.answers", "none", "oral", "parenteral", "both"), value_method: :first, label_method: :second, input_html: form_trigger("treatment_antibiotics", "oral,parenteral,both")
+    li#treatment_antibiotics
+      p.question= t('.treatment_antibiotics.question')
+      = render 'shared/appendix_antibiotic', f: f, appendix_antibiotic: f.object.get_appendix_antibiotics_at(1)
