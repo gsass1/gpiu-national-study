@@ -1,0 +1,12 @@
+= f.fields_for :appendix_culture, appendix_culture do |g|
+  = g.hidden_field :pos_id
+
+  li
+    p.question= t('.form.results_of_culture.question')
+    ol
+      li= render "shared/appendix_culture_pathogen", place: 'first', g: g
+      li= render "shared/appendix_culture_pathogen", place: 'second', g: g
+      li
+        = g.input :susceptibility_standard, as: :radio_buttons, collection: [[t('shared.appendix_culture.form.susceptibility_standard.answers.nccls_clsi'), 1], [t('shared.appendix_culture.form.susceptibility_standard.answers.din'), 2], [t('shared.appendix_culture.form.susceptibility_standard.answers.eucast'), 3], [t('shared.appendix_culture.form.susceptibility_standard.answers.other'), 4]], label_method: :first, value_method: :second, input_html: form_trigger("susceptibility_standard_other_#{g.object.pos_id}", 4)
+      ol[id="susceptibility_standard_other_#{g.object.pos_id}"]
+        li= g.input :susceptibility_standard_other_specify, label: t('.form.susceptibility_standard_other.question')

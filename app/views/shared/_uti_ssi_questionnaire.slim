@@ -98,6 +98,8 @@
 
     #antibioticculture_questions= render 'shared/appendix_antibiotic', f: f, appendix_antibiotic: f.object.get_appendix_antibiotics_at(0)
 
+    = render 'shared/appendix_culture', f: f, single: true, appendix_culture: f.object.appendix_culture_result
+
 
 / = sub_section t(".subsection.5.#{form_type.downcase}")
 /   ol

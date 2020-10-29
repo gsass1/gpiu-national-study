@@ -20,7 +20,11 @@ export default class extends Controller {
     } else if (e.target.type == "checkbox") {
       conditionMatched = e.target.checked == (cond == "true");
     } else {
-      conditionMatched = e.target.value == cond;
+      if (cond.includes(",")) {
+        conditionMatched = cond.split(",").includes(e.target.value);
+      } else {
+        conditionMatched = e.target.value == cond;
+      }
     }
 
     if (conditionMatched) {
