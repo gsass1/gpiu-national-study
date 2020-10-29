@@ -82,7 +82,7 @@ group :development do
   # Dev Helpers
   gem 'rails-plantuml-generator', git: 'https://github.com/HappyKadaver/rails-plantuml-generator'
 
-  gem 'i18n-debug'
+  #gem 'i18n-debug'
   gem 'better_errors'
   gem 'binding_of_caller'
 

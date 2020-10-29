@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_24_163634) do
+ActiveRecord::Schema.define(version: 2020_10_29_143337) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -890,7 +890,7 @@ ActiveRecord::Schema.define(version: 2020_10_24_163634) do
   create_table "study_iterations", force: :cascade do |t|
     t.string "name"
     t.integer "country_id", null: false
-    t.integer "acceptance_state", default: 0
+    t.integer "acceptance_state"
     t.string "rejection_reason"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
@@ -1005,6 +1005,7 @@ ActiveRecord::Schema.define(version: 2020_10_24_163634) do
     t.string "antibioticculture", limit: 7
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "antimicrobial_treatment"
     t.index ["patient_id"], name: "index_uti_ssi_questionnaires_on_patient_id"
   end
 

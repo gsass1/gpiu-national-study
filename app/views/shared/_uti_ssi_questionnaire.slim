@@ -104,7 +104,7 @@
   ol
     li
       p.question= t('.antimicrobical_treatment.question')
-      = f.input :treatment, label: "", as: :radio_buttons, collection: radio_button_collection("antimicrobical_treatment.answers", "none", "oral", "parenteral", "both"), value_method: :first, label_method: :second, input_html: form_trigger("treatment_antibiotics", "oral,parenteral,both")
+      = f.input :antimicrobial_treatment, label: "", as: :radio_buttons, collection: radio_button_collection("antimicrobical_treatment.answers", "none", "oral", "parenteral", "both"), value_method: :first, label_method: :second, input_html: form_trigger("treatment_antibiotics", "oral,parenteral,both")
     li#treatment_antibiotics
       p.question= t('.treatment_antibiotics.question')
       = render 'shared/appendix_antibiotic', f: f, appendix_antibiotic: f.object.get_appendix_antibiotics_at(1)

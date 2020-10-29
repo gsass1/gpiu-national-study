@@ -12,6 +12,8 @@ class UtiSsiQuestionnaire < ApplicationRecord
 
   enum form_type: [:uti, :ssi]
 
+  enum antimicrobial_treatment: [:none, :oral, :parenteral, :both], _prefix: true
+
   def appendix_antibiotics_count
     2
   end

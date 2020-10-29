@@ -1,4 +1,9 @@
-= f.fields_for :appendix_antibiotic, appendix_antibiotic do |l|
+- if defined?(single) && single
+  - fields_for_type = :appendix_antibiotic
+- else
+  - fields_for_type = :appendix_antibiotics
+
+= f.fields_for fields_for_type, appendix_antibiotic do |l|
   = l.hidden_field :pos_id
   /= l.errors_on :other, hide_attribute_name: true
 
