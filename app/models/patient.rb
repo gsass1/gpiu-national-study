@@ -1,6 +1,7 @@
 class Patient < ApplicationRecord
   include AdminResource
   include Discard::Model
+  include CsvCollection
   include QuestionnaireStates
   include StudyIterationScoped
 
