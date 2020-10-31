@@ -373,8 +373,41 @@ ActiveRecord::Schema.define(version: 2020_10_29_143337) do
 
   create_table "biopsy_outcome_questionnaires", force: :cascade do |t|
     t.integer "patient_id", null: false
-    t.integer "test"
     t.datetime "discarded_at"
+    t.integer "histopathology_analysis"
+    t.integer "histopathology_biopsy_material_change"
+    t.integer "histopathology_biopsy_material_change_severity"
+    t.integer "outcome_analysis"
+    t.string "outcome_analysis_form_control_visit", limit: 20
+    t.integer "outcome_analysis_urinary_tract_infection"
+    t.boolean "outcome_analysis_dysuria"
+    t.boolean "outcome_analysis_frequency"
+    t.boolean "outcome_analysis_urgency"
+    t.boolean "outcome_analysis_prostate_pain"
+    t.boolean "outcome_analysis_rigor"
+    t.boolean "outcome_analysis_loin_pain"
+    t.boolean "outcome_analysis_fever"
+    t.integer "physician_visit"
+    t.integer "physician_visit_care_clinician"
+    t.integer "physician_visit_emergency_room"
+    t.integer "physician_visit_admission_hospital"
+    t.boolean "physician_visit_admission_hospital_urology"
+    t.boolean "physician_visit_admission_hospital_internal_medicine"
+    t.boolean "physician_visit_admission_hospital_intensive_care"
+    t.integer "physician_visit_psa"
+    t.bigint "physician_visit_psa_value"
+    t.integer "physician_visit_wbc_count"
+    t.bigint "physician_visit_wbc_value"
+    t.integer "physician_visit_crp"
+    t.bigint "physician_visit_crp_value"
+    t.integer "physician_visit_urine_culture"
+    t.string "physician_visit_urine_culture_result", limit: 20
+    t.integer "antibiotic_treatment"
+    t.string "antibiotics_type", limit: 255
+    t.string "antibiotics_dosage", limit: 255
+    t.bigint "antibiotics_duration"
+    t.string "antibiotics_route", limit: 5
+    t.string "outcome", limit: 15
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_biopsy_outcome_questionnaires_on_patient_id"
@@ -382,8 +415,37 @@ ActiveRecord::Schema.define(version: 2020_10_29_143337) do
 
   create_table "biopsy_questionnaires", force: :cascade do |t|
     t.integer "patient_id", null: false
-    t.integer "test"
     t.datetime "discarded_at"
+    t.bigint "age"
+    t.integer "antibiotics_preceding_months"
+    t.string "antibiotics_type", limit: 255
+    t.string "antibiotics_dosage", limit: 255
+    t.bigint "antibiotics_duration"
+    t.string "antibiotics_route", limit: 5
+    t.integer "urogenital_infection_preceding_months"
+    t.integer "urinary_catheter"
+    t.bigint "urinary_catheter_duration"
+    t.integer "prostate_size_measured"
+    t.bigint "prostate_size"
+    t.string "diabetes_mellitus", limit: 255
+    t.integer "psa"
+    t.bigint "psa_size"
+    t.integer "repeated_biopsy"
+    t.bigint "repeated_biopsy_number_previous_procedures"
+    t.integer "preoperative_urine_examination"
+    t.integer "preoperative_urine_examination_type"
+    t.string "preoperative_urine_culture_result", limit: 20
+    t.integer "preoperative_bowel_preparation"
+    t.string "preoperative_bowel_preparation_type", limit: 25
+    t.integer "antibiotic_prophylaxis"
+    t.string "antibiotic_prophylaxis_type", limit: 255
+    t.string "antibiotic_prophylaxis_dosage", limit: 255
+    t.bigint "antibiotic_prophylaxis_duration"
+    t.string "antibiotic_prophylaxis_route", limit: 5
+    t.integer "biopsy_anesthesia"
+    t.string "biopsy_anesthesia_type", limit: 45
+    t.string "biopsy_route", limit: 15
+    t.string "number_cores_taken", limit: 255
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_biopsy_questionnaires_on_patient_id"
@@ -976,7 +1038,7 @@ ActiveRecord::Schema.define(version: 2020_10_29_143337) do
     t.boolean "catheter_ureteralstent"
     t.boolean "catheter_nephrostomy"
     t.boolean "catheter_others"
-    t.bigint "catheterduration"
+    t.integer "catheterduration"
     t.string "intervention_endoscopic", limit: 255
     t.string "intervention_laparoscopic", limit: 255
     t.string "intervention_percutaneous", limit: 255
