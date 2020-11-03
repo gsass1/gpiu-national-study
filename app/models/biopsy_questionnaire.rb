@@ -29,6 +29,8 @@ class BiopsyQuestionnaire < ApplicationRecord
   validate_yes_no_unknown :antibiotic_prophylaxis
   validate_yes_no_unknown :biopsy_anesthesia
 
+  enum preoperative_urine_examination_type: [:dipstick, :culture], _prefix: true
+
   def initial= initial
     self.patient.update_attribute :initial, initial
   end
@@ -39,30 +41,30 @@ class BiopsyQuestionnaire < ApplicationRecord
 
   private
   def sanitize_attributes
-    unless self.antibiotics_preceding_months == :yes
+    unless self.antibiotics_preceding_months == 'yes'
       self.antibiotics_type = nil
       self.antibiotics_dosage = nil
       self.antibiotics_duration = nil
       self.antibiotics_route = nil
     end
 
-    unless self.urinary_catheter == :yes
+    unless self.urinary_catheter == 'yes'
       self.urinary_catheter_duration = nil
     end
 
-    unless self.prostate_size_measured == :yes
+    unless self.prostate_size_measured == 'yes'
       self.prostate_size = nil
     end
 
-    unless self.psa == :yes
+    unless self.psa == 'yes'
       self.psa_size = nil
     end
 
-    unless self.repeated_biopsy == :yes
+    unless self.repeated_biopsy == 'yes'
       self.repeated_biopsy_number_previous_procedures = nil
     end
 
-    unless self.preoperative_urine_examination == :yes
+    unless self.preoperative_urine_examination == 'yes'
       self.preoperative_urine_examination_type = nil
     end
 
@@ -74,18 +76,18 @@ class BiopsyQuestionnaire < ApplicationRecord
       #TODO reset appendix culture result
     end
 
-    unless self.preoperative_bowel_preparation == :yes
+    unless self.preoperative_bowel_preparation == 'yes'
       self.preoperative_bowel_preparation_type = nil
     end
 
-    unless self.antibiotic_prophylaxis == :yes
+    unless self.antibiotic_prophylaxis == 'yes'
       self.antibiotic_prophylaxis_type = nil
       self.antibiotic_prophylaxis_dosage = nil
       self.antibiotic_prophylaxis_duration = nil
       self.antibiotic_prophylaxis_route = nil
     end
 
-    unless self.biopsy_anesthesia == :yes
+    unless self.biopsy_anesthesia == 'yes'
       self.biopsy_anesthesia_type = nil
     end
   end

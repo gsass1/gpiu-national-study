@@ -3,7 +3,7 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   connect() {
     document.querySelectorAll('[data-condition').forEach((elem) => {
-      this.onTriggerChange({ target: elem  });
+      this.onTriggerChange({ target: elem, first: true });
     }, this);
   }
 
@@ -40,7 +40,13 @@ export default class extends Controller {
         elem.style.display = "block";
       }
     } else {
-      elem.style.display = "none";
+      if (e.first) {
+        if (elem.style.display != "block" && elem.style.display != "list-item") {
+          elem.style.display = "none";
+        }
+      } else {
+        elem.style.display = "none";
+      }
     }
   }
 }
