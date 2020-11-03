@@ -7,12 +7,62 @@
     .form-inputs
       = f.error_notification
 
-    .card.mb-3
-      .card-header.bg-primary.text-light
-        strong= t('.title')
-      .card-body
-        ol
-          li= f.input :test
+
+    = sub_section t('.section.1')
+      ol
+        li= f.input :initial, label: t('.form.initial.question'), hint: t('.form.initial.help')
+        li= f.input :age, label: t('.form.age.question')
+        li
+          = f.input :antibiotics_preceding_months, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.antibiotics_preceding_months.question'), input_html: form_trigger("antibiotics_preceding_questions", "yes")
+          ol#antibiotics_preceding_questions
+            li= f.input :antibiotics_type, as: :grouped_select, collection: antibiotic_groups, group_method: :last, label: t('.form.antibiotics_type.question')
+            li = f.input :antibiotics_dosage, label: t('.form.antibiotics_dosage.question')
+            li = f.input :antibiotics_duration, label: t('.form.antibiotics_duration.question'), hint: t('.form.antibiotics_duration.append')
+            li = f.input :antibiotics_route, as: :radio_buttons, label: t('.form.antibiotics_route.question'), collection: radio_button_collection(".form.antibiotics_route.answers", :oral, :iv, :im), value_method: :first, label_method: :second
+        li= f.input :urogenital_infection_preceding_months, label: t('.form.urogenital_infection_preceding_months.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second
+        li= f.input :urinary_catheter, label: t('.form.urinary_catheter.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("antibiotics_preceding_questions", "yes"), input_html: form_trigger("urinary_catheter_duration", "yes")
+        ol#urinary_catheter_duration
+          li= f.input :urinary_catheter_duration, label: t('.form.urinary_catheter_duration.question')
+        li= f.input :prostate_size_measured, label: t('.form.prostate_size_measured.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("antibiotics_preceding_questions", "yes"), input_html: form_trigger("prostate_size_measured", "yes")
+        ol#prostate_size_measured
+          li= f.input :prostate_size, label: t('.form.prostate_size.question')
+        li= f.input :diabetes_mellitus, label: t('.form.diabetes_mellitus.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second
+
+    = sub_section t('.section.2')
+      ol
+        li= f.input :psa, label: t('.form.psa.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("psa", "yes")
+        ol#psa
+          li= f.input :psa_size, label: t('.form.psa_size.question') 
+        li= f.input :repeated_biopsy, label: t('.form.repeated_biopsy.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("repeated_biopsy", "yes")
+        ol#repeated_biopsy
+          li= f.input :repeated_biopsy_number_previous_procedures, label: t('.form.repeated_biopsy_number_previous_procedures.question')
+
+    = sub_section t('.section.3')
+      ol
+        li= f.input :preoperative_urine_examination, label: t('.form.preoperative_urine_examination.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_examination", "yes")
+        ol#preoperative_urine_examination
+          li= f.input :preoperative_urine_examination_type, as: :radio_buttons, label: t('.form.preoperative_urine_examination_type.question'), collection: radio_button_collection(".form.preoperative_urine_examination_type.answers", :dipstick, :culture), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_examination_type", "culture")
+          ol#preoperative_urine_examination_type
+            li= f.input :preoperative_urine_culture_result, label: t('.form.preoperative_urine_culture_result.question'), as: :radio_buttons, collection: radio_button_collection(".form.preoperative_urine_culture_result", "culture_negative", "culture_positive"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_culture_result", "culture_positive")
+            ol#preoperative_urine_culture_result= render 'shared/appendix_culture', f: f, single: true, appendix_culture: f.object.appendix_culture_result
+        li= f.input :preoperative_bowel_preparation, label: t('.form.preoperative_bowel_preparation.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_bowel_preparation", "yes")
+        ol#preoperative_bowel_preparation
+          li= f.input :preoperative_bowel_preparation_type, label: t('.form.preoperative_bowel_preparation_type.question'), as: :radio_buttons, collection: radio_button_collection(".form.preoperative_bowel_preparation_type", "enema", "povidone_iodine_lavage", "other"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_culture_result", "culture_positive")
+
+        li= f.input :antibiotic_prophylaxis, label: t('.form.antibiotic_prophylaxis.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("antibiotic_prophylaxis_preceding_questions", "yes")
+        ol#antibiotic_prophylaxis_preceding_questions
+          li= f.input :antibiotic_prophylaxis_type, as: :grouped_select, collection: antibiotic_groups, group_method: :last, label: t('.form.antibiotic_prophylaxis_type.question')
+          li= f.input :antibiotic_prophylaxis_dosage, label: t('.form.antibiotic_prophylaxis_dosage.question')
+          li= f.input :antibiotic_prophylaxis_duration, label: t('.form.antibiotic_prophylaxis_duration.question')
+          li= f.input :antibiotic_prophylaxis_route, as: :radio_buttons, label: t('.form.antibiotic_prophylaxis_route.question'), collection: radio_button_collection(".form.antibiotic_prophylaxis_route.answers", :oral, :iv, :im), value_method: :first, label_method: :second
+
+        li= f.input :biopsy_anesthesia, label: t('.form.biopsy_anesthesia.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("biopsy_anesthesia", "yes")
+        ol#biopsy_anesthesia
+          li= f.input :biopsy_anesthesia_type, label: t('.form.biopsy_anesthesia_type.question'), as: :radio_buttons, collection: radio_button_collection(".form.biopsy_anesthesia_type", "local_anesthesia_by_intransrectal_injection", "spinal_anesthesia", "general_anesthesia"), value_method: :first, label_method: :second
+
+        li= f.input :biopsy_route, label: t('.form.biopsy_route.question'), as: :radio_buttons, collection: radio_button_collection(".form.biopsy_route", "transrectal", "perineal"), value_method: :first, label_method: :second
+
+        li= f.input :number_cores_taken, label: t('.form.number_cores_taken.question'), as: :select, collection: BiopsyQuestionnaire::NUM_CORES_OPTIONS
 
     - if study_active?
       .form-actions
