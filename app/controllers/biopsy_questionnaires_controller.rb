@@ -4,12 +4,14 @@ class BiopsyQuestionnairesController < ApplicationController
   include AppendixCultureResultParams
 
   load_and_authorize_resource
+  skip_load_resource
+
   requires_active_study_iteration only: [:update]
 
   add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
   add_breadcrumb I18n.t("patients.index.title"), :patients_path
 
-  before_action :add_breadcrumbs
+  before_action :load_patient, :load_biopsy_questionnaire, :add_breadcrumbs
 
   def edit
     @biopsy_questionnaire.valid?
@@ -26,6 +28,14 @@ class BiopsyQuestionnairesController < ApplicationController
   end
 
   private
+  def load_patient
+    @patient = Patient.find(params[:patient_id])
+  end
+
+  def load_biopsy_questionnaire
+    @biopsy_questionnaire = BiopsyQuestionnaire.find_by(id: params[:id], patient_id: @patient.id)
+  end
+
   def biopsy_questionnaire_params
     params.require(:biopsy_questionnaire).permit(:initial,
                                                  :age,

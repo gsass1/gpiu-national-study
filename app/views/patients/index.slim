@@ -57,7 +57,10 @@
         .card-header.bg-primary.text-light
           strong.lead= "#{department.hospital.name} - #{department.name}"
           - if study_active?
-            .float-right= link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'prostate_biopsy'), class: 'btn btn-sm btn-success'
+            .float-right
+              .btn-group
+                = link_to t('.open_department_questionnaire'), edit_hospital_department_department_questionnaire_path(department.hospital, department, department.current_department_questionnaire), class: 'btn btn-sm btn-info'
+                = link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'prostate_biopsy'), class: 'btn btn-sm btn-success'
         .card-body.department-patients
           table.table.table-striped
             tr
@@ -65,7 +68,7 @@
               th= t('patients.index.biopsy.table.initials')
               th= t('patients.index.biopsy.table.biopsy_form')
               th= t('patients.index.biopsy.table.biopsy_outcome_form')
-            - department.patients.prostate_biopsy.within_study_iteration(current_study_iteration).each do |patient|
+            - department.patients.prostate_biopsy.within_study_iteration(current_study_iteration).includes([:biopsy_questionnaire, :biopsy_outcome_questionnaire]).each do |patient|
               tr
                 td= patient.id
                 td= patient.initial
