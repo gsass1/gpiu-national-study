@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :study_iterations, only: [:index, :show] do
       post :approve
       post :reject
+      get :export
     end
   end
 

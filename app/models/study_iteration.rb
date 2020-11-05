@@ -1,4 +1,3 @@
-
 class StudyIteration < ApplicationRecord
   include Notifiable
 
@@ -6,6 +5,8 @@ class StudyIteration < ApplicationRecord
 
   has_many :study_ranges
   has_many :patients
+  has_many :department_questionnaires
+  has_many :departments, through: :department_questionnaires
 
   enum acceptance_state: [:unsubmitted, :pending, :accepted, :declined]
   validates :name, presence: true

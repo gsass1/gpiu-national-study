@@ -24,7 +24,7 @@ class PatientIdentification < ApplicationRecord
   end
 
   def to_s
-    "Include Form #{patient}"
+    "Patient Include Form #{self.patient}-#{self.study_iteration.name}"
   end
 
   private

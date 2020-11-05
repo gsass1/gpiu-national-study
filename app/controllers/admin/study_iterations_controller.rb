@@ -3,7 +3,7 @@ class Admin::StudyIterationsController < ApplicationController
   layout 'admin'
   load_and_authorize_resource
 
-  before_action :load_study_iteration, only: [:approve, :reject]
+  before_action :load_study_iteration, only: [:approve, :reject, :export]
 
   def index
     @study_iterations = @study_iterations.includes([:country, :study_ranges])
@@ -40,6 +40,22 @@ class Admin::StudyIterationsController < ApplicationController
     end
 
     redirect_to admin_study_iteration_path(@study_iteration)
+  end
+
+  def export
+    @type_of_data = params[:type_of_data]
+    case @type_of_data
+    when "uti_ssi_patients"
+      @csv_data = Patient.as_csv_collection(@study_iteration.patients.uti_ssi)
+    when "prostate_biopsy_patients"
+      @csv_data = Patient.as_csv_collection(@study_iteration.patients.prostate_biopsy)
+    when "hospitals"
+      @csv_data = Department.as_csv_collection(@study_iteration.departments)
+    else
+      return
+    end
+
+    send_data @csv_data, filename: "#{@study_iteration.name.to_param}-#{@type_of_data}.csv"
   end
 
   private

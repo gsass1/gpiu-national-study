@@ -9,8 +9,7 @@ module Admin::ResourcePage
   included do
     @resource_name ||= self.controller_name
 
-    before_action :link_prefix
-    before_action :add_breadcrumbs
+    before_action :link_prefix, :add_breadcrumbs, :load_study_iterations
   end
 
   def new
@@ -194,5 +193,9 @@ module Admin::ResourcePage
       @total_pages = 1
       @per = 'all'
     end
+  end
+
+  def load_study_iterations
+    @study_iterations = current_user.country.study_iterations
   end
 end

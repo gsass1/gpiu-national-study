@@ -1,59 +1,84 @@
 .container
-  div
-    h1.d-flex.flex-row.align-items-center
-      span= "Study Iteration \"#{@study_iteration.name}\""
-      - if @study_iteration.unsubmitted?
-        span.badge.badge-info.ml-3 Unsubmitted
-      - if @study_iteration.pending?
-        span.badge.badge-primary.ml-3 Pending
-      - elsif @study_iteration.accepted?
-        span.badge.badge-success.ml-3 Accepted
-      - elsif @study_iteration.declined?
-        span.badge.badge-danger.ml-3 Declined
-  
-  h3= "Country: #{@study_iteration.country}"
-  h3= "Study Ranges (#{@study_iteration.study_ranges.count} in total)"
-
-  p
-    strong Total duration =
-    = " #{@study_iteration.duration} day(s)"
-
-  - if @study_iteration.study_ranges.any?
-    table.table
-      tr
-        th Start Date
-        th End Date
-        th Duration
-        th State
-        th Comment
-      - @study_iteration.study_ranges.each do |range|
+  h1= "Study Iteration \"#{@study_iteration.name}\""
+  hr
+  .card
+    .card-header.bg-primary.text-light
+      strong Overview
+    .card-body[style="padding: 0;"]
+      table.table.table-bordered
         tr
-          td= range.start
-          td= range.end
-          td= "#{range.duration} day(s)"
-          td= range_state(range)
-          td= range.comment
+          th= "State"
+          td
+            - if @study_iteration.unsubmitted?
+              strong Unsubmitted
+            - if @study_iteration.pending?
+              strong Pending Approval
+            - elsif @study_iteration.accepted?
+              strong Accepted
+            - elsif @study_iteration.declined?
+              strong Declined
+        tr
+          th= "Country"
+          td= @study_iteration.country
+        tr
+          th= "Total duration"
+          td= "#{@study_iteration.duration} days"
 
+
+    - if @study_iteration.accepted?
+      .card.mt-3
+        .card-header.bg-primary.text-light
+          strong= "Data Export"
+        .card-body
+          ul
+            li= link_to "Hospital data (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "hospitals")
+            li= link_to "UTI/SSI Patients (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "uti_ssi_patients")
+            li= link_to "Prostate Biopsy Patients (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "prostate_biopsy_patients")
+
+    .card.mt-3
+      .card-header.bg-primary.text-light
+        strong= "Schedule"
+      .card-body[style="padding: 0;"]
+        - if @study_iteration.study_ranges.any?
+          table.table
+            tr
+              th Start Date
+              th End Date
+              th Duration
+              th State
+              th Comment
+            - @study_iteration.study_ranges.each do |range|
+              tr
+                td= range.start
+                td= range.end
+                td= "#{range.duration} day(s)"
+                td= range_state(range)
+                td= range.comment
 
   - if @study_ranges.any?
-    h3 Calendar View
-    = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
+    .card.mt-3
+      .card-header.bg-primary.text-light
+        strong= "Calendar"
+      .card-body
+        = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
+
 
   - if @study_iteration.pending?
-    hr
+    .card.mt-3
+      .card-header.bg-primary.text-light
+        strong= "Admin Actions"
+      .card-body
+        h3 Approve
+        hr
+        = link_to "Approve this study iteration", admin_study_iteration_approve_path(@study_iteration), class: 'btn btn-success', method: :post
 
-    h3 Approve
-    hr
-    = link_to "Approve this study iteration", admin_study_iteration_approve_path(@study_iteration), class: 'btn btn-success', method: :post
+        hr
 
-    hr
-
-    h3 Reject
-    hr
-    = simple_form_for(@study_iteration, method: :post, url: admin_study_iteration_reject_path(@study_iteration)) do |f|
-      .form-inputs
-        = f.error_notification
-        = f.input :rejection_reason
-        .form-actions
-          = f.button :submit, "Reject this study iteration", class: 'btn btn-danger'
-
+        h3 Reject
+        hr
+        = simple_form_for(@study_iteration, method: :post, url: admin_study_iteration_reject_path(@study_iteration)) do |f|
+          .form-inputs
+            = f.error_notification
+            = f.input :rejection_reason
+            .form-actions
+              = f.button :submit, "Reject this study iteration", class: 'btn btn-danger'

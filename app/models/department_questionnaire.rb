@@ -70,7 +70,7 @@ class DepartmentQuestionnaire < ApplicationRecord
   end
 
   def to_s
-    "DQ #{self.department}-#{self.study_iteration.name}"
+    "DepartmentQuestionnaire #{self.department}-#{self.study_iteration.name}"
   end
 
   private
