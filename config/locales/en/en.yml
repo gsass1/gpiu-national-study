@@ -437,10 +437,224 @@ en:
 
   biopsy_outcome_questionnaires:
     edit:
+      yes_no_unknown:
+        yes: "Yes"
+        no: "No"
+        unknown: "Unknown"
+
       title: "Edit Biopsy Outcome Form"
       submit: "Submit"
+      form:
+        section:
+          "1": "I. Outcome of biopsy (2 weeks followup)"
+        text:
+          indicate_symptoms: "Indicate symptoms"
+
+        histopathology_analysis:
+          question: "Histopathology analysis performed?"
+        histopathology_biopsy_material_change:
+          question: "Histological inflammatory change in biopsy material?"
+        histopathology_biopsy_material_change_severity:
+          question: "Please choose the severity of the histological inflammatory change"
+          answers:
+            mild: "Mild"
+            moderate: "Moderate"
+            severe: "Severe"
+        outcome_analysis:
+          question: "Outcome analysis performed?"
+        outcome_analysis_form_control_visit:
+          question: "Form control visit"
+          answers:
+            personal_visit: "Personal visit"
+            telephone_interview: "Telephone interview"
+            other: "Other"
+        outcome_analysis_urinary_tract_infection:
+          question: "Symptoms of urinary tract infection present at any time in 2 weeks after biopsy"
+        outcome_analysis_dysuria:
+          question: "Dysuria"
+        outcome_analysis_frequency:
+          question: "Frequency"
+        outcome_analysis_urgency:
+          question: "Urgency"
+        outcome_analysis_prostate_pain:
+          question: "Prostate pain"
+        outcome_analysis_rigor:
+          question: "Rigor"
+        outcome_analysis_loin_pain:
+          question: "Loin pain"
+        outcome_analysis_fever:
+          question: "Fever > 38°C"
+        physician_visit:
+          question: "Physician visit"
+        physician_visit_care_clinician:
+          question: "Primary care clinician"
+        physician_visit_emergency_room:
+          question: "Emergency room"
+        physician_visit_admission_hospital:
+          question: "Admission to hospital"
+        physician_visit_admission_hospital_urology:
+          question: "Urology ward"
+        physician_visit_admission_hospital_internal_medicine:
+          question: "Internal medicine ward"
+        physician_visit_admission_hospital_intensive_care:
+          question: "Intensive care ward"
+        physician_visit_psa:
+          question: "PSA (prostate specific antigen)"
+        physician_visit_psa_value:
+          question: "PSA value in ng/ml"
+        physician_visit_wbc_count:
+          question: "WBC (white blood cell count)"
+        physician_visit_wbc_value:
+          question: "WBC value in giga/l"
+        physician_visit_crp:
+          question: "CRP (C-reactive protein)"
+        physician_visit_crp_value:
+          question: "CRP value in mg/l"
+        physician_visit_urine_culture:
+          question: "Urine culture taken"
+        physician_visit_urine_culture_result:
+          question: "culture result"
+          answers:
+            culture_negative: "Culture negative"
+            culture_positive: "Culture positive"
+        antibiotic_treatment:
+          question: "Antibiotic treatment"
+        antibiotics_type:
+          question: "Antibiotics type"
+        antibiotics_dosage:
+          question: "Antibiotics dosage"
+        antibiotics_duration:
+          question: "Antibiotics duration"
+          append: "days"
+        antibiotics_route:
+          question: "Antibiotics route"
+          answers:
+            oral: "Oral"
+            iv: "IV"
+            im: "IM"
+        outcome:
+          question: "Outcome at follow up date"
+          answers:
+            resolved: "Resolved"
+            not_resolved: "Not Resolved"
+            death: "Death"
 
   shared:
+    appendix_culture:
+      field:
+        answer:
+          sensitive: "Sensitive"
+          intermediate: "Intermediate"
+          resistant: "Resistant"
+      form:
+        results_of_culture:
+          question: "Results of culture"
+          sub_question: "Only two uropathogens can be reported. More are considered to be contamination. Choose the name of the pathogen(s) from the menu below"
+        first_pathogen_html: "Please choose <u>first</u> pathogen"
+        second_pathogen_html: "Please choose <u>second</u> pathogen"
+        susceptibility_standard:
+          question: "Standard used for susceptibility testing"
+          answers:
+            nccls_clsi: "NCCLS/CLSI"
+            din: "DIN"
+            eucast: "EUCAST"
+            other: "Other"
+        susceptibility_standard_other:
+          question: "Please specify"
+      pathogen:
+        please_specify: "Please specify"
+        enter_cfu_ml: "Enter cfu/ml"
+      susceptibility_test:
+        antimicrobial_agents_for_susceptibility_test: "Antimicrobial Agents for Susceptibility Test"
+        fill_in_susceptibility_first_pathogen_html: "Please fill in the susceptibility test for the <strong>first</strong> pathogen"
+        fill_in_susceptibility_second_pathogen_html: "Please fill in the susceptibility test for the <strong>second</strong> pathogen"
+      pathogen_options:
+        enterobacteriaceae: "Enterobacteriaceae"
+        e_coli: "E. coli"
+        klebsiella_sp: "Klebsiella sp."
+        proteus_sp: "Proteus sp."
+        enterobacter_sp: "Enterobacter sp."
+        citrobacter_sp: "Citrobacter sp."
+        morganella_sp: "Morganella sp."
+        other_enterobacteriaceae: "Other enterobacteriaceae."
+        non_fermenter: "Non-fermenter"
+        pseudomonas_aeruginosa: "Pseudomonas aeruginosa"
+        acinetoacter_sp: "Acinetoacter sp."
+        other_non_fermenter: "Other non-fermenter."
+        gram_positive_cocci: "Gram-positive cocci"
+        enterococcus_sp: "Enterococcus sp."
+        staphylococcus_aureus: "Staphylococcus aureus"
+        caogulase_negative_staphylococcy_cns: "Coagulase-negative staphylococci (CNS)"
+        other_gram_positive_cocci: "Other gram-positive cocci."
+        other_bacteria: "Other bacteria"
+        other_bacteria_option: "Other bacteria"
+        fungi: "Fungi"
+        candida_sp: "Candida sp."
+        other_fungi: "Other fungi."
+      susceptibility_fields:
+        penicillins: "Penicillins"
+        penicillins_options:
+          ampicillin_amoxicillin: "ampicillin/amoxicillin"
+          ampicillin_amoxicillin_bli: "ampicillin/amoxicillin+BLI"
+          piperacillin: "piperacillin"
+          piperacillin_bli: "piperacillin+BLI"
+          oxacillin: "oxacillin"
+          ticarcillin_clavulanic_acid: "Ticarcillin + Clavulanic acid"
+        cephalosporins: "Cephalosporins"
+        cephalosporins_options:
+          cephazolin: "cephazolin"
+          cefuroxime: "cefuroxime"
+          cefotaxime_ceftriaxone: "cefotaxime/ceftriaxone"
+          ceftazidime: "ceftazidime"
+          cefepime: "cefepime"
+          ceftaroline: "Ceftaroline"
+          cephamycins: "Cephamycins"
+          cefoxitin: "Cefoxitin"
+          cefotetan: "Cefotetan"
+        carbapenem: "Carbapenem"
+        carbapenem_options:
+          imipenem_meronem: "Imipenem/meronem"
+          doripenem: "Doripenem"
+          ertapenem: "Ertapenem"
+        aminoglycosides: "Aminoglycosides"
+        aminoglycosides_options:
+          gentamicin: "gentamicin"
+          amikacin: "amikacin"
+          tobramicin: "Tobramicin"
+          netilmicin: "Netilmicin"
+        fluoroquinolones: "Fluoroquinolones"
+        fluoroquinolones_options:
+          ofloxacin: "ofloxacin"
+          ciprofloxacin: "ciprofloxacin"
+          levofloxacin: "levofloxacin"
+          moxifloxacin: "Moxifloxacin"
+        tetracyclines: "Tetracyclines"
+        tetracyclines_options:
+          doxycyclin: "doxycyclin"
+          tetracycline: "Tetracycline"
+          minocycline: "Minocycline"
+          glycylcylines_tigecyline: "Glycylcylines - Tigecyline"
+        fosfomycin_trometamol: "Fosfomycin trometamol"
+        trimethoprim_solfonamide_cotrimoxazole: "Trimethoprim/Sulfonamide (Cotrimoxazole)"
+        nitrofurantoin: "Nitrofurantoin"
+        erythromycin_macrolides: "Erythromycin/macrolides"
+        clindamycin: "Clindamycin"
+        glycopeptides: "Glycopeptides"
+        glycopeptides_options:
+          vancomycin: "vancomycin"
+          teicoplanin: "Teicoplanin"
+          telavancin: "Telavancin"
+        linezolid: "Linezolid"
+        phenicols: "Phenicols"
+        polymixins: "Polymixins"
+        polymixins_options:
+          colistins: "Colistins"
+          polymixin_b: "Polymixin B"
+        monobactams: "Monobactams"
+        daptomycin: "Daptomycin"
+        rifampin_rifampicin: "Rifampin/Rifampicin"
+        fucidanes: "Fucidanes"
+
     appendix_antibiotic:
       aminoglycosides:
         group: "Aminoglycosides"
@@ -782,10 +996,6 @@ en:
         help: "English text"
       antibioticculture:
         question: "Was the patient receiving antibiotics when culture was taken?"
-        answers:
-          yes: "Yes"
-          no: "No"
-          unknown: "Unknown"
       antimicrobical_treatment:
         question: "Administration of antimicrobial treatment"
         answers:
@@ -795,118 +1005,3 @@ en:
           both: "Both"
       treatment_antibiotics:
         question: "The antimicrobial drugs belong to the following groups"
-
-    appendix_culture:
-      field:
-        answer:
-          sensitive: "Sensitive"
-          intermediate: "Intermediate"
-          resistant: "Resistant"
-      form:
-        results_of_culture:
-          question: "Results of culture"
-          sub_question: "Only two uropathogens can be reported. More are considered to be contamination. Choose the name of the pathogen(s) from the menu below"
-        first_pathogen_html: "Please choose <u>first</u> pathogen"
-        second_pathogen_html: "Please choose <u>second</u> pathogen"
-        susceptibility_standard:
-          question: "Standard used for susceptibility testing"
-          answers:
-            nccls_clsi: "NCCLS/CLSI"
-            din: "DIN"
-            eucast: "EUCAST"
-            other: "Other"
-        susceptibility_standard_other:
-          question: "Please specify"
-      pathogen:
-        please_specify: "Please specify"
-        enter_cfu_ml: "Enter cfu/ml"
-      susceptibility_test:
-        antimicrobial_agents_for_susceptibility_test: "Antimicrobial Agents for Susceptibility Test"
-        fill_in_susceptibility_first_pathogen_html: "Please fill in the susceptibility test for the <strong>first</strong> pathogen"
-        fill_in_susceptibility_second_pathogen_html: "Please fill in the susceptibility test for the <strong>second</strong> pathogen"
-      pathogen_options:
-        enterobacteriaceae: "Enterobacteriaceae"
-        e_coli: "E. coli"
-        klebsiella_sp: "Klebsiella sp."
-        proteus_sp: "Proteus sp."
-        enterobacter_sp: "Enterobacter sp."
-        citrobacter_sp: "Citrobacter sp."
-        morganella_sp: "Morganella sp."
-        other_enterobacteriaceae: "Other enterobacteriaceae."
-        non_fermenter: "Non-fermenter"
-        pseudomonas_aeruginosa: "Pseudomonas aeruginosa"
-        acinetoacter_sp: "Acinetoacter sp."
-        other_non_fermenter: "Other non-fermenter."
-        gram_positive_cocci: "Gram-positive cocci"
-        enterococcus_sp: "Enterococcus sp."
-        staphylococcus_aureus: "Staphylococcus aureus"
-        caogulase_negative_staphylococcy_cns: "Coagulase-negative staphylococci (CNS)"
-        other_gram_positive_cocci: "Other gram-positive cocci."
-        other_bacteria: "Other bacteria"
-        other_bacteria_option: "Other bacteria"
-        fungi: "Fungi"
-        candida_sp: "Candida sp."
-        other_fungi: "Other fungi."
-      susceptibility_fields:
-        penicillins: "Penicillins"
-        penicillins_options:
-          ampicillin_amoxicillin: "ampicillin/amoxicillin"
-          ampicillin_amoxicillin_bli: "ampicillin/amoxicillin+BLI"
-          piperacillin: "piperacillin"
-          piperacillin_bli: "piperacillin+BLI"
-          oxacillin: "oxacillin"
-          ticarcillin_clavulanic_acid: "Ticarcillin + Clavulanic acid"
-        cephalosporins: "Cephalosporins"
-        cephalosporins_options:
-          cephazolin: "cephazolin"
-          cefuroxime: "cefuroxime"
-          cefotaxime_ceftriaxone: "cefotaxime/ceftriaxone"
-          ceftazidime: "ceftazidime"
-          cefepime: "cefepime"
-          ceftaroline: "Ceftaroline"
-          cephamycins: "Cephamycins"
-          cefoxitin: "Cefoxitin"
-          cefotetan: "Cefotetan"
-        carbapenem: "Carbapenem"
-        carbapenem_options:
-          imipenem_meronem: "Imipenem/meronem"
-          doripenem: "Doripenem"
-          ertapenem: "Ertapenem"
-        aminoglycosides: "Aminoglycosides"
-        aminoglycosides_options:
-          gentamicin: "gentamicin"
-          amikacin: "amikacin"
-          tobramicin: "Tobramicin"
-          netilmicin: "Netilmicin"
-        fluoroquinolones: "Fluoroquinolones"
-        fluoroquinolones_options:
-          ofloxacin: "ofloxacin"
-          ciprofloxacin: "ciprofloxacin"
-          levofloxacin: "levofloxacin"
-          moxifloxacin: "Moxifloxacin"
-        tetracyclines: "Tetracyclines"
-        tetracyclines_options:
-          doxycyclin: "doxycyclin"
-          tetracycline: "Tetracycline"
-          minocycline: "Minocycline"
-          glycylcylines_tigecyline: "Glycylcylines - Tigecyline"
-        fosfomycin_trometamol: "Fosfomycin trometamol"
-        trimethoprim_solfonamide_cotrimoxazole: "Trimethoprim/Sulfonamide (Cotrimoxazole)"
-        nitrofurantoin: "Nitrofurantoin"
-        erythromycin_macrolides: "Erythromycin/macrolides"
-        clindamycin: "Clindamycin"
-        glycopeptides: "Glycopeptides"
-        glycopeptides_options:
-          vancomycin: "vancomycin"
-          teicoplanin: "Teicoplanin"
-          telavancin: "Telavancin"
-        linezolid: "Linezolid"
-        phenicols: "Phenicols"
-        polymixins: "Polymixins"
-        polymixins_options:
-          colistins: "Colistins"
-          polymixin_b: "Polymixin B"
-        monobactams: "Monobactams"
-        daptomycin: "Daptomycin"
-        rifampin_rifampicin: "Rifampin/Rifampicin"
-        fucidanes: "Fucidanes"

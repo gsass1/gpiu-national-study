@@ -7,12 +7,62 @@
     .form-inputs
       = f.error_notification
 
-    .card.mb-3
-      .card-header.bg-primary.text-light
-        strong= t('.title')
-      .card-body
-        ol
-          li= f.input :test
+    = sub_section t('.form.section.1')
+      ol
+        li= f.input :histopathology_analysis, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.histopathology_analysis.question'), input_html: form_trigger("histopathology_analysis", "yes")
+        ol#histopathology_analysis
+          li= f.input :histopathology_biopsy_material_change, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.histopathology_biopsy_material_change.question'), input_html: form_trigger("histopathology_biopsy_material_change", "yes")
+          ol#histopathology_biopsy_material_change
+            li= f.input :histopathology_biopsy_material_change_severity, as: :radio_buttons, collection: radio_button_collection("form.histopathology_biopsy_material_change_severity.answers", "mild", "moderate", "severe"), value_method: :first, label_method: :second, label: t('.form.histopathology_biopsy_material_change_severity.question')
+        li= f.input :outcome_analysis, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.outcome_analysis.question'), input_html: form_trigger("outcome_analysis", "yes")
+        ol#outcome_analysis
+          li= f.input :outcome_analysis_form_control_visit, as: :radio_buttons, collection: radio_button_collection(".form.outcome_analysis_form_control_visit.answers", "personal_visit", "telephone_interview", "other"), value_method: :first, label_method: :second, label: t('.form.outcome_analysis_form_control_visit.question')
+
+        li= f.input :outcome_analysis_urinary_tract_infection, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.outcome_analysis_urinary_tract_infection.question'), input_html: form_trigger("outcome_analysis_urinary_tract_infection", "yes")
+        ol#outcome_analysis_urinary_tract_infection
+          p.question= t('.form.text.indicate_symptoms')
+          li= f.input :outcome_analysis_dysuria, label: t('.form.outcome_analysis_dysuria.question')
+          li= f.input :outcome_analysis_frequency, label: t('.form.outcome_analysis_frequency.question')
+          li= f.input :outcome_analysis_urgency, label: t('.form.outcome_analysis_urgency.question')
+          li= f.input :outcome_analysis_prostate_pain, label: t('.form.outcome_analysis_prostate_pain.question')
+          li= f.input :outcome_analysis_rigor, label: t('.form.outcome_analysis_rigor.question')
+          li= f.input :outcome_analysis_loin_pain, label: t('.form.outcome_analysis_loin_pain.question')
+          li= f.input :outcome_analysis_fever, label: t('.form.outcome_analysis_fever.question')
+
+        li= f.input :physician_visit, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit.question'), input_html: form_trigger("physician_visit", "yes")
+        ol#physician_visit
+          li= f.input :physician_visit_care_clinician, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit_care_clinician.question')
+          li= f.input :physician_visit_emergency_room, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit_emergency_room.question')
+          li= f.input :physician_visit_admission_hospital, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit_admission_hospital.question'), input_html: form_trigger("physician_visit_admission_hospital", "yes")
+          ol#physician_visit_admission_hospital
+            li= f.input :physician_visit_admission_hospital_urology, label: t('.form.physician_visit_admission_hospital_urology.question')
+            li= f.input :physician_visit_admission_hospital_internal_medicine, label: t('.form.physician_visit_admission_hospital_internal_medicine.question')
+            li= f.input :physician_visit_admission_hospital_intensive_care, label: t('.form.physician_visit_admission_hospital_intensive_care.question')
+          li= f.input :physician_visit_psa, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit_psa.question'), input_html: form_trigger("physician_visit_psa", "yes")
+          ol#physician_visit_psa
+            li= f.input :physician_visit_psa_value, label: t('.form.physician_visit_psa_value.question')
+          li= f.input :physician_visit_wbc_count, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit_wbc_count.question'), input_html: form_trigger("physician_visit_wbc_count", "yes")
+          ol#physician_visit_wbc_count
+            li= f.input :physician_visit_wbc_value, label: t('.form.physician_visit_wbc_value.question')
+
+          li= f.input :physician_visit_crp, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit_crp.question'), input_html: form_trigger("physician_visit_crp", "yes")
+          ol#physician_visit_crp
+            li= f.input :physician_visit_crp_value, label: t('.form.physician_visit_crp_value.question')
+
+          li= f.input :physician_visit_urine_culture, as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, label: t('.form.physician_visit_urine_culture.question'), input_html: form_trigger("physician_visit_urine_culture", "yes")
+          ol#physician_visit_urine_culture
+            li= f.input :physician_visit_urine_culture_result, as: :radio_buttons, collection: radio_button_collection(".form.physician_visit_urine_culture_result.answers", "culture_negative", "culture_positive"), value_method: :first, label_method: :second, label: t('.form.physician_visit_urine_culture.question'), input_html: form_trigger("physician_visit_urine_culture_result", "culture_positive")
+            ol#physician_visit_urine_culture_result
+              = render 'shared/appendix_culture', f: f, single: true, appendix_culture: f.object.appendix_culture_result
+
+        li= f.input :antibiotic_treatment, label: t('.form.antibiotic_treatment.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("antibiotic_treatment", "yes")
+        ol#antibiotic_treatment
+          li= f.input :antibiotics_type, as: :grouped_select, collection: antibiotic_groups, group_method: :last, label: t('.form.antibiotics_type.question')
+          li= f.input :antibiotics_dosage, label: t('.form.antibiotics_dosage.question')
+          li= f.input :antibiotics_duration, label: t('.form.antibiotics_duration.question')
+          li= f.input :antibiotics_route, as: :radio_buttons, label: t('.form.antibiotics_route.question'), collection: radio_button_collection(".form.antibiotics_route.answers", :oral, :iv, :im), value_method: :first, label_method: :second
+
+        li= f.input :outcome, as: :radio_buttons, collection: radio_button_collection(".form.outcome.answers", "resolved", "not_resolved", "death"), value_method: :first, label_method: :second, label: t('.form.outcome.question')
 
     - if study_active?
       .form-actions
