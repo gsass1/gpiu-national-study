@@ -154,7 +154,7 @@ en:
           biopsy_outcome_form: "Biopsy Outcome Form"
     new:
       title: 'New Patient'
-      initial_hint: 'The initial is an ID of your choosing that helps you associate this patient with a patient in your hospital database. Please do not input any personal details of the patient such as their name.'
+      initial_hint: 'The initial is an ID of your choosing that helps you associate this patient with a patient in your hospital database. Please do not input any patient identifiers.'
   patient_identifications:
     edit:
       title: 'Patient Identification'
