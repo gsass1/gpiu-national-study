@@ -68,7 +68,7 @@
               th= t('patients.index.biopsy.table.initials')
               th= t('patients.index.biopsy.table.biopsy_form')
               th= t('patients.index.biopsy.table.biopsy_outcome_form')
-            - department.patients.prostate_biopsy.within_study_iteration(current_study_iteration).includes([:biopsy_questionnaire, :biopsy_outcome_questionnaire]).each do |patient|
+            - department.patients.prostate_biopsy.includes([:biopsy_questionnaire, :biopsy_outcome_questionnaire]).within_study_iteration(current_study_iteration).each do |patient|
               tr
                 td= patient.id
                 td= patient.initial
