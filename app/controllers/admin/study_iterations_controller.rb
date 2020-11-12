@@ -3,7 +3,7 @@ class Admin::StudyIterationsController < ApplicationController
   layout 'admin'
   load_and_authorize_resource
 
-  before_action :load_study_iteration, only: [:approve, :reject, :export]
+  before_action :load_study_iteration, only: [:approve, :reject, :export, :toggle_exportable]
 
   def index
     @study_iterations = @study_iterations.includes([:country, :study_ranges])
@@ -38,6 +38,20 @@ class Admin::StudyIterationsController < ApplicationController
     else
       flash[:danger] = "Failed rejecting study iteration"
     end
+
+    redirect_to admin_study_iteration_path(@study_iteration)
+  end
+
+  def toggle_exportable
+    if @study_iteration.exportable?
+      @study_iteration.exportable = false
+      flash[:success] = "Made data unexportable."
+    else
+      @study_iteration.exportable = true
+      flash[:success] = "Made data exportable."
+    end
+
+    @study_iteration.save
 
     redirect_to admin_study_iteration_path(@study_iteration)
   end

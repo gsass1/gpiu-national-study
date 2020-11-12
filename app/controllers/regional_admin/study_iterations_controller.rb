@@ -4,6 +4,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   load_and_authorize_resource
 
   before_action :load_si, :check_si_is_editable, only: [:create_study_range, :delete_study_range, :submit]
+  before_action :load_si, only: [:export]
   before_action :check_has_ranges, only: [:submit]
 
   def index
@@ -82,6 +83,27 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
     end
 
     redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+  end
+
+  def export
+    if @study_iteration.exportable?
+      @type_of_data = params[:type_of_data]
+      case @type_of_data
+      when "uti_ssi_patients"
+        @csv_data = Patient.as_csv_collection(@study_iteration.patients.uti_ssi)
+      when "prostate_biopsy_patients"
+        @csv_data = Patient.as_csv_collection(@study_iteration.patients.prostate_biopsy)
+      when "hospitals"
+        @csv_data = Department.as_csv_collection(@study_iteration.departments)
+      else
+        return
+      end
+
+      send_data @csv_data, filename: "#{@study_iteration.name.to_param}-#{@type_of_data}.csv"
+    else
+      flash[:danger] = "This study iteration is not exportable yet."
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+    end
   end
 
   private

@@ -75,6 +75,16 @@
         td.table-success.text-center
           strong= @study_iteration.patients.prostate_biopsy.count
 
+  h3 Data Export
+  hr
+  - unless @study_iteration.exportable?
+    .alert.alert-danger Patient data will be exportable once you have been granted permission by an administrator.
+  - else
+    ul
+      li= link_to "Hospital data (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "hospitals")
+      li= link_to "UTI/SSI Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "uti_ssi_patients")
+      li= link_to "Prostate Biopsy Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "prostate_biopsy_patients")
+
   - if @study_iteration.study_ranges.any?
     h3 Calendar View
     = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]

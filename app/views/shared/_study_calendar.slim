@@ -1,7 +1,7 @@
 - months.each do |m|
   hr
   = render 'shared/calendar_month', month: m[:month], year: m[:year], study_iterations: study_iterations
-div.mt-5
+div.my-5
   strong= t('study_calendar.index.legend.title')
   .float-right
     span.legend-color.bg-success.text-dark

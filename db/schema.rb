@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_143337) do
+ActiveRecord::Schema.define(version: 2020_11_12_161530) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -957,6 +957,7 @@ ActiveRecord::Schema.define(version: 2020_10_29_143337) do
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "exportable", default: false
     t.index ["country_id"], name: "index_study_iterations_on_country_id"
     t.index ["discarded_at"], name: "index_study_iterations_on_discarded_at"
   end

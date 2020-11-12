@@ -30,6 +30,8 @@
         .card-header.bg-primary.text-light
           strong= "Data Export"
         .card-body
+          - unless @study_iteration.exportable?
+            .alert.alert-info Only you can see this. Regional admins need to be first granted permission to export data. See below. 
           ul
             li= link_to "Hospital data (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "hospitals")
             li= link_to "UTI/SSI Patients (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "uti_ssi_patients")
@@ -62,12 +64,11 @@
       .card-body
         = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
 
-
-  - if @study_iteration.pending?
-    .card.mt-3
-      .card-header.bg-primary.text-light
-        strong= "Admin Actions"
-      .card-body
+  .card.my-5
+    .card-header.bg-primary.text-light
+      strong= "Actions"
+    .card-body
+      - if @study_iteration.pending?
         h3 Approve
         hr
         = link_to "Approve this study iteration", admin_study_iteration_approve_path(@study_iteration), class: 'btn btn-success', method: :post
@@ -82,3 +83,12 @@
             = f.input :rejection_reason
             .form-actions
               = f.button :submit, "Reject this study iteration", class: 'btn btn-danger'
+
+      h3 Data Export
+      hr
+      - if @study_iteration.exportable?
+        = link_to "Make unexportable", admin_study_iteration_toggle_exportable_path(@study_iteration), class: 'btn btn-success', method: :post
+        p.text-muted Revert regional admin permission to export patient data of this study iteration
+      - else
+        = link_to "Make exportable", admin_study_iteration_toggle_exportable_path(@study_iteration), class: 'btn btn-success', method: :post
+        p.text-muted Allow regional admins to export patient data of this study iteration

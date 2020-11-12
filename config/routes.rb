@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :study_iterations, only: [:index, :show] do
       post :approve
       post :reject
+      post :toggle_exportable
       get :export
     end
   end
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
         post :create_study_range
         post :submit
         delete '/delete_study_range/:study_range_id' => 'study_iterations#delete_study_range', as: :delete_study_range
+        get :export
       end
     end
   end
