@@ -28,21 +28,19 @@
               th= t('patients.index.uti_ssi.table.include_form')
               th= t('patients.index.uti_ssi.table.uti_form')
               th= t('patients.index.uti_ssi.table.ssi_form')
-            - department.patients.uti_ssi.within_study_iteration(current_study_iteration).each do |patient|
+            - department.patients.uti_ssi.within_study_iteration(current_study_iteration).includes([:uti_questionnaire, :ssi_questionnaire, :patient_identification]).each do |patient|
               tr
-                td= patient.id
-                td= patient.initial
-                td= link_to t('.uti_ssi.table.open_include_form'), edit_patient_identification_path(patient, patient.patient_identification), class: "btn btn-sm btn-success"
-                td
-                  - if patient.uti_form_needed?
-                    = link_to t('.uti_ssi.table.open_uti_form'), edit_patient_uti_questionnaire_path(patient, patient.uti_questionnaire), class: "btn btn-sm btn-success"
-                  - else
-                    .text-muted= t('.uti_ssi.table.form_not_needed')
-                td
-                  - if patient.ssi_form_needed?
-                    = link_to t('.uti_ssi.table.open_ssi_form'), edit_patient_ssi_questionnaire_path(patient, patient.ssi_questionnaire), class: "btn btn-sm btn-success"
-                  - else
-                    .text-muted= t('.uti_ssi.table.form_not_needed')
+                td[style="width:5%;"]= patient.id
+                td[style="width:10%;"]= patient.initial
+                = questionnaire_table_entry t('.uti_ssi.table.open_include_form'), edit_patient_identification_path(patient, patient.patient_identification), patient.identification_state_valid?, 25
+                - if patient.uti_form_needed?
+                  = questionnaire_table_entry t('.uti_ssi.table.open_uti_form'), edit_patient_uti_questionnaire_path(patient, patient.uti_questionnaire), patient.uti_state_valid?, 25
+                - else
+                  td.text-muted.text-center[style="width: 30%;"]= t('.uti_ssi.table.form_not_needed')
+                - if patient.ssi_form_needed?
+                  = questionnaire_table_entry t('.uti_ssi.table.open_ssi_form'), edit_patient_ssi_questionnaire_path(patient, patient.ssi_questionnaire), patient.ssi_state_valid?, 25
+                - else
+                  td.text-muted.text-center[style="width: 30%;"]= t('.uti_ssi.table.form_not_needed')
   - else
     .alert.alert-danger
       strong= t('patients.index.no_departments')
@@ -70,10 +68,10 @@
               th= t('patients.index.biopsy.table.biopsy_outcome_form')
             - department.patients.prostate_biopsy.includes([:biopsy_questionnaire, :biopsy_outcome_questionnaire]).within_study_iteration(current_study_iteration).each do |patient|
               tr
-                td= patient.id
-                td= patient.initial
-                td= link_to t('.open_biopsy_form'), edit_patient_biopsy_questionnaire_path(patient, patient.biopsy_questionnaire), class: "btn btn-sm btn-success"
-                td= link_to t('.open_biopsy_outcome_form'), edit_patient_biopsy_outcome_questionnaire_path(patient, patient.biopsy_outcome_questionnaire), class: "btn btn-sm btn-success"
+                td[style="width:5%;"]= patient.id
+                td[style="width:10%;"]= patient.initial
+                = questionnaire_table_entry t('.uti_ssi.table.open_biopsy_form'), edit_patient_biopsy_questionnaire_path(patient, patient.biopsy_questionnaire), patient.biopsy_state_valid?, 25
+                = questionnaire_table_entry t('.uti_ssi.table.open_biopsy_outcome_form'), edit_patient_biopsy_outcome_questionnaire_path(patient, patient.biopsy_outcome_questionnaire), patient.biopsy_outcome_state_valid?,  60
 
   - else
     .alert.alert-danger

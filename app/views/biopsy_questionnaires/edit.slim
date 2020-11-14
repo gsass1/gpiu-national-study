@@ -1,3 +1,8 @@
+.container
+  = render "shared/back_button"
+
+= render "shared/form_hint", state: @biopsy_questionnaire.patient.biopsy_state, model: @biopsy_questionnaire
+
 .container.questionnaire[data-controller="questionnaire"]
   - unless study_active?
     .alert.alert-danger
@@ -5,7 +10,7 @@
 
   = simple_form_for(@biopsy_questionnaire, method: :patch, url: patient_biopsy_questionnaire_path(@biopsy_questionnaire.patient, @biopsy_questionnaire)) do |f|
     .form-inputs
-      = f.error_notification
+      /= f.error_notification
 
 
     = sub_section t('.section.1')

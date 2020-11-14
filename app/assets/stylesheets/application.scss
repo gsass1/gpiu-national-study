@@ -188,3 +188,22 @@ p {
     font-weight: bold;
   }
 }
+
+.form-hint {
+  width: 100%;
+}
+
+.form-valid {
+  border-top: 2px solid #e8e0b8 !important;
+  border-bottom: 2px solid #e8e0b8 !important;
+}
+
+.form-missing {
+  border-top: 2px solid #91bec7 !important;
+  border-bottom: 2px solid #91bec7 !important;
+}
+
+.form-invalid {
+  border-top: 2px solid #d1a6aa !important;
+  border-bottom: 2px solid #d1a6aa !important;
+}

@@ -235,8 +235,9 @@ class AppendixCultureResult < ApplicationRecord
     }
   ]
 
-  with_options if: Proc.new{|f| f.should_valid} do |v|
-    v.validates :cdc_criteria, inclusion: {in: 0..4, message: 'Please select.'}
+  #with_options if: Proc.new{|f| f.should_valid} do |v|
+  with_options if: Proc.new{|f| true} do |v|
+    #v.validates :cdc_criteria, inclusion: {in: 0..4, message: 'Please select.'}
 
     v.validates :first_pathogen, presence: {message: 'Please select.'}
 

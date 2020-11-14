@@ -23,7 +23,7 @@ class Patient < ApplicationRecord
   questionnaire_state :biopsy_state
   questionnaire_state :biopsy_outcome_state
 
-  def valid?
+  def questionnaires_valid?
     if uti_ssi?
       valid = identification_state_valid?
       if uti_form_needed?
@@ -93,12 +93,12 @@ class Patient < ApplicationRecord
   after_create :create_questionnaires
 
   def uti_form_needed?
-    return false unless self.identification_state_valid?
+    return false unless (self.identification_state_valid? && self.patient_identification.try(&:infection_type))
     self.uti_ssi? && [:uti, :both].include?(self.patient_identification.infection_type.to_sym)
   end
 
   def ssi_form_needed?
-    return false unless self.identification_state_valid?
+    return false unless (self.identification_state_valid? && self.patient_identification.try(&:infection_type))
     self.uti_ssi? && [:ssi, :both].include?(self.patient_identification.infection_type.to_sym)
   end
 
@@ -106,7 +106,6 @@ class Patient < ApplicationRecord
     "Patient #{self.id}-#{self.initial}-#{self.study_iteration.name}"
   end
 
-  private
   def create_questionnaires
     self.create_patient_identification
     self.create_ssi_questionnaire

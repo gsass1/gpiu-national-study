@@ -11,6 +11,8 @@ class BiopsyQuestionnaire < ApplicationRecord
   belongs_to :patient
   before_validation :sanitize_attributes, on: :update
 
+  validates :age, presence: true, numericality: { greater_than: 0 }
+
   validate_yes_no_unknown :antibiotics_preceding_months
   validate_if_yes :antibiotics_preceding_months do |group|
     group.validates :antibiotics_dosage, presence: true
@@ -23,11 +25,26 @@ class BiopsyQuestionnaire < ApplicationRecord
   validate_yes_no_unknown :prostate_size_measured
   validate_yes_no_unknown :diabetes_mellitus
   validate_yes_no_unknown :psa
+  validates :psa_size, presence: true, numericality: { greater_than_or_equal_to: 0 }, if: Proc.new { |f| f.psa == 'yes' }
+
   validate_yes_no_unknown :repeated_biopsy
+  validates :repeated_biopsy_number_previous_procedures, presence: true, numericality: { greater_than_or_equal_to: 0 }, if: Proc.new { |f| f.repeated_biopsy == 'yes' }
+
   validate_yes_no_unknown :preoperative_urine_examination
   validate_yes_no_unknown :preoperative_bowel_preparation
+
   validate_yes_no_unknown :antibiotic_prophylaxis
+  with_options if: Proc.new { |f| f.antibiotic_prophylaxis == 'yes' } do |v|
+    v.validates :antibiotic_prophylaxis_type, presence: true
+    v.validates :antibiotic_prophylaxis_dosage, presence: true
+    v.validates :antibiotic_prophylaxis_duration, presence: true, numericality: { greater_than_or_equal_to: 0 }
+    v.validates :antibiotic_prophylaxis_route, presence: true
+  end
+
+
   validate_yes_no_unknown :biopsy_anesthesia
+
+  validates :number_cores_taken, inclusion: { in: NUM_CORES_OPTIONS }
 
   enum preoperative_urine_examination_type: [:dipstick, :culture], _prefix: true
 

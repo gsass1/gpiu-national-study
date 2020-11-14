@@ -38,6 +38,16 @@ en:
 
   errors:
     format: "%{message}"
+  form_hints:
+    valid:
+      title: "This questionnaire is valid"
+      text: "Please note that further edits may invalidate the questionnaire. To prevent that you can lock this patient."
+    missing:
+      title: "This questionnaire is missing"
+      text: "This questionnaire has not been previously edited."
+    invalid:
+      title: "This questionnaire is invalid"
+      text: "There are at least %{errors} error(s) in this form. Please correct them below."
   application:
     no_active_si: 'You cannot perform this action while the study is not currently active for your country.'
     not_editable_hint: 'This form cannot be modified while the study is not currently active for your country. Please check the study calendar'
@@ -153,7 +163,7 @@ en:
           open_uti_form: "Open UTI Form"
           open_ssi_form: "Open SSI Form"
           open_biopsy_form: "Open Biopsy Form"
-          open_biopsy_outcome_form: "Open Biopsy Outcome_Form"
+          open_biopsy_outcome_form: "Open Biopsy Outcome Form"
           form_not_needed: "N/A"
       biopsy:
         title: 'GPIU Prostate Biopsies Side Study'
@@ -364,7 +374,7 @@ en:
         antibiotics_dosage:
           question: "Antibiotics dosage"
         antibiotics_duration:
-          question: "Antibiotics duration"
+          question: "Antibiotics duration (in days)"
           append: "days"
         antibiotics_route:
           question: "Antibiotics route"
@@ -419,7 +429,7 @@ en:
         antibiotic_prophylaxis_dosage:
           question: "Antibiotics dosage"
         antibiotic_prophylaxis_duration:
-          question: "Antibiotics duration"
+          question: "Antibiotics duration (days)"
           append: "days"
         antibiotic_prophylaxis_route:
           question: "Antibiotics route"
@@ -536,7 +546,7 @@ en:
         antibiotics_dosage:
           question: "Antibiotics dosage"
         antibiotics_duration:
-          question: "Antibiotics duration"
+          question: "Antibiotics duration (days)"
           append: "days"
         antibiotics_route:
           question: "Antibiotics route"

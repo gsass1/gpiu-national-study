@@ -1,13 +1,16 @@
-.container.questionnaire[data-controller="questionnaire"]
+.container
   = render "shared/back_button"
 
+= render "shared/form_hint", state: @uti_questionnaire.patient.uti_state, model: @uti_questionnaire
+
+.container.questionnaire[data-controller="questionnaire"]
   - unless study_active?
     .alert.alert-danger
       strong= t('application.not_editable_hint')
 
   = simple_form_for(@uti_questionnaire, method: :patch, url: patient_uti_questionnaire_path(@uti_questionnaire.patient, @uti_questionnaire)) do |f|
     .form-inputs
-      = f.error_notification
+      /= f.error_notification
 
     = render 'shared/uti_ssi_questionnaire', f: f, questionnaire: @uti_questionnaire
 

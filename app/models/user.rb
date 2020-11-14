@@ -72,7 +72,7 @@ class User < ApplicationRecord
   end
 
   def valid_patients_count
-    patients.includes(:patient_identification).select { |p| p.valid? }.count
+    patients.includes(:patient_identification).select { |p| p.questionnaires_valid? }.count
   end
 
   def invalid_patients_count

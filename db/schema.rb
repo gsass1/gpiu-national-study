@@ -347,7 +347,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_161530) do
     t.bigint "urinary_catheter_duration"
     t.integer "prostate_size_measured"
     t.bigint "prostate_size"
-    t.string "diabetes_mellitus", limit: 255
+    t.integer "diabetes_mellitus"
     t.integer "psa"
     t.bigint "psa_size"
     t.integer "repeated_biopsy"
