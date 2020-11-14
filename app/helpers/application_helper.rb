@@ -81,4 +81,23 @@ module ApplicationHelper
   def form_trigger(elem, condition)
     { data: { action: "change->questionnaire#onTriggerChange", condition: condition, elem: elem } }
   end
+
+  def antibiotics_group(form, group)
+    #trigger_div = "#{form.object.pos_id}_#{group}_div"
+
+    #content_tag :span do
+    #  (
+    #    #form.input group.to_sym, label: t(".#{group}.group"), input_html: form_trigger(trigger_div, "true")
+    #    content_tag :p, "hi"
+    #  )
+    #  +
+    #    (
+    #      content_tag :div, id: trigger_div do
+    #        form.input group.to_sym, as: :radio_buttons, collection: radio_button_collection(group.to_s, form.object.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
+    #      end
+    #  )
+    #end
+
+    form.input group.to_sym, as: :radio_buttons, collection: radio_button_collection(group.to_s.pluralize, *form.object.class.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
+  end
 end
