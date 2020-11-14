@@ -2,5 +2,8 @@
   h1= t('.title')
   hr
   = render 'shared/study_dates', study_iteration: next_or_current_study_iteration
+  .alert.alert-info.text-center
+    strong = t('application.footer.server_time', time: l(DateTime.now, format: :long), zone: Time.now.zone)
+    div = t('.time_hint', zone: Time.now.zone)
   - if @study_iterations.any?
     = render 'shared/study_calendar', months: @months, study_iterations: @study_iterations

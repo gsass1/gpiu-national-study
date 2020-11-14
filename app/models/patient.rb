@@ -23,6 +23,22 @@ class Patient < ApplicationRecord
   questionnaire_state :biopsy_state
   questionnaire_state :biopsy_outcome_state
 
+  def valid?
+    if uti_ssi?
+      valid = identification_state_valid?
+      if uti_form_needed?
+        valid = valid && uti_state_valid?
+      end
+      if ssi_form_needed?
+        valid = valid && ssi_state_valid?
+      end
+
+      valid
+    else
+      biopsy_state_valid? && biopsy_outcome_state_valid?
+    end
+  end
+
   viewable_admin_table_fields :initial, :creator, :study_iteration, :department, :patient_type, :identification_state, :uti_state, :ssi_state, :biopsy_state, :biopsy_outcome_state
   editable_admin_fields :initial, :creator, :study_iteration, :patient_type
   admin_custom_actions :admin_actions

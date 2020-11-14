@@ -8,6 +8,15 @@
   hr
 
   .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
+    .box.alert-info
+      h2
+        .d-flex.flex-row.align-items-center
+          i.material-icons.md-36 date_range
+          = t('dashboard.calendar')
+      div= t('dashboard.calendar_hint')
+      br
+      = link_to t('dashboard.calendar_link'), study_calendar_index_path
+
     .box.bg-primary.text-light
       h2
         .d-flex.flex-row.align-items-center
@@ -30,11 +39,18 @@
           = t('dashboard.patients')
       - unless current_user.patients.any?
         p = t('dashboard.no_patients')
+      - else
+        div= t('dashboard.patients_count', patients: current_user.patients.count)
+        div= t('dashboard.patients_questionnaires', valid_count: current_user.valid_patients_count, invalid_count: current_user.invalid_patients_count)
+        br
       = link_to t('dashboard.patients_site'), patients_path
 
-    .box.bg-success.text-dark
+    .box.bg-primary.text-light
       h2
         .d-flex.flex-row.align-items-center
-          i.material-icons.md-36 accessibility
-          = t('dashboard.patients')
-      p = t('dashboard.no_patients')
+          i.material-icons.md-36 help
+          = t('dashboard.support')
+      div= t('dashboard.support_hint')
+      br
+      = link_to t('dashboard.support_request'), new_support_request_path
+

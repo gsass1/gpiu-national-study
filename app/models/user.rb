@@ -71,6 +71,14 @@ class User < ApplicationRecord
     Notification.where(recipient: self, read_at: nil)
   end
 
+  def valid_patients_count
+    patients.includes(:patient_identification).select { |p| p.valid? }.count
+  end
+
+  def invalid_patients_count
+    patients.count - valid_patients_count
+  end
+
   private
   def set_default_notification_settings
     self.email_notifications = true
