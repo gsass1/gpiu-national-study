@@ -83,21 +83,15 @@ module ApplicationHelper
   end
 
   def antibiotics_group(form, group)
-    #trigger_div = "#{form.object.pos_id}_#{group}_div"
+    trigger_div = "#{form.object.pos_id}_#{group}_div"
 
-    #content_tag :span do
-    #  (
-    #    #form.input group.to_sym, label: t(".#{group}.group"), input_html: form_trigger(trigger_div, "true")
-    #    content_tag :p, "hi"
-    #  )
-    #  +
-    #    (
-    #      content_tag :div, id: trigger_div do
-    #        form.input group.to_sym, as: :radio_buttons, collection: radio_button_collection(group.to_s, form.object.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
-    #      end
-    #  )
-    #end
+    (content_tag :div do
+      form.input "#{group}_group", as: :boolean, label: t(".#{group}.group"), input_html: form_trigger(trigger_div, "true")
+    end) +
+    ( content_tag :div, id: trigger_div do
+        form.input group.to_sym, label: "", as: :radio_buttons, collection: radio_button_collection(group.to_s, *form.object.class.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
+      end)
 
-    form.input group.to_sym, as: :radio_buttons, collection: radio_button_collection(group.to_s.pluralize, *form.object.class.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
+    #form.input group.to_sym, as: :radio_buttons, collection: radio_button_collection(group.to_s.pluralize, *form.object.class.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
   end
 end

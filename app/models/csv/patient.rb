@@ -81,43 +81,53 @@ class Csv::Patient < Csv::Writer
       col 'uti.5.i.4', p.uti_questionnaire.culturetissue_other
       col 'uti.5.i.4.i', p.uti_questionnaire.culturetissue_specify
       col 'uti.5.ii', p.uti_questionnaire.antibioticculture
-      col 'uti.5.ii.a.1', p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycosides
-      col 'uti.5.ii.a.1.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycosides_gentamicin
-      col 'uti.5.ii.a.1.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycosides_amikacin
-      col 'uti.5.ii.a.1.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycosides_other
-      col 'uti.5.ii.a.2', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenems
-      col 'uti.5.ii.a.2.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenems_ertapenem
-      col 'uti.5.ii.a.2.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenems_imipenem
-      col 'uti.5.ii.a.2.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenems_doripenem
-      col 'uti.5.ii.a.2.iv', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenems_meropenem
-      col 'uti.5.ii.a.3', p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporins
-      col 'uti.5.ii.a.3.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporins_cefadroxil
-      col 'uti.5.ii.a.3.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporins_cefazolin
-      col 'uti.5.ii.a.3.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporins_cefalexin
-      col 'uti.5.ii.a.4', p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporins
-      col 'uti.5.ii.a.4.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporins_cefaclor
-      col 'uti.5.ii.a.4.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporins_cefprozil
-      col 'uti.5.ii.a.4.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporins_cefuroxime
-      col 'uti.5.ii.a.5', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins
-      col 'uti.5.ii.a.5.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins_cefixim
-      col 'uti.5.ii.a.5.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins_cefdinir
-      col 'uti.5.ii.a.5.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins_cefotaxime
-      col 'uti.5.ii.a.5.iv', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins_cefpodoxime
-      col 'uti.5.ii.a.5.v', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins_ceftazidime
-      col 'uti.5.ii.a.5.vi', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins_ceftibuten
-      col 'uti.5.ii.a.5.vii', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporins_ceftriaxone
+
+      col 'uti.5.ii.a.1', !p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycoside.nil?
+      col 'uti.5.ii.a.1.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycoside_gentamicin?
+      col 'uti.5.ii.a.1.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycoside_amikacin?
+      col 'uti.5.ii.a.1.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).aminoglycoside_other?
+
+      col 'uti.5.ii.a.2', !p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenem.nil?
+      col 'uti.5.ii.a.2.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenem_ertapenem?
+      col 'uti.5.ii.a.2.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenem_imipenem?
+      col 'uti.5.ii.a.2.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenem_doripenem?
+      col 'uti.5.ii.a.2.iv', p.uti_questionnaire.get_appendix_antibiotics_at(0).carbapenem_meropenem?
+
+      col 'uti.5.ii.a.3', !p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporin.nil?
+      col 'uti.5.ii.a.3.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporin_cefadroxil?
+      col 'uti.5.ii.a.3.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporin_cefazolin?
+      col 'uti.5.ii.a.3.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).first_generation_cephalosporin_cefalexin?
+
+      col 'uti.5.ii.a.4', !p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporin.nil?
+      col 'uti.5.ii.a.4.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporin_cefaclor?
+      col 'uti.5.ii.a.4.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporin_cefprozil?
+      col 'uti.5.ii.a.4.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).second_generation_cephalosporin_cefuroxime?
+
+      col 'uti.5.ii.a.5', !p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin.nil?
+      col 'uti.5.ii.a.5.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin_cefixim?
+      col 'uti.5.ii.a.5.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin_cefdinir?
+      col 'uti.5.ii.a.5.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin_cefotaxime?
+      col 'uti.5.ii.a.5.iv', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin_cefpodoxime?
+      col 'uti.5.ii.a.5.v', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin_ceftazidime?
+      col 'uti.5.ii.a.5.vi', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin_ceftibuten?
+      col 'uti.5.ii.a.5.vii', p.uti_questionnaire.get_appendix_antibiotics_at(0).third_generation_cephalosporin_ceftriaxone?
+
       col 'uti.5.ii.a.6', p.uti_questionnaire.get_appendix_antibiotics_at(0).fourth_generation_cephalosporins
       col 'uti.5.ii.a.6.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).fourth_generation_cephalosporins_cefepime
+
       col 'uti.5.ii.a.7', p.uti_questionnaire.get_appendix_antibiotics_at(0).fifth_generation_cephalosporins
       col 'uti.5.ii.a.7.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).fifth_generation_cephalosporins_ceftaroline_fosamil
       col 'uti.5.ii.a.7.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).fifth_generation_cephalosporins_ceftobiprole
+
       col 'uti.5.ii.a.8', p.uti_questionnaire.get_appendix_antibiotics_at(0).glycopeptides
       col 'uti.5.ii.a.8.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).glycopeptides_teicoplanin
       col 'uti.5.ii.a.8.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).glycopeptides_vancomycin
       col 'uti.5.ii.a.8.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).glycopeptides_telavancin
+
       col 'uti.5.ii.a.9', p.uti_questionnaire.get_appendix_antibiotics_at(0).lincosamides
       col 'uti.5.ii.a.9.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).lincosamides_clindamycin
       col 'uti.5.ii.a.9.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).lincosamides_lincomycin
+
       col 'uti.5.ii.a.10', p.uti_questionnaire.get_appendix_antibiotics_at(0).macrolides
       col 'uti.5.ii.a.10.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).macrolides_azithromycin
       col 'uti.5.ii.a.10.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).macrolides_clarithromycin
@@ -125,11 +135,14 @@ class Csv::Patient < Csv::Writer
       col 'uti.5.ii.a.10.iv', p.uti_questionnaire.get_appendix_antibiotics_at(0).macrolides_roxithromycin
       col 'uti.5.ii.a.10.v', p.uti_questionnaire.get_appendix_antibiotics_at(0).macrolides_telithromycin
       col 'uti.5.ii.a.10.vi', p.uti_questionnaire.get_appendix_antibiotics_at(0).macrolides_spiramycin
+
       col 'uti.5.ii.a.11', p.uti_questionnaire.get_appendix_antibiotics_at(0).monobactams
       col 'uti.5.ii.a.11.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).monobactams_aztreonam
+
       col 'uti.5.ii.a.12', p.uti_questionnaire.get_appendix_antibiotics_at(0).nitrofurans
       col 'uti.5.ii.a.12.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).nitrofurans_furazolidine
       col 'uti.5.ii.a.12.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).nitrofurans_nitrofurantoin
+
       col 'uti.5.ii.a.13', p.uti_questionnaire.get_appendix_antibiotics_at(0).penicillins
       col 'uti.5.ii.a.13.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).penicillins_amoxicillin
       col 'uti.5.ii.a.13.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).penicillins_ampicillin
@@ -143,10 +156,12 @@ class Csv::Patient < Csv::Writer
       col 'uti.5.ii.a.13.viii.b', p.uti_questionnaire.get_appendix_antibiotics_at(0).penicillins_penicillin_combinations_ampicillin_sulbactam
       col 'uti.5.ii.a.13.viii.c', p.uti_questionnaire.get_appendix_antibiotics_at(0).penicillins_penicillin_combinations_piperacillin_tazobactam
       col 'uti.5.ii.a.13.viii.d', p.uti_questionnaire.get_appendix_antibiotics_at(0).penicillins_penicillin_combinations_ticarcillin_claculunate
+
       col 'uti.5.ii.a.14', p.uti_questionnaire.get_appendix_antibiotics_at(0).polypeptides
       col 'uti.5.ii.a.14.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).polypeptides_bacitracin
       col 'uti.5.ii.a.14.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).polypeptides_colistin
       col 'uti.5.ii.a.14.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).polypeptides_polymyxin_b
+
       col 'uti.5.ii.a.15', p.uti_questionnaire.get_appendix_antibiotics_at(0).quinolones
       col 'uti.5.ii.a.15.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).quinolones_ciprofloxacin
       col 'uti.5.ii.a.15.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).quinolones_enoxacin
@@ -158,12 +173,15 @@ class Csv::Patient < Csv::Writer
       col 'uti.5.ii.a.15.viii', p.uti_questionnaire.get_appendix_antibiotics_at(0).quinolones_nalidixic_acid
       col 'uti.5.ii.a.15.ix', p.uti_questionnaire.get_appendix_antibiotics_at(0).quinolones_norfloxacin
       col 'uti.5.ii.a.15.x', p.uti_questionnaire.get_appendix_antibiotics_at(0).quinolones_ofloxacin
+
       col 'uti.5.ii.a.16', p.uti_questionnaire.get_appendix_antibiotics_at(0).sulfonamides
       col 'uti.5.ii.a.16.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).sulfonamides_sulfamethoxazole
       col 'uti.5.ii.a.16.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).sulfonamides_trimephtoprim_sulfamethoxazole
+
       col 'uti.5.ii.a.17', p.uti_questionnaire.get_appendix_antibiotics_at(0).tetracyclines
       col 'uti.5.ii.a.17.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).tetracyclines_doxycycline
       col 'uti.5.ii.a.17.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).tetracyclines_tetracycline
+
       col 'uti.5.ii.a.18', p.uti_questionnaire.get_appendix_antibiotics_at(0).antimycobacterial_drugs
       col 'uti.5.ii.a.18.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).antimycobacterial_drugs_clofazimine
       col 'uti.5.ii.a.18.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).antimycobacterial_drugs_dapsone
@@ -175,11 +193,13 @@ class Csv::Patient < Csv::Writer
       col 'uti.5.ii.a.18.viii', p.uti_questionnaire.get_appendix_antibiotics_at(0).antimycobacterial_drugs_pyranizamide
       col 'uti.5.ii.a.18.ix', p.uti_questionnaire.get_appendix_antibiotics_at(0).antimycobacterial_drugs_rifampicin
       col 'uti.5.ii.a.18.x', p.uti_questionnaire.get_appendix_antibiotics_at(0).antimycobacterial_drugs_streptomycin
+
       col 'uti.5.ii.a.19', p.uti_questionnaire.get_appendix_antibiotics_at(0).others
       col 'uti.5.ii.a.19.i', p.uti_questionnaire.get_appendix_antibiotics_at(0).others_chloramphenicol
       col 'uti.5.ii.a.19.ii', p.uti_questionnaire.get_appendix_antibiotics_at(0).others_fosfomycin
       col 'uti.5.ii.a.19.iii', p.uti_questionnaire.get_appendix_antibiotics_at(0).others_metronidazole
       col 'uti.5.ii.a.19.iv', p.uti_questionnaire.get_appendix_antibiotics_at(0).others_trimethoprim
+
       col 'uti.5.iii.a.1', p.uti_questionnaire.appendix_culture_result&.first_pathogen
       col 'uti.5.iii.a.1_specify', p.uti_questionnaire.appendix_culture_result&.first_pathogen_specify
       col 'uti.5.iii.a.2', p.uti_questionnaire.appendix_culture_result&.first_pathogen_enter_cfu_ml

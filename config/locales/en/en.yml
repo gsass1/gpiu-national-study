@@ -656,28 +656,28 @@ en:
         fucidanes: "Fucidanes"
 
     appendix_antibiotic:
-      aminoglycosides:
+      aminoglycoside:
         group: "Aminoglycosides"
         gentamicin: "Gentamicin"
         amikacin: "Amikacin"
         other: "Other"
-      carbapenems:
+      carbapenem:
         group: "Carbapenems"
         ertapenem: "Ertapenem"
         imipenem: "Imipenem"
         doripenem: "Doripenem"
         meropenem: "Meropenem"
-      first_generation_cephalosporins:
+      first_generation_cephalosporin:
         group: "1st generation Cephalosporins"
         cefadroxil: "Cefadroxil"
         cefazolin: "Cefazolin"
         cefalexin: "Cefalexin"
-      second_generation_cephalosporins:
+      second_generation_cephalosporin:
         group: "2nd generation Cephalosporins"
         cefaclor: "Cefaclor"
         cefprozil: "Cefprozil"
         cefuroxime: "Cefuroxime"
-      third_generation_cephalosporins:
+      third_generation_cephalosporin:
         group: "3rd generation Cephalosporins"
         cefixim: "Cefixim"
         cefdinir: "Cefdinir"
@@ -686,23 +686,23 @@ en:
         ceftazidime: "Ceftazidime"
         ceftibuten: "Ceftibuten"
         ceftriaxone: "Ceftriaxone"
-      forth_generation_cephalosporins:
+      fourth_generation_cephalosporin:
         group: "4th generation Cephalosporins"
         cefepime: "Cefepime"
-      fifth_generation_cephalosporins:
+      fifth_generation_cephalosporin:
         group: "5th generation Cephalosporins"
         ceftaroline_fosamil: "Ceftaroline fosamil"
         ceftobiprole: "Ceftobiprole"
-      glycopeptides:
+      glycopeptide:
         group: "Glycopeptides"
         teicoplanin: "Teicoplanin"
         vancomycin: "Vancomycin"
         telavancin: "Telavancin"
-      lincosamides:
+      lincosamide:
         group: "Lincosamides"
         clindamycin: "Clindamycin"
         lincomycin: "Lincomycin"
-      macrolides:
+      macrolide:
         group: "Macrolides"
         azithromycin: "Azithromycin"
         clarithromycin: "Clarithromycin"
@@ -710,14 +710,14 @@ en:
         roxithromycin: "Roxithromycin"
         telithromycin: "Telithromycin"
         spiramycin: "Spiramycin"
-      monobactams:
+      monobactam:
         group: "Monobactams"
         aztreonam: "Aztreonam"
-      nitrofurans:
+      nitrofuran:
         group: "Nitrofurans"
         furazolidine: "Furazolidine"
         nitrofurantoin: "Nitrofurantoin"
-      penicillins:
+      penicillin:
         group: "Penicillins"
         amoxicillin: "Amoxicillin"
         ampicillin: "Ampicillin"
@@ -726,18 +726,16 @@ en:
         ticarcillin: "Ticarcillin"
         penicillin_g: "Penicillin G"
         methicillin: "Methicillin"
-        penicillin_combinations:
-          group: "Penicillin combinations"
-          amoxicillin_clavulunate: "Amoxicillin/clavulunate"
-          ampicillin_sulbactam: "Ampicillin/sulbactam"
-          piperacillin_tazobactam: "Piperacillin/tazobactam"
-          ticarcillin_claculunate: "Ticarcillin/claculunate"
-      polypeptides:
+        amoxicillin_clavulunate: "Amoxicillin/clavulunate"
+        ampicillin_sulbactam: "Ampicillin/sulbactam"
+        piperacillin_tazobactam: "Piperacillin/tazobactam"
+        ticarcillin_claculunate: "Ticarcillin/claculunate"
+      polypeptide:
         group: "Polypeptides"
         bacitracin: "Bacitracin"
         colistin: "Colistin"
         polymycin_b: "Polymyxin-B"
-      quinolones:
+      quinolone:
         group: "Quinolones"
         ciprofloxacin: "Ciprofloxacin"
         enoxacin: "Enoxacin"
@@ -749,15 +747,15 @@ en:
         nalidixic_acid: "Nalidixic acid"
         norfloxacin: "Norfloxacin"
         ofloxacin: "Ofloxacin"
-      sulfonamides:
+      sulfonamide:
         group: "Sulfonamides"
         sulfamethoxazole: "Sulfamethoxazole"
         trimephtoprim_sulfamethoxazole: "Trimephtoprim- Sulfamethoxazole"
-      tetracyclines:
+      tetracycline:
         group: "Tetracyclines"
         doxycycline: "Doxycycline"
         tetracycline: "Tetracycline"
-      antimycobacterial_drugs:
+      antimycobacterial_drug:
         group: "Antimycobacterial drugs"
         clofazimine: "Clofazimine"
         dapsone: "Dapsone"
@@ -769,7 +767,7 @@ en:
         pyranizamide: "Pyranizamide"
         rifampicin: "Rifampicin"
         streptomycin: "Streptomycin"
-      other_drugs:
+      other_drug:
         group: "Others drugs"
         chloramphenicol: "Chloramphenicol"
         fosfomycin: "Fosfomycin"
