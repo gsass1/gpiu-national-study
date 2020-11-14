@@ -28,7 +28,7 @@
               th= t('patients.index.uti_ssi.table.include_form')
               th= t('patients.index.uti_ssi.table.uti_form')
               th= t('patients.index.uti_ssi.table.ssi_form')
-            - department.patients.uti_ssi.within_study_iteration(current_study_iteration).includes([:uti_questionnaire, :ssi_questionnaire, :patient_identification]).each do |patient|
+            - department.patients.uti_ssi.includes([:uti_questionnaire, :ssi_questionnaire, :patient_identification]).within_study_iteration(current_study_iteration).each do |patient|
               tr
                 td[style="width:5%;"]= patient.id
                 td[style="width:10%;"]= patient.initial
