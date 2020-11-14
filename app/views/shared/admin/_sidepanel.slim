@@ -1,19 +1,15 @@
 ul.sidepanel-sections
-  li
-    strong
-      a[href="/admin/dashboard"] Dashboard
-  li
-    strong
-      a.d-flex.flex-row.align-items-center[href="/admin/study_iterations"]
-        = "Study Iterations "
-        span.ml-1.badge.badge-primary= StudyIteration.where(acceptance_state: 0).count
-  - ["support_requests", "users", "hospitals", "departments", "department_questionnaires", "patients", "patient_identifications", "countries"].each do |resource_name|
+  - sidepanel_sections.each do |section|
     li
-      strong= resource_name.sub("_", " ").upcase
-      ul.sidepanel-section-items
-        li
-          a[href="/admin/#{resource_name}/new"] New
-        li
-          a[href="/admin/#{resource_name}"] Index
-        li
-          a[href="/admin/#{resource_name}?deleted=true"] Deleted
+      a[href=section[:path] class="sidepanel-section"]
+        div[class="sidepanel-section-inner #{(section[:controller] == controller_name) ? "sidepanel-section-active" : ""}"]
+          .d-flex.flex-row.align-items-center
+            i.material-icons= section[:icon]
+            .pl-2= section[:name]
+      - if (section[:controller] == controller_name) && section[:subsections].any?
+        ul.sidepanel-section-subsections
+          - section[:subsections].each do |subsection|
+            li
+              a[href=subsection[:path] class="sidepanel-section"]
+                div[class="sidepanel-subsection-inner #{((subsection[:action] == action_name) && (subsection[:filter].nil? ? true : (subsection[:filter].call))) ? "sidepanel-subsection-active" : ""}"]
+                  div= subsection[:name]
