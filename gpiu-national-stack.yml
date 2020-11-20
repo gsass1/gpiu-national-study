@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:latest
     volumes:
-      - gpiu_esiu_db:/var/lib/postgresql/data
+      - gpiu_national_db:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: production
       POSTGRES_DB: GpiuNational
@@ -48,7 +48,7 @@ services:
         - "traefik.http.routers.gpiu-national.tls=true"
 
 volumes:
-  gpiu_esiu_db:
+  gpiu_national_db:
 
 networks:
   gpiu_national_net:
