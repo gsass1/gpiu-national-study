@@ -66,14 +66,14 @@ build_image_staging:
     - staging
   stage: build_image
   script:
-    - docker build -t gpiu-registry.mni.thm.de/gpiu-esiu:staging .
+    - docker build -t gpiu-registry.mni.thm.de/gpiu-national:staging .
 
 push_image_staging:
   only:
     - staging
   stage: push_image
   script:
-    - docker push gpiu-registry.mni.thm.de/gpiu-esiu:staging
+    - docker push gpiu-registry.mni.thm.de/gpiu-national:staging
 
 deploy_staging:
   only:
