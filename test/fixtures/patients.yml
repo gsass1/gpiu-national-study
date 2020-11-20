@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 1
+  initial: MyString
+  department: one
+  creator: one
+  study_iteration: one
+  discarded_at: 2020-10-03 13:29:59
+  identification_state: 1
+  uti_state: 1
+  ssi_state: 1
+  prostate_biopsy_state: 1
+  prostate_biopsy_outcome_state: 1
+
+two:
+  type: 1
+  initial: MyString
+  department: two
+  creator: two
+  study_iteration: two
+  discarded_at: 2020-10-03 13:29:59
+  identification_state: 1
+  uti_state: 1
+  ssi_state: 1
+  prostate_biopsy_state: 1
+  prostate_biopsy_outcome_state: 1

@@ -30,7 +30,27 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  activerecord:
+    attributes:
+      patient_appendix_culture_result:
+        first_pathogen: "First Pathogen"
+        second_pathogen: "Second Pathogen"
+
+  errors:
+    format: "%{message}"
+  form_hints:
+    valid:
+      title: "This questionnaire is valid"
+      text: "Please note that further edits may invalidate the questionnaire. To prevent that you can lock this patient."
+    missing:
+      title: "This questionnaire is missing"
+      text: "This questionnaire has not been previously edited."
+    invalid:
+      title: "This questionnaire is invalid"
+      text: "There are at least %{errors} error(s) in this form. Please correct them below."
   application:
+    no_active_si: 'You cannot perform this action while the study is not currently active for your country.'
+    not_editable_hint: 'This form cannot be modified while the study is not currently active for your country. Please check the study calendar'
     control:
       back: 'Back'
     nav:
@@ -40,6 +60,7 @@ en:
       account: 'Account'
       dashboard: 'Dashboard'
     footer:
+      server_time: 'Server time: %{time} %{zone}'
       funding: 'The GPIU study is grateful for the unconditional funding support by Merian Iselin Clinic provided in 2017.'
       links: 'Links'
       home: 'Home'
@@ -52,11 +73,26 @@ en:
   dashboard:
     welcome_back: 'Welcome back'
     description: 'This is your user dashboard. From here you can manage everything!'
+    si_dates_header: 'Thank you for registering with the GPIU study. The study dates are as follows.'
+    si_current_range_active: 'The current study range is active from %{start} to %{end}. You may submit data during this period.'
+    si_no_current_active_ranges: 'No study range is active at the moment. Please wait until %{next_date} before inputting data.'
+    no_planned_si: 'The study has not yet been planned for your country. Please wait until the administrators of your country have set up the study dates. You will not be able to input data until then.'
     hospitals: 'Hospitals'
     no_hospitals: 'You have not checked into any hospital yet.'
     hospital_search: 'You can search for national hospitals here.'
     patients: 'Patients'
+    patients_count: 'You have created %{patients} patients so far.'
+    patients_questionnaires: '%{invalid_count} of your patients have incomplete/invalid questionnaires.'
     no_patients: 'You have not registered any patients yet.'
+    patients_site: 'You can create and edit patients here.'
+
+    support: "Support"
+    support_hint: "Please report any problems you have with using the site as well as any bugs."
+    support_request: "You can contact support here."
+
+    calendar: "Calendar"
+    calendar_hint: "Depending on the current date you may submit patient data into our database."
+    calendar_link: "Click here to check the current study dates for your country."
   hospitals:
     index:
       hospitals: 'Hospitals'
@@ -93,3 +129,899 @@ en:
       contact: 'Contact'
     about:
       about: 'About'
+  notifications:
+    title: 'Notifications'
+    header: 'Notification from %{date}'
+    none: 'You have no current notifications'
+    action:
+      study_iterations:
+        accepted:
+          title: 'Study Iteration Accepted'
+          message: 'Your study iteration titled "%{name}" has been approved.'
+        rejected:
+          title: 'Study Iteration Rejected'
+          message: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}'
+        submission:
+          title: 'Study Iteration Submitted For Approval'
+          message: 'A new study iteration titled "%{name}" from %{country_name} has been submitted for approval.'
+  patients:
+    index:
+      title: 'Patients'
+      no_departments: 'Please check into a department first before creating patients.'
+      new_patient: 'New Patient'
+      open_department_questionnaire: 'Open Department Questionnaire'
+      uti_ssi:
+        title: 'Included UTI/SSI Patients'
+        description: "This list contains all the UTI/SSI patients you have included so far. For every included patient, you will need to fill out a Patient Include form. Depending on the patient's condition indicated in this form, you will need to fill out a UTI-form and/or an SSI-form."
+        table:
+          id: "Patient #"
+          initials: "Initials"
+          include_form: "Include Form"
+          uti_form: "UTI Form"
+          ssi_form: "SSI Form"
+          open_include_form: "Open Include Form"
+          open_uti_form: "Open UTI Form"
+          open_ssi_form: "Open SSI Form"
+          open_biopsy_form: "Open Biopsy Form"
+          open_biopsy_outcome_form: "Open Biopsy Outcome Form"
+          form_not_needed: "N/A"
+      biopsy:
+        title: 'GPIU Prostate Biopsies Side Study'
+        description: "Prostate biopsy is an extremely important and frequent procedure in urology. Infective complications following prostate biopsy are world wide increasing in number and severity due to reduced sensitivity of pathogens to antibiotics used for prophylaxis. The European Section of Infection in Urology (ESIU) of the EAU is currently performing a prostate biopsies side study to the Global Prevalence Study of Infections in Urology (GPIU)."
+        table:
+          id: "Patient #"
+          initials: "Initials"
+          biopsy_form: "Biopsy Form"
+          biopsy_outcome_form: "Biopsy Outcome Form"
+    new:
+      title: 'New Patient'
+      initial_hint: 'The initial is an ID of your choosing that helps you associate this patient with a patient in your hospital database. Please do not input any patient identifiers.'
+  patient_identifications:
+    edit:
+      title: 'Patient Identification'
+      update: 'Update Patient Identification'
+      sex:
+        male: 'Male'
+        female: 'Female'
+      female_questions: 'If Female'
+      admission_date:
+        hint: "Date of admission: (to the hospital)"
+      evidence_infection:
+        hint: "When the patient was admitted to the hospital, was there any evidence that the infection was already present or incubating, i.e. became evident within first 48 hours after hospital admission without any specific intervention causing this infection?"
+      admission_infection:
+        hint: "From where was the patient admitted?"
+        home: 'Home'
+        nursing: 'Nursing'
+        other_hospital: 'Other Hospital'
+      infection_type:
+        uti: "UTI"
+        ssi: "SSI"
+        both: "Both"
+  support_requests:
+    new:
+      title: "Help"
+      create: "Create a support request"
+      submit: "Submit"
+      support_type: "Type"
+      custom_support_type: "Problem"
+    support_types:
+      site_help: "I need help with using the site"
+      bug: "I think I found a bug in the application"
+      other_reason: "Other (please specify)"
+  study_calendar:
+    index:
+      title: "Study Calendar"
+      time_hint: "Please be aware that study dates start/end in the %{zone} timezone."
+      legend:
+        title: "Legend"
+        current_study_day: "Current active study day"
+        study_day: "Upcoming"
+        passed: "Passed"
+  department_questionnaires:
+    edit:
+      title: "Edit Department Questionnaire"
+      sections:
+        1: 
+          title: "1. Name and address of the hospital and department of urology"
+          hospital_name: "Hospital Name"
+          department_name: "Department Name"
+          hospital_address: "Postal Address"
+        2:
+          title: "2. Description of the hospital"
+          hospital_beds: "Total number of beds in the hospital (somatic patients only)"
+          hospital_type: "Type of Hospital"
+          hospital_types:
+            university: "University hospital"
+            teaching: "Teaching hospital"
+            district: "District hospital"
+            other: "Other hospital (please specify)"
+          hospital_othertype: "Other type of hospital"
+        3:
+          title: "3. Description of the department of urology"
+          department_beds: "Number of beds"
+          department_admissions: "Number of admissions in %{year}"
+          department_stay: "Average hospital stay"
+          department_urinecultures: "Number of urine cultures from bed-department (for urological in-patients) per year (%{year})"
+        4:
+          title: "4. Description of urological in-patients on Study day"
+          1:
+            title: "Number of patients hospitalised on Study day by sex"
+            patient_male: "Number of males"
+            patient_female: "Number of females"
+          2:
+            title: "Age (both males and females)"
+            patient_category1: "15 and younger"
+            patient_category2: "16 to 60"
+            patient_category3: "60 or older"
+          3:
+            title: "Number of patients having undergone surgical procedures up to and including Study day"
+            patient_opensurgery: "Open surgery"
+            patient_endoscopic: "Endoscopic"
+            patient_laparoscopic: "Laparoscopic"
+            patient_prostaticbiopsy: "Prostatic biopsy"
+          4:
+            title: "Number of patients with urinary catheter on Study day (a patient can be reported to have more than one catheter)"
+            transurethral: "Transurethral"
+            patient_transurethral_closed: "Closed continuous drainage"
+            patient_transurethral_open: "Open (e.g. with a plug or flip valve)"
+            patient_intermittent: "Clean intermittent catheterisation"
+            patient_suprapubic: "Suprapubic"
+            patient_nephrostromy: "Nephrostromy"
+            patient_ureteral: "Ureteral stent"
+          5:
+            title: "Number of patients that are receiving antibiotics on Study day"
+            patient_provenuti: "For a microbiologically proven UTI"
+            patient_suspecteduti: "For a clinically suspected UTI without a microbiologically proven diagnosis"
+            patient_otherinfections: "For other infections"
+            patient_prophylaxis: "For prophylaxis"
+        5:
+          title: "5. Infection control program"
+          perioperative: "Do you have an approved (by hospital authorities) protocol for perioperative antibiotic prophylaxis?"
+          urinary: "Do you have an approved protocol for urinary catheter insertion and catheter care?"
+          nautireports: "Do you prepare annual reports on the number of NAUTI in the urology department?"
+          annual_reports: "Do you prepare annual reports on:"
+          pathogens: "pathogens causing NAUTI?"
+          resistance: "resistance patterns for the above?"
+        6:
+          title: "6. Antimicrobial prophylaxis"
+          question:
+            start: "Provided that there is no evidence of urinary tract infection, do you use antimicrobial prophylaxis for the following procedures?"
+            end: "(Only fill in for the procedures that are relevant for your department)"
+      submit: "Submit"
+    antibiotics_table:
+      fix_errors: "Please fix the error(s) in the questionnaire below."
+      label:
+        trimethoprim: "Trimethoprim"
+        co_trimoxazole: "Co-trimoxazole"
+        amoxycillin_or_ampicillin: "Amoxycillin or ampicillin"
+        amox_ampicillin_beta_lactamase_inhibitor: "Amox/ampicillin + β-lactamase inhibitor"
+        2nd_gen_cephalospoin: "2nd gen. Cephalospoin"
+        cefotaxime_ceftriaxon: "Cefotaxime/ceftriaxon"
+        ceftazidime: "Ceftazidime"
+        cefepime: "Cefepime"
+        imipenem_meropenem: "Imipenem/meropenem"
+        fosfomycin_trometamol: "Fosfomycin trometamol"
+        nitrofurantoin: "Nitrofurantoin"
+        ciprofloxacin_ofloxacin: "Ciprofloxacin/ofloxacin"
+        gentamycin: "Gentamycin"
+        tobramycin: "Tobramycin"
+        amikacin: "Amikacin"
+        others: "Others"
+        not_relevant_for_our_department: "not relevant for our department"
+        not_routinely: "not routinely"
+        yes_in_case_of_high_risk_of_infection: "yes, in case of high risk of infection"
+        yes_routinely: "yes, routinely"
+        diagnostic_procedures: "Diagnostic procedures"
+        minor_open_surgery: "Minor open surgery"
+        endoscopic_surgery_and_eswl: "Endoscopic surgery and ESWL"
+        major_open_surgery: "Major open surgery"
+        laparoscopic_and_robot_assisted_procedures: "Laparoscopic and robot assisted procedures"
+        cystoscopy: "Cystoscopy"
+        ureterorenoscopy: "Ureterorenoscopy"
+        prostate_biopsies_transrectal: "Prostate biopsies (transrectal)"
+        vasectomy: "Vasectomy"
+        inguinal_scrotal_and_penile_surgery: "Inguinal, scrotal and penile surgery"
+        retroperitoneal_lymph_node_dissection: "Retroperitoneal lymph node dissection"
+        resection_of_the_prostate_turp: "Resection of the prostate (TURP)"
+        resection_of_bladder_tumour: "Resection of bladder tumour"
+        ureterorenoscopy_with_stone_treatment: "Ureterorenoscopy with stone treatment"
+        percutaneous_nephrolithotripsy: "Percutaneous nephrolithotripsy"
+        eswl: "ESWL"
+        open_prostatectomy_for_bph: "Open prostatectomy (for BPH)"
+        simple_nefrectomy: "Simple nefrectomy"
+        radical_nefrectomy: "Radical nefrectomy"
+        radical_retropubic_prostatectomy: "Radical retropubic prostatectomy"
+        cystectomy_and_urinary_diversion_bladder_replacement: "Cystectomy and urinary diversion /bladder replacement"
+        on_kidney_and_abdominal_testes: "On kidney and abdominal testes"
+        lymph_node_dissection: "Lymph node dissection"
+        prostatectomy: "Prostatectomy"
+        cystectomy_with_bladder_replacement: "Cystectomy with bladder replacement"
+
+  uti_questionnaires:
+    edit:
+      title: "Edit UTI Form"
+      submit: "Submit"
+
+  ssi_questionnaires:
+    edit:
+      title: "Edit SSI Form"
+      submit: "Submit"
+
+  biopsy_questionnaires:
+    edit:
+      title: "Edit Biopsy Form"
+      submit: "Submit"
+
+      yes_no_unknown:
+        yes: "Yes"
+        no: "No"
+        unknown: "Unknown"
+
+      section:
+        "1": "I. Patient characteristics"
+        "2": "II. Indication for biopsy"
+        "3": "III. Performance of biopsy"
+      form:
+        initial:
+          question: "Initials or ID Number"
+          help: "(Christian name(s) followed by family name(s))"
+        age:
+          question: "Age of the patient in days"
+        antibiotics_preceding_months:
+          question: "Antibiotics in preceding 6 months?"
+        antibiotics_type:
+          question: "Antibiotics type"
+        antibiotics_dosage:
+          question: "Antibiotics dosage"
+        antibiotics_duration:
+          question: "Antibiotics duration (in days)"
+          append: "days"
+        antibiotics_route:
+          question: "Antibiotics route"
+          answers:
+            oral: "Oral"
+            iv: "IV"
+            im: "im"
+        urogenital_infection_preceding_months:
+          question: "History of urogenital infection in the preceding 6 months?"
+        urinary_catheter:
+          question: "Does the patient have a urinary catheter in place at time of prostate biopsy?"
+        urinary_catheter_duration:
+          question: "For how many days?"
+        prostate_size_measured:
+          question: "Prostate size measured"
+        prostate_size:
+          question: "Prostate size in ml?"
+        diabetes_mellitus:
+          question: "Does the patient have Diabetes Mellitus?"
+        psa:
+          question: "PSA"
+        psa_size:
+          question: "PSA in ng/ml?"
+        repeated_biopsy:
+          question: "Repeated biopsy"
+        repeated_biopsy_number_previous_procedures:
+          question: "Number of previous procedures?"
+        preoperative_urine_examination:
+          question: "Preoperative urine examination"
+        preoperative_urine_examination_type:
+          question: "Type of examination"
+          answers:
+            dispstick: "Dispstick"
+            culture: "Culture"
+        preoperative_urine_culture_result:
+          question: "Urine culture result"
+          answers:
+            culture_negative: "Culture negative"
+            culture_positive: "Culture positive"
+        preoperative_bowel_preparation:
+          question: "Preoperative bowel preparation"
+        preoperative_bowel_preparation_type:
+          question: "Type of preparation"
+          answers:
+            enema: "Enema"
+            povidone_iodine_lavage: "Povidone iodine lavage"
+            other: "Other"
+        antibiotic_prophylaxis:
+          question: "Antibiotic prophylaxis?"
+        antibiotic_prophylaxis_type:
+          question: "Antibiotics type"
+        antibiotic_prophylaxis_dosage:
+          question: "Antibiotics dosage"
+        antibiotic_prophylaxis_duration:
+          question: "Antibiotics duration (days)"
+          append: "days"
+        antibiotic_prophylaxis_route:
+          question: "Antibiotics route"
+          answers:
+            oral: "Oral"
+            iv: "IV"
+            im: "IM"
+        biopsy_anesthesia:
+          question: "Anesthesia used for biopsy?"
+          answers:
+            yes: "Yes"
+            no: "No"
+            unknown: "Unknown"
+        biopsy_anesthesia_type:
+          question: "Type of anesthesia"
+          answers:
+            local_anesthesia_by_intrasrectal_injection: "Local anesthesia by intransrectal injection"
+            spinal_anesthesia: "Spinal anesthesia"
+            general_anesthesia: "General anesthesia"
+        biopsy_route:
+          question: "Route of biopsy?"
+          answers:
+            transrectal: "Transrectal"
+            perineal: "Perineal"
+        number_cores_taken:
+          question: "Number of cores taken?"
+
+  biopsy_outcome_questionnaires:
+    edit:
+      yes_no_unknown:
+        yes: "Yes"
+        no: "No"
+        unknown: "Unknown"
+
+      title: "Edit Biopsy Outcome Form"
+      submit: "Submit"
+      form:
+        section:
+          "1": "I. Outcome of biopsy (2 weeks followup)"
+        text:
+          indicate_symptoms: "Indicate symptoms"
+
+        histopathology_analysis:
+          question: "Histopathology analysis performed?"
+        histopathology_biopsy_material_change:
+          question: "Histological inflammatory change in biopsy material?"
+        histopathology_biopsy_material_change_severity:
+          question: "Please choose the severity of the histological inflammatory change"
+          answers:
+            mild: "Mild"
+            moderate: "Moderate"
+            severe: "Severe"
+        outcome_analysis:
+          question: "Outcome analysis performed?"
+        outcome_analysis_form_control_visit:
+          question: "Form control visit"
+          answers:
+            personal_visit: "Personal visit"
+            telephone_interview: "Telephone interview"
+            other: "Other"
+        outcome_analysis_urinary_tract_infection:
+          question: "Symptoms of urinary tract infection present at any time in 2 weeks after biopsy"
+        outcome_analysis_dysuria:
+          question: "Dysuria"
+        outcome_analysis_frequency:
+          question: "Frequency"
+        outcome_analysis_urgency:
+          question: "Urgency"
+        outcome_analysis_prostate_pain:
+          question: "Prostate pain"
+        outcome_analysis_rigor:
+          question: "Rigor"
+        outcome_analysis_loin_pain:
+          question: "Loin pain"
+        outcome_analysis_fever:
+          question: "Fever > 38°C"
+        physician_visit:
+          question: "Physician visit"
+        physician_visit_care_clinician:
+          question: "Primary care clinician"
+        physician_visit_emergency_room:
+          question: "Emergency room"
+        physician_visit_admission_hospital:
+          question: "Admission to hospital"
+        physician_visit_admission_hospital_urology:
+          question: "Urology ward"
+        physician_visit_admission_hospital_internal_medicine:
+          question: "Internal medicine ward"
+        physician_visit_admission_hospital_intensive_care:
+          question: "Intensive care ward"
+        physician_visit_psa:
+          question: "PSA (prostate specific antigen)"
+        physician_visit_psa_value:
+          question: "PSA value in ng/ml"
+        physician_visit_wbc_count:
+          question: "WBC (white blood cell count)"
+        physician_visit_wbc_value:
+          question: "WBC value in giga/l"
+        physician_visit_crp:
+          question: "CRP (C-reactive protein)"
+        physician_visit_crp_value:
+          question: "CRP value in mg/l"
+        physician_visit_urine_culture:
+          question: "Urine culture taken"
+        physician_visit_urine_culture_result:
+          question: "culture result"
+          answers:
+            culture_negative: "Culture negative"
+            culture_positive: "Culture positive"
+        antibiotic_treatment:
+          question: "Antibiotic treatment"
+        antibiotics_type:
+          question: "Antibiotics type"
+        antibiotics_dosage:
+          question: "Antibiotics dosage"
+        antibiotics_duration:
+          question: "Antibiotics duration (days)"
+          append: "days"
+        antibiotics_route:
+          question: "Antibiotics route"
+          answers:
+            oral: "Oral"
+            iv: "IV"
+            im: "IM"
+        outcome:
+          question: "Outcome at follow up date"
+          answers:
+            resolved: "Resolved"
+            not_resolved: "Not Resolved"
+            death: "Death"
+
+  shared:
+    appendix_culture:
+      field:
+        answer:
+          sensitive: "Sensitive"
+          intermediate: "Intermediate"
+          resistant: "Resistant"
+      form:
+        results_of_culture:
+          question: "Results of culture"
+          sub_question: "Only two uropathogens can be reported. More are considered to be contamination. Choose the name of the pathogen(s) from the menu below"
+        first_pathogen_html: "Please choose <u>first</u> pathogen"
+        second_pathogen_html: "Please choose <u>second</u> pathogen"
+        susceptibility_standard:
+          question: "Standard used for susceptibility testing"
+          answers:
+            nccls_clsi: "NCCLS/CLSI"
+            din: "DIN"
+            eucast: "EUCAST"
+            other: "Other"
+        susceptibility_standard_other:
+          question: "Please specify"
+      pathogen:
+        please_specify: "Please specify"
+        enter_cfu_ml: "Enter cfu/ml"
+      susceptibility_test:
+        antimicrobial_agents_for_susceptibility_test: "Antimicrobial Agents for Susceptibility Test"
+        fill_in_susceptibility_first_pathogen_html: "Please fill in the susceptibility test for the <strong>first</strong> pathogen"
+        fill_in_susceptibility_second_pathogen_html: "Please fill in the susceptibility test for the <strong>second</strong> pathogen"
+      pathogen_options:
+        enterobacteriaceae: "Enterobacteriaceae"
+        e_coli: "E. coli"
+        klebsiella_sp: "Klebsiella sp."
+        proteus_sp: "Proteus sp."
+        enterobacter_sp: "Enterobacter sp."
+        citrobacter_sp: "Citrobacter sp."
+        morganella_sp: "Morganella sp."
+        other_enterobacteriaceae: "Other enterobacteriaceae."
+        non_fermenter: "Non-fermenter"
+        pseudomonas_aeruginosa: "Pseudomonas aeruginosa"
+        acinetoacter_sp: "Acinetoacter sp."
+        other_non_fermenter: "Other non-fermenter."
+        gram_positive_cocci: "Gram-positive cocci"
+        enterococcus_sp: "Enterococcus sp."
+        staphylococcus_aureus: "Staphylococcus aureus"
+        caogulase_negative_staphylococcy_cns: "Coagulase-negative staphylococci (CNS)"
+        other_gram_positive_cocci: "Other gram-positive cocci."
+        other_bacteria: "Other bacteria"
+        other_bacteria_option: "Other bacteria"
+        fungi: "Fungi"
+        candida_sp: "Candida sp."
+        other_fungi: "Other fungi."
+      susceptibility_fields:
+        penicillins: "Penicillins"
+        penicillins_options:
+          ampicillin_amoxicillin: "ampicillin/amoxicillin"
+          ampicillin_amoxicillin_bli: "ampicillin/amoxicillin+BLI"
+          piperacillin: "piperacillin"
+          piperacillin_bli: "piperacillin+BLI"
+          oxacillin: "oxacillin"
+          ticarcillin_clavulanic_acid: "Ticarcillin + Clavulanic acid"
+        cephalosporins: "Cephalosporins"
+        cephalosporins_options:
+          cephazolin: "cephazolin"
+          cefuroxime: "cefuroxime"
+          cefotaxime_ceftriaxone: "cefotaxime/ceftriaxone"
+          ceftazidime: "ceftazidime"
+          cefepime: "cefepime"
+          ceftaroline: "Ceftaroline"
+          cephamycins: "Cephamycins"
+          cefoxitin: "Cefoxitin"
+          cefotetan: "Cefotetan"
+        carbapenem: "Carbapenem"
+        carbapenem_options:
+          imipenem_meronem: "Imipenem/meronem"
+          doripenem: "Doripenem"
+          ertapenem: "Ertapenem"
+        aminoglycosides: "Aminoglycosides"
+        aminoglycosides_options:
+          gentamicin: "gentamicin"
+          amikacin: "amikacin"
+          tobramicin: "Tobramicin"
+          netilmicin: "Netilmicin"
+        fluoroquinolones: "Fluoroquinolones"
+        fluoroquinolones_options:
+          ofloxacin: "ofloxacin"
+          ciprofloxacin: "ciprofloxacin"
+          levofloxacin: "levofloxacin"
+          moxifloxacin: "Moxifloxacin"
+        tetracyclines: "Tetracyclines"
+        tetracyclines_options:
+          doxycyclin: "doxycyclin"
+          tetracycline: "Tetracycline"
+          minocycline: "Minocycline"
+          glycylcylines_tigecyline: "Glycylcylines - Tigecyline"
+        fosfomycin_trometamol: "Fosfomycin trometamol"
+        trimethoprim_solfonamide_cotrimoxazole: "Trimethoprim/Sulfonamide (Cotrimoxazole)"
+        nitrofurantoin: "Nitrofurantoin"
+        erythromycin_macrolides: "Erythromycin/macrolides"
+        clindamycin: "Clindamycin"
+        glycopeptides: "Glycopeptides"
+        glycopeptides_options:
+          vancomycin: "vancomycin"
+          teicoplanin: "Teicoplanin"
+          telavancin: "Telavancin"
+        linezolid: "Linezolid"
+        phenicols: "Phenicols"
+        polymixins: "Polymixins"
+        polymixins_options:
+          colistins: "Colistins"
+          polymixin_b: "Polymixin B"
+        monobactams: "Monobactams"
+        daptomycin: "Daptomycin"
+        rifampin_rifampicin: "Rifampin/Rifampicin"
+        fucidanes: "Fucidanes"
+
+    appendix_antibiotic:
+      aminoglycoside:
+        group: "Aminoglycosides"
+        gentamicin: "Gentamicin"
+        amikacin: "Amikacin"
+        other: "Other"
+      carbapenem:
+        group: "Carbapenems"
+        ertapenem: "Ertapenem"
+        imipenem: "Imipenem"
+        doripenem: "Doripenem"
+        meropenem: "Meropenem"
+      first_generation_cephalosporin:
+        group: "1st generation Cephalosporins"
+        cefadroxil: "Cefadroxil"
+        cefazolin: "Cefazolin"
+        cefalexin: "Cefalexin"
+      second_generation_cephalosporin:
+        group: "2nd generation Cephalosporins"
+        cefaclor: "Cefaclor"
+        cefprozil: "Cefprozil"
+        cefuroxime: "Cefuroxime"
+      third_generation_cephalosporin:
+        group: "3rd generation Cephalosporins"
+        cefixim: "Cefixim"
+        cefdinir: "Cefdinir"
+        cefotaxime: "Cefotaxime"
+        cefpodoxime: "Cefpodoxime"
+        ceftazidime: "Ceftazidime"
+        ceftibuten: "Ceftibuten"
+        ceftriaxone: "Ceftriaxone"
+      fourth_generation_cephalosporin:
+        group: "4th generation Cephalosporins"
+        cefepime: "Cefepime"
+      fifth_generation_cephalosporin:
+        group: "5th generation Cephalosporins"
+        ceftaroline_fosamil: "Ceftaroline fosamil"
+        ceftobiprole: "Ceftobiprole"
+      glycopeptide:
+        group: "Glycopeptides"
+        teicoplanin: "Teicoplanin"
+        vancomycin: "Vancomycin"
+        telavancin: "Telavancin"
+      licosamide:
+        group: "Lincosamides"
+        clindamycin: "Clindamycin"
+        lincomycin: "Lincomycin"
+      macrolide:
+        group: "Macrolides"
+        azithromycin: "Azithromycin"
+        clarithromycin: "Clarithromycin"
+        erythromycin: "Erythromycin"
+        roxithromycin: "Roxithromycin"
+        telithromycin: "Telithromycin"
+        spiramycin: "Spiramycin"
+      monobactam:
+        group: "Monobactams"
+        aztreonam: "Aztreonam"
+      nitrofuran:
+        group: "Nitrofurans"
+        furazolidine: "Furazolidine"
+        nitrofurantoin: "Nitrofurantoin"
+      penicillin:
+        group: "Penicillins"
+        amoxicillin: "Amoxicillin"
+        ampicillin: "Ampicillin"
+        nafcillin: "Nafcillin"
+        oxacillin: "Oxacillin"
+        ticarcillin: "Ticarcillin"
+        penicillin_g: "Penicillin G"
+        methicillin: "Methicillin"
+        amoxicillin_clavulunate: "Amoxicillin/clavulunate"
+        ampicillin_sulbactam: "Ampicillin/sulbactam"
+        piperacillin_tazobactam: "Piperacillin/tazobactam"
+        ticarcillin_claculunate: "Ticarcillin/claculunate"
+      polypeptide:
+        group: "Polypeptides"
+        bacitracin: "Bacitracin"
+        colistin: "Colistin"
+        polymycin_b: "Polymyxin-B"
+      quinolone:
+        group: "Quinolones"
+        ciprofloxacin: "Ciprofloxacin"
+        enoxacin: "Enoxacin"
+        gatifloxacin: "Gatifloxacin"
+        gemifloxacin: "Gemifloxacin"
+        levofloxacin: "Levofloxacin"
+        lomefloxacin: "Lomefloxacin"
+        moxifloxacin: "Moxifloxacin"
+        nalidixic_acid: "Nalidixic acid"
+        norfloxacin: "Norfloxacin"
+        ofloxacin: "Ofloxacin"
+      sulfonamide:
+        group: "Sulfonamides"
+        sulfamethoxazole: "Sulfamethoxazole"
+        trimephtoprim_sulfamethoxazole: "Trimephtoprim- Sulfamethoxazole"
+      tetracycline:
+        group: "Tetracyclines"
+        doxycycline: "Doxycycline"
+        tetracycline: "Tetracycline"
+      antimycobacterial_drug:
+        group: "Antimycobacterial drugs"
+        clofazimine: "Clofazimine"
+        dapsone: "Dapsone"
+        capreomycin: "Capreomycin"
+        cycloserine: "Cycloserine"
+        ethembutol: "Ethembutol"
+        ethionamide: "Ethionamide"
+        isoniazid: "Isoniazid"
+        pyranizamide: "Pyranizamide"
+        rifampicin: "Rifampicin"
+        streptomycin: "Streptomycin"
+      other_drug:
+        group: "Others drugs"
+        chloramphenicol: "Chloramphenicol"
+        fosfomycin: "Fosfomycin"
+        metronidazole: "Metronidazole"
+        trimethoprim: "Trimethoprim"
+
+    appendix_comorbidity:
+      section_title: "1. Comorbidity"
+      severity_level_1:
+        question: "Severity level 1"
+        answers:
+          myocardialinfarction: "Myocardial infarction"
+          congestiveheartfailure: "Congestive heart failure"
+          vasculardisease: "Peripheral vascular disease"
+          cerebrovascular: "Cerebrovascular disease"
+          dementia: "Dementia"
+          pulmonary: "Chronic pulmonary disease"
+          tissuedisease: "Connective tissue disease"
+          ulcerdisease: "Ulcer disease"
+          mildliver: "Mild liver disease (Cirrhosis without portal hypertension or chronic hepatitis)"
+          diabetes: "Diabetes"
+      severity_level_2:
+        question: "Severity level 2"
+        answers:
+          hemiplegia: "Hemiplegia"
+          renaldisease: "Moderate/severe renal disease"
+          diabetesorgandamage: "Diabetes with end organ damage"
+          tumor: "Any tumor"
+          leukaemia: "Leukaemia"
+          lymphoma: "Lymphoma"
+        serum_drop_in_text: "(Serum creatinine >260 micromol/litre or >3mg/decilitre or glomerular filtration rate < 30 millilitre/minute and/ or patients on dialysis and those with a transplant)"
+      severity_level_3:
+        question: "Severity level 3"
+        answers:
+          severeliverdamage: "Moderate/severe liver damage"
+        cirrhosis_drop_in_text: "(Cirrhosis with portal hypertension and/ or a history of variceal bleeding)"
+      severity_level_4:
+        question: "Severity level 4"
+        answers:
+          metastatictumor: "Metastatic tumor"
+          aids: "AIDS"
+
+    uti_ssi_questionnaire:
+      subsections:
+        "2":
+          uti: "2. Urological risk factors (present at the time UTI was diagnosed)"
+          ssi: "2. Urological risk factors (present at the time SSI was diagnosed)"
+
+        "3":
+          text: "3. Urological intervention"
+          question:
+            uti: "Urological intervention which according to the investigator lead to the current episode of UTI"
+            ssi: "Urological intervention which according to the investigator lead to the current episode of SSI"
+        "4":
+          uti: "4. Clinical information about the UTI"
+          ssi: "4. Clinical information about the SSI"
+        "5":
+          uti: "5. Microbiological information about the current episode of UTI"
+          ssi: "5. Microbiological information about the current episode of SSI"
+        "6":
+          uti: "6. Antimicrobial treatment for the current episode of UTI"
+          ssi: "6. Antimicrobial treatment for the current episode of SSI"
+
+
+      previous:
+        question:
+          uti: "Previous UTI (within last 12 months)"
+          ssi: "Previous SSI (within last 12 months)"
+      tractobstruction:
+        question: "Urinary tract obstruction (any level) or reflux considered to be a significant risk factor for the current infection"
+      tractobjstructionspeficy:
+        question: "Please specify"
+        help: "English text"
+      urinarystones:
+        question: "Urinary stones (more than one location can be reported)"
+        answers:
+          calyceal: "Calcyceal"
+          renalpelvic: "Renal pelvic"
+          ureteral: "Ureteral"
+          bladder: "Bladder"
+      treatment:
+        question: "Antibiotic treatment for any reason within the previous 3 months"
+      treatmentspeficy:
+        question: "Please specify diagnosis"
+        help: "English text"
+      hospitalisation:
+        question: "Hospitalisation for any reason within the last 6 months"
+      catheter:
+        question:
+          uti: "Catheter at the time when UTI was diagnosed (more than one location can be reported)"
+          ssi: "Catheter at the time when SSI was diagnosed (more than one location can be reported)"
+        answers:
+          urethral: "Urethral"
+          suprapubic: "Suprapubic"
+          ureteralstent: "Ureteral stent"
+          nephrostomy: "Nephrostomy"
+          others: "Others"
+      catheterduration:
+        question:
+          uti: "Duration of catheter usage (in days) at the time UTI was diagnosed"
+          ssi: "Duration of catheter usage (in days) at the time SSI was diagnosed"
+        append: "days"
+        help: "(e.g. 20). Enter 0 if no catheter was used."
+
+      intervention_endoscopic:
+        quesion: "Endoscopic"
+        answers:
+          Cystoscopy: "Cystoscopy"
+          Diagnostic_ureterorenoscopy: "Diagnostic Ureterorenoscopy"
+          TUR-P: "TUR-P"
+          TUR-BT: "TUR-BT"
+          URS_with_stone_treatment: "URS with stone treatment"
+          PCNL: "PCNL"
+          ureteral_stent_placement: "Ureteral stent placement"
+      intervention_percutaneous:
+        question: "Percutaneous"
+        answers: "Percutaneous nephrostomy placement"
+      intervention_laparoscopic:
+        question: "Laparoscopic and robot assisted procedures"
+        answers:
+          kidney_abdominal_testis: "On kidney and abdominal testis"
+          Lymph_node_dissection: "Lymph node dissection"
+          Prostatectomy: "Prostatectomy"
+          Cystectomy_and_urinary_diversion: "Cystectomy and urinary diversion/bladder replacement with bowel segments"
+          Other: "Other"
+      intervention_opensurgery:
+        question: "Open surgery"
+        answers:
+          Vasectomy: "Vasectomy"
+          Inguinal_scrotal_and_penile: "Inguinal, scrotal and penile"
+          RPLND: "RPLND"
+          Open_prostatectomy: "Open prostatectomy (for BPH)"
+          Simple_nephrectomy: "Simple nephrectomy"
+          Radical_nephrectomy: "Radical nephrectomy"
+          RRP: "RRP"
+          Cystectomy_and_urinary_diversion: "Cystectomy and urinary diversion/bladder replacement with bowel segments"
+      protatebiopsy:
+        question: "Prostate biopsy"
+        answers:
+          transrectal: "Transrectal"
+          perineal: "Perineal"
+      trus_biopsy:
+        quesion: "TRUS biopsy"
+        help: "English text"
+      intervention_others:
+        quesion: "Others"
+        answers: "ESWL"
+      intervention_contamination:
+        question:
+          uti: "Contamination status of the intervention which according to the investigator lead to the current episode of UTI"
+          ssi: "Contamination status of the intervention which according to the investigator lead to the current episode of SSI"
+        answers:
+          clean: "Clean (no infection present in the operative field or urinary tract, and bowel not opened)"
+          cleancontaminated: "Clean-contaminated (no infection present but urinary tract opened)"
+          cleancontaminatedbowel: "Clean-contaminated (bowel opened, little or `normal` spillage)"
+          contaminated: "Contaminated (e.g. bowel opened, gross spillage)"
+          infected: "Infected = Dirty (infection present in the operative field: skin; soft tissue; urinary tract, etc.)"
+          nointervention: "No Intervention = No intervention took place"
+      diagnosedate:
+        question:
+          uti: "Date when UTI was diagnosed (can be different from the Study-day)"
+          ssi: "Date when SSI was diagnosed (can be different from the Study-day)"
+      clinicaldiagnosis:
+        quesion: "Clinical diagnosis"
+        answers:
+          uti:
+            cystitis: "Cystitis (grade of severity:1)"
+            pyelonephritis_moderate: "Pyelonephritis, moderate (grade of severity:2)"
+            pyelonephritis_severe: "Pyelonephritis, severe/established (grade of severity:3)"
+            urosepsissimple: "Urosepsis (simple) (grade of severity:4)"
+            urosepsissevere: "Severe urosepsis (grade of severity:5)"
+            urosepsisshock: "Uroseptic shock (grade of severity:6)"
+            other: "Other"
+          ssi:
+            urosepsissimple: "Urosepsis (simple)"
+            urosepsissevere: "Severe urosepsis"
+            urosepsisshock: "Uroseptic shock"
+            pyelonephritis_moderate: "Pyelonephritis, moderate"
+            pyelonephritis_severe: "Pyelonephritis, severe/established"
+            crystitis: "Cystitis"
+            asymtomatic: "Asymptomatic bacteriuria"
+            epididymoorchitis: "Epididymoorchitis"
+            prostatitis: "Prostatitis"
+            other: "Other"
+      clinicaldiagnosisspecify:
+        quesion: "Please specify"
+        help: "English text"
+      cdc:
+        question:
+          uti: "Which CDC criteria were used for UTI diagnosis? CDC UTI Definitions"
+          ssi: "Clinical definitions of SSI according to CDC"
+      symptomaticutiandbacteriauria:
+        answers: "Symptomatic UTI AND bacteriuria"
+      symptomaticutiandother:
+        answers: "Symptomatic UTI AND other signs of infection"
+      asymptomaticbactcath:
+        answers: "Asymptomatic bacteriuria catheter associated"
+      asymptomaticbactnocath:
+        answers: "Asymptomatic bacteriuria without catheter use"
+      otheruti:
+        answers: "Other infections of the urinary tract"
+      superficialssi:
+        answers: "Superficial incisional SSI"
+      deepssi:
+        answers: "Deep incisional SSI"
+      organssi:
+        answers: "Organ/space SSI"
+      provennauti:
+        question:
+          uti: "Is the patient considered to have a microbiologically proven UTI?"
+          ssi: "Is the patient considered to have a microbiologically proven SSI?"
+      culturetissue_urine:
+        answers: "Urine"
+      culturetissue_blood:
+        answers: "Blood"
+      culturetissue_fluidswab:
+        answers:
+          uti: "Fluid/swab from UTI"
+          ssi: "Fluid/swab from SSI"
+      culturetissue_other:
+        answers: "Other"
+      culturetissue_specify:
+        answers: "Please specify"
+        help: "English text"
+      antibioticculture:
+        question: "Was the patient receiving antibiotics when culture was taken?"
+      antimicrobical_treatment:
+        question: "Administration of antimicrobial treatment"
+        answers:
+          none: "No treatment"
+          oral: "Oral"
+          parenteral: "Parenteral"
+          both: "Both"
+      treatment_antibiotics:
+        question: "The antimicrobial drugs belong to the following groups"

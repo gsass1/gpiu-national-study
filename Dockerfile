@@ -1,4 +1,4 @@
-FROM ruby:2.7.1-alpine3.11
+FROM ruby:2.7.1-alpine3.12
 WORKDIR /app
 
 RUN apk update && apk -U upgrade \
@@ -13,13 +13,17 @@ RUN apk update && apk -U upgrade \
 
 COPY Gemfile* /app/
 
-RUN bundle install
+RUN bundle install --without development test
 
 COPY . /app
 
 EXPOSE 3000
 
-RUN bundle exec rake assets:precompile RAILS_ENV=production SECRET_KEY_BASE=placeholder
+RUN yarn install --check-files
+
+RUN bundle exec rake assets:precompile RAILS_ENV=production
+
+RUN yarn install --check-files
 
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server",  "-b", "0.0.0.0", "-e", "production"]

@@ -1,0 +1,37 @@
+= sub_section t('.section_title')
+  = f.fields_for :appendix_comorbidity, appendix_comorbidity do |a|
+    = a.hidden_field :id
+    ol
+      li
+        p.question = t('.severity_level_1.question')
+        ol
+          li = a.input :myocardialinfarction,     label: t('.severity_level_1.answers.myocardialinfarction')
+          li = a.input :congestiveheartfailure,   label: t('.severity_level_1.answers.congestiveheartfailure')
+          li = a.input :vasculardisease,          label: t('.severity_level_1.answers.vasculardisease')
+          li = a.input :cerebrovascular,          label: t('.severity_level_1.answers.cerebrovascular')
+          li = a.input :dementia,                 label: t('.severity_level_1.answers.dementia')
+          li = a.input :pulmonary,                label: t('.severity_level_1.answers.pulmonary')
+          li = a.input :tissuedisease,            label: t('.severity_level_1.answers.tissuedisease')
+          li = a.input :ulcerdisease,             label: t('.severity_level_1.answers.ulcerdisease')
+          li = a.input :mildliver,                label: t('.severity_level_1.answers.mildliver')
+          li = a.input :diabetes,                 label: t('.severity_level_1.answers.diabetes')
+      li
+        p.question = t('.severity_level_2.question')
+        ol
+          li = a.input :hemiplegia,               label: t('.severity_level_2.answers.hemiplegia')
+          li
+            = a.input :renaldisease,             label: t('.severity_level_2.answers.renaldisease'), hint: t('.severity_level_2.serum_drop_in_text')
+          li = a.input :diabetesorgandamage,      label: t('.severity_level_2.answers.diabetesorgandamage')
+          li = a.input :tumor,                    label: t('.severity_level_2.answers.tumor')
+          li = a.input :leukaemia,                label: t('.severity_level_2.answers.leukaemia')
+          li = a.input :lymphoma,                 label: t('.severity_level_2.answers.lymphoma')
+      li
+        p.question = t('.severity_level_3.question')
+        ol
+          li
+            = a.input :severeliverdamage,             label: t('.severity_level_3.answers.severeliverdamage'), hint: t('.severity_level_3.cirrhosis_drop_in_text')
+      li
+        p.question = t('.severity_level_4.question')
+        ol
+          li = a.input :metastatictumor,         label: t('.severity_level_4.answers.metastatictumor')
+          li = a.input :aids,                    label: t('.severity_level_4.answers.aids')

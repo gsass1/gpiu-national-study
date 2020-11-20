@@ -1,0 +1,23 @@
+.btn-group.ml-auto.mr-auto
+  - if @p > 1
+    = link_to "« First", resource_page_path(1), class: "btn btn-outline-primary"
+    = link_to "‹ Prev", resource_page_path(@p - 1), class: "btn btn-outline-primary"
+
+    - if @p > 5
+      button.btn.btn-outline-primary[disabled=true] ...
+
+    - (([@p-4, 1].max)..(@p-1)).each do |page|
+      = link_to page, resource_page_path(page), class: "btn btn-outline-primary"
+
+  - unless @p == 1 && @p == @total_pages
+    button.btn.btn-primary= @p
+
+  - if @p < @total_pages
+    - ((@p+1)..([@p+4, @total_pages].min)).each do |page|
+      = link_to page, resource_page_path(page), class: "btn btn-outline-primary"
+
+    - if @p <= @total_pages - 5
+      button.btn.btn-outline-primary[disabled=true] ...
+
+    = link_to "Next ›", resource_page_path(@p + 1), class: "btn btn-outline-primary"
+    = link_to "Last »", resource_page_path(@total_pages), class: "btn btn-outline-primary"

@@ -1,0 +1,3 @@
+= g.input "#{place}_#{field[:field]}", label: "#{field[:text]}", input_html: form_trigger("#{place}_#{field[:field]}_s_#{g.object.pos_id}", "true")
+div[id="#{place}_#{field[:field]}_s_#{g.object.pos_id}"]
+  = g.input "#{place}_#{field[:field]}_s", label: "", as: :radio_buttons, collection: [[t('shared.appendix_culture.field.answer.sensitive'), 0], [t('shared.appendix_culture.field.answer.intermediate'), 1], [t('shared.appendix_culture.field.answer.resistant'), 2]], value_method: :second, label_method: :first

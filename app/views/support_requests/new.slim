@@ -1,0 +1,17 @@
+.container[data-controller="support-requests"]
+  h2= t('.title')
+  hr
+
+  .card
+    .card-header.bg-primary.text-light
+      strong= t('.create')
+    .card-body
+      = simple_form_for @support_request, method: :post, wrapper: :horizontal_form do |f|
+        .form-inputs
+          = f.error_notification
+        = f.input :email, required: true, input_html: { autocomplete: :email }
+        = f.input :support_type, collection: SupportRequest.support_types.keys.map { |type| [type, t("support_requests.support_types.#{type}")] }.to_a, label_method: :second, value_method: :first, required: true, label: t('.support_type'), input_html: { data: { action: 'change->support-requests#onSupportTypeChanged' } }
+        span[data-target="support-requests.customTypeInput", style="display: none"]
+          = f.input :custom_support_type, required: true, label: t('.custom_support_type')
+        = f.input :message, required: true
+        = f.submit t('.submit'), class: 'btn btn-outline-primary float-right'

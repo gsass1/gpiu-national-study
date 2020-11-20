@@ -1,0 +1,2 @@
+module RegionalAdmin::DashboardHelper
+end

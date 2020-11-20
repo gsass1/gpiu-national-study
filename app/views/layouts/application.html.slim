@@ -6,26 +6,13 @@ html
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     link[rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato"]
 
   body.d-flex.flex-column.min-vh-100
     main.flex-grow-1
-      .container-fluid.box-shadow.bg-primary
-        .container.d-flex.flex-column.flex-md-row.align-items-center.py-3.py-3.text-light.top-bar
-          h5.my-0.mr-md-auto.font-weight-normal.national-study
-            = link_to t('application.nav.title_html'), root_path
-          nav.my-2.my-md-0.mr-mid-3
-            / a.p-3.text-light[href="/"] = t('application.nav.home')
-            / a.p-3.text-light[href="/about"] = t('application.nav.about')
-            - if user_signed_in?
-              span.dropdown.show
-                a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] = t('application.nav.account')
-                .dropdown-menu[aria-labelledby="dropdownMenuLink"]
-                  = link_to t('application.nav.dashboard'), dashboard_index_path, class: "dropdown-item"
-                  = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
-                  = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
-
+      = render 'shared/navbar'
       - if breadcrumbs.any?
         .breadcrumbs-nav
           .container= render_breadcrumbs tag: 'span', separator: ' > '
@@ -51,6 +38,7 @@ html
         .row.mt-4
           .col-md-6.offset-md-3
             p.text-light = t('application.footer.funding')
+            p.text-light = t('application.footer.server_time', time: l(DateTime.now, format: :long), zone: Time.now.zone)
 
         hr.footer-spacer
         .row.mt-4

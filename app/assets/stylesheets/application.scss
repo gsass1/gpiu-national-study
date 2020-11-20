@@ -17,6 +17,7 @@
 
 body {
   font-family: Lato, sans-serif !important;
+  background: #fefefe !important;
 }
 
 .top-bar {
@@ -112,8 +113,7 @@ p {
 
 .breadcrumbs-nav {
   height: 1.5em;
-  // background-color: #09141e;
-  background-color: #00747a;
+  background-color: #053071;
   font-size: 1em;
   color: #ccc;
 
@@ -124,9 +124,87 @@ p {
 
   a {
     font-weight: normal;
+    text-decoration: none;
 
-    &:visited {
+    color: #fff;
+
+    &:hover {
       color: #fff;
     }
   }
+}
+
+.national-study {
+  display: inline-block;
+}
+
+.national-flag {
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.was-validated .form-control:valid, .form-control.is-valid {
+  border-color: #28a745 !important;
+}
+
+.form-check-label {
+  color: #28a745 !important;
+}
+
+.questionnaire {
+  legend, label {
+    font-weight: bold;
+  }
+
+  .card {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .card-body {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  ol {
+    padding-left: 2em;
+    padding-right: 2em;
+    list-style-type: lower-roman;
+
+    > li > ol > li {
+      fieldset {
+        margin-bottom: 0;
+      }
+    }
+
+    ol {
+      list-style-type: lower-latin;
+      margin-bottom: 1em;
+    }
+  }
+
+  small, .invalid-feedback {
+    font-size: 1rem;
+  }
+
+  .question {
+    font-weight: bold;
+  }
+}
+
+.form-hint {
+  width: 100%;
+}
+
+.form-valid {
+  border-top: 2px solid #e8e0b8 !important;
+  border-bottom: 2px solid #e8e0b8 !important;
+}
+
+.form-missing {
+  border-top: 2px solid #91bec7 !important;
+  border-bottom: 2px solid #91bec7 !important;
+}
+
+.form-invalid {
+  border-top: 2px solid #d1a6aa !important;
+  border-bottom: 2px solid #d1a6aa !important;
 }

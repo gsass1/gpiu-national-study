@@ -9,13 +9,9 @@ services:
       POSTGRES_PASSWORD: gpiu-national
     volumes:
       - pg_data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
   web:
     build: .
     image: gpiu-national:latest
-    volumes:
-      - .:/app
     depends_on:
       - db
     ports:
@@ -25,5 +21,6 @@ services:
       - GPIU_NAT_DB_NAME=GpiuNational
       - GPIU_NAT_DB_USER=production
       - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - RAILS_SERVE_STATIC_FILES=true
 volumes:
   pg_data:

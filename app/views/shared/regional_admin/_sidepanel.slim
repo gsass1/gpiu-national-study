@@ -1,0 +1,19 @@
+ul.sidepanel-sections
+  li
+    strong
+      = link_to "Dashboard", regional_admin_country_dashboard_index_path(@country.iso_2)
+  li
+    strong Study Iterations
+    ul.sidepanel-section-items
+      li= link_to "New", new_regional_admin_country_study_iteration_path(@country.iso_2)
+      li= link_to "Index", regional_admin_country_study_iterations_path(@country.iso_2)
+  - ["users", "hospitals"].each do |resource_name|
+    li
+      strong= resource_name.upcase
+      ul.sidepanel-section-items
+        li
+          a[href="/regional_admin/#{@country.iso_2}/#{resource_name}/new"] New
+        li
+          a[href="/regional_admin/#{@country.iso_2}/#{resource_name}"] Index
+        li
+          a[href="/regional_admin/#{@country.iso_2}/#{resource_name}?deleted=true"] Deleted

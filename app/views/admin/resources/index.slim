@@ -1,0 +1,20 @@
+.container-fluid
+  h1= @resource_class.name.pluralize
+  hr
+
+  = render "shared/admin/resource_table"
+
+  hr
+
+  span
+    = render "shared/admin/pagination"
+    .float-right
+      - if @per == 'all'
+        = "Displaying all <b>#{@resources.count}</b> #{@resource_class.name.pluralize}".html_safe
+      - else
+        = "Displaying #{@resource_class.name.pluralize} <b>#{(@p-1)*@per+1} - #{[(@p*@per), @total_count].min}</b>".html_safe
+      .btn-group.dropup
+        button.btn.btn-primary.btn-sm.ml-3.dropdown-toggle[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]= "Show: #{@per}"
+        .dropdown-menu
+          - [10, 25, 50, 100, 200, "All"].map(&:to_s).each do |page_size|
+            = link_to page_size, resource_page_path(1, @order, @sort, page_size.to_s), class: 'dropdown-item'

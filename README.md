@@ -57,6 +57,10 @@ It should be included as a binary gem using bundler.
 If this fails, install wkhtmltopdf using your distribution and tell [wicked_pdf](https://github.com/mileszs/wicked_pdf)  where the local installation is.
 Tell bundler to install without the binary by running `bundle install --without wk_binary`.
 
+#### Emails
+
+To receive emails during development install the `mailcatcher` gem and then navigate to localhost:1080 to receive outgoing emails.
+
 ## Deployment
 
 ### Setup

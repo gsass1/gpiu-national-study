@@ -1,5 +1,4 @@
 class DashboardController < ApplicationController
   include Authenticated
-
-  def index; end
+  include ActiveStudyIteration
 end

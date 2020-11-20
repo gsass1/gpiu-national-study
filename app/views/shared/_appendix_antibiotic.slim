@@ -1,0 +1,11 @@
+- if defined?(single) && single
+  - fields_for_type = :appendix_antibiotic
+- else
+  - fields_for_type = :appendix_antibiotics
+
+= f.fields_for fields_for_type, appendix_antibiotic do |l|
+  = l.hidden_field :pos_id
+
+  ol
+    - AppendixAntibiotic::GROUPS.each do |group|
+      li= antibiotics_group(l, group)

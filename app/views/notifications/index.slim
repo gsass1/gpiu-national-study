@@ -1,0 +1,9 @@
+.container
+  h1= t('notifications.title')
+  hr
+  - unless @notifications.any?
+    .card
+      .card-body= t('notifications.none')
+  - else
+    - @notifications.each do |notification|
+      = render 'shared/notification', notification: notification

@@ -1,0 +1,12 @@
+- months.each do |m|
+  hr
+  = render 'shared/calendar_month', month: m[:month], year: m[:year], study_iterations: study_iterations
+div.my-5
+  strong= t('study_calendar.index.legend.title')
+  .float-right
+    span.legend-color.bg-success.text-dark
+      strong= t('study_calendar.index.legend.current_study_day')
+    span.legend-color.bg-primary.text-light
+      strong= t('study_calendar.index.legend.study_day')
+    span.legend-color.bg-secondary.text-light
+      strong= t('study_calendar.index.legend.passed')

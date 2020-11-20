@@ -1,0 +1,2 @@
+module RegionalAdmin::HospitalsHelper
+end

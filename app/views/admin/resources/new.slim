@@ -1,0 +1,13 @@
+.container-fluid
+  .card
+    .card-header.bg-primary.text-light
+      strong= "New #{@resource_class}"
+    .card-body
+      = simple_form_for(@resource, as: @resource_class.name.underscore.downcase, url: "/#{@link_prefix}/#{@resource_class.name.underscore.downcase.pluralize}", html: { method: :post }, wrapper: :horizontal_form) do |f|
+        = f.error_notification
+
+        - @resource_class.admin_form_fields.each do |field|
+          = resource_form_input(f, field)
+
+        .form-actions
+          = f.button :submit, "Create", class: "btn btn-lg btn-success float-right"

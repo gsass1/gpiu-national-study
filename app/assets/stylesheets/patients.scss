@@ -1,0 +1,21 @@
+// Place all the styles related to the patients controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.department-patients {
+  padding: 0 !important;
+
+  table {
+    margin: 0 !important;
+  }
+}
+
+.patient-valid-bg {
+  background-color: #90ee90;
+  border: 1px solid #77db77;
+}
+
+.patient-invalid-bg {
+  background-color: #ffcccb;
+  border: 1px solid #d19796;
+}

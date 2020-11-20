@@ -1,5 +1,4 @@
 <div class="container">
-  <div class="compact_form">
 
     <%= render "shared/back_button" %>
 
@@ -7,59 +6,90 @@
 
     <hr>
 
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, wrapper: :horizontal_form) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, wrapper: :horizontal_form, wrapper_mappings: { boolean: :horizontal_boolean }) do |f| %>
       <%= f.error_notification %>
 
       <div class="form-inputs">
-        <%= f.input :first_name,
-          required: true,
-          autofocus: true,
-          input_html: { autocomplete: "first-name" }%>
 
-        <%= f.input :last_name,
-          required: true,
-          autofocus: true,
-          input_html: { autocomplete: "last-name" }%>
+        <div class="card mb-3">
+          <div class="card-header bg-primary text-light">
+            <strong>Details</strong>
+          </div>
+          <div class="card-body">
+            <%= f.input :first_name,
+              required: true,
+              autofocus: true,
+              input_html: { autocomplete: "first-name" }%>
 
-        <%= f.input :title,
-          required: true,
-          autofocus: true,
-          collection: User::TITLES %>
+            <%= f.input :last_name,
+              required: true,
+              autofocus: true,
+              input_html: { autocomplete: "last-name" }%>
 
-        <%= f.input :suffix,
-          required: false %>
+            <%= f.input :title,
+              required: true,
+              autofocus: true,
+              collection: User::TITLES %>
 
-        <%= f.input :email, required: true, autofocus: true %>
+            <%= f.input :suffix,
+              required: false %>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <p><%= t("devise.views.registrations.edit.waiting_for") %> <%= resource.unconfirmed_email %></p>
-        <% end %>
+            <%= f.input :email, required: true, autofocus: true %>
 
-        <%= f.input :password,
-          hint: t("devise.views.registrations.edit.blank"),
-          required: false,
-          input_html: { autocomplete: "new-password" } %>
-        <%= f.input :password_confirmation,
-          required: false,
-          input_html: { autocomplete: "new-password" } %>
-        <%= f.input :current_password,
-          hint: t("devise.views.registrations.edit.current_pass_needed"),
-          required: true,
-          input_html: { autocomplete: "current-password" } %>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p><%= t("devise.views.registrations.edit.waiting_for") %> <%= resource.unconfirmed_email %></p>
+            <% end %>
+
+            <%= f.input :password,
+              hint: t("devise.views.registrations.edit.blank"),
+              required: false,
+              input_html: { autocomplete: "new-password" } %>
+            <%= f.input :password_confirmation,
+              required: false,
+              input_html: { autocomplete: "new-password" } %>
+
+          </div>
+        </div>
       </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, "Update", class: "btn btn-lg btn-outline-primary float-right" %>
+      <div class="card mb-3">
+        <div class="card-header bg-success text-dark">
+          <strong>Notifications</strong>
+        </div>
+        <div class="card-body">
+          <%= f.input :email_notifications, as: :boolean, autofocus: true, label: false %>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-header bg-info text-light">
+          <strong>Confirm Changes</strong>
+        </div>
+        <div class="card-body">
+
+          <%= f.input :current_password,
+            hint: t("devise.views.registrations.edit.current_pass_needed"),
+            required: true,
+            input_html: { autocomplete: "current-password" } %>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Update", class: "btn btn-lg btn-outline-primary float-right" %>
+          </div>
+
+        </div>
       </div>
     <% end %>
 
     <div class="clearfix"></div>
 
-    <h2 class="mt-3"><%= t("devise.views.registrations.edit.delete") %></h2>
-    <hr>
-
-    <p><%= t("devise.views.registrations.edit.delete_note") %></p>
-
-    <%= link_to t("devise.views.registrations.edit.delete"), registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-lg btn-danger" %>
+    <div class="card my-5">
+      <div class="card-header bg-danger text-light">
+        <strong><%= t("devise.views.registrations.edit.delete") %></strong>
+      </div>
+      <div class="card-body">
+        <p><%= t("devise.views.registrations.edit.delete_note") %></p>
+        <%= link_to t("devise.views.registrations.edit.delete"), registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-sm btn-danger" %>
+      </div>
+    </div>
   </div>
-</div>
