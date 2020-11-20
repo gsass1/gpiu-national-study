@@ -54,5 +54,6 @@ volumes:
 networks:
   gpiu_national_net:
     driver: overlay
+    attachable: true
   traefik-net:
     external: true
