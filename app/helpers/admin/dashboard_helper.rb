@@ -62,7 +62,7 @@ module Admin::DashboardHelper
         },
         {
           name: "Deleted",
-          path: send("admin_#{name.underscore.pluralize}_path"),
+          path: send("admin_#{name.underscore.pluralize}_path", deleted: true),
           action: "index",
           filter: Proc.new { |f| params[:deleted] == "true" }
         },
