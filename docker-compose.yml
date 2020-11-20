@@ -9,8 +9,6 @@ services:
       POSTGRES_PASSWORD: gpiu-national
     volumes:
       - pg_data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
   web:
     build: .
     image: gpiu-national:latest

@@ -246,3 +246,5 @@ $RECYCLE.BIN/
 yarn-debug.log*
 .yarn-integrity
 /diagramm.puml
+
+/config/credentials/production.key
