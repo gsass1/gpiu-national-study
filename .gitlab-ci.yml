@@ -57,7 +57,7 @@ migrate_db:
     GPIU_NAT_DB_USER: production
     GPIU_NAT_DB_PASSWORD: gpiu-national
     RAILS_ENV: production
-  script: docker run --network=gpiu-national_gpiu_national_net  -e GPIU_NAT_DB_HOST  -e GPIU_NAT_DB_NAME -e GPIU_NAT_DB_USER -e GPIU_NAT_DB_PASSWORD -e RAILS_ENV -t gpiu-registry.mni.thm.de/gpiu-national:latest  rails db:migrate
+  script: docker run --network=gpiu-gpiu-national-prod_gpiu_national_prod_net  -e GPIU_NAT_DB_HOST  -e GPIU_NAT_DB_NAME -e GPIU_NAT_DB_USER -e GPIU_NAT_DB_PASSWORD -e RAILS_ENV -t gpiu-registry.mni.thm.de/gpiu-national:latest  rails db:migrate
 
 # Staging System
 
@@ -111,4 +111,4 @@ migrate_db_staging:
     GPIU_NAT_DB_USER: staging
     GPIU_NAT_DB_PASSWORD: gpiu-national
     RAILS_ENV: production
-  script: docker run --network=gpiu-national_gpiu_national_staging_net  -e GPIU_NAT_DB_HOST  -e GPIU_NAT_DB_NAME -e GPIU_NAT_DB_USER -e GPIU_NAT_DB_PASSWORD -e RAILS_ENV -t gpiu-registry.mni.thm.de/gpiu-national:staging  rails db:migrate
+  script: docker run --network=gpiu-national-staging_gpiu_national_staging_net -e GPIU_NAT_DB_HOST  -e GPIU_NAT_DB_NAME -e GPIU_NAT_DB_USER -e GPIU_NAT_DB_PASSWORD -e RAILS_ENV -t gpiu-registry.mni.thm.de/gpiu-national:staging  rails db:migrate
