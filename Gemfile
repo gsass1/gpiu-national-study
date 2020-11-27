@@ -59,6 +59,8 @@ gem 'rouge-rails'
 
 gem 'breadcrumbs_on_rails'
 
+gem 'flag-icons-rails'
+
 gem 'wicked_pdf'
 group :wk_binary do
   gem 'wkhtmltopdf-binary'
