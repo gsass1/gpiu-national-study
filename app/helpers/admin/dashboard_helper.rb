@@ -36,19 +36,14 @@ module Admin::DashboardHelper
       },
       sidepanel_crud_section("user", "people"),
       sidepanel_crud_section("patient", "accessibility"),
-      sidepanel_crud_section("country", "language"),
+      sidepanel_crud_section("country", "language", false),
       sidepanel_crud_section("hospital", "local_hospital"),
-      sidepanel_crud_section("department", "group_work"),
+      sidepanel_crud_section("department", "group_work", false),
     ]
   end
 
-  def sidepanel_crud_section(name, icon)
-    {
-      name: name.pluralize.capitalize,
-      path: send("admin_#{name.underscore.pluralize}_path"),
-      controller: name.underscore.pluralize,
-      icon: icon,
-      subsections: [
+  def sidepanel_crud_section(name, icon, can_delete = true)
+    subsections = [
         {
           name: "Show All",
           path: send("admin_#{name.underscore.pluralize}_path"),
@@ -59,14 +54,23 @@ module Admin::DashboardHelper
           name: "New",
           path: send("new_admin_#{name.underscore}_path"),
           action: "new"
-        },
-        {
-          name: "Deleted",
-          path: send("admin_#{name.underscore.pluralize}_path", deleted: true),
-          action: "index",
-          filter: Proc.new { |f| params[:deleted] == "true" }
-        },
-      ]
+        }]
+
+    if can_delete
+      subsections.append({
+        name: "Deleted",
+        path: send("admin_#{name.underscore.pluralize}_path", deleted: true),
+        action: "index",
+        filter: Proc.new { |f| params[:deleted] == "true" }
+      })
+    end
+
+    {
+      name: name.pluralize.capitalize,
+      path: send("admin_#{name.underscore.pluralize}_path"),
+      controller: name.underscore.pluralize,
+      icon: icon,
+      subsections: subsections
     }
   end
 end
