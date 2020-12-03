@@ -8,11 +8,8 @@
     .alert.alert-danger
       strong= t('application.not_editable_hint')
 
-  = simple_form_for(@uti_questionnaire, method: :patch, url: patient_uti_questionnaire_path(@uti_questionnaire.patient, @uti_questionnaire)) do |f|
-    .form-inputs
-      /= f.error_notification
-
-    = render 'shared/uti_ssi_questionnaire', f: f, questionnaire: @uti_questionnaire
+  = simple_form_for(@uti_questionnaire, method: :patch, url: patient_uti_questionnaire_path(@uti_questionnaire.patient, @uti_questionnaire), html: { questionnaire_locked: @uti_questionnaire.patient.locked? }) do |f|
+    .form-inputs= render 'shared/uti_ssi_questionnaire', f: f, questionnaire: @uti_questionnaire
 
     - if study_active?
       .form-actions

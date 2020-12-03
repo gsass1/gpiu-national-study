@@ -2,6 +2,10 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   connect() {
+    document.querySelectorAll("form[questionnaire_locked='true'").forEach((elem) => {
+      this.disableForm(elem);
+    }, this);
+
     document.querySelectorAll('[data-condition').forEach((elem) => {
       this.onTriggerChange({ target: elem, first: true });
     }, this);
@@ -48,5 +52,11 @@ export default class extends Controller {
         elem.style.display = "none";
       }
     }
+  }
+
+  disableForm(form) {
+    form.querySelectorAll("input, select, textarea").forEach((elem) => {
+      elem.setAttribute("disabled", true);
+    });
   }
 }

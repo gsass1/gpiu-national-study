@@ -1,19 +1,15 @@
 ul.sidepanel-sections
-  li
-    strong
-      = link_to "Dashboard", regional_admin_country_dashboard_index_path(@country.iso_2)
-  li
-    strong Study Iterations
-    ul.sidepanel-section-items
-      li= link_to "New", new_regional_admin_country_study_iteration_path(@country.iso_2)
-      li= link_to "Index", regional_admin_country_study_iterations_path(@country.iso_2)
-  - ["users", "hospitals"].each do |resource_name|
+  - regional_admin_sidepanel_sections.each do |section|
     li
-      strong= resource_name.upcase
-      ul.sidepanel-section-items
-        li
-          a[href="/regional_admin/#{@country.iso_2}/#{resource_name}/new"] New
-        li
-          a[href="/regional_admin/#{@country.iso_2}/#{resource_name}"] Index
-        li
-          a[href="/regional_admin/#{@country.iso_2}/#{resource_name}?deleted=true"] Deleted
+      a[href=section[:path] class="sidepanel-section"]
+        div[class="sidepanel-section-inner #{(section[:controller] == controller_name) ? "sidepanel-section-active" : ""}"]
+          .d-flex.flex-row.align-items-center
+            i.material-icons= section[:icon]
+            .pl-2= section[:name]
+      - if (section[:controller] == controller_name) && section[:subsections].any?
+        ul.sidepanel-section-subsections
+          - section[:subsections].each do |subsection|
+            li
+              a[href=subsection[:path] class="sidepanel-section"]
+                div[class="sidepanel-subsection-inner #{((subsection[:action] == action_name) && (subsection[:filter].nil? ? true : (subsection[:filter].call))) ? "sidepanel-subsection-active" : ""}"]
+                  div= subsection[:name]

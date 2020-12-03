@@ -22,7 +22,7 @@ class Country < ApplicationRecord
   end
 
   def current_study_iteration
-    @current_study_iteration ||= study_iterations.accepted.select { |si| !si.passed? }.first
+    @current_study_iteration ||= study_iterations.includes([:study_ranges]).accepted.select { |si| !si.passed? }.first
   end
 
   def next_or_current_study_iteration

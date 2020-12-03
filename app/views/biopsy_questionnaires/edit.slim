@@ -8,7 +8,7 @@
     .alert.alert-danger
       strong= t('application.not_editable_hint')
 
-  = simple_form_for(@biopsy_questionnaire, method: :patch, url: patient_biopsy_questionnaire_path(@biopsy_questionnaire.patient, @biopsy_questionnaire)) do |f|
+  = simple_form_for(@biopsy_questionnaire, method: :patch, url: patient_biopsy_questionnaire_path(@biopsy_questionnaire.patient, @biopsy_questionnaire), html: { questionnaire_locked: @biopsy_questionnaire.patient.locked? }) do |f|
     .form-inputs
       /= f.error_notification
 

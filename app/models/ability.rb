@@ -18,13 +18,14 @@ class Ability
       can :destroy, Employee, user_id: user.id
 
       can [:create, :read, :update], Patient, creator_id: user.id
-      can [:edit, :update], PatientIdentification, patient: { creator_id: user.id }
+      can :edit, PatientIdentification,  patient: { creator_id: user.id }
+      can :update, PatientIdentification,  patient: { creator_id: user.id, locked: false }
 
       unless user.country.current_study_iteration.nil?
-        can [:edit, :update], SsiQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
-        can [:edit, :update], UtiQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
-        can [:edit, :update], BiopsyQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
-        can [:edit, :update], BiopsyOutcomeQuestionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
+        can_edit_update_questionnaire user, SsiQuestionnaire
+        can_edit_update_questionnaire user, UtiQuestionnaire
+        can_edit_update_questionnaire user, BiopsyQuestionnaire
+        can_edit_update_questionnaire user, BiopsyOutcomeQuestionnaire
       end
 
       can [:edit, :update], DepartmentQuestionnaire, department: { users: { id: user.id } }
@@ -39,5 +40,11 @@ class Ability
         end
       end
     end
+  end
+
+  private
+  def can_edit_update_questionnaire(user, questionnaire)
+    can :edit, questionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id }
+    can :update, questionnaire, patient: { creator_id: user.id, study_iteration_id: user.country.current_study_iteration.id, locked: false }
   end
 end

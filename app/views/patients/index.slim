@@ -18,20 +18,22 @@
           - if study_active?
             .float-right
               .btn-group
-                = link_to t('.open_department_questionnaire'), edit_hospital_department_department_questionnaire_path(department.hospital, department, department.current_department_questionnaire), class: 'btn btn-sm btn-info'
+                = link_to department_questionnaire_text(department.current_department_questionnaire.state_valid?), edit_hospital_department_department_questionnaire_path(department.hospital, department, department.current_department_questionnaire), class: 'btn btn-sm btn-info'
                 = link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'uti_ssi'), class: 'btn btn-sm btn-success'
         .card-body.department-patients
           table.table.table-striped
             tr
               th= t('patients.index.uti_ssi.table.id')
               th= t('patients.index.uti_ssi.table.initials')
+              th= t('patients.index.uti_ssi.table.locked')
               th= t('patients.index.uti_ssi.table.include_form')
               th= t('patients.index.uti_ssi.table.uti_form')
               th= t('patients.index.uti_ssi.table.ssi_form')
             - department.patients.uti_ssi.includes([:uti_questionnaire, :ssi_questionnaire, :patient_identification]).within_study_iteration(current_study_iteration).each do |patient|
               tr
                 td[style="width:5%;"]= patient.id
-                td[style="width:10%;"]= patient.initial
+                td[style="width:5%;"]= patient.initial
+                td.text-center[style="width:5%;"]= patient_lock_button(patient)
                 = questionnaire_table_entry t('.uti_ssi.table.open_include_form'), edit_patient_identification_path(patient, patient.patient_identification), patient.identification_state_valid?, 25
                 - if patient.uti_form_needed?
                   = questionnaire_table_entry t('.uti_ssi.table.open_uti_form'), edit_patient_uti_questionnaire_path(patient, patient.uti_questionnaire), patient.uti_state_valid?, 25
@@ -57,19 +59,21 @@
           - if study_active?
             .float-right
               .btn-group
-                = link_to t('.open_department_questionnaire'), edit_hospital_department_department_questionnaire_path(department.hospital, department, department.current_department_questionnaire), class: 'btn btn-sm btn-info'
+                = link_to department_questionnaire_text(department.current_department_questionnaire.state_valid?), edit_hospital_department_department_questionnaire_path(department.hospital, department, department.current_department_questionnaire), class: 'btn btn-sm btn-info'
                 = link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'prostate_biopsy'), class: 'btn btn-sm btn-success'
         .card-body.department-patients
           table.table.table-striped
             tr
               th= t('patients.index.biopsy.table.id')
               th= t('patients.index.biopsy.table.initials')
+              th= t('patients.index.uti_ssi.table.locked')
               th= t('patients.index.biopsy.table.biopsy_form')
               th= t('patients.index.biopsy.table.biopsy_outcome_form')
             - department.patients.prostate_biopsy.includes([:biopsy_questionnaire, :biopsy_outcome_questionnaire]).within_study_iteration(current_study_iteration).each do |patient|
               tr
                 td[style="width:5%;"]= patient.id
-                td[style="width:10%;"]= patient.initial
+                td[style="width:5%;"]= patient.initial
+                td.text-center[style="width:5%;"]= patient_lock_button(patient)
                 = questionnaire_table_entry t('.uti_ssi.table.open_biopsy_form'), edit_patient_biopsy_questionnaire_path(patient, patient.biopsy_questionnaire), patient.biopsy_state_valid?, 25
                 = questionnaire_table_entry t('.uti_ssi.table.open_biopsy_outcome_form'), edit_patient_biopsy_outcome_questionnaire_path(patient, patient.biopsy_outcome_questionnaire), patient.biopsy_outcome_state_valid?,  60
 
