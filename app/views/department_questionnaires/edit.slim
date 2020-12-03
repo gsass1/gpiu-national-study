@@ -5,7 +5,6 @@
   p.lead.text-muted= "#{@hospital.name} - #{@department.name}"
   hr
 
-
 = render "shared/form_hint", state: @department_questionnaire.state, model: @department_questionnaire
 
 .container.questionnaire[data-controller="questionnaire department-questionnaire"]

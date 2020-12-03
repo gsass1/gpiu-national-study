@@ -149,7 +149,7 @@ en:
       title: 'Patients'
       no_departments: 'Please check into a department first before creating patients.'
       new_patient: 'New Patient'
-      open_department_questionnaire: 'Open Department Questionnaire'
+      open_department_questionnaire: 'Department Questionnaire'
       uti_ssi:
         title: 'Included UTI/SSI Patients'
         description: "This list contains all the UTI/SSI patients you have included so far. For every included patient, you will need to fill out a Patient Include form. Depending on the patient's condition indicated in this form, you will need to fill out a UTI-form and/or an SSI-form."
@@ -159,11 +159,11 @@ en:
           include_form: "Include Form"
           uti_form: "UTI Form"
           ssi_form: "SSI Form"
-          open_include_form: "Open Include Form"
-          open_uti_form: "Open UTI Form"
-          open_ssi_form: "Open SSI Form"
-          open_biopsy_form: "Open Biopsy Form"
-          open_biopsy_outcome_form: "Open Biopsy Outcome Form"
+          open_include_form: "Include Form"
+          open_uti_form: "UTI Form"
+          open_ssi_form: "SSI Form"
+          open_biopsy_form: "Biopsy Form"
+          open_biopsy_outcome_form: "Biopsy Outcome Form"
           form_not_needed: "N/A"
       biopsy:
         title: 'GPIU Prostate Biopsies Side Study'
