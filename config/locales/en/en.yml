@@ -156,6 +156,9 @@ en:
         table:
           id: "Patient #"
           initials: "Initials"
+          locked: "Locked"
+          lock_patient: "Lock this patient (prevents further edits)"
+          unlock_patient: "Unlock this patient (enables further edits)"
           include_form: "Include Form"
           uti_form: "UTI Form"
           ssi_form: "SSI Form"

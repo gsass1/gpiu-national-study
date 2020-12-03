@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_161530) do
+ActiveRecord::Schema.define(version: 2020_12_03_135520) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -853,6 +853,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_161530) do
     t.integer "biopsy_outcome_state", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "locked", default: false
     t.index ["creator_id"], name: "index_patients_on_creator_id"
     t.index ["department_id"], name: "index_patients_on_department_id"
     t.index ["study_iteration_id"], name: "index_patients_on_study_iteration_id"
