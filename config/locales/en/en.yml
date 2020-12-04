@@ -792,8 +792,8 @@ en:
         pyranizamide: "Pyranizamide"
         rifampicin: "Rifampicin"
         streptomycin: "Streptomycin"
-      other_drug:
-        group: "Others drugs"
+      other:
+        group: "Other drugs"
         chloramphenicol: "Chloramphenicol"
         fosfomycin: "Fosfomycin"
         metronidazole: "Metronidazole"
