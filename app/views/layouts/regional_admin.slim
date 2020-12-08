@@ -28,38 +28,4 @@ html
                 button[type="button" class="close" data-dismiss="alert" aria-label="Close"]
                   span[aria-hidden="true"] &times;
           = yield
-      footer
-        .container.py-5
-          .row.mb-3
-            .col-md-3.offset-md-3
-              h4.my-0.mr-md-auto.font-weight-normal.text-light
-                = t('application.nav.title_html')
-
-          .row.mt-4
-            .col-md-6.offset-md-3
-              p.text-light = t('application.footer.funding')
-
-          hr.footer-spacer
-          .row.mt-4
-            .col-md-3.offset-md-3
-              p.font-weight-bold.text-light.lead = t('application.footer.links')
-              ul.footer-links
-                li
-                  a.text-light[href="/"] = t('application.footer.home')
-                li
-                  a.text-light[href="/about"] = t('application.footer.about')
-                li
-                  a.text-light[href="/contact"] = t('application.footer.contact')
-
-            .col-md-3
-              p.font-weight-bold.text-light.lead = t('application.footer.other_studies')
-              ul.footer-links
-                li
-                  a.text-light[href="https://gpiu.esiu.org"] = t('application.footer.annual_study')
-                li
-                  a.text-light[href="https://gpiu-com.org"] = t('application.footer.com_study')
-                li
-                  a.text-light[href="/"] = t('application.footer.natianal_study')
-          .text-center.mt-4
-            hr.footer-spacer
-            p.text-light Copyright &copy; GPIU National Study
+      = render 'shared/footer'
