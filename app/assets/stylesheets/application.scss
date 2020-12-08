@@ -145,6 +145,12 @@ p {
   transform: scale(2);
 }
 
+.landing-national-flag {
+  min-width: 150px;
+  min-height: 150px;
+  margin-right: 50px;
+}
+
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: #28a745 !important;
 }
@@ -215,4 +221,8 @@ p {
   .alert {
     margin: 0 !important;
   }
+}
+
+.bg-beige {
+  background: #efede9;
 }

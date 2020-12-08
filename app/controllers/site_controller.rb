@@ -5,6 +5,7 @@ class SiteController < ApplicationController
     end
 
     @user = User.new
+    @countries = Country.all.order(name: :asc)
   end
 
   def contact; end
