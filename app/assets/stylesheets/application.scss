@@ -38,7 +38,7 @@ body {
 }
 
 .landing-welcome {
-  background: url("https://st2.depositphotos.com/3889193/8319/i/450/depositphotos_83197346-stock-photo-medical-team.jpg") no-repeat center center fixed;
+  background: asset-url("header.jpg") no-repeat center center fixed;
   background-size: cover;
   min-height: 600px;
 }
