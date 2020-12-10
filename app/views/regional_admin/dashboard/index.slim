@@ -1,1 +1,24 @@
-h1 Regional Admin
+.container
+  h1 Regional Admin Dashboard
+  hr
+
+  .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
+    .box.bg-primary.text-light.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 accessibility
+        span= "#{@user_count} Users"
+
+    .box.bg-success.text-dark.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 local_hospital
+        span= "#{@hospitals_count} Hospitals"
+
+    .box.bg-primary.text-light.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 local_hospital
+        span= "#{@departments_count} Departments"
+
+    .box.bg-success.text-dark.d-flex.align-items-center.justify-content-center
+      h2.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 alarm
+        span= "#{@study_iterations_count} Study Iterations"
