@@ -19,6 +19,11 @@ module RegionalAdmin::DashboardHelper
             path: regional_admin_country_study_iterations_path(@country),
             action: "index"
           },
+          {
+            name: "New",
+            path: new_regional_admin_country_study_iteration_path(@country),
+            action: "new"
+          },
         ]
       },
       regional_admin_sidepanel_crud_section("user", "people"),
