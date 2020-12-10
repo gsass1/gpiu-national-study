@@ -38,7 +38,7 @@ body {
 }
 
 .landing-welcome {
-  background: url("https://st2.depositphotos.com/3889193/8319/i/450/depositphotos_83197346-stock-photo-medical-team.jpg") no-repeat center center fixed;
+  background: asset-url("header.jpg") no-repeat center center fixed;
   background-size: cover;
   min-height: 600px;
 }
@@ -145,6 +145,12 @@ p {
   transform: scale(2);
 }
 
+.landing-national-flag {
+  min-width: 150px;
+  min-height: 150px;
+  margin-right: 50px;
+}
+
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: #28a745 !important;
 }
@@ -209,4 +215,14 @@ p {
 .form-invalid {
   border-top: 2px solid #d1a6aa !important;
   border-bottom: 2px solid #d1a6aa !important;
+}
+
+.landing-page-flash-messages {
+  .alert {
+    margin: 0 !important;
+  }
+}
+
+.bg-beige {
+  background: #efede9;
 }

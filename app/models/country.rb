@@ -4,7 +4,9 @@ class Country < ApplicationRecord
   resourcify
 
   has_many :hospitals
+  has_many :departments, through: :hospitals
   has_many :study_iterations
+  has_many :users
 
   validates :iso_2, presence: true
   validates :iso_3, presence: true
