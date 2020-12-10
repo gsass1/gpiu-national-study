@@ -84,7 +84,7 @@ Rails.application.configure do
     # NOTE(gian): Preventing unused eager loading with my admin framework is
     # kind of a hassle. We don't really need top performance on the admin pages
     # anyway
-    Bullet.stacktrace_excludes = [ 'admin', 'save_with_errors' ]
+    Bullet.stacktrace_excludes = [ 'admin', 'save_with_errors', 'notifications' ]
   end
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
