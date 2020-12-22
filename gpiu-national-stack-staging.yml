@@ -26,6 +26,7 @@ services:
       - GPIU_NAT_DB_NAME=GpiuNational
       - GPIU_NAT_DB_USER=staging
       - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - GPIU_STAGING=1
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
     networks:
