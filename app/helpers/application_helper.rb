@@ -95,4 +95,12 @@ module ApplicationHelper
 
     #form.input group.to_sym, as: :radio_buttons, collection: radio_button_collection(group.to_s.pluralize, *form.object.class.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
   end
+
+  def no_header_margin?
+    defined?(@no_header_margin) && @no_header_margin == true
+  end
+
+  def disable_header_margin
+    @no_header_margin = true
+  end
 end
