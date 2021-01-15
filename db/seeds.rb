@@ -84,7 +84,8 @@ if Rails.env.development?
     hospital = Hospital.create!(name: "#{Faker::Movies::StarWars.unique.character} Hospital",
                                 country: Country.all.sample,
                                 address: address,
-                                first_department_name: dept_name)
+                                first_department_name: dept_name,
+                                acceptance_state: :approved)
 
     rand(0..NUM_MAX_DEPTS-1).times do |dept_i|
       dept = Department.create(hospital: hospital,

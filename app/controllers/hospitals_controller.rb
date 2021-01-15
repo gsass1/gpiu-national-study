@@ -1,5 +1,6 @@
 class HospitalsController < ApplicationController
   include Authenticated
+  include ActiveStudyIteration
   load_and_authorize_resource
 
   add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
@@ -16,6 +17,13 @@ class HospitalsController < ApplicationController
 
   def show
     add_breadcrumb @hospital.name
+
+    @tab = params[:tab] || 'overview'
+
+    @department_ids = @hospital.departments.pluck(:id)
+    @employees = Employee.where(department_id: @department_ids)
+    @employed_user_ids = @employees.select(:user_id).distinct
+    @users_employed = User.where(id: @employees.pluck(:user_id)).distinct
   end
 
   def new
