@@ -1,7 +1,7 @@
 class NotificationsMailer < ApplicationMailer
   add_template_helper NotificationsHelper
 
-  default from: 'notifications@national.esiu.org'
+  default from: 'gpiu-serpens-mni@lists.thm.de'
 
   def notification_email
     @notification = params[:notification]
