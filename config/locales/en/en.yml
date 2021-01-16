@@ -120,6 +120,13 @@ en:
         id: "ID"
         name: "Name"
         departments: "Departments"
+      info:
+        address: "Address"
+        creator: "Creator"
+      stats:
+        title: "Statistics"
+        num_patients: "Patients"
+        num_employees: "Employees"
       edit_on_patients_page_html: "You can edit this patient on the <a href='%{patients_page}'>Patients</a> page."
       not_employed_in_department: "Patient list only visible for employees of this department."
       no_patients_in_department: "No patients in this department yet."

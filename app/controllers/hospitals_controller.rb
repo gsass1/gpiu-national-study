@@ -32,6 +32,8 @@ class HospitalsController < ApplicationController
   end
 
   def create
+    @hospital.user_id = current_user.id
+
     if @hospital.save
       flash.notice = "Hospital was created."
       redirect_to @hospital
@@ -39,7 +41,6 @@ class HospitalsController < ApplicationController
       render :new
     end
   end
-
 
   private
 

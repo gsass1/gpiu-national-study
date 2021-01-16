@@ -4,6 +4,7 @@ class Hospital < ApplicationRecord
 
   belongs_to :address, dependent: :destroy
   belongs_to :country
+  belongs_to :user
   has_many :departments
   has_many :patients, through: :departments
   accepts_nested_attributes_for :address
@@ -20,7 +21,7 @@ class Hospital < ApplicationRecord
 
   viewable_admin_table_fields :name, :address, :country, :acceptance_state
   viewable_admin_associations :departments, :patients
-  editable_admin_fields :name, :address, :country
+  editable_admin_fields :name, :address, :user, :country
 
   admin_custom_actions :admin_actions
 
@@ -34,6 +35,16 @@ class Hospital < ApplicationRecord
 
   def to_s
     name
+  end
+
+  def patient_count
+    self.departments.to_a.sum(&:patient_count)
+  end
+
+  def employee_count
+    self.departments.to_a.sum do |d|
+      d.employees.count
+    end
   end
 
   private

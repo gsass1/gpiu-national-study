@@ -81,9 +81,12 @@ if Rails.env.development?
                               zip_code: rand(10000..99999).to_s,
                               city: Faker::Address.city)
 
+    country = Country.all.sample
+    user = User.where(country_id: country.id).sample
     hospital = Hospital.create!(name: "#{Faker::Movies::StarWars.unique.character} Hospital",
-                                country: Country.all.sample,
+                                country: country,
                                 address: address,
+                                user: user,
                                 first_department_name: dept_name,
                                 acceptance_state: :approved)
 
