@@ -79,7 +79,8 @@ en:
     no_planned_si: 'The study has not yet been planned for your country. Please wait until the administrators of your country have set up the study dates. You will not be able to input data until then.'
     hospitals: 'Hospitals'
     no_hospitals: 'You have not checked into any hospital yet.'
-    hospital_search: 'You can search for national hospitals here.'
+    my_hospitals: 'View your hospitals here.'
+    hospital_search: 'Browse national hospitals here.'
     patients: 'Patients'
     patients_count: 'You have created %{patients} patients so far.'
     patients_questionnaires: '%{invalid_count} of your patients have incomplete/invalid questionnaires.'
@@ -95,12 +96,18 @@ en:
     calendar_link: "Click here to check the current study dates for your country."
   hospitals:
     index:
-      hospitals: 'Hospitals'
+      hospitals: 'Hospital Index'
       find: 'Find your hospital in our database.'
       create: 'Create'
       name: 'Name'
       city: 'City'
       search: 'Search'
+      tabs:
+        all: "All Hospitals"
+        my: "My Hospitals"
+      tab_description:
+        all: "Listing of all hospitals in your country."
+        my: "Listing of hospitals in which you are currently employed."
     new:
       general_info: '1. General info'
       general_hint: 'Fill in the hospital name and address information.'
@@ -110,6 +117,8 @@ en:
       create: 'Create'
       name_hint: 'Make sure your hospital is not already included in our database by using the search function.'
     show:
+      pending_notice: 'This hospital was not approved yet for data submission. Please wait until an administrator approves your hospital. Until then you will not be able to create departments or patients. You will be notified by email (if enabled) and your notification box once the acceptance state of your hospital changes.'
+      rejected_notice: 'Hospital was rejected by an administrator. Please check if this is not a duplicate hospital and that all data you entered is indeed correct.'
       tabs:
         overview: "Overview"
         departments: "Departments"

@@ -29,7 +29,9 @@ Rails.application.routes.draw do
     scope '/:country', as: :country do
       resources :dashboard, only: :index
       resources :users
-      resources :hospitals
+      resources :hospitals do
+        post :set_state
+      end
 
       resources :study_iterations do
         post :create_study_range

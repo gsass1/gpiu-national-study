@@ -10,6 +10,7 @@ class Hospital < ApplicationRecord
   accepts_nested_attributes_for :address
 
   enum acceptance_state: [:pending, :approved, :rejected]
+  scope :visible, -> { where(acceptance_state: :approved) }
 
   validates :name, presence: true
 
@@ -21,15 +22,27 @@ class Hospital < ApplicationRecord
 
   viewable_admin_table_fields :name, :address, :country, :acceptance_state
   viewable_admin_associations :departments, :patients
-  editable_admin_fields :name, :address, :user, :country
+  editable_admin_fields :name, :address, :user, :country, :acceptance_state
 
   admin_custom_actions :admin_actions
 
   def admin_actions
     [{
       name: "View",
-      color: :success,
+      color: :info,
       route: [:hospital_path, self]
+    },
+    {
+      name: "Accept",
+      color: :success,
+      method: :post,
+      route: [:regional_admin_country_hospital_set_state_path, self.country.iso_2, self.id, state: :approved]
+    },
+    {
+      name: "Reject",
+      color: :danger,
+      method: :post,
+      route: [:regional_admin_country_hospital_set_state_path, self.country.iso_2, self.id, state: :rejected]
     }]
   end
 

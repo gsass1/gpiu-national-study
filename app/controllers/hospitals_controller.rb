@@ -10,8 +10,16 @@ class HospitalsController < ApplicationController
   before_action :include_address, only: :index
 
   def index
+    @tab = params[:tab] || 'all'
+
+    if @tab == 'my'
+      @hospitals = current_user.hospitals
+    end
+
+    @hospitals = @hospitals.visible
+
     unless params[:q].blank?
-      @hospitals = @hospitals.where("name LIKE ?", "%#{params[:q]}%")
+      @hospitals = @hospitals.where("hospitals.name LIKE ?", "%#{params[:q]}%")
     end
   end
 
