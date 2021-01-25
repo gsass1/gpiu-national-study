@@ -21,6 +21,8 @@ class HospitalsController < ApplicationController
     unless params[:q].blank?
       @hospitals = @hospitals.where("hospitals.name LIKE ?", "%#{params[:q]}%")
     end
+
+    @own_hospitals = current_user.hospitals.includes([:address])
   end
 
   def show

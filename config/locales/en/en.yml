@@ -102,12 +102,14 @@ en:
       name: 'Name'
       city: 'City'
       search: 'Search'
+      state: 'Acceptance State'
       tabs:
         all: "All Hospitals"
         my: "My Hospitals"
       tab_description:
         all: "Listing of all hospitals in your country."
         my: "Listing of hospitals in which you are currently employed."
+        own: "Listing of hospitals that you have created."
     new:
       general_info: '1. General info'
       general_hint: 'Fill in the hospital name and address information.'

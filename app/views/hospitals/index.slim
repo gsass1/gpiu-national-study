@@ -32,3 +32,19 @@
           tr
             td= link_to hospital.name, hospital
             td= hospital.address.city
+
+  - if @own_hospitals.any?
+    .card.my-3
+      .card-header.bg-primary.text-light
+        strong= t(".tab_description.own")
+      .card-body.card-table
+        table.table.table-striped
+          tr
+            th = t('hospitals.index.name')
+            th = t('hospitals.index.city')
+            th = t('hospitals.index.state')
+          - @own_hospitals.each do |hospital|
+            tr
+              td= link_to hospital.name, hospital
+              td= hospital.address.city
+              td= hospital.acceptance_state.capitalize
