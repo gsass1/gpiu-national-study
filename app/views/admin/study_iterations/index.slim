@@ -12,7 +12,7 @@
       th Last Date
       th Actions
     - @study_iterations.each do |itr|
-      tr
+      tr[class=itr_color_table(itr)]
         td= itr.id
         td= itr.country
         td= itr.name
