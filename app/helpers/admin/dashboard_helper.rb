@@ -8,19 +8,7 @@ module Admin::DashboardHelper
         icon: "home",
         subsections: []
       },
-      {
-        name: "Study Iterations",
-        path: admin_study_iterations_path,
-        controller: "study_iterations",
-        icon: "date_range",
-        subsections: [
-          {
-            name: "Show All",
-            path: admin_study_iterations_path,
-            action: "index"
-          },
-        ]
-      },
+      study_iteration_sidepanel_section(),
       {
         name: "Support Requests",
         path: admin_support_requests_path,
@@ -40,6 +28,32 @@ module Admin::DashboardHelper
       sidepanel_crud_section("hospital", "local_hospital"),
       sidepanel_crud_section("department", "group_work", false),
     ]
+  end
+
+  def study_iteration_sidepanel_section
+    subsections = Country.all.order(name: :asc).map { |c|
+      {
+        name: c.name,
+        path: admin_study_iterations_path(country: c.iso_2),
+        action: "index",
+        filter: Proc.new { |f| params[:country] == c.iso_2 }
+      }
+    }
+
+    subsections.push({
+      name: "Show All",
+      path: admin_study_iterations_path,
+      action: "index",
+      filter: Proc.new { |f| params[:country].blank? }
+    })
+
+    {
+      name: "Study Iterations",
+      path: admin_study_iterations_path,
+      controller: "study_iterations",
+      icon: "date_range",
+      subsections: subsections
+    }
   end
 
   def sidepanel_crud_section(name, icon, can_delete = true)

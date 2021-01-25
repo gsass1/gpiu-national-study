@@ -7,6 +7,9 @@ class Admin::StudyIterationsController < ApplicationController
 
   def index
     @study_iterations = @study_iterations.includes([:country, :study_ranges])
+    unless params[:country].blank?
+      @study_iterations = @study_iterations.where(countries: { iso_2: params[:country] })
+    end
   end
 
   def show
