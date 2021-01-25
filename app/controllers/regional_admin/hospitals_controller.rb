@@ -7,10 +7,16 @@ class RegionalAdmin::HospitalsController < ApplicationController
     @hospital = @country.hospitals.find_by_id(params[:hospital_id])
     if @hospital.update_attributes(acceptance_state: params[:state])
       flash[:success] = "Set acceptance state of #{@hospital.name} to #{params[:state]}"
+      push_notifications
     else
       flash[:danger] = "Failed setting hospital state"
     end
 
     redirect_to regional_admin_country_hospital_path(@country, @hospital)
+  end
+
+  private
+  def push_notifications
+    Notifier.new.notify(recipient: @hospital.user, actor: current_user, notifiable: @hospital, action: "hospitals.#{@hospital.approved? ? "accepted" : "rejected"}")
   end
 end

@@ -1,6 +1,7 @@
 class Hospital < ApplicationRecord
   include Discard::Model
   include AdminResource
+  include Notifiable
 
   belongs_to :address, dependent: :destroy
   belongs_to :country
@@ -27,24 +28,37 @@ class Hospital < ApplicationRecord
   admin_custom_actions :admin_actions
 
   def admin_actions
-    [{
+    arr = [{
       name: "View",
       color: :info,
       route: [:hospital_path, self]
-    },
-    {
-      name: "Accept",
-      color: :success,
-      method: :post,
-      route: [:regional_admin_country_hospital_set_state_path, self.country.iso_2, self.id, state: :approved]
-    },
-    {
-      name: "Reject",
-      color: :danger,
-      method: :post,
-      route: [:regional_admin_country_hospital_set_state_path, self.country.iso_2, self.id, state: :rejected]
     }]
+
+    if self.pending?
+      arr.push({
+        name: "Accept",
+        color: :success,
+        method: :post,
+        route: [:regional_admin_country_hospital_set_state_path, self.country.iso_2, self.id, state: :approved]
+      })
+
+      arr.push({
+        name: "Reject",
+        color: :danger,
+        method: :post,
+        route: [:regional_admin_country_hospital_set_state_path, self.country.iso_2, self.id, state: :rejected]
+      })
+    end
+
+    arr
   end
+
+  notify_with Proc.new { |f|
+    {
+      site_link: Rails.application.routes.url_helpers.hospital_path(f),
+      admin_link: Rails.application.routes.url_helpers.regional_admin_country_hospital_path(f.country, f)
+    }
+  }
 
   def to_s
     name

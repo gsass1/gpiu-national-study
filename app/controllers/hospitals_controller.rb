@@ -44,6 +44,7 @@ class HospitalsController < ApplicationController
 
     if @hospital.save
       flash.notice = "Hospital was created."
+      push_submission_notifications
       redirect_to @hospital
     else
       render :new
@@ -51,7 +52,6 @@ class HospitalsController < ApplicationController
   end
 
   private
-
   def ensure_country
     @hospital.country = current_user.country
   end
@@ -64,5 +64,11 @@ class HospitalsController < ApplicationController
 
   def hospital_params
     params.require(:hospital).permit(:name, :first_department_name, address_attributes: [:street, :zip_code, :city])
+  end
+
+  def push_submission_notifications
+    User.with_role(:regional_admin, @hospital.country).each do |user|
+      Notifier.new.notify(recipient: user, actor: current_user, notifiable: @hospital, action: "hospitals.submission")
+    end
   end
 end
