@@ -62,5 +62,6 @@ Rails.application.routes.draw do
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
+  get '/faq' => 'site#faq'
   root 'site#index'
 end

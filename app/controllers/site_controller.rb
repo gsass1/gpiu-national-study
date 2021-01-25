@@ -10,4 +10,8 @@ class SiteController < ApplicationController
 
   def contact; end
   def about; end
+
+  def faq
+    @questions = t('.all').map { |k,v| k.to_s }
+  end
 end
