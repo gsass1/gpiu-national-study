@@ -17,7 +17,12 @@ class StudyIteration < ApplicationRecord
 
   after_update :create_records_if_approved
 
-  notify_with Proc.new { |f| { country_name: f.country.name } }
+  notify_with Proc.new { |f|
+    {
+      country_name: f.country.name,
+      admin_link: Rails.application.routes.url_helpers.admin_study_iteration_url(f.id)
+    }
+  }
 
   def active?
     study_ranges.any? { |range| range.active?  }
