@@ -66,6 +66,7 @@ en:
       home: 'Home'
       about: 'About'
       contact: 'Contact'
+      faq: 'FAQ'
       other_studies: 'Other Studies'
       annual_study: 'Annual Study'
       com_study: 'Community Study'
@@ -79,7 +80,8 @@ en:
     no_planned_si: 'The study has not yet been planned for your country. Please wait until the administrators of your country have set up the study dates. You will not be able to input data until then.'
     hospitals: 'Hospitals'
     no_hospitals: 'You have not checked into any hospital yet.'
-    hospital_search: 'You can search for national hospitals here.'
+    my_hospitals: 'View your hospitals here.'
+    hospital_search: 'Browse national hospitals here.'
     patients: 'Patients'
     patients_count: 'You have created %{patients} patients so far.'
     patients_questionnaires: '%{invalid_count} of your patients have incomplete/invalid questionnaires.'
@@ -95,12 +97,20 @@ en:
     calendar_link: "Click here to check the current study dates for your country."
   hospitals:
     index:
-      hospitals: 'Hospitals'
+      hospitals: 'Hospital Index'
       find: 'Find your hospital in our database.'
       create: 'Create'
       name: 'Name'
       city: 'City'
       search: 'Search'
+      state: 'Acceptance State'
+      tabs:
+        all: "All Hospitals"
+        my: "My Hospitals"
+      tab_description:
+        all: "Listing of all hospitals in your country."
+        my: "Listing of hospitals in which you are currently employed."
+        own: "Listing of hospitals that you have created."
     new:
       general_info: '1. General info'
       general_hint: 'Fill in the hospital name and address information.'
@@ -110,6 +120,8 @@ en:
       create: 'Create'
       name_hint: 'Make sure your hospital is not already included in our database by using the search function.'
     show:
+      pending_notice: 'This hospital was not approved yet for data submission. Please wait until an administrator approves your hospital. Until then you will not be able to create departments or patients. You will be notified by email (if enabled) and your notification box once the acceptance state of your hospital changes.'
+      rejected_notice: 'Hospital was rejected by an administrator. Please check if this is not a duplicate hospital and that all data you entered is indeed correct.'
       tabs:
         overview: "Overview"
         departments: "Departments"
@@ -120,6 +132,13 @@ en:
         id: "ID"
         name: "Name"
         departments: "Departments"
+      info:
+        address: "Address"
+        creator: "Creator"
+      stats:
+        title: "Statistics"
+        num_patients: "Patients"
+        num_employees: "Employees"
       edit_on_patients_page_html: "You can edit this patient on the <a href='%{patients_page}'>Patients</a> page."
       not_employed_in_department: "Patient list only visible for employees of this department."
       no_patients_in_department: "No patients in this department yet."
@@ -149,16 +168,37 @@ en:
     header: 'Notification from %{date}'
     none: 'You have no current notifications'
     action:
+      hospitals:
+        submission:
+          title: 'Hospital Submitted For Approval'
+          message_html: |
+            A new hospital titled "%{name}" has been submitted for approval.
+            <br/>
+            <a href="%{admin_link}">You can inspect, approve or reject this hospital by clicking here.</a>
+        accepted:
+          title: 'Hospital Accepted'
+          message_html: |
+            Your hospital titled "%{name}" has been approved.
+        rejected:
+          title: 'Hospital Rejected'
+          message_html: |
+            Your hospital titled "%{name}" has been rejected.
+
+
       study_iterations:
         accepted:
           title: 'Study Iteration Accepted'
-          message: 'Your study iteration titled "%{name}" has been approved.'
+          message_html: 'Your study iteration titled "%{name}" has been approved.'
         rejected:
           title: 'Study Iteration Rejected'
-          message: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}'
+          message_html: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}.'
         submission:
           title: 'Study Iteration Submitted For Approval'
-          message: 'A new study iteration titled "%{name}" from %{country_name} has been submitted for approval.'
+          message_html: |
+            A new study iteration titled "%{name}" from %{country_name} has been submitted for approval.
+            <br/>
+            <a href="%{admin_link}">You can inspect, approve or reject this study iteration by clicking here.</a>
+
   patients:
     index:
       title: 'Patients'

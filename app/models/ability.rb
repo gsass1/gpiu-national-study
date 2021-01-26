@@ -11,8 +11,11 @@ class Ability
     else
       can [:create, :read], SupportRequest, user_id: user.id
 
-      can [:create, :read, :update], [Address, Department]
-      can [:create, :read, :update], Hospital, country_id: user.country_id
+      can [:create, :read, :update], Address
+      can [:create, :read, :update], Department, { hospital: { country_id: user.country_id, acceptance_state: :approved } }
+
+      can [:create], Hospital, country_id: user.country_id
+      can [:create, :edit, :read, :update], Hospital, user_id: user.id
 
       can :create, Employee, department: { hospital: { country_id: user.country_id } }
       can :destroy, Employee, user_id: user.id
@@ -33,6 +36,7 @@ class Ability
       # Regional admin abilities
       Country.all.each do |country|
         if user.has_role? :regional_admin, country
+          can :manage, Country, id: country.id
           can :manage, User, country_id: country.id
           can :manage, Hospital, country_id: country.id
           can :manage, StudyIteration, country_id: country.id

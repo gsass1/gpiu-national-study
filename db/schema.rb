@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_143301) do
+ActiveRecord::Schema.define(version: 2021_01_16_155810) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -809,6 +809,7 @@ ActiveRecord::Schema.define(version: 2020_12_22_143301) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "acceptance_state", default: 0
+    t.integer "user_id"
     t.index ["address_id"], name: "index_hospitals_on_address_id"
     t.index ["country_id"], name: "index_hospitals_on_country_id"
     t.index ["discarded_at"], name: "index_hospitals_on_discarded_at"

@@ -4,4 +4,10 @@ module HospitalHelper
       t("hospitals.show.tabs.#{tab}")
     end
   end
+
+  def hospital_index_nav_link(tab)
+    link_to hospitals_path(tab: tab), class: "nav-link #{"active" if @tab == tab}" do
+      t("hospitals.index.tabs.#{tab}")
+    end
+  end
 end

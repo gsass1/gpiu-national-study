@@ -1,0 +1,11 @@
+en:
+  site:
+    faq:
+      title: "FAQ"
+      questions: &all
+        study_calendar:
+          title: "How can I know when the study is active?"
+          text_html: "Go to your <a href='/study_calendar'>study calendar</a> to check the current study dates for your country."
+
+      all:
+        <<: *all

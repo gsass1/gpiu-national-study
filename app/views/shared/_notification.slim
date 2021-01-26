@@ -1,10 +1,8 @@
 .card.mb-3
+  .card-header.bg-primary.text-light
+    strong= t("notifications.action.#{notification.action}.title")
+    .float-right= l(notification.created_at, format: :long)
   .card-body
-    div
-      /strong.card-title= t('notifications.header', date: l(notification.created_at, format: :short))
-      strong.card-title= t("notifications.action.#{notification.action}.title")
-      .float-right= l(notification.created_at, format: :long)
-    hr
     div= "From: #{notification.actor}"
     div= "To: #{notification.recipient}"
     div= "Subject: #{notification.notifiable}"

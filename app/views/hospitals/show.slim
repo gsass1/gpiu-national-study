@@ -1,40 +1,15 @@
 - disable_header_margin()
 
-/ .container
-/   h1= @hospital.name
-/   hr
+- unless @hospital.approved?
+  .alert.alert-info
+    .container
+      .text-center
+        span
+          - if @hospital.pending?
+            = t('.pending_notice')
+          - elsif @hospital.rejected?
+            = t('.rejected_notice')
 
-/   .row
-/     .col-sm-4
-/       .card
-/         .card-body
-/           strong.lead.card-title= @hospital.name
-/           div= @hospital.address.street
-/           div= "#{@hospital.address.zip_code} #{@hospital.address.city}"
-/           div= @hospital.country.name
-/     .col-sm-8
-/       .card
-/         .card-body
-/           strong.lead.card-title
-/             = t('hospitals.show.departments')
-/             = link_to t('hospitals.show.create_new_department'), new_hospital_department_path(@hospital), class: 'btn btn-sm btn-outline-primary mx-2'
-/           - unless @hospital.departments.any?
-/             p
-/               = t('hospitals.show.no_departments')
-/               = link_to "Create?", new_hospital_department_path(@hospital)
-/           - else
-/             - @hospital.departments.each do |department|
-/               .card.my-2
-/                 .card-body
-/                   strong.card-title = department.name
-/                   - unless current_user.is_employed_in?(department)
-/                     = simple_form_for([@hospital, department, Employee.new], method: :post) do |f|
-/                       = f.hidden_field :department_id, value: department.id
-/                       = f.button :submit, t('hospitals.show.check_into_department'), class: 'btn btn-success'
-/                   - else
-/                     = simple_form_for([@hospital, department, current_user.employement_for(department)], method: :delete) do |f|
-/                       = f.hidden_field :department_id, value: department.id
-/                       = f.button :submit, t('hospitals.show.check_out_of_department'), class: 'btn btn-danger'
 .hospital-header.mb-3
   .container.pt-4
     h2= @hospital.name
@@ -43,49 +18,49 @@
       li.nav-item= hospital_nav_link("overview")
       li.nav-item= hospital_nav_link("departments")
       li.nav-item= hospital_nav_link("employees")
-      li.nav-item= hospital_nav_link("acceptance_state")
+      /li.nav-item= hospital_nav_link("acceptance_state")
 
 .container
   - case @tab
   - when "overview"
     .row
-      .col-sm-4
-        .card
+      .col-sm-8
+        .card.mb-3
+          .card-header.bg-primary.text-light
+            strong.lead= @hospital.name
           .card-body
-            strong.lead.card-title= t('.address')
+            strong= t(".info.creator")
+            div= @hospital.user
+
+            hr
+
+            strong= t(".info.address")
             div= @hospital.address.street
             div= "#{@hospital.address.zip_code} #{@hospital.address.city}"
             div= @hospital.country.name
-      .col-sm-8
-        .card
-          .card-body
-            strong.lead.card-title
-              = t('hospitals.show.departments')
-              = link_to t('hospitals.show.create_new_department'), new_hospital_department_path(@hospital), class: 'btn btn-sm btn-outline-primary mx-2'
-            - unless @hospital.departments.any?
-              p
-                = t('hospitals.show.no_departments')
-                = link_to "Create?", new_hospital_department_path(@hospital)
-            - else
-              - @hospital.departments.each do |department|
-                .card.my-2
-                  .card-body
-                    strong.card-title = department.name
-                    - unless current_user.is_employed_in?(department)
-                      = simple_form_for([@hospital, department, Employee.new], method: :post) do |f|
-                        = f.hidden_field :department_id, value: department.id
-                        = f.button :submit, t('hospitals.show.check_into_department'), class: 'btn btn-success'
-                    - else
-                      = simple_form_for([@hospital, department, current_user.employement_for(department)], method: :delete) do |f|
-                        = f.hidden_field :department_id, value: department.id
-                        = f.button :submit, t('hospitals.show.check_out_of_department'), class: 'btn btn-danger'
+
+      .col-sm-4
+        .card.mb-3
+          .card-header.bg-primary.text-light
+            strong.lead= t(".stats.title")
+          .card-body.card-table
+            table.table
+              tr
+                th= t('.stats.num_patients')
+                td= @hospital.patient_count
+              tr
+                th= t('.stats.num_employees')
+                td= @hospital.employee_count
+
   - when "departments"
     - unless @hospital.departments.any?
       p
         = t('hospitals.show.no_departments')
-        = link_to "Create?", new_hospital_department_path(@hospital)
+        - if @hospital.approved?
+          = link_to "Create?", new_hospital_department_path(@hospital)
     - else
-      .text-center= link_to t('hospitals.show.create_new_department'), new_hospital_department_path(@hospital), class: 'btn btn-outline-primary mb-3'
+      - if @hospital.approved?
+        .text-center= link_to t('hospitals.show.create_new_department'), new_hospital_department_path(@hospital), class: 'btn btn-outline-primary mb-3'
       - @hospital.departments.each do |department|
         .card.mb-3
           .card-header.bg-primary.text-light

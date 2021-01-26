@@ -87,6 +87,8 @@ Rails.application.configure do
     Bullet.stacktrace_excludes = [ 'admin', 'save_with_errors', 'notifications' ]
   end
 
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Mailcatcher
