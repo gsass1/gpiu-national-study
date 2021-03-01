@@ -49,7 +49,40 @@ services:
         - "traefik.http.services.gpiu-national-staging-service.loadbalancer.server.port=3000"
         - "traefik.http.routers.gpiu-national-staging.tls=true"
 
+  redis:
+    image: 'redis:4.0-alpine'
+    command: redis-server --requirepass gpiu-national
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints: [node.hostname == gpiu-db]
+    networks:
+      - gpiu_national_staging_net
+    volumes:
+      - 'redis_db:/data'
+
+  sidekiq:
+    image: gpiu-registry.mni.thm.de/gpiu-national:staging
+    depends_on:
+      - db
+      - redis
+    command: sidekiq -C config/sidekiq.yml
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints:
+          - "node.hostname!=gpiu-db"
+    networks:
+      - gpiu_national_staging_net
+
 volumes:
+  redis_db:
   gpiu_national_staging_db:
 
 networks:

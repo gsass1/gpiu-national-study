@@ -1,0 +1,7 @@
+---
+:concurrency: 1
+:queues:
+  - default
+  - mailers
+  - gpiu_national_default
+  - gpiu_national_mailers

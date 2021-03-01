@@ -61,6 +61,9 @@ gem 'breadcrumbs_on_rails'
 
 gem 'flag-icons-rails'
 
+gem 'sidekiq', '~>6.1'
+gem 'redis-namespace'
+
 gem 'wicked_pdf'
 group :wk_binary do
   gem 'wkhtmltopdf-binary'
