@@ -26,7 +26,7 @@ class Notifier
     }
 
     email = NotificationsMailer.with(notification: options_hash).notification_email
-    if Rails.env.production? && ENV['GPIU_STAGING'] != 1
+    if Rails.env.production?
       email.deliver_later
     else
       email.deliver_now
