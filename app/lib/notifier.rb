@@ -17,6 +17,19 @@ class Notifier
   end
 
   def create_email_notification(options)
-    NotificationsMailer.with(notification: options).notification_email.deliver_now
+    options_hash = {
+      actor_id: options.actor.id,
+      recipient_id: options.recipient.id,
+      action: options.action,
+      notifiable_id: options.notifiable.id,
+      notifiable_class: options.notifiable.class.to_s,
+    }
+
+    email = NotificationsMailer.with(notification: options_hash).notification_email
+    if Rails.env.production?
+      email.deliver_later
+    else
+      email.deliver_now
+    end
   end
 end

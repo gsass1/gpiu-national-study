@@ -26,6 +26,7 @@ services:
       - GPIU_NAT_DB_NAME=GpiuNational
       - GPIU_NAT_DB_USER=staging
       - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - GPIU_NAT_REDIS_URL='redis:6379'
       - GPIU_STAGING=1
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
@@ -49,7 +50,48 @@ services:
         - "traefik.http.services.gpiu-national-staging-service.loadbalancer.server.port=3000"
         - "traefik.http.routers.gpiu-national-staging.tls=true"
 
+  redis:
+    image: 'redis:4.0-alpine'
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints: [node.hostname == gpiu-db]
+    networks:
+      - gpiu_national_staging_net
+    volumes:
+      - 'redis_db:/data'
+
+  sidekiq:
+    image: gpiu-registry.mni.thm.de/gpiu-national:staging
+    depends_on:
+      - db
+      - redis
+    command: sidekiq -C config/sidekiq.yml
+    environment:
+      - GPIU_NAT_DB_HOST=db
+      - GPIU_NAT_DB_NAME=GpiuNational
+      - GPIU_NAT_DB_USER=staging
+      - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - GPIU_NAT_REDIS_URL='redis:6379'
+      - GPIU_STAGING=1
+      - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints:
+          - "node.hostname!=gpiu-db"
+    networks:
+      - gpiu_national_staging_net
+
 volumes:
+  redis_db:
   gpiu_national_staging_db:
 
 networks:
