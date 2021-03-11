@@ -26,6 +26,7 @@ services:
       - GPIU_NAT_DB_NAME=GpiuNational
       - GPIU_NAT_DB_USER=staging
       - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - GPIU_NAT_REDIS_URL='redis:6379'
       - GPIU_STAGING=1
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
@@ -68,6 +69,15 @@ services:
       - db
       - redis
     command: sidekiq -C config/sidekiq.yml
+    environment:
+      - GPIU_NAT_DB_HOST=db
+      - GPIU_NAT_DB_NAME=GpiuNational
+      - GPIU_NAT_DB_USER=staging
+      - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - GPIU_NAT_REDIS_URL='redis:6379'
+      - GPIU_STAGING=1
+      - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
     deploy:
       mode: replicated
       replicas: 1
