@@ -1,6 +1,13 @@
 .container-fluid
   h1 Study Iterations
   hr
+  .btn-group.dropup
+    button.btn.btn-primary.btn-sm.ml-3.dropdown-toggle[type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]= "Filter: #{@filter.capitalize}"
+    .dropdown-menu
+      - ["all", "unsubmitted", "pending", "accepted", "declined"].each do |filter|
+        = link_to filter.capitalize, admin_study_iterations_path(filter: filter, country: params[:country]), class: 'dropdown-item'
+  hr
+  .clearfix
   table.table.table-bordered
     tr.bg-primary.text-light
       th ID
@@ -28,12 +35,12 @@
             strong Declined
         td
           - if itr.study_ranges.any?
-            strong= itr.study_ranges.first.start
+            strong= l(itr.study_ranges.first.start, format: :long)
           - else
             strong N/A
         td
           - if itr.study_ranges.any?
-            strong= itr.study_ranges.last.end
+            strong= l(itr.study_ranges.last.end, format: :long)
           - else
             strong N/A
         td

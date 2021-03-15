@@ -1,4 +1,11 @@
 en:
+  activerecord:
+    attributes:
+      support_request:
+        id: ID
+        support_type: Support Type
+        custom_support_type: Custom Support Type
+
   support_requests:
     new:
       title: "Help"
