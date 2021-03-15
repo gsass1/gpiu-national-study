@@ -1,0 +1,21 @@
+en:
+  support_requests:
+    new:
+      title: "Help"
+      create: "Create a support request"
+      submit: "Submit"
+      support_type: "Type"
+      custom_support_type: "Problem"
+    support_types:
+      site_help: "I need help with using the site"
+      bug: "I think I found a bug in the application"
+      other_reason: "Other (please specify)"
+  study_calendar:
+    index:
+      title: "Study Calendar"
+      time_hint: "Please be aware that study dates start/end in the %{zone} timezone."
+      legend:
+        title: "Legend"
+        current_study_day: "Current active study day"
+        study_day: "Upcoming"
+        passed: "Passed"

@@ -1,0 +1,198 @@
+en:
+  shared:
+    uti_ssi_questionnaire:
+      subsections:
+        "2":
+          uti: "2. Urological risk factors (present at the time UTI was diagnosed)"
+          ssi: "2. Urological risk factors (present at the time SSI was diagnosed)"
+
+        "3":
+          text: "3. Urological intervention"
+          question:
+            uti: "Urological intervention which according to the investigator lead to the current episode of UTI"
+            ssi: "Urological intervention which according to the investigator lead to the current episode of SSI"
+        "4":
+          uti: "4. Clinical information about the UTI"
+          ssi: "4. Clinical information about the SSI"
+        "5":
+          uti: "5. Microbiological information about the current episode of UTI"
+          ssi: "5. Microbiological information about the current episode of SSI"
+        "6":
+          uti: "6. Antimicrobial treatment for the current episode of UTI"
+          ssi: "6. Antimicrobial treatment for the current episode of SSI"
+
+      previous:
+        question:
+          uti: "Previous UTI (within last 12 months)"
+          ssi: "Previous SSI (within last 12 months)"
+      tractobstruction:
+        question: "Urinary tract obstruction (any level) or reflux considered to be a significant risk factor for the current infection"
+      tractobjstructionspeficy:
+        question: "Please specify"
+        help: "English text"
+      urinarystones:
+        question: "Urinary stones (more than one location can be reported)"
+        answers:
+          calyceal: "Calcyceal"
+          renalpelvic: "Renal pelvic"
+          ureteral: "Ureteral"
+          bladder: "Bladder"
+      treatment:
+        question: "Antibiotic treatment for any reason within the previous 3 months"
+      treatmentspeficy:
+        question: "Please specify diagnosis"
+        help: "English text"
+      hospitalisation:
+        question: "Hospitalisation for any reason within the last 6 months"
+      catheter:
+        question:
+          uti: "Catheter at the time when UTI was diagnosed (more than one location can be reported)"
+          ssi: "Catheter at the time when SSI was diagnosed (more than one location can be reported)"
+        answers:
+          urethral: "Urethral"
+          suprapubic: "Suprapubic"
+          ureteralstent: "Ureteral stent"
+          nephrostomy: "Nephrostomy"
+          others: "Others"
+      catheterduration:
+        question:
+          uti: "Duration of catheter usage (in days) at the time UTI was diagnosed"
+          ssi: "Duration of catheter usage (in days) at the time SSI was diagnosed"
+        append: "days"
+        help: "(e.g. 20). Enter 0 if no catheter was used."
+
+      intervention_endoscopic:
+        quesion: "Endoscopic"
+        answers:
+          Cystoscopy: "Cystoscopy"
+          Diagnostic_ureterorenoscopy: "Diagnostic Ureterorenoscopy"
+          TUR-P: "TUR-P"
+          TUR-BT: "TUR-BT"
+          URS_with_stone_treatment: "URS with stone treatment"
+          PCNL: "PCNL"
+          ureteral_stent_placement: "Ureteral stent placement"
+      intervention_percutaneous:
+        question: "Percutaneous"
+        answers: "Percutaneous nephrostomy placement"
+      intervention_laparoscopic:
+        question: "Laparoscopic and robot assisted procedures"
+        answers:
+          kidney_abdominal_testis: "On kidney and abdominal testis"
+          Lymph_node_dissection: "Lymph node dissection"
+          Prostatectomy: "Prostatectomy"
+          Cystectomy_and_urinary_diversion: "Cystectomy and urinary diversion/bladder replacement with bowel segments"
+          Other: "Other"
+      intervention_opensurgery:
+        question: "Open surgery"
+        answers:
+          Vasectomy: "Vasectomy"
+          Inguinal_scrotal_and_penile: "Inguinal, scrotal and penile"
+          RPLND: "RPLND"
+          Open_prostatectomy: "Open prostatectomy (for BPH)"
+          Simple_nephrectomy: "Simple nephrectomy"
+          Radical_nephrectomy: "Radical nephrectomy"
+          RRP: "RRP"
+          Cystectomy_and_urinary_diversion: "Cystectomy and urinary diversion/bladder replacement with bowel segments"
+      prostatebiopsy:
+        question: "Prostate biopsy"
+        answers:
+          transrectal: "Transrectal"
+          perineal: "Perineal"
+      trus_biopsy:
+        quesion: "TRUS biopsy"
+        help: "English text"
+      intervention_others:
+        quesion: "Others"
+        answers: "ESWL"
+      intervention_contamination:
+        question:
+          uti: "Contamination status of the intervention which according to the investigator lead to the current episode of UTI"
+          ssi: "Contamination status of the intervention which according to the investigator lead to the current episode of SSI"
+        answers:
+          clean: "Clean (no infection present in the operative field or urinary tract, and bowel not opened)"
+          cleancontaminated: "Clean-contaminated (no infection present but urinary tract opened)"
+          cleancontaminatedbowel: "Clean-contaminated (bowel opened, little or `normal` spillage)"
+          contaminated: "Contaminated (e.g. bowel opened, gross spillage)"
+          infected: "Infected = Dirty (infection present in the operative field: skin; soft tissue; urinary tract, etc.)"
+          nointervention: "No Intervention = No intervention took place"
+      diagnosedate:
+        question:
+          uti: "Date when UTI was diagnosed (can be different from the Study-day)"
+          ssi: "Date when SSI was diagnosed (can be different from the Study-day)"
+      clinicaldiagnosis:
+        quesion: "Clinical diagnosis"
+        answers:
+          uti:
+            cystitis: "Cystitis (grade of severity:1)"
+            pyelonephritis_moderate: "Pyelonephritis, moderate (grade of severity:2)"
+            pyelonephritis_severe: "Pyelonephritis, severe/established (grade of severity:3)"
+            urosepsissimple: "Urosepsis (simple) (grade of severity:4)"
+            urosepsissevere: "Severe urosepsis (grade of severity:5)"
+            urosepsisshock: "Uroseptic shock (grade of severity:6)"
+            other: "Other"
+          ssi:
+            urosepsissimple: "Urosepsis (simple)"
+            urosepsissevere: "Severe urosepsis"
+            urosepsisshock: "Uroseptic shock"
+            pyelonephritis_moderate: "Pyelonephritis, moderate"
+            pyelonephritis_severe: "Pyelonephritis, severe/established"
+            cystitis: "Cystitis"
+            asymptomatic: "Asymptomatic bacteriuria"
+            epididymoorchitis: "Epididymoorchitis"
+            prostatitis: "Prostatitis"
+            other: "Other"
+      clinicaldiagnosisspecify:
+        quesion: "Please specify"
+        help: "English text"
+      cdc:
+        question:
+          uti: "Which CDC criteria were used for UTI diagnosis? CDC UTI Definitions"
+          ssi: "Clinical definitions of SSI according to CDC"
+      symptomaticutiandbacteriuria:
+        answers: "Symptomatic UTI AND bacteriuria"
+      symptomaticutiandother:
+        answers: "Symptomatic UTI AND other signs of infection"
+      asymptomaticbactcath:
+        answers: "Asymptomatic bacteriuria catheter associated"
+      asymptomaticbactnocath:
+        answers: "Asymptomatic bacteriuria without catheter use"
+      otheruti:
+        answers: "Other infections of the urinary tract"
+      superficialssi:
+        answers: "Superficial incisional SSI"
+      deepssi:
+        answers: "Deep incisional SSI"
+      organssi:
+        answers: "Organ/space SSI"
+      provennauti:
+        question:
+          uti: "Is the patient considered to have a microbiologically proven UTI?"
+          ssi: "Is the patient considered to have a microbiologically proven SSI?"
+      culturetissue_urine:
+        answers: "Urine"
+      culturetissue_blood:
+        answers: "Blood"
+      culturetissue_fluidswab:
+        answers:
+          uti: "Fluid/swab from UTI"
+          ssi: "Fluid/swab from SSI"
+      culturetissue_other:
+        answers: "Other"
+      culturetissue_specify:
+        answers: "Please specify"
+        help: "English text"
+      antibioticculture:
+        question: "Was the patient receiving antibiotics when culture was taken?"
+        answers:
+          "yes": 'Yes'
+          "no": 'No'
+          unknown: Unknown
+      antimicrobical_treatment:
+        question: "Administration of antimicrobial treatment"
+        answers:
+          none: "No treatment"
+          oral: "Oral"
+          parenteral: "Parenteral"
+          both: "Both"
+      treatment_antibiotics:
+        question: "The antimicrobial drugs belong to the following groups"

@@ -1,0 +1,111 @@
+en:
+  biopsy_questionnaires:
+    edit:
+      title: "Edit Biopsy Form"
+      submit: "Submit"
+
+      yes_no_unknown:
+        "yes": "Yes"
+        "no": "No"
+        unknown: "Unknown"
+
+      section:
+        "1": "I. Patient characteristics"
+        "2": "II. Indication for biopsy"
+        "3": "III. Performance of biopsy"
+      form:
+        initial:
+          question: "Initials or ID Number"
+          help: "(Christian name(s) followed by family name(s))"
+        age:
+          question: "Age of the patient in days"
+        antibiotics_preceding_months:
+          question: "Antibiotics in preceding 6 months?"
+        antibiotics_type:
+          question: "Antibiotics type"
+        antibiotics_dosage:
+          question: "Antibiotics dosage"
+        antibiotics_duration:
+          question: "Antibiotics duration (in days)"
+          append: "days"
+        antibiotics_route:
+          question: "Antibiotics route"
+          answers:
+            oral: "Oral"
+            iv: "IV"
+            im: "im"
+        urogenital_infection_preceding_months:
+          question: "History of urogenital infection in the preceding 6 months?"
+        urinary_catheter:
+          question: "Does the patient have a urinary catheter in place at time of prostate biopsy?"
+        urinary_catheter_duration:
+          question: "For how many days?"
+        prostate_size_measured:
+          question: "Prostate size measured"
+        prostate_size:
+          question: "Prostate size in ml?"
+        diabetes_mellitus:
+          question: "Does the patient have Diabetes Mellitus?"
+        psa:
+          question: "PSA"
+        psa_size:
+          question: "PSA in ng/ml?"
+        repeated_biopsy:
+          question: "Repeated biopsy"
+        repeated_biopsy_number_previous_procedures:
+          question: "Number of previous procedures?"
+        preoperative_urine_examination:
+          question: "Preoperative urine examination"
+        preoperative_urine_examination_type:
+          question: "Type of examination"
+          answers:
+            dipstick: "Dispstick"
+            culture: "Culture"
+        preoperative_urine_culture_result:
+          question: "Urine culture result"
+          answers:
+            culture_negative: "Culture negative"
+            culture_positive: "Culture positive"
+        preoperative_bowel_preparation:
+          question: "Preoperative bowel preparation"
+        preoperative_bowel_preparation_type:
+          question: "Type of preparation"
+          answers:
+            enema: "Enema"
+            povidone_iodine_lavage: "Povidone iodine lavage"
+            other: "Other"
+        antibiotic_prophylaxis:
+          question: "Antibiotic prophylaxis?"
+        antibiotic_prophylaxis_type:
+          question: "Antibiotics type"
+        antibiotic_prophylaxis_dosage:
+          question: "Antibiotics dosage"
+        antibiotic_prophylaxis_duration:
+          question: "Antibiotics duration (days)"
+          append: "days"
+        antibiotic_prophylaxis_route:
+          question: "Antibiotics route"
+          answers:
+            oral: "Oral"
+            iv: "IV"
+            im: "IM"
+        biopsy_anesthesia:
+          question: "Anesthesia used for biopsy?"
+          answers:
+            yes: "Yes"
+            no: "No"
+            unknown: "Unknown"
+        biopsy_anesthesia_type:
+          question: "Type of anesthesia"
+          answers:
+            local_anesthesia_by_intransrectal_injection: "Local anesthesia by intransrectal injection"
+            spinal_anesthesia: "Spinal anesthesia"
+            general_anesthesia: "General anesthesia"
+        biopsy_route:
+          question: "Route of biopsy?"
+          answers:
+            transrectal: "Transrectal"
+            perineal: "Perineal"
+        number_cores_taken:
+          question: "Number of cores taken?"
+

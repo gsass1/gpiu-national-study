@@ -1,0 +1,118 @@
+en:
+  shared:
+    appendix_culture:
+      field:
+        answer:
+          sensitive: "Sensitive"
+          intermediate: "Intermediate"
+          resistant: "Resistant"
+      form:
+        results_of_culture:
+          question: "Results of culture"
+          sub_question: "Only two uropathogens can be reported. More are considered to be contamination. Choose the name of the pathogen(s) from the menu below"
+        first_pathogen_html: "Please choose <u>first</u> pathogen"
+        second_pathogen_html: "Please choose <u>second</u> pathogen"
+        susceptibility_standard:
+          question: "Standard used for susceptibility testing"
+          answers:
+            nccls_clsi: "NCCLS/CLSI"
+            din: "DIN"
+            eucast: "EUCAST"
+            other: "Other"
+        susceptibility_standard_other:
+          question: "Please specify"
+      pathogen:
+        please_specify: "Please specify"
+        enter_cfu_ml: "Enter cfu/ml"
+      susceptibility_test:
+        antimicrobial_agents_for_susceptibility_test: "Antimicrobial Agents for Susceptibility Test"
+        fill_in_susceptibility_first_pathogen_html: "Please fill in the susceptibility test for the <strong>first</strong> pathogen"
+        fill_in_susceptibility_second_pathogen_html: "Please fill in the susceptibility test for the <strong>second</strong> pathogen"
+      pathogen_options:
+        enterobacteriaceae: "Enterobacteriaceae"
+        e_coli: "E. coli"
+        klebsiella_sp: "Klebsiella sp."
+        proteus_sp: "Proteus sp."
+        enterobacter_sp: "Enterobacter sp."
+        citrobacter_sp: "Citrobacter sp."
+        morganella_sp: "Morganella sp."
+        other_enterobacteriaceae: "Other enterobacteriaceae."
+        non_fermenter: "Non-fermenter"
+        pseudomonas_aeruginosa: "Pseudomonas aeruginosa"
+        acinetoacter_sp: "Acinetoacter sp."
+        other_non_fermenter: "Other non-fermenter."
+        gram_positive_cocci: "Gram-positive cocci"
+        enterococcus_sp: "Enterococcus sp."
+        staphylococcus_aureus: "Staphylococcus aureus"
+        caogulase_negative_staphylococcy_cns: "Coagulase-negative staphylococci (CNS)"
+        other_gram_positive_cocci: "Other gram-positive cocci."
+        other_bacteria: "Other bacteria"
+        other_bacteria_option: "Other bacteria"
+        fungi: "Fungi"
+        candida_sp: "Candida sp."
+        other_fungi: "Other fungi."
+      susceptibility_fields:
+        penicillins: "Penicillins"
+        penicillins_options:
+          ampicillin_amoxicillin: "ampicillin/amoxicillin"
+          ampicillin_amoxicillin_bli: "ampicillin/amoxicillin+BLI"
+          piperacillin: "piperacillin"
+          piperacillin_bli: "piperacillin+BLI"
+          oxacillin: "oxacillin"
+          ticarcillin_clavulanic_acid: "Ticarcillin + Clavulanic acid"
+        cephalosporins: "Cephalosporins"
+        cephalosporins_options:
+          cephazolin: "cephazolin"
+          cefuroxime: "cefuroxime"
+          cefotaxime_ceftriaxone: "cefotaxime/ceftriaxone"
+          ceftazidime: "ceftazidime"
+          cefepime: "cefepime"
+          ceftaroline: "Ceftaroline"
+          cephamycins: "Cephamycins"
+          cefoxitin: "Cefoxitin"
+          cefotetan: "Cefotetan"
+        carbapenem: "Carbapenem"
+        carbapenem_options:
+          imipenem_meronem: "Imipenem/meronem"
+          doripenem: "Doripenem"
+          ertapenem: "Ertapenem"
+        aminoglycosides: "Aminoglycosides"
+        aminoglycosides_options:
+          gentamicin: "gentamicin"
+          amikacin: "amikacin"
+          tobramicin: "Tobramicin"
+          netilmicin: "Netilmicin"
+        fluoroquinolones: "Fluoroquinolones"
+        fluoroquinolones_options:
+          ofloxacin: "ofloxacin"
+          ciprofloxacin: "ciprofloxacin"
+          levofloxacin: "levofloxacin"
+          moxifloxacin: "Moxifloxacin"
+        tetracyclines: "Tetracyclines"
+        tetracyclines_options:
+          doxycyclin: "doxycyclin"
+          tetracycline: "Tetracycline"
+          minocycline: "Minocycline"
+          glycylcylines_tigecyline: "Glycylcylines - Tigecyline"
+        fosfomycin_trometamol: "Fosfomycin trometamol"
+        trimethoprim_solfonamide_cotrimoxazole: "Trimethoprim/Sulfonamide (Cotrimoxazole)"
+        nitrofurantoin: "Nitrofurantoin"
+        erythromycin_macrolides: "Erythromycin/macrolides"
+        clindamycin: "Clindamycin"
+        glycopeptides: "Glycopeptides"
+        glycopeptides_options:
+          vancomycin: "vancomycin"
+          teicoplanin: "Teicoplanin"
+          telavancin: "Telavancin"
+        linezolid: "Linezolid"
+        phenicols: "Phenicols"
+        polymixins: "Polymixins"
+        polymixins_options:
+          colistins: "Colistins"
+          polymixin_b: "Polymixin B"
+        monobactams: "Monobactams"
+        daptomycin: "Daptomycin"
+        rifampin_rifampicin: "Rifampin/Rifampicin"
+        fucidanes: "Fucidanes"
+
+

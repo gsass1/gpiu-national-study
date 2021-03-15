@@ -1,0 +1,36 @@
+en:
+  notifications:
+    title: 'Notifications'
+    header: 'Notification from %{date}'
+    none: 'You have no current notifications'
+    action:
+      hospitals:
+        submission:
+          title: 'Hospital Submitted For Approval'
+          message_html: |
+            A new hospital titled "%{name}" has been submitted for approval.
+            <br/>
+            <a href="%{admin_link}">You can inspect, approve or reject this hospital by clicking here.</a>
+        accepted:
+          title: 'Hospital Accepted'
+          message_html: |
+            Your hospital titled "%{name}" has been approved.
+        rejected:
+          title: 'Hospital Rejected'
+          message_html: |
+            Your hospital titled "%{name}" has been rejected.
+
+
+      study_iterations:
+        accepted:
+          title: 'Study Iteration Accepted'
+          message_html: 'Your study iteration titled "%{name}" has been approved.'
+        rejected:
+          title: 'Study Iteration Rejected'
+          message_html: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}.'
+        submission:
+          title: 'Study Iteration Submitted For Approval'
+          message_html: |
+            A new study iteration titled "%{name}" from %{country_name} has been submitted for approval.
+            <br/>
+            <a href="%{admin_link}">You can inspect, approve or reject this study iteration by clicking here.</a>
