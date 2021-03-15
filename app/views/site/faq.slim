@@ -3,8 +3,5 @@
   hr
 
   - @questions.each do |q|
-    .card.my-3
-      .card-header.bg-primary.text-light
-        strong= t(".questions.#{q}.title")
-      .card-body
-        p= t(".questions.#{q}.text_html")
+    = collapse_panel t(".questions.#{q}.title"), q, false
+      p= t(".questions.#{q}.text_html")
