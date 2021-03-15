@@ -8,7 +8,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   before_action :check_has_ranges, only: [:submit]
 
   def index
-    @study_iterations = @study_iterations.includes([:study_ranges])
+    @study_iterations = @country.study_iterations.includes([:study_ranges])
   end
 
   def new
