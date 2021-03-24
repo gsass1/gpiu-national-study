@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  unless ENV['KEYCLOAK_CLIENT'].blank?
+    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  else
+    devise_for :users
+  end
 
   resources :notifications, only: [:index]
 

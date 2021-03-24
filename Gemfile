@@ -61,6 +61,8 @@ gem 'breadcrumbs_on_rails'
 
 gem 'flag-icons-rails'
 
+gem 'omniauth-keycloak'
+
 gem 'wicked_pdf'
 group :wk_binary do
   gem 'wkhtmltopdf-binary'
