@@ -3,12 +3,22 @@ class Admin::StudyIterationsController < ApplicationController
   layout 'admin'
   load_and_authorize_resource
 
+  add_breadcrumb "Study Iterations", :admin_study_iterations_path
+
   before_action :load_study_iteration, only: [:approve, :reject, :export, :toggle_exportable]
 
   def index
+    @filter = params[:filter] || 'all'
+
     @study_iterations = @study_iterations.includes([:country, :study_ranges])
     unless params[:country].blank?
       @study_iterations = @study_iterations.where(countries: { iso_2: params[:country] })
+    end
+
+    unless @filter == 'all'
+      @study_iterations = @study_iterations.select do |si|
+        si.send("#{@filter}?") == true
+      end
     end
   end
 
@@ -20,6 +30,8 @@ class Admin::StudyIterationsController < ApplicationController
     else
       @months = []
     end
+
+    add_breadcrumb @study_iteration.name, admin_study_iteration_path(@study_iteration)
   end
 
   def approve

@@ -1,0 +1,25 @@
+en:
+  application:
+    no_active_si: 'You cannot perform this action while the study is not currently active for your country.'
+    not_editable_hint: 'This form cannot be modified while the study is not currently active for your country. Please check the study calendar'
+    control:
+      back: 'Back'
+    nav:
+      title_html: 'GPIU<br>National Study'
+      home: 'Home'
+      about: 'About'
+      account: 'Account'
+      dashboard: 'Dashboard'
+    footer:
+      server_time: 'Server time: %{time} %{zone}'
+      funding: 'The GPIU study is grateful for the unconditional funding support by Merian Iselin Clinic provided in 2017.'
+      links: 'Links'
+      home: 'Home'
+      about: 'About'
+      contact: 'Contact'
+      faq: 'FAQ'
+      other_studies: 'Other Studies'
+      annual_study: 'Annual Study'
+      com_study: 'Community Study'
+      natianal_study: 'National Study'
+

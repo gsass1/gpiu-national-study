@@ -1,0 +1,26 @@
+en:
+  dashboard:
+    welcome_back: 'Welcome'
+    description: 'This is your user dashboard. On here you can manage everything!'
+    si_dates_header: 'Thank you for registering with the GPIU study. The study dates are as follows.'
+    si_current_range_active: 'The current study range is active from %{start} to %{end}. You may submit data during this period.'
+    si_no_current_active_ranges: 'No study range is active at the moment. Please wait until %{next_date} before inputting data.'
+    no_planned_si: 'The study has not yet been planned for your country. Please wait until the administrators of your country have set up the study dates. You will not be able to input data until then.'
+    hospitals: 'Hospitals'
+    no_hospitals: 'You have not checked into any hospital yet.'
+    my_hospitals: 'View your hospitals here.'
+    hospital_search: 'Browse national hospitals here.'
+    patients: 'Patients'
+    patients_count: 'You have created %{patients} patients so far.'
+    patients_questionnaires: '%{invalid_count} of your patients have incomplete/invalid questionnaires.'
+    no_patients: 'You have not registered any patients yet.'
+    patients_site: 'You can create and edit patients here.'
+
+    support: "Support"
+    support_hint: "Please report any problems you have with using the site as well as any bugs."
+    support_request: "You can contact support here."
+
+    calendar: "Calendar"
+    calendar_hint: "Depending on the current date you may submit patient data into our database."
+    calendar_link: "Click here to check the current study dates for your country."
+

@@ -30,6 +30,10 @@ services:
       - GPIU_STAGING=1
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
+      - KEYCLOAK_REALM=ESIU
+      - KEYCLOAK_URL=https://sso.esiu.org
+      - KEYCLOAK_CLIENT=national-staging
+      - KEYCLOAK_CLIENT_SECRET=5c416155-9e00-455c-bcd2-76e6b3f41cc6
     networks:
       - gpiu_national_staging_net
       - traefik-net

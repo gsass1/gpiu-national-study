@@ -1,0 +1,105 @@
+en:
+  biopsy_outcome_questionnaires:
+    edit:
+      yes_no_unknown:
+        "yes": "Yes"
+        "no": "No"
+        unknown: "Unknown"
+
+      title: "Edit Biopsy Outcome Form"
+      submit: "Submit"
+      form:
+        section:
+          "1": "I. Outcome of biopsy (2 weeks followup)"
+        text:
+          indicate_symptoms: "Indicate symptoms"
+
+        histopathology_analysis:
+          question: "Histopathology analysis performed?"
+        histopathology_biopsy_material_change:
+          question: "Histological inflammatory change in biopsy material?"
+        histopathology_biopsy_material_change_severity:
+          question: "Please choose the severity of the histological inflammatory change"
+          answers:
+            mild: "Mild"
+            moderate: "Moderate"
+            severe: "Severe"
+        outcome_analysis:
+          question: "Outcome analysis performed?"
+        outcome_analysis_form_control_visit:
+          question: "Form control visit"
+          answers:
+            personal_visit: "Personal visit"
+            telephone_interview: "Telephone interview"
+            other: "Other"
+        outcome_analysis_urinary_tract_infection:
+          question: "Symptoms of urinary tract infection present at any time in 2 weeks after biopsy"
+        outcome_analysis_dysuria:
+          question: "Dysuria"
+        outcome_analysis_frequency:
+          question: "Frequency"
+        outcome_analysis_urgency:
+          question: "Urgency"
+        outcome_analysis_prostate_pain:
+          question: "Prostate pain"
+        outcome_analysis_rigor:
+          question: "Rigor"
+        outcome_analysis_loin_pain:
+          question: "Loin pain"
+        outcome_analysis_fever:
+          question: "Fever > 38°C"
+        physician_visit:
+          question: "Physician visit"
+        physician_visit_care_clinician:
+          question: "Primary care clinician"
+        physician_visit_emergency_room:
+          question: "Emergency room"
+        physician_visit_admission_hospital:
+          question: "Admission to hospital"
+        physician_visit_admission_hospital_urology:
+          question: "Urology ward"
+        physician_visit_admission_hospital_internal_medicine:
+          question: "Internal medicine ward"
+        physician_visit_admission_hospital_intensive_care:
+          question: "Intensive care ward"
+        physician_visit_psa:
+          question: "PSA (prostate specific antigen)"
+        physician_visit_psa_value:
+          question: "PSA value in ng/ml"
+        physician_visit_wbc_count:
+          question: "WBC (white blood cell count)"
+        physician_visit_wbc_value:
+          question: "WBC value in giga/l"
+        physician_visit_crp:
+          question: "CRP (C-reactive protein)"
+        physician_visit_crp_value:
+          question: "CRP value in mg/l"
+        physician_visit_urine_culture:
+          question: "Urine culture taken"
+        physician_visit_urine_culture_result:
+          question: "culture result"
+          answers:
+            culture_negative: "Culture negative"
+            culture_positive: "Culture positive"
+        antibiotic_treatment:
+          question: "Antibiotic treatment"
+        antibiotics_type:
+          question: "Antibiotics type"
+        antibiotics_dosage:
+          question: "Antibiotics dosage"
+        antibiotics_duration:
+          question: "Antibiotics duration (days)"
+          append: "days"
+        antibiotics_route:
+          question: "Antibiotics route"
+          answers:
+            oral: "Oral"
+            iv: "IV"
+            im: "IM"
+        outcome:
+          question: "Outcome at follow up date"
+          answers:
+            resolved: "Resolved"
+            not_resolved: "Not Resolved"
+            death: "Death"
+

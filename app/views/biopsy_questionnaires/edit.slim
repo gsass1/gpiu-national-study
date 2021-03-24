@@ -48,11 +48,11 @@
         ol#preoperative_urine_examination
           li= f.input :preoperative_urine_examination_type, as: :radio_buttons, label: t('.form.preoperative_urine_examination_type.question'), collection: radio_button_collection(".form.preoperative_urine_examination_type.answers", :dipstick, :culture), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_examination_type", "culture")
           ol#preoperative_urine_examination_type
-            li= f.input :preoperative_urine_culture_result, label: t('.form.preoperative_urine_culture_result.question'), as: :radio_buttons, collection: radio_button_collection(".form.preoperative_urine_culture_result", "culture_negative", "culture_positive"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_culture_result", "culture_positive")
+            li= f.input :preoperative_urine_culture_result, label: t('.form.preoperative_urine_culture_result.question'), as: :radio_buttons, collection: radio_button_collection(".form.preoperative_urine_culture_result.answers", "culture_negative", "culture_positive"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_culture_result", "culture_positive")
             ol#preoperative_urine_culture_result= render 'shared/appendix_culture', f: f, single: true, appendix_culture: f.object.appendix_culture_result
         li= f.input :preoperative_bowel_preparation, label: t('.form.preoperative_bowel_preparation.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_bowel_preparation", "yes")
         ol#preoperative_bowel_preparation
-          li= f.input :preoperative_bowel_preparation_type, label: t('.form.preoperative_bowel_preparation_type.question'), as: :radio_buttons, collection: radio_button_collection(".form.preoperative_bowel_preparation_type", "enema", "povidone_iodine_lavage", "other"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_culture_result", "culture_positive")
+          li= f.input :preoperative_bowel_preparation_type, label: t('.form.preoperative_bowel_preparation_type.question'), as: :radio_buttons, collection: radio_button_collection(".form.preoperative_bowel_preparation_type.answers", "enema", "povidone_iodine_lavage", "other"), value_method: :first, label_method: :second, input_html: form_trigger("preoperative_urine_culture_result", "culture_positive")
 
         li= f.input :antibiotic_prophylaxis, label: t('.form.antibiotic_prophylaxis.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("antibiotic_prophylaxis_preceding_questions", "yes")
         ol#antibiotic_prophylaxis_preceding_questions
@@ -63,9 +63,9 @@
 
         li= f.input :biopsy_anesthesia, label: t('.form.biopsy_anesthesia.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("biopsy_anesthesia", "yes")
         ol#biopsy_anesthesia
-          li= f.input :biopsy_anesthesia_type, label: t('.form.biopsy_anesthesia_type.question'), as: :radio_buttons, collection: radio_button_collection(".form.biopsy_anesthesia_type", "local_anesthesia_by_intransrectal_injection", "spinal_anesthesia", "general_anesthesia"), value_method: :first, label_method: :second
+          li= f.input :biopsy_anesthesia_type, label: t('.form.biopsy_anesthesia_type.question'), as: :radio_buttons, collection: radio_button_collection(".form.biopsy_anesthesia_type.answers", "local_anesthesia_by_intransrectal_injection", "spinal_anesthesia", "general_anesthesia"), value_method: :first, label_method: :second
 
-        li= f.input :biopsy_route, label: t('.form.biopsy_route.question'), as: :radio_buttons, collection: radio_button_collection(".form.biopsy_route", "transrectal", "perineal"), value_method: :first, label_method: :second
+        li= f.input :biopsy_route, label: t('.form.biopsy_route.question'), as: :radio_buttons, collection: radio_button_collection(".form.biopsy_route.answers", "transrectal", "perineal"), value_method: :first, label_method: :second
 
         li= f.input :number_cores_taken, label: t('.form.number_cores_taken.question'), as: :select, collection: BiopsyQuestionnaire::NUM_CORES_OPTIONS
 

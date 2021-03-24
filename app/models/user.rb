@@ -11,8 +11,15 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  unless ENV['KEYCLOAK_CLIENT'].blank?
+    devise :database_authenticatable, :registerable,
+           :recoverable, :rememberable, :trackable, :validatable,
+           :omniauthable, :omniauth_providers => [:keycloakopenid]
+  else
+    devise :database_authenticatable, :registerable,
+           :recoverable, :rememberable, :trackable, :validatable
+  end
+
   belongs_to :country
   has_many :employed, dependent: :destroy, class_name: "Employee"
   has_many :departments, through: :employed
@@ -77,6 +84,17 @@ class User < ApplicationRecord
 
   def invalid_patients_count
     patients.count - valid_patients_count
+  end
+
+  def self.from_omniauth(auth)
+    where(keycloak_uid: auth.uid).first_or_create do |user|
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
+      user.email = auth.info.email
+      user.title = "Mr."
+      user.country_id = 1
+      user.password = Devise.friendly_token[0,20]
+    end
   end
 
   private
