@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/gsass1/omniauth-keycloak
-  revision: 7ad2efb4ede53e6926605b451782cdf4bf938356
+  revision: 5af95547847c9fc43d6499a6ff3976abff26cec7
   specs:
     omniauth-keycloak (1.2.1)
       json-jwt (~> 1.12)
