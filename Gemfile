@@ -63,7 +63,7 @@ gem 'flag-icons-rails'
 
 gem 'sidekiq', '~>6.1'
 gem 'redis-namespace'
-gem 'omniauth-keycloak'
+gem 'omniauth-keycloak', git: 'https://github.com/gsass1/omniauth-keycloak'
 
 gem 'wicked_pdf'
 group :wk_binary do
