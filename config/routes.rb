@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  unless ENV['KEYCLOAK_CLIENT'].blank?
+    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  else
+    devise_for :users
+  end
 
   resources :notifications, only: [:index]
 
@@ -29,7 +33,9 @@ Rails.application.routes.draw do
     scope '/:country', as: :country do
       resources :dashboard, only: :index
       resources :users
-      resources :hospitals
+      resources :hospitals do
+        post :set_state
+      end
 
       resources :study_iterations do
         post :create_study_range
@@ -50,14 +56,16 @@ Rails.application.routes.draw do
   end
 
   resources :patients, only: [:index] do
+    post :toggle_lock
     resources :patient_identifications, only: [:edit, :update], path: :identifications, as: :identifications
-      resources :uti_questionnaires, only: [:edit, :update]
-      resources :ssi_questionnaires, only: [:edit, :update]
-      resources :biopsy_questionnaires, only: [:edit, :update]
-      resources :biopsy_outcome_questionnaires, only: [:edit, :update]
+    resources :uti_questionnaires, only: [:edit, :update]
+    resources :ssi_questionnaires, only: [:edit, :update]
+    resources :biopsy_questionnaires, only: [:edit, :update]
+    resources :biopsy_outcome_questionnaires, only: [:edit, :update]
   end
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
+  get '/faq' => 'site#faq'
   root 'site#index'
 end

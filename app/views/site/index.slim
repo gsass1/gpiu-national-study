@@ -11,5 +11,11 @@
         = render 'devise/shared/login_form', user: User.new
 .landing-description
   .container.my-5
-    h1 = t('sites.landing.what')
+    h2.text-center = t('sites.landing.what')
     p = t('sites.landing.description_long_html')
+  .bg-beige.mt-5
+    .container.py-5
+      h2.text-center = t('sites.landing.participating_countries')
+      .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
+        - @countries.each do |country|
+          = flag_icon country.iso_2, class: 'landing-national-flag', title: country.name

@@ -3,7 +3,7 @@
     ol
       li
         = g.input "#{place}_pathogen".to_sym, as: :grouped_select, collection: pathogen_options, group_method: :last, input_html: form_trigger("#{place}_pathogen_specify_#{g.object.pos_id}", "Other enterobacteriaceae.,Other non-fermenter.,Other gram-positive cocci.,Other bacteria,Other fungi.")
-        div[id="#{place}_pathogen_specify_#{g.object.pos_id}"]= g.input "#{place}_pathogen_specify".to_sym, label: t('.pathogen.please_specify')
+        div[id="#{place}_pathogen_specify_#{g.object.pos_id}"]= g.input "#{place}_pathogen_specify".to_sym, label: t('shared.appendix_culture.pathogen.please_specify')
   .col-sm-6
     ol start='2'
       li = g.input "#{place}_pathogen_enter_cfu_ml".to_sym, as: :select,

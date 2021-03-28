@@ -34,8 +34,9 @@ module ApplicationHelper
   end
 
   def flag_image(code)
-    image_tag "https://www.countryflags.io/#{code.downcase}/flat/48.png", class: "national-flag"
+    flag_icon code.to_sym, class: "national-flag", width: "200"
   end
+
   def admin_sidepanel_link(resource)
     content_tag :li do
       link_to "/admin/#{resource}" do
@@ -93,5 +94,13 @@ module ApplicationHelper
       end)
 
     #form.input group.to_sym, as: :radio_buttons, collection: radio_button_collection(group.to_s.pluralize, *form.object.class.send(group.to_s.pluralize.to_sym).keys), label_method: :second, value_method: :first
+  end
+
+  def no_header_margin?
+    defined?(@no_header_margin) && @no_header_margin == true
+  end
+
+  def disable_header_margin
+    @no_header_margin = true
   end
 end

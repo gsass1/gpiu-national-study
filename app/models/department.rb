@@ -47,6 +47,10 @@ class Department < ApplicationRecord
     end
   end
 
+  def patient_count
+    Patient.where(department_id: self.id).count
+  end
+
   private
   def load_current_department_questionnaire
     study_iteration = self.hospital.country.current_study_iteration

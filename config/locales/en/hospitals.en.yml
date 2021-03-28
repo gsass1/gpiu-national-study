@@ -1,0 +1,54 @@
+en:
+  hospitals:
+    index:
+      hospitals: 'Hospital Index'
+      find: 'Find your hospital in our database.'
+      create: 'Create'
+      name: 'Name'
+      city: 'City'
+      search: 'Search'
+      state: 'Acceptance State'
+      tabs:
+        all: "All Hospitals"
+        my: "My Hospitals"
+      tab_description:
+        all: "Listing of all hospitals in your country."
+        my: "Listing of hospitals in which you are currently employed."
+        own: "Listing of hospitals that you have created."
+    new:
+      general_info: '1. General info'
+      general_hint: 'Fill in the hospital name and address information.'
+      department_info: '2. Department info'
+      department_hint: 'Input the name of one department in your hospital, e.g. "Urology". You can add more departments later.'
+      new_hospital: 'New Hospital'
+      create: 'Create'
+      name_hint: 'Make sure your hospital is not already included in our database by using the search function.'
+    show:
+      pending_notice: 'This hospital was not approved yet for data submission. Please wait until an administrator approves your hospital. Until then you will not be able to create departments or patients. You will be notified by email (if enabled) and your notification box once the acceptance state of your hospital changes.'
+      rejected_notice: 'Hospital was rejected by an administrator. Please check if this is not a duplicate hospital and that all data you entered is indeed correct.'
+      tabs:
+        overview: "Overview"
+        departments: "Departments"
+        employees: "Employees"
+        acceptance_state: "Acceptance State"
+      employees_table:
+        title: "Employees"
+        id: "ID"
+        name: "Name"
+        departments: "Departments"
+      info:
+        address: "Address"
+        creator: "Creator"
+      stats:
+        title: "Statistics"
+        num_patients: "Patients"
+        num_employees: "Employees"
+      edit_on_patients_page_html: "You can edit this patient on the <a href='%{patients_page}'>Patients</a> page."
+      not_employed_in_department: "Patient list only visible for employees of this department."
+      no_patients_in_department: "No patients in this department yet."
+      address: "Address"
+      departments: 'Departments'
+      no_departments: 'No departments have been created yet.'
+      create_new_department: 'Create'
+      check_into_department: 'Check In'
+      check_out_of_department: 'Check Out'

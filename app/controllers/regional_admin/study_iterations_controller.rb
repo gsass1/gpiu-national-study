@@ -8,7 +8,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   before_action :check_has_ranges, only: [:submit]
 
   def index
-    @study_iterations = @study_iterations.includes([:study_ranges])
+    @study_iterations = @country.study_iterations.includes([:study_ranges])
   end
 
   def new
@@ -126,6 +126,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   end
 
   def check_si_is_editable
+    load_si
     unless @study_iteration.unsubmitted?
       flash[:danger] = "This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration."
       redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)

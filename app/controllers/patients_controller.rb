@@ -34,6 +34,22 @@ class PatientsController < ApplicationController
     end
   end
 
+  def toggle_lock
+    @patient = Patient.find(params[:patient_id])
+    authorize! :update, @patient
+
+    @patient.locked = !@patient.locked?
+    @patient.save!
+
+    if @patient.locked
+      flash[:success] = "Locked patient."
+    else
+      flash[:success] = "Unlocked patient."
+    end
+
+    redirect_back fallback_location: patients_path
+  end
+
   private
   def load_study_iteration
     if study_active?

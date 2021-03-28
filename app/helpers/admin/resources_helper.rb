@@ -63,7 +63,7 @@ module Admin::ResourcesHelper
     unless actions.nil?
       content_tag :div do
         actions.collect do |action|
-          concat(link_to action[:name], send(*action[:route]), class: "btn btn-#{action[:color].nil? ? "primary" : action[:color]}")
+          concat(link_to action[:name], send(*action[:route]), class: "btn btn-#{action[:color].nil? ? "primary" : action[:color]}", method: action[:method] || :get)
         end
       end
     end

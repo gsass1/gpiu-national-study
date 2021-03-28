@@ -1,0 +1,39 @@
+en:
+  shared:
+    appendix_comorbidity:
+      section_title: "1. Comorbidity"
+      severity_level_1:
+        question: "Severity level 1"
+        answers:
+          myocardialinfarction: "Myocardial infarction"
+          congestiveheartfailure: "Congestive heart failure"
+          vasculardisease: "Peripheral vascular disease"
+          cerebrovascular: "Cerebrovascular disease"
+          dementia: "Dementia"
+          pulmonary: "Chronic pulmonary disease"
+          tissuedisease: "Connective tissue disease"
+          ulcerdisease: "Ulcer disease"
+          mildliver: "Mild liver disease (Cirrhosis without portal hypertension or chronic hepatitis)"
+          diabetes: "Diabetes"
+      severity_level_2:
+        question: "Severity level 2"
+        answers:
+          hemiplegia: "Hemiplegia"
+          renaldisease: "Moderate/severe renal disease"
+          diabetesorgandamage: "Diabetes with end organ damage"
+          tumor: "Any tumor"
+          leukaemia: "Leukaemia"
+          lymphoma: "Lymphoma"
+        serum_drop_in_text: "(Serum creatinine >260 micromol/litre or >3mg/decilitre or glomerular filtration rate < 30 millilitre/minute and/ or patients on dialysis and those with a transplant)"
+      severity_level_3:
+        question: "Severity level 3"
+        answers:
+          severeliverdamage: "Moderate/severe liver damage"
+        cirrhosis_drop_in_text: "(Cirrhosis with portal hypertension and/ or a history of variceal bleeding)"
+      severity_level_4:
+        question: "Severity level 4"
+        answers:
+          metastatictumor: "Metastatic tumor"
+          aids: "AIDS"
+
+

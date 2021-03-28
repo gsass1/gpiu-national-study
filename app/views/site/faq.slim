@@ -1,0 +1,7 @@
+.container
+  h1= t('.title')
+  hr
+
+  - @questions.each do |q|
+    = collapse_panel t(".questions.#{q}.title"), q, false
+      p= t(".questions.#{q}.text_html")

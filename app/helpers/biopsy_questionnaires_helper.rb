@@ -51,10 +51,10 @@ module BiopsyQuestionnairesHelper
               [I18n.t('shared.appendix_antibiotic.glycopeptide.vancomycin'), "Vancomycin"],
               [I18n.t('shared.appendix_antibiotic.glycopeptide.telavancin'), "Telavancin"],
           ],
-      I18n.t('shared.appendix_antibiotic.licosamide.group') =>
+      I18n.t('shared.appendix_antibiotic.lincosamide.group') =>
           [
-              [I18n.t('shared.appendix_antibiotic.licosamide.clindamycin'), "Clindamycin"],
-              [I18n.t('shared.appendix_antibiotic.licosamide.lincomycin'), "Lincomycin"],
+              [I18n.t('shared.appendix_antibiotic.lincosamide.clindamycin'), "Clindamycin"],
+              [I18n.t('shared.appendix_antibiotic.lincosamide.lincomycin'), "Lincomycin"],
           ],
       I18n.t('shared.appendix_antibiotic.macrolide.group') =>
           [
@@ -92,7 +92,7 @@ module BiopsyQuestionnairesHelper
           [
               [I18n.t('shared.appendix_antibiotic.polypeptide.bacitracin'), "Bacitracin"],
               [I18n.t('shared.appendix_antibiotic.polypeptide.colistin'), "Colistin"],
-              [I18n.t('shared.appendix_antibiotic.polypeptide.polymycin_b'), "Polymyxin-B"],
+              [I18n.t('shared.appendix_antibiotic.polypeptide.polymyxin_b'), "Polymyxin-B"],
           ],
       I18n.t('shared.appendix_antibiotic.quinolone.group') =>
           [
@@ -130,12 +130,12 @@ module BiopsyQuestionnairesHelper
               [I18n.t('shared.appendix_antibiotic.antimycobacterial_drug.rifampicin'), "Rifampicin"],
               [I18n.t('shared.appendix_antibiotic.antimycobacterial_drug.streptomycin'), "Streptomycin"],
           ],
-      I18n.t('shared.appendix_antibiotic.other_drug.group') =>
+      I18n.t('shared.appendix_antibiotic.other.group') =>
           [
-              [I18n.t('shared.appendix_antibiotic.other_drug.chloramphenicol'), "Chloramphenicol"],
-              [I18n.t('shared.appendix_antibiotic.other_drug.fosfomycin'), "Fosfomycin"],
-              [I18n.t('shared.appendix_antibiotic.other_drug.metronidazole'), "Metronidazole"],
-              [I18n.t('shared.appendix_antibiotic.other_drugs.trimethoprim'), "Trimethoprim"],
+              [I18n.t('shared.appendix_antibiotic.other.chloramphenicol'), "Chloramphenicol"],
+              [I18n.t('shared.appendix_antibiotic.other.fosfomycin'), "Fosfomycin"],
+              [I18n.t('shared.appendix_antibiotic.other.metronidazole'), "Metronidazole"],
+              [I18n.t('shared.appendix_antibiotic.other.trimethoprim'), "Trimethoprim"],
           ]
   }
   end

@@ -5,8 +5,13 @@ class SiteController < ApplicationController
     end
 
     @user = User.new
+    @countries = Country.all.order(name: :asc)
   end
 
   def contact; end
   def about; end
+
+  def faq
+    @questions = t('.all').map { |k,v| k.to_s }
+  end
 end

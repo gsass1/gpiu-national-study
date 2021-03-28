@@ -5,7 +5,7 @@ class Csv::Patient < Csv::Writer
     col 'Department ID', p.department.id
     col 'Hospital ID', p.department.hospital.id
     #col 'State', p.state
-    #col 'Locked', p.locked
+    col 'Locked', p.locked
     col 'Study Iteration ID', p.study_iteration_id
 
     if p.uti_ssi?

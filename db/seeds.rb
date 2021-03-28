@@ -15,7 +15,14 @@ Country.create(iso_2: "ES", iso_3: "ESP", name: "Spain")
 Country.create(iso_2: "TR", iso_3: "TUR", name: "Turkey")
 Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
 Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
-#Country.create(iso_2: "CZ", iso_3: "CZE", name: "Czech Republic")
+Country.create(iso_2: "HU", iso_3: "HUN", name: "Hungary")
+Country.create(iso_2: "AU", iso_3: "AUS", name: "Australia")
+Country.create(iso_2: "FR", iso_3: "FRA", name: "France")
+Country.create(iso_2: "GH", iso_3: "GHA", name: "Ghana")
+Country.create(iso_2: "KZ", iso_3: "KAZ", name: "Kazakhstan")
+Country.create(iso_2: "MY", iso_3: "MYS", name: "Malaysia")
+Country.create(iso_2: "PT", iso_3: "PRT", name: "Portugal")
+Country.create(iso_2: "RO", iso_3: "ROU", name: "Romania")
 
 if Rails.env.development?
   NUM_USERS = 5
@@ -74,10 +81,14 @@ if Rails.env.development?
                               zip_code: rand(10000..99999).to_s,
                               city: Faker::Address.city)
 
+    country = Country.all.sample
+    user = User.where(country_id: country.id).sample
     hospital = Hospital.create!(name: "#{Faker::Movies::StarWars.unique.character} Hospital",
-                                country: Country.all.sample,
+                                country: country,
                                 address: address,
-                                first_department_name: dept_name)
+                                user: user,
+                                first_department_name: dept_name,
+                                acceptance_state: :approved)
 
     rand(0..NUM_MAX_DEPTS-1).times do |dept_i|
       dept = Department.create(hospital: hospital,

@@ -1,3 +1,10 @@
+- if @is_staging_system
+  .staging-warning
+    .text-center
+      i.material-icons.md-18 warning
+      span Staging system! Do not input real data.
+      i.material-icons.md-18 warning
+
 .container-fluid.box-shadow.bg-primary
   .container.d-flex.flex-column.flex-md-row.align-items-center.py-3.py-3.text-light.top-bar
     div.my-0.mr-md-auto.d-flex.flex-row.align-items-center
@@ -23,3 +30,4 @@
             = link_to "Help", new_support_request_path, class: "dropdown-item"
             = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
             = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
+
