@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
   unless ENV['KEYCLOAK_CLIENT'].blank?
-    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
+
+    # Disable normal devise sign up page
+    devise_scope :users do
+      get '/sign_up', to: redirect('/')
+    end
   else
     devise_for :users
   end
+
+  get '/finish_registration' => 'finish_registration#index'
+  post '/finish_registration' => 'finish_registration#create'
 
   resources :notifications, only: [:index]
 

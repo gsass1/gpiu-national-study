@@ -11,7 +11,8 @@
       h5.font-weight-normal.national-study
         = link_to t('application.nav.title_html'), root_path
       - if user_signed_in?
-        = flag_image current_user.country.iso_2
+        - unless current_user.country.nil?
+          = flag_image current_user.country.iso_2
     nav.my-2.my-md-0.mr-mid-3.d-flex.flex-row.align-items-center
       - if user_signed_in?
         a.text-light.d-flex.flex-row.align-items-center[href=study_calendar_index_path]

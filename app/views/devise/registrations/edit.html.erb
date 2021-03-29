@@ -11,20 +11,37 @@
 
       <div class="form-inputs">
 
+        <% if resource.external? %>
+          <div class="card mb-3">
+            <div class="card-header bg-primary text-light">
+              <strong>Account Management</strong>
+            </div>
+            <div class="card-body">
+              <%= link_to t("devise.registrations.sso_link"), keycloak_account_link %>
+            </div>
+          </div>
+
+
+        <% end %>
+
         <div class="card mb-3">
           <div class="card-header bg-primary text-light">
             <strong>Details</strong>
           </div>
           <div class="card-body">
-            <%= f.input :first_name,
-              required: true,
-              autofocus: true,
-              input_html: { autocomplete: "first-name" }%>
+            <% unless resource.external? %>
 
-            <%= f.input :last_name,
-              required: true,
-              autofocus: true,
-              input_html: { autocomplete: "last-name" }%>
+              <%= f.input :first_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "first-name" }%>
+
+              <%= f.input :last_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "last-name" }%>
+
+            <% end %>
 
             <%= f.input :title,
               required: true,
@@ -34,19 +51,22 @@
             <%= f.input :suffix,
               required: false %>
 
-            <%= f.input :email, required: true, autofocus: true %>
+            <% unless resource.external? %>
+              <%= f.input :email, required: true, autofocus: true %>
 
-            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-              <p><%= t("devise.views.registrations.edit.waiting_for") %> <%= resource.unconfirmed_email %></p>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <p><%= t("devise.views.registrations.edit.waiting_for") %> <%= resource.unconfirmed_email %></p>
+              <% end %>
+
+              <%= f.input :password,
+                hint: t("devise.views.registrations.edit.blank"),
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
+              <%= f.input :password_confirmation,
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
+
             <% end %>
-
-            <%= f.input :password,
-              hint: t("devise.views.registrations.edit.blank"),
-              required: false,
-              input_html: { autocomplete: "new-password" } %>
-            <%= f.input :password_confirmation,
-              required: false,
-              input_html: { autocomplete: "new-password" } %>
 
           </div>
         </div>
@@ -68,10 +88,12 @@
         </div>
         <div class="card-body">
 
-          <%= f.input :current_password,
-            hint: t("devise.views.registrations.edit.current_pass_needed"),
-            required: true,
-            input_html: { autocomplete: "current-password" } %>
+          <% unless resource.external? %>
+            <%= f.input :current_password,
+              hint: t("devise.views.registrations.edit.current_pass_needed"),
+              required: true,
+              input_html: { autocomplete: "current-password" } %>
+          <% end %>
 
           <div class="form-actions">
             <%= f.button :submit, "Update", class: "btn btn-lg btn-outline-primary float-right" %>

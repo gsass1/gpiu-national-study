@@ -13,14 +13,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   unless ENV['KEYCLOAK_CLIENT'].blank?
     devise :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :trackable, :validatable,
+           :rememberable, :trackable, :validatable,
            :omniauthable, :omniauth_providers => [:keycloakopenid]
   else
     devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :trackable, :validatable
   end
 
-  belongs_to :country
   has_many :employed, dependent: :destroy, class_name: "Employee"
   has_many :departments, through: :employed
   has_many :hospitals, through: :departments
@@ -30,8 +29,18 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :title, presence: true, inclusion: { in: TITLES }
+
+
   validates :email, presence: true
+
+  # Do not validate country and title when user JUST registered through keycloak
+  attr_accessor :registered_through_keycloak
+  belongs_to :country, optional: Proc.new { |f| f.registered_through_keycloak == true }
+
+  with_options unless: :registered_through_keycloak do |group|
+    group.validates :country_id, presence: true
+    group.validates :title, presence: true, inclusion: { in: TITLES }
+  end
 
   viewable_admin_table_fields :title, :first_name, :last_name, :email, :country
   editable_admin_fields :title, :first_name, :last_name, :email, :country
@@ -91,10 +100,25 @@ class User < ApplicationRecord
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.email = auth.info.email
-      user.title = "Mr."
-      user.country_id = 1
       user.password = Devise.friendly_token[0,20]
+      user.registered_through_keycloak = true
     end
+  end
+
+  def synchronize_with_keycloak_info(auth)
+    self.first_name = auth.info.first_name
+    self.last_name = auth.info.last_name
+    self.email = auth.info.email
+    self.registered_through_keycloak = true
+    self.save
+  end
+
+  def external?
+    !self.keycloak_uid.blank?
+  end
+
+  def registration_complete?
+    !(self.external? && (self.title.nil? || self.country_id.nil?))
   end
 
   private

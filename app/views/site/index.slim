@@ -7,8 +7,12 @@
           p = t('sites.landing.description_short')
 
       .bg-light.col-lg-6.p-5
-        h4 Log in
-        = render 'devise/shared/login_form', user: User.new
+        - unless ENV['KEYCLOAK_URL'].blank?
+          h4.pt-5 Sign in
+          = link_to "Sign in with #{keycloak_host}", omniauth_authorize_path('user', 'keycloakopenid'), class: 'btn btn-success'
+        - else
+          h4 Sign in
+          = render 'devise/shared/login_form', user: User.new
 .landing-description
   .container.my-5
     h2.text-center = t('sites.landing.what')
