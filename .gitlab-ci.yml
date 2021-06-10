@@ -82,13 +82,6 @@ build_image_staging:
   script:
     - docker build --target production-builder -t gpiu-registry.mni.thm.de/gpiu-national:staging .
 
-clean_test_image_staging:
-  only:
-    - staging
-  stage: build_image
-  script:
-    - docker image rm gpiu-national-dev:staging
-
 push_image_staging:
   only:
     - staging
@@ -149,10 +142,3 @@ test_image_dev:
   stage: build_image
   script:
     - docker run --rm gpiu-national-dev bundle exec rspec
-
-clean_image_dev:
-  only:
-    - dev
-  stage: build_image
-  script:
-    - docker image rm gpiu-national-dev
