@@ -127,7 +127,7 @@ test_image_dev:
     - dev
   stage: build_image
   script:
-    - docker run gpiu-national-dev bundle exec rspec
+    - docker run --rm gpiu-national-dev bundle exec rspec
 
 clean_image_dev:
   only:
