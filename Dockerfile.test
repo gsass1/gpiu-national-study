@@ -8,20 +8,16 @@ RUN apk update && apk -U upgrade \
     nodejs \
     git \
     postgresql-dev \
+    sqlite-dev \
     tzdata \
     yarn
 
 # Install gems
 COPY Gemfile* /app/
-RUN bundle install --without development test
+RUN bundle install --with development test
 
 # Install JS dependencies
 COPY package.json /app/
 RUN yarn install --check-files
 
 COPY . /app
-bundle exec rake assets:precompile RAILS_ENV=production
-
-EXPOSE 3000
-ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["rails", "server",  "-b", "0.0.0.0", "-e", "production"]
