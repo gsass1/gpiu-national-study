@@ -1,4 +1,4 @@
-FROM ruby:2.7.1-alpine3.12
+FROM ruby:2.7.1-alpine3.12 AS production-builder
 WORKDIR /app
 
 RUN apk update && apk -U upgrade \
@@ -27,3 +27,9 @@ RUN yarn install --check-files
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["rails", "server",  "-b", "0.0.0.0", "-e", "production"]
+
+FROM production-builder AS test-builder
+
+RUN apk add sqlite-dev
+
+RUN bundle install --with development test

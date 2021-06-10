@@ -44,7 +44,7 @@ gem 'kaminari'
 
 gem 'identicon'
 gem 'material_icons'
-gem 'material_design_icons'
+#gem 'material_design_icons'
 
 gem 'jquery-rails'
 
