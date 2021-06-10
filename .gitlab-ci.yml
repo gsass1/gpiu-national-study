@@ -61,12 +61,33 @@ migrate_db:
 
 # Staging System
 
+build_test_image_staging:
+  only:
+    - staging
+  stage: build_image
+  script:
+    - docker build --target test-builder -t gpiu-national-dev:staging .
+
+test_image_staging:
+  only:
+    - staging
+  stage: build_image
+  script:
+    - docker run --rm gpiu-national-dev:staging bundle exec rspec
+
 build_image_staging:
   only:
     - staging
   stage: build_image
   script:
     - docker build --target production-builder -t gpiu-registry.mni.thm.de/gpiu-national:staging .
+
+clean_test_image_staging:
+  only:
+    - staging
+  stage: build_image
+  script:
+    - docker image rm gpiu-national-dev:staging
 
 push_image_staging:
   only:
