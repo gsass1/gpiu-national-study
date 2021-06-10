@@ -36,8 +36,8 @@ en:
         first_pathogen: "First Pathogen"
         second_pathogen: "Second Pathogen"
 
-  errors:
-    format: "%{message}"
+  #errors:
+    #format: "%{message}"
 
   signed_in_keycloak: 'Successfully signed in through SSO'
   signed_in_keycloak_failed: 'Unable to sign in through SSO. Please register manually.'
