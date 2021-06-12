@@ -52,10 +52,10 @@ gem 'chartkick'
 gem 'chartjs-ror'
 gem 'redcarpet'
 
-gem 'asciidoctor'
-gem 'asciidoctor-rouge'
-gem 'rouge'
-gem 'rouge-rails'
+#gem 'asciidoctor'
+#gem 'asciidoctor-rouge'
+#gem 'rouge'
+#gem 'rouge-rails'
 
 gem 'breadcrumbs_on_rails'
 
