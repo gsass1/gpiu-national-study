@@ -75,10 +75,6 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     aes_key_wrap (1.1.0)
-    asciidoctor (2.0.15)
-    asciidoctor-rouge (0.4.0)
-      asciidoctor (>= 1.5.6, < 2.1)
-      rouge (>= 2.2, < 4)
     bcrypt (3.1.16)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
@@ -306,7 +302,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redcarpet (3.5.1)
-    redis (4.2.5)
+    redis (4.3.1)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     regexp_parser (2.1.1)
@@ -314,11 +310,6 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rolify (6.0.0)
-    rouge (3.26.0)
-    rouge-rails (0.2.1)
-      actionview
-      railties
-      rouge
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -418,8 +409,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  asciidoctor
-  asciidoctor-rouge
   better_errors
   binding_of_caller
   bootsnap (>= 1.4.2)
@@ -455,8 +444,6 @@ DEPENDENCIES
   redcarpet
   redis-namespace
   rolify
-  rouge
-  rouge-rails
   rspec-rails (~> 5.0.0)
   sass-rails (>= 6)
   selenium-webdriver

@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_114814) do
+ActiveRecord::Schema.define(version: 2021_06_16_160822) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
+  enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -292,7 +296,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   end
 
   create_table "biopsy_outcome_questionnaires", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.datetime "discarded_at"
     t.integer "histopathology_analysis"
     t.integer "histopathology_biopsy_material_change"
@@ -334,7 +338,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   end
 
   create_table "biopsy_questionnaires", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.datetime "discarded_at"
     t.bigint "age"
     t.integer "antibiotics_preceding_months"
@@ -381,8 +385,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   end
 
   create_table "department_questionnaires", force: :cascade do |t|
-    t.integer "department_id"
-    t.integer "study_iteration_id", null: false
+    t.bigint "department_id"
+    t.bigint "study_iteration_id", null: false
     t.integer "state", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
@@ -418,372 +422,372 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
     t.boolean "nautireports"
     t.boolean "pathogens"
     t.boolean "resistance"
-    t.integer "b_1_99", limit: 1
-    t.integer "b_1_0", limit: 1
-    t.integer "b_1_1", limit: 1
-    t.integer "b_1_2", limit: 1
-    t.integer "b_1_3", limit: 1
-    t.integer "b_1_4", limit: 1
-    t.integer "b_1_5", limit: 1
-    t.integer "b_1_6", limit: 1
-    t.integer "b_1_7", limit: 1
-    t.integer "b_1_8", limit: 1
-    t.integer "b_1_9", limit: 1
-    t.integer "b_1_10", limit: 1
-    t.integer "b_1_11", limit: 1
-    t.integer "b_1_12", limit: 1
-    t.integer "b_1_13", limit: 1
-    t.integer "b_1_14", limit: 1
-    t.integer "b_1_15", limit: 1
-    t.integer "b_1_16", limit: 1
-    t.integer "b_2_99", limit: 1
-    t.integer "b_2_0", limit: 1
-    t.integer "b_2_1", limit: 1
-    t.integer "b_2_2", limit: 1
-    t.integer "b_2_3", limit: 1
-    t.integer "b_2_4", limit: 1
-    t.integer "b_2_5", limit: 1
-    t.integer "b_2_6", limit: 1
-    t.integer "b_2_7", limit: 1
-    t.integer "b_2_8", limit: 1
-    t.integer "b_2_9", limit: 1
-    t.integer "b_2_10", limit: 1
-    t.integer "b_2_11", limit: 1
-    t.integer "b_2_12", limit: 1
-    t.integer "b_2_13", limit: 1
-    t.integer "b_2_14", limit: 1
-    t.integer "b_2_15", limit: 1
-    t.integer "b_2_16", limit: 1
-    t.integer "b_3_99", limit: 1
-    t.integer "b_3_0", limit: 1
-    t.integer "b_3_1", limit: 1
-    t.integer "b_3_2", limit: 1
-    t.integer "b_3_3", limit: 1
-    t.integer "b_3_4", limit: 1
-    t.integer "b_3_5", limit: 1
-    t.integer "b_3_6", limit: 1
-    t.integer "b_3_7", limit: 1
-    t.integer "b_3_8", limit: 1
-    t.integer "b_3_9", limit: 1
-    t.integer "b_3_10", limit: 1
-    t.integer "b_3_11", limit: 1
-    t.integer "b_3_12", limit: 1
-    t.integer "b_3_13", limit: 1
-    t.integer "b_3_14", limit: 1
-    t.integer "b_3_15", limit: 1
-    t.integer "b_3_16", limit: 1
-    t.integer "b_4_99", limit: 1
-    t.integer "b_4_0", limit: 1
-    t.integer "b_4_1", limit: 1
-    t.integer "b_4_2", limit: 1
-    t.integer "b_4_3", limit: 1
-    t.integer "b_4_4", limit: 1
-    t.integer "b_4_5", limit: 1
-    t.integer "b_4_6", limit: 1
-    t.integer "b_4_7", limit: 1
-    t.integer "b_4_8", limit: 1
-    t.integer "b_4_9", limit: 1
-    t.integer "b_4_10", limit: 1
-    t.integer "b_4_11", limit: 1
-    t.integer "b_4_12", limit: 1
-    t.integer "b_4_13", limit: 1
-    t.integer "b_4_14", limit: 1
-    t.integer "b_4_15", limit: 1
-    t.integer "b_4_16", limit: 1
-    t.integer "b_5_99", limit: 1
-    t.integer "b_5_0", limit: 1
-    t.integer "b_5_1", limit: 1
-    t.integer "b_5_2", limit: 1
-    t.integer "b_5_3", limit: 1
-    t.integer "b_5_4", limit: 1
-    t.integer "b_5_5", limit: 1
-    t.integer "b_5_6", limit: 1
-    t.integer "b_5_7", limit: 1
-    t.integer "b_5_8", limit: 1
-    t.integer "b_5_9", limit: 1
-    t.integer "b_5_10", limit: 1
-    t.integer "b_5_11", limit: 1
-    t.integer "b_5_12", limit: 1
-    t.integer "b_5_13", limit: 1
-    t.integer "b_5_14", limit: 1
-    t.integer "b_5_15", limit: 1
-    t.integer "b_5_16", limit: 1
-    t.integer "b_6_99", limit: 1
-    t.integer "b_6_0", limit: 1
-    t.integer "b_6_1", limit: 1
-    t.integer "b_6_2", limit: 1
-    t.integer "b_6_3", limit: 1
-    t.integer "b_6_4", limit: 1
-    t.integer "b_6_5", limit: 1
-    t.integer "b_6_6", limit: 1
-    t.integer "b_6_7", limit: 1
-    t.integer "b_6_8", limit: 1
-    t.integer "b_6_9", limit: 1
-    t.integer "b_6_10", limit: 1
-    t.integer "b_6_11", limit: 1
-    t.integer "b_6_12", limit: 1
-    t.integer "b_6_13", limit: 1
-    t.integer "b_6_14", limit: 1
-    t.integer "b_6_15", limit: 1
-    t.integer "b_6_16", limit: 1
-    t.integer "b_7_99", limit: 1
-    t.integer "b_7_0", limit: 1
-    t.integer "b_7_1", limit: 1
-    t.integer "b_7_2", limit: 1
-    t.integer "b_7_3", limit: 1
-    t.integer "b_7_4", limit: 1
-    t.integer "b_7_5", limit: 1
-    t.integer "b_7_6", limit: 1
-    t.integer "b_7_7", limit: 1
-    t.integer "b_7_8", limit: 1
-    t.integer "b_7_9", limit: 1
-    t.integer "b_7_10", limit: 1
-    t.integer "b_7_11", limit: 1
-    t.integer "b_7_12", limit: 1
-    t.integer "b_7_13", limit: 1
-    t.integer "b_7_14", limit: 1
-    t.integer "b_7_15", limit: 1
-    t.integer "b_7_16", limit: 1
-    t.integer "b_8_99", limit: 1
-    t.integer "b_8_0", limit: 1
-    t.integer "b_8_1", limit: 1
-    t.integer "b_8_2", limit: 1
-    t.integer "b_8_3", limit: 1
-    t.integer "b_8_4", limit: 1
-    t.integer "b_8_5", limit: 1
-    t.integer "b_8_6", limit: 1
-    t.integer "b_8_7", limit: 1
-    t.integer "b_8_8", limit: 1
-    t.integer "b_8_9", limit: 1
-    t.integer "b_8_10", limit: 1
-    t.integer "b_8_11", limit: 1
-    t.integer "b_8_12", limit: 1
-    t.integer "b_8_13", limit: 1
-    t.integer "b_8_14", limit: 1
-    t.integer "b_8_15", limit: 1
-    t.integer "b_8_16", limit: 1
-    t.integer "b_9_99", limit: 1
-    t.integer "b_9_0", limit: 1
-    t.integer "b_9_1", limit: 1
-    t.integer "b_9_2", limit: 1
-    t.integer "b_9_3", limit: 1
-    t.integer "b_9_4", limit: 1
-    t.integer "b_9_5", limit: 1
-    t.integer "b_9_6", limit: 1
-    t.integer "b_9_7", limit: 1
-    t.integer "b_9_8", limit: 1
-    t.integer "b_9_9", limit: 1
-    t.integer "b_9_10", limit: 1
-    t.integer "b_9_11", limit: 1
-    t.integer "b_9_12", limit: 1
-    t.integer "b_9_13", limit: 1
-    t.integer "b_9_14", limit: 1
-    t.integer "b_9_15", limit: 1
-    t.integer "b_9_16", limit: 1
-    t.integer "b_10_99", limit: 1
-    t.integer "b_10_0", limit: 1
-    t.integer "b_10_1", limit: 1
-    t.integer "b_10_2", limit: 1
-    t.integer "b_10_3", limit: 1
-    t.integer "b_10_4", limit: 1
-    t.integer "b_10_5", limit: 1
-    t.integer "b_10_6", limit: 1
-    t.integer "b_10_7", limit: 1
-    t.integer "b_10_8", limit: 1
-    t.integer "b_10_9", limit: 1
-    t.integer "b_10_10", limit: 1
-    t.integer "b_10_11", limit: 1
-    t.integer "b_10_12", limit: 1
-    t.integer "b_10_13", limit: 1
-    t.integer "b_10_14", limit: 1
-    t.integer "b_10_15", limit: 1
-    t.integer "b_10_16", limit: 1
-    t.integer "b_11_99", limit: 1
-    t.integer "b_11_0", limit: 1
-    t.integer "b_11_1", limit: 1
-    t.integer "b_11_2", limit: 1
-    t.integer "b_11_3", limit: 1
-    t.integer "b_11_4", limit: 1
-    t.integer "b_11_5", limit: 1
-    t.integer "b_11_6", limit: 1
-    t.integer "b_11_7", limit: 1
-    t.integer "b_11_8", limit: 1
-    t.integer "b_11_9", limit: 1
-    t.integer "b_11_10", limit: 1
-    t.integer "b_11_11", limit: 1
-    t.integer "b_11_12", limit: 1
-    t.integer "b_11_13", limit: 1
-    t.integer "b_11_14", limit: 1
-    t.integer "b_11_15", limit: 1
-    t.integer "b_11_16", limit: 1
-    t.integer "b_12_99", limit: 1
-    t.integer "b_12_0", limit: 1
-    t.integer "b_12_1", limit: 1
-    t.integer "b_12_2", limit: 1
-    t.integer "b_12_3", limit: 1
-    t.integer "b_12_4", limit: 1
-    t.integer "b_12_5", limit: 1
-    t.integer "b_12_6", limit: 1
-    t.integer "b_12_7", limit: 1
-    t.integer "b_12_8", limit: 1
-    t.integer "b_12_9", limit: 1
-    t.integer "b_12_10", limit: 1
-    t.integer "b_12_11", limit: 1
-    t.integer "b_12_12", limit: 1
-    t.integer "b_12_13", limit: 1
-    t.integer "b_12_14", limit: 1
-    t.integer "b_12_15", limit: 1
-    t.integer "b_12_16", limit: 1
-    t.integer "b_13_99", limit: 1
-    t.integer "b_13_0", limit: 1
-    t.integer "b_13_1", limit: 1
-    t.integer "b_13_2", limit: 1
-    t.integer "b_13_3", limit: 1
-    t.integer "b_13_4", limit: 1
-    t.integer "b_13_5", limit: 1
-    t.integer "b_13_6", limit: 1
-    t.integer "b_13_7", limit: 1
-    t.integer "b_13_8", limit: 1
-    t.integer "b_13_9", limit: 1
-    t.integer "b_13_10", limit: 1
-    t.integer "b_13_11", limit: 1
-    t.integer "b_13_12", limit: 1
-    t.integer "b_13_13", limit: 1
-    t.integer "b_13_14", limit: 1
-    t.integer "b_13_15", limit: 1
-    t.integer "b_13_16", limit: 1
-    t.integer "b_14_99", limit: 1
-    t.integer "b_14_0", limit: 1
-    t.integer "b_14_1", limit: 1
-    t.integer "b_14_2", limit: 1
-    t.integer "b_14_3", limit: 1
-    t.integer "b_14_4", limit: 1
-    t.integer "b_14_5", limit: 1
-    t.integer "b_14_6", limit: 1
-    t.integer "b_14_7", limit: 1
-    t.integer "b_14_8", limit: 1
-    t.integer "b_14_9", limit: 1
-    t.integer "b_14_10", limit: 1
-    t.integer "b_14_11", limit: 1
-    t.integer "b_14_12", limit: 1
-    t.integer "b_14_13", limit: 1
-    t.integer "b_14_14", limit: 1
-    t.integer "b_14_15", limit: 1
-    t.integer "b_14_16", limit: 1
-    t.integer "b_15_99", limit: 1
-    t.integer "b_15_0", limit: 1
-    t.integer "b_15_1", limit: 1
-    t.integer "b_15_2", limit: 1
-    t.integer "b_15_3", limit: 1
-    t.integer "b_15_4", limit: 1
-    t.integer "b_15_5", limit: 1
-    t.integer "b_15_6", limit: 1
-    t.integer "b_15_7", limit: 1
-    t.integer "b_15_8", limit: 1
-    t.integer "b_15_9", limit: 1
-    t.integer "b_15_10", limit: 1
-    t.integer "b_15_11", limit: 1
-    t.integer "b_15_12", limit: 1
-    t.integer "b_15_13", limit: 1
-    t.integer "b_15_14", limit: 1
-    t.integer "b_15_15", limit: 1
-    t.integer "b_15_16", limit: 1
-    t.integer "b_16_99", limit: 1
-    t.integer "b_16_0", limit: 1
-    t.integer "b_16_1", limit: 1
-    t.integer "b_16_2", limit: 1
-    t.integer "b_16_3", limit: 1
-    t.integer "b_16_4", limit: 1
-    t.integer "b_16_5", limit: 1
-    t.integer "b_16_6", limit: 1
-    t.integer "b_16_7", limit: 1
-    t.integer "b_16_8", limit: 1
-    t.integer "b_16_9", limit: 1
-    t.integer "b_16_10", limit: 1
-    t.integer "b_16_11", limit: 1
-    t.integer "b_16_12", limit: 1
-    t.integer "b_16_13", limit: 1
-    t.integer "b_16_14", limit: 1
-    t.integer "b_16_15", limit: 1
-    t.integer "b_16_16", limit: 1
-    t.integer "b_17_99", limit: 1
-    t.integer "b_17_0", limit: 1
-    t.integer "b_17_1", limit: 1
-    t.integer "b_17_2", limit: 1
-    t.integer "b_17_3", limit: 1
-    t.integer "b_17_4", limit: 1
-    t.integer "b_17_5", limit: 1
-    t.integer "b_17_6", limit: 1
-    t.integer "b_17_7", limit: 1
-    t.integer "b_17_8", limit: 1
-    t.integer "b_17_9", limit: 1
-    t.integer "b_17_10", limit: 1
-    t.integer "b_17_11", limit: 1
-    t.integer "b_17_12", limit: 1
-    t.integer "b_17_13", limit: 1
-    t.integer "b_17_14", limit: 1
-    t.integer "b_17_15", limit: 1
-    t.integer "b_17_16", limit: 1
-    t.integer "b_18_99", limit: 1
-    t.integer "b_18_0", limit: 1
-    t.integer "b_18_1", limit: 1
-    t.integer "b_18_2", limit: 1
-    t.integer "b_18_3", limit: 1
-    t.integer "b_18_4", limit: 1
-    t.integer "b_18_5", limit: 1
-    t.integer "b_18_6", limit: 1
-    t.integer "b_18_7", limit: 1
-    t.integer "b_18_8", limit: 1
-    t.integer "b_18_9", limit: 1
-    t.integer "b_18_10", limit: 1
-    t.integer "b_18_11", limit: 1
-    t.integer "b_18_12", limit: 1
-    t.integer "b_18_13", limit: 1
-    t.integer "b_18_14", limit: 1
-    t.integer "b_18_15", limit: 1
-    t.integer "b_18_16", limit: 1
-    t.integer "b_19_99", limit: 1
-    t.integer "b_19_0", limit: 1
-    t.integer "b_19_1", limit: 1
-    t.integer "b_19_2", limit: 1
-    t.integer "b_19_3", limit: 1
-    t.integer "b_19_4", limit: 1
-    t.integer "b_19_5", limit: 1
-    t.integer "b_19_6", limit: 1
-    t.integer "b_19_7", limit: 1
-    t.integer "b_19_8", limit: 1
-    t.integer "b_19_9", limit: 1
-    t.integer "b_19_10", limit: 1
-    t.integer "b_19_11", limit: 1
-    t.integer "b_19_12", limit: 1
-    t.integer "b_19_13", limit: 1
-    t.integer "b_19_14", limit: 1
-    t.integer "b_19_15", limit: 1
-    t.integer "b_19_16", limit: 1
-    t.integer "b_20_99", limit: 1
-    t.integer "b_20_0", limit: 1
-    t.integer "b_20_1", limit: 1
-    t.integer "b_20_2", limit: 1
-    t.integer "b_20_3", limit: 1
-    t.integer "b_20_4", limit: 1
-    t.integer "b_20_5", limit: 1
-    t.integer "b_20_6", limit: 1
-    t.integer "b_20_7", limit: 1
-    t.integer "b_20_8", limit: 1
-    t.integer "b_20_9", limit: 1
-    t.integer "b_20_10", limit: 1
-    t.integer "b_20_11", limit: 1
-    t.integer "b_20_12", limit: 1
-    t.integer "b_20_13", limit: 1
-    t.integer "b_20_14", limit: 1
-    t.integer "b_20_15", limit: 1
-    t.integer "b_20_16", limit: 1
+    t.integer "b_1_99", limit: 2
+    t.integer "b_1_0", limit: 2
+    t.integer "b_1_1", limit: 2
+    t.integer "b_1_2", limit: 2
+    t.integer "b_1_3", limit: 2
+    t.integer "b_1_4", limit: 2
+    t.integer "b_1_5", limit: 2
+    t.integer "b_1_6", limit: 2
+    t.integer "b_1_7", limit: 2
+    t.integer "b_1_8", limit: 2
+    t.integer "b_1_9", limit: 2
+    t.integer "b_1_10", limit: 2
+    t.integer "b_1_11", limit: 2
+    t.integer "b_1_12", limit: 2
+    t.integer "b_1_13", limit: 2
+    t.integer "b_1_14", limit: 2
+    t.integer "b_1_15", limit: 2
+    t.integer "b_1_16", limit: 2
+    t.integer "b_2_99", limit: 2
+    t.integer "b_2_0", limit: 2
+    t.integer "b_2_1", limit: 2
+    t.integer "b_2_2", limit: 2
+    t.integer "b_2_3", limit: 2
+    t.integer "b_2_4", limit: 2
+    t.integer "b_2_5", limit: 2
+    t.integer "b_2_6", limit: 2
+    t.integer "b_2_7", limit: 2
+    t.integer "b_2_8", limit: 2
+    t.integer "b_2_9", limit: 2
+    t.integer "b_2_10", limit: 2
+    t.integer "b_2_11", limit: 2
+    t.integer "b_2_12", limit: 2
+    t.integer "b_2_13", limit: 2
+    t.integer "b_2_14", limit: 2
+    t.integer "b_2_15", limit: 2
+    t.integer "b_2_16", limit: 2
+    t.integer "b_3_99", limit: 2
+    t.integer "b_3_0", limit: 2
+    t.integer "b_3_1", limit: 2
+    t.integer "b_3_2", limit: 2
+    t.integer "b_3_3", limit: 2
+    t.integer "b_3_4", limit: 2
+    t.integer "b_3_5", limit: 2
+    t.integer "b_3_6", limit: 2
+    t.integer "b_3_7", limit: 2
+    t.integer "b_3_8", limit: 2
+    t.integer "b_3_9", limit: 2
+    t.integer "b_3_10", limit: 2
+    t.integer "b_3_11", limit: 2
+    t.integer "b_3_12", limit: 2
+    t.integer "b_3_13", limit: 2
+    t.integer "b_3_14", limit: 2
+    t.integer "b_3_15", limit: 2
+    t.integer "b_3_16", limit: 2
+    t.integer "b_4_99", limit: 2
+    t.integer "b_4_0", limit: 2
+    t.integer "b_4_1", limit: 2
+    t.integer "b_4_2", limit: 2
+    t.integer "b_4_3", limit: 2
+    t.integer "b_4_4", limit: 2
+    t.integer "b_4_5", limit: 2
+    t.integer "b_4_6", limit: 2
+    t.integer "b_4_7", limit: 2
+    t.integer "b_4_8", limit: 2
+    t.integer "b_4_9", limit: 2
+    t.integer "b_4_10", limit: 2
+    t.integer "b_4_11", limit: 2
+    t.integer "b_4_12", limit: 2
+    t.integer "b_4_13", limit: 2
+    t.integer "b_4_14", limit: 2
+    t.integer "b_4_15", limit: 2
+    t.integer "b_4_16", limit: 2
+    t.integer "b_5_99", limit: 2
+    t.integer "b_5_0", limit: 2
+    t.integer "b_5_1", limit: 2
+    t.integer "b_5_2", limit: 2
+    t.integer "b_5_3", limit: 2
+    t.integer "b_5_4", limit: 2
+    t.integer "b_5_5", limit: 2
+    t.integer "b_5_6", limit: 2
+    t.integer "b_5_7", limit: 2
+    t.integer "b_5_8", limit: 2
+    t.integer "b_5_9", limit: 2
+    t.integer "b_5_10", limit: 2
+    t.integer "b_5_11", limit: 2
+    t.integer "b_5_12", limit: 2
+    t.integer "b_5_13", limit: 2
+    t.integer "b_5_14", limit: 2
+    t.integer "b_5_15", limit: 2
+    t.integer "b_5_16", limit: 2
+    t.integer "b_6_99", limit: 2
+    t.integer "b_6_0", limit: 2
+    t.integer "b_6_1", limit: 2
+    t.integer "b_6_2", limit: 2
+    t.integer "b_6_3", limit: 2
+    t.integer "b_6_4", limit: 2
+    t.integer "b_6_5", limit: 2
+    t.integer "b_6_6", limit: 2
+    t.integer "b_6_7", limit: 2
+    t.integer "b_6_8", limit: 2
+    t.integer "b_6_9", limit: 2
+    t.integer "b_6_10", limit: 2
+    t.integer "b_6_11", limit: 2
+    t.integer "b_6_12", limit: 2
+    t.integer "b_6_13", limit: 2
+    t.integer "b_6_14", limit: 2
+    t.integer "b_6_15", limit: 2
+    t.integer "b_6_16", limit: 2
+    t.integer "b_7_99", limit: 2
+    t.integer "b_7_0", limit: 2
+    t.integer "b_7_1", limit: 2
+    t.integer "b_7_2", limit: 2
+    t.integer "b_7_3", limit: 2
+    t.integer "b_7_4", limit: 2
+    t.integer "b_7_5", limit: 2
+    t.integer "b_7_6", limit: 2
+    t.integer "b_7_7", limit: 2
+    t.integer "b_7_8", limit: 2
+    t.integer "b_7_9", limit: 2
+    t.integer "b_7_10", limit: 2
+    t.integer "b_7_11", limit: 2
+    t.integer "b_7_12", limit: 2
+    t.integer "b_7_13", limit: 2
+    t.integer "b_7_14", limit: 2
+    t.integer "b_7_15", limit: 2
+    t.integer "b_7_16", limit: 2
+    t.integer "b_8_99", limit: 2
+    t.integer "b_8_0", limit: 2
+    t.integer "b_8_1", limit: 2
+    t.integer "b_8_2", limit: 2
+    t.integer "b_8_3", limit: 2
+    t.integer "b_8_4", limit: 2
+    t.integer "b_8_5", limit: 2
+    t.integer "b_8_6", limit: 2
+    t.integer "b_8_7", limit: 2
+    t.integer "b_8_8", limit: 2
+    t.integer "b_8_9", limit: 2
+    t.integer "b_8_10", limit: 2
+    t.integer "b_8_11", limit: 2
+    t.integer "b_8_12", limit: 2
+    t.integer "b_8_13", limit: 2
+    t.integer "b_8_14", limit: 2
+    t.integer "b_8_15", limit: 2
+    t.integer "b_8_16", limit: 2
+    t.integer "b_9_99", limit: 2
+    t.integer "b_9_0", limit: 2
+    t.integer "b_9_1", limit: 2
+    t.integer "b_9_2", limit: 2
+    t.integer "b_9_3", limit: 2
+    t.integer "b_9_4", limit: 2
+    t.integer "b_9_5", limit: 2
+    t.integer "b_9_6", limit: 2
+    t.integer "b_9_7", limit: 2
+    t.integer "b_9_8", limit: 2
+    t.integer "b_9_9", limit: 2
+    t.integer "b_9_10", limit: 2
+    t.integer "b_9_11", limit: 2
+    t.integer "b_9_12", limit: 2
+    t.integer "b_9_13", limit: 2
+    t.integer "b_9_14", limit: 2
+    t.integer "b_9_15", limit: 2
+    t.integer "b_9_16", limit: 2
+    t.integer "b_10_99", limit: 2
+    t.integer "b_10_0", limit: 2
+    t.integer "b_10_1", limit: 2
+    t.integer "b_10_2", limit: 2
+    t.integer "b_10_3", limit: 2
+    t.integer "b_10_4", limit: 2
+    t.integer "b_10_5", limit: 2
+    t.integer "b_10_6", limit: 2
+    t.integer "b_10_7", limit: 2
+    t.integer "b_10_8", limit: 2
+    t.integer "b_10_9", limit: 2
+    t.integer "b_10_10", limit: 2
+    t.integer "b_10_11", limit: 2
+    t.integer "b_10_12", limit: 2
+    t.integer "b_10_13", limit: 2
+    t.integer "b_10_14", limit: 2
+    t.integer "b_10_15", limit: 2
+    t.integer "b_10_16", limit: 2
+    t.integer "b_11_99", limit: 2
+    t.integer "b_11_0", limit: 2
+    t.integer "b_11_1", limit: 2
+    t.integer "b_11_2", limit: 2
+    t.integer "b_11_3", limit: 2
+    t.integer "b_11_4", limit: 2
+    t.integer "b_11_5", limit: 2
+    t.integer "b_11_6", limit: 2
+    t.integer "b_11_7", limit: 2
+    t.integer "b_11_8", limit: 2
+    t.integer "b_11_9", limit: 2
+    t.integer "b_11_10", limit: 2
+    t.integer "b_11_11", limit: 2
+    t.integer "b_11_12", limit: 2
+    t.integer "b_11_13", limit: 2
+    t.integer "b_11_14", limit: 2
+    t.integer "b_11_15", limit: 2
+    t.integer "b_11_16", limit: 2
+    t.integer "b_12_99", limit: 2
+    t.integer "b_12_0", limit: 2
+    t.integer "b_12_1", limit: 2
+    t.integer "b_12_2", limit: 2
+    t.integer "b_12_3", limit: 2
+    t.integer "b_12_4", limit: 2
+    t.integer "b_12_5", limit: 2
+    t.integer "b_12_6", limit: 2
+    t.integer "b_12_7", limit: 2
+    t.integer "b_12_8", limit: 2
+    t.integer "b_12_9", limit: 2
+    t.integer "b_12_10", limit: 2
+    t.integer "b_12_11", limit: 2
+    t.integer "b_12_12", limit: 2
+    t.integer "b_12_13", limit: 2
+    t.integer "b_12_14", limit: 2
+    t.integer "b_12_15", limit: 2
+    t.integer "b_12_16", limit: 2
+    t.integer "b_13_99", limit: 2
+    t.integer "b_13_0", limit: 2
+    t.integer "b_13_1", limit: 2
+    t.integer "b_13_2", limit: 2
+    t.integer "b_13_3", limit: 2
+    t.integer "b_13_4", limit: 2
+    t.integer "b_13_5", limit: 2
+    t.integer "b_13_6", limit: 2
+    t.integer "b_13_7", limit: 2
+    t.integer "b_13_8", limit: 2
+    t.integer "b_13_9", limit: 2
+    t.integer "b_13_10", limit: 2
+    t.integer "b_13_11", limit: 2
+    t.integer "b_13_12", limit: 2
+    t.integer "b_13_13", limit: 2
+    t.integer "b_13_14", limit: 2
+    t.integer "b_13_15", limit: 2
+    t.integer "b_13_16", limit: 2
+    t.integer "b_14_99", limit: 2
+    t.integer "b_14_0", limit: 2
+    t.integer "b_14_1", limit: 2
+    t.integer "b_14_2", limit: 2
+    t.integer "b_14_3", limit: 2
+    t.integer "b_14_4", limit: 2
+    t.integer "b_14_5", limit: 2
+    t.integer "b_14_6", limit: 2
+    t.integer "b_14_7", limit: 2
+    t.integer "b_14_8", limit: 2
+    t.integer "b_14_9", limit: 2
+    t.integer "b_14_10", limit: 2
+    t.integer "b_14_11", limit: 2
+    t.integer "b_14_12", limit: 2
+    t.integer "b_14_13", limit: 2
+    t.integer "b_14_14", limit: 2
+    t.integer "b_14_15", limit: 2
+    t.integer "b_14_16", limit: 2
+    t.integer "b_15_99", limit: 2
+    t.integer "b_15_0", limit: 2
+    t.integer "b_15_1", limit: 2
+    t.integer "b_15_2", limit: 2
+    t.integer "b_15_3", limit: 2
+    t.integer "b_15_4", limit: 2
+    t.integer "b_15_5", limit: 2
+    t.integer "b_15_6", limit: 2
+    t.integer "b_15_7", limit: 2
+    t.integer "b_15_8", limit: 2
+    t.integer "b_15_9", limit: 2
+    t.integer "b_15_10", limit: 2
+    t.integer "b_15_11", limit: 2
+    t.integer "b_15_12", limit: 2
+    t.integer "b_15_13", limit: 2
+    t.integer "b_15_14", limit: 2
+    t.integer "b_15_15", limit: 2
+    t.integer "b_15_16", limit: 2
+    t.integer "b_16_99", limit: 2
+    t.integer "b_16_0", limit: 2
+    t.integer "b_16_1", limit: 2
+    t.integer "b_16_2", limit: 2
+    t.integer "b_16_3", limit: 2
+    t.integer "b_16_4", limit: 2
+    t.integer "b_16_5", limit: 2
+    t.integer "b_16_6", limit: 2
+    t.integer "b_16_7", limit: 2
+    t.integer "b_16_8", limit: 2
+    t.integer "b_16_9", limit: 2
+    t.integer "b_16_10", limit: 2
+    t.integer "b_16_11", limit: 2
+    t.integer "b_16_12", limit: 2
+    t.integer "b_16_13", limit: 2
+    t.integer "b_16_14", limit: 2
+    t.integer "b_16_15", limit: 2
+    t.integer "b_16_16", limit: 2
+    t.integer "b_17_99", limit: 2
+    t.integer "b_17_0", limit: 2
+    t.integer "b_17_1", limit: 2
+    t.integer "b_17_2", limit: 2
+    t.integer "b_17_3", limit: 2
+    t.integer "b_17_4", limit: 2
+    t.integer "b_17_5", limit: 2
+    t.integer "b_17_6", limit: 2
+    t.integer "b_17_7", limit: 2
+    t.integer "b_17_8", limit: 2
+    t.integer "b_17_9", limit: 2
+    t.integer "b_17_10", limit: 2
+    t.integer "b_17_11", limit: 2
+    t.integer "b_17_12", limit: 2
+    t.integer "b_17_13", limit: 2
+    t.integer "b_17_14", limit: 2
+    t.integer "b_17_15", limit: 2
+    t.integer "b_17_16", limit: 2
+    t.integer "b_18_99", limit: 2
+    t.integer "b_18_0", limit: 2
+    t.integer "b_18_1", limit: 2
+    t.integer "b_18_2", limit: 2
+    t.integer "b_18_3", limit: 2
+    t.integer "b_18_4", limit: 2
+    t.integer "b_18_5", limit: 2
+    t.integer "b_18_6", limit: 2
+    t.integer "b_18_7", limit: 2
+    t.integer "b_18_8", limit: 2
+    t.integer "b_18_9", limit: 2
+    t.integer "b_18_10", limit: 2
+    t.integer "b_18_11", limit: 2
+    t.integer "b_18_12", limit: 2
+    t.integer "b_18_13", limit: 2
+    t.integer "b_18_14", limit: 2
+    t.integer "b_18_15", limit: 2
+    t.integer "b_18_16", limit: 2
+    t.integer "b_19_99", limit: 2
+    t.integer "b_19_0", limit: 2
+    t.integer "b_19_1", limit: 2
+    t.integer "b_19_2", limit: 2
+    t.integer "b_19_3", limit: 2
+    t.integer "b_19_4", limit: 2
+    t.integer "b_19_5", limit: 2
+    t.integer "b_19_6", limit: 2
+    t.integer "b_19_7", limit: 2
+    t.integer "b_19_8", limit: 2
+    t.integer "b_19_9", limit: 2
+    t.integer "b_19_10", limit: 2
+    t.integer "b_19_11", limit: 2
+    t.integer "b_19_12", limit: 2
+    t.integer "b_19_13", limit: 2
+    t.integer "b_19_14", limit: 2
+    t.integer "b_19_15", limit: 2
+    t.integer "b_19_16", limit: 2
+    t.integer "b_20_99", limit: 2
+    t.integer "b_20_0", limit: 2
+    t.integer "b_20_1", limit: 2
+    t.integer "b_20_2", limit: 2
+    t.integer "b_20_3", limit: 2
+    t.integer "b_20_4", limit: 2
+    t.integer "b_20_5", limit: 2
+    t.integer "b_20_6", limit: 2
+    t.integer "b_20_7", limit: 2
+    t.integer "b_20_8", limit: 2
+    t.integer "b_20_9", limit: 2
+    t.integer "b_20_10", limit: 2
+    t.integer "b_20_11", limit: 2
+    t.integer "b_20_12", limit: 2
+    t.integer "b_20_13", limit: 2
+    t.integer "b_20_14", limit: 2
+    t.integer "b_20_15", limit: 2
+    t.integer "b_20_16", limit: 2
     t.index ["department_id"], name: "index_department_questionnaires_on_department_id"
     t.index ["study_iteration_id"], name: "index_department_questionnaires_on_study_iteration_id"
   end
 
   create_table "departments", force: :cascade do |t|
-    t.integer "hospital_id", null: false
+    t.bigint "hospital_id", null: false
     t.string "name"
     t.integer "patient_counter"
     t.datetime "created_at", precision: 6, null: false
@@ -793,8 +797,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.integer "department_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "department_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id"], name: "index_employees_on_department_id"
@@ -803,16 +807,17 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
 
   create_table "hospitals", force: :cascade do |t|
     t.string "name"
-    t.integer "country_id", null: false
-    t.integer "address_id", null: false
+    t.bigint "country_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "address_id", null: false
     t.integer "acceptance_state", default: 0
     t.integer "user_id"
-    t.index ["address_id"], name: "index_hospitals_on_address_id"
     t.index ["country_id"], name: "index_hospitals_on_country_id"
     t.index ["discarded_at"], name: "index_hospitals_on_discarded_at"
+    t.index ["address_id"], name: "index_hospitals_on_address_id"
+    t.index ["name"], name: "index_hospitals_on_name"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -827,7 +832,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   end
 
   create_table "patient_identifications", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.integer "birth_year"
     t.integer "sex"
     t.boolean "pregnancy"
@@ -844,9 +849,9 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   create_table "patients", force: :cascade do |t|
     t.integer "patient_type"
     t.string "initial"
-    t.integer "department_id", null: false
-    t.integer "creator_id", null: false
-    t.integer "study_iteration_id", null: false
+    t.bigint "department_id", null: false
+    t.bigint "creator_id", null: false
+    t.bigint "study_iteration_id", null: false
     t.datetime "discarded_at"
     t.integer "identification_state", default: 0
     t.integer "uti_state", default: 0
@@ -864,7 +869,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
@@ -874,8 +879,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
 
   create_table "study_iterations", force: :cascade do |t|
     t.string "name"
-    t.integer "country_id", null: false
-    t.integer "acceptance_state"
+    t.bigint "country_id", null: false
+    t.integer "acceptance_state", default: 0
     t.string "rejection_reason"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
@@ -889,14 +894,14 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
     t.date "start"
     t.date "end"
     t.text "comment"
-    t.integer "study_iteration_id", null: false
+    t.bigint "study_iteration_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["study_iteration_id"], name: "index_study_ranges_on_study_iteration_id"
   end
 
   create_table "support_requests", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "support_type"
     t.string "custom_support_type"
     t.text "message"
@@ -914,7 +919,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
     t.string "last_name", default: "", null: false
     t.string "title", default: "", null: false
     t.string "suffix", default: ""
-    t.integer "country_id"
+    t.bigint "country_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -937,15 +942,15 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
+    t.bigint "user_id"
+    t.bigint "role_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
   create_table "uti_ssi_questionnaires", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.datetime "discarded_at"
     t.integer "form_type"
     t.boolean "previous"
@@ -963,7 +968,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
     t.boolean "catheter_ureteralstent"
     t.boolean "catheter_nephrostomy"
     t.boolean "catheter_others"
-    t.integer "catheterduration"
+    t.bigint "catheterduration"
     t.string "intervention_endoscopic", limit: 255
     t.string "intervention_laparoscopic", limit: 255
     t.string "intervention_percutaneous", limit: 255
@@ -1003,7 +1008,6 @@ ActiveRecord::Schema.define(version: 2021_03_24_114814) do
   add_foreign_key "departments", "hospitals"
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "users"
-  add_foreign_key "hospitals", "addresses"
   add_foreign_key "hospitals", "countries"
   add_foreign_key "patient_identifications", "patients"
   add_foreign_key "patients", "departments"

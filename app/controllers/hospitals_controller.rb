@@ -19,7 +19,11 @@ class HospitalsController < ApplicationController
     @hospitals = @hospitals.visible
 
     unless params[:q].blank?
-      @hospitals = @hospitals.where("hospitals.name LIKE ?", "%#{params[:q]}%")
+      if ActiveRecord::Base::connection.is_a?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
+        @hospitals = @hospitals.where("similarity(name, ?) > 0.1", params[:q]) .order("similarity(name, #{ActiveRecord::Base.connection.quote(params[:q])}) DESC")
+      else
+        @hospitals = @hospitals.where("hospitals.name LIKE ?", "%#{params[:q]}%")
+      end
     end
 
     @own_hospitals = current_user.hospitals.includes([:address])

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+  get 'errors/internal_server_error'
   unless ENV['KEYCLOAK_CLIENT'].blank?
     devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
 
@@ -75,5 +77,9 @@ Rails.application.routes.draw do
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
   get '/faq' => 'site#faq'
+
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+
   root 'site#index'
 end
