@@ -811,10 +811,12 @@ ActiveRecord::Schema.define(version: 2021_06_16_160822) do
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "address_id", null: false
     t.integer "acceptance_state", default: 0
     t.integer "user_id"
     t.index ["country_id"], name: "index_hospitals_on_country_id"
     t.index ["discarded_at"], name: "index_hospitals_on_discarded_at"
+    t.index ["address_id"], name: "index_hospitals_on_address_id"
     t.index ["name"], name: "index_hospitals_on_name"
   end
 
