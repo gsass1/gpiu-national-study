@@ -26,7 +26,7 @@ class Hospital < ApplicationRecord
 
   viewable_admin_table_fields :name, :address, :country, :acceptance_state
   viewable_admin_associations :departments, :patients
-  editable_admin_fields :name, :address, :user, :country, :acceptance_state
+  editable_admin_fields :name, :address, :user, :country
 
   admin_custom_actions :admin_actions
 

@@ -12,14 +12,10 @@ class HospitalsController < ApplicationController
   def index
     @tab = params[:tab] || 'all'
 
-    if @tab == 'my'
-      @hospitals = current_user.hospitals
-    end
-
-    @hospitals = @hospitals.visible
+    @hospitals = current_user.country.hospitals.visible
 
     unless params[:q].blank?
-      if ActiveRecord::Base::connection.is_a?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
+      if defined?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter) && ActiveRecord::Base::connection.is_a?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
         @hospitals = @hospitals.where("similarity(name, ?) > 0.1", params[:q]) .order("similarity(name, #{ActiveRecord::Base.connection.quote(params[:q])}) DESC")
       else
         @hospitals = @hospitals.where("hospitals.name LIKE ?", "%#{params[:q]}%")
@@ -27,6 +23,7 @@ class HospitalsController < ApplicationController
     end
 
     @own_hospitals = current_user.hospitals.includes([:address])
+    @employed_hospitals = current_user.employed_hospitals.includes([:address])
   end
 
   def show

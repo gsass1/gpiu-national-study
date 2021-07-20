@@ -22,7 +22,8 @@ class User < ApplicationRecord
 
   has_many :employed, dependent: :destroy, class_name: "Employee"
   has_many :departments, through: :employed
-  has_many :hospitals, through: :departments
+  has_many :hospitals
+  has_many :employed_hospitals, through: :departments, source: :hospital
   has_many :notifications, foreign_key: :recipient_id
   has_many :patients, dependent: :destroy, foreign_key: :creator_id
   has_many :support_requests
