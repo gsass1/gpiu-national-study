@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    attributes:
+      study_range:
+        start: Start Date
+        end: End Date
