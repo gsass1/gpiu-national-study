@@ -6,6 +6,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   before_action :load_si, :check_si_is_editable, only: [:create_study_range, :delete_study_range, :submit]
   before_action :load_si, only: [:export]
   before_action :check_has_ranges, only: [:submit]
+  before_action :load_calendar_months, only: [:edit]
 
   def index
     @study_iterations = @country.study_iterations.includes([:study_ranges])
@@ -28,13 +29,6 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
 
   def edit
     @study_range = StudyRange.new
-    @study_ranges = @study_iteration.study_ranges
-
-    if @study_ranges.any?
-      @months = CalendarUtil::collect_months(@study_ranges.first.start, @study_ranges.last.end)
-    else
-      @months = []
-    end
   end
 
   def show
@@ -51,6 +45,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
       flash[:success] = "Added new study range."
       redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
     else
+      load_calendar_months
       render :edit
     end
   end
@@ -130,6 +125,16 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
     unless @study_iteration.unsubmitted?
       flash[:danger] = "This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration."
       redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+    end
+  end
+
+  def load_calendar_months
+    @study_ranges = @study_iteration.study_ranges
+
+    if @study_ranges.any?
+      @months = CalendarUtil::collect_months(@study_ranges.first.start, @study_ranges.last.end)
+    else
+      @months = []
     end
   end
 end

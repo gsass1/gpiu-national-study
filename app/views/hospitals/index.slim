@@ -20,31 +20,48 @@
   .text-center
     = link_to t('hospitals.index.create'), new_hospital_path, class: 'btn btn-outline-primary'
 
-  .card.my-3
-    .card-header.bg-primary.text-light
-      strong= t(".tab_description.#{@tab}")
-    .card-body.card-table
-      table.table.table-striped
-        tr
-          th = t('hospitals.index.name')
-          th = t('hospitals.index.city')
-        - @hospitals.each do |hospital|
-          tr
-            td= link_to hospital.name, hospital
-            td= hospital.address.city
-
-  - if @own_hospitals.any?
+  - if @tab == 'all'
     .card.my-3
       .card-header.bg-primary.text-light
-        strong= t(".tab_description.own")
+        strong= t(".tab_description.#{@tab}")
       .card-body.card-table
         table.table.table-striped
           tr
             th = t('hospitals.index.name')
             th = t('hospitals.index.city')
-            th = t('hospitals.index.state')
-          - @own_hospitals.each do |hospital|
+          - @hospitals.each do |hospital|
             tr
               td= link_to hospital.name, hospital
               td= hospital.address.city
-              td= hospital.acceptance_state.capitalize
+  - elsif @tab == 'my'
+    - if @own_hospitals.any?
+      .card.my-3
+        .card-header.bg-primary.text-light
+          strong= t(".tab_description.own")
+        .card-body.card-table
+          table.table.table-striped
+            tr
+              th = t('hospitals.index.name')
+              th = t('hospitals.index.city')
+              th = t('hospitals.index.state')
+            - @own_hospitals.each do |hospital|
+              tr
+                td= link_to hospital.name, hospital
+                td= hospital.address.city
+                td= hospital.acceptance_state.capitalize
+
+    - if @employed_hospitals.any?
+      .card.my-3
+        .card-header.bg-primary.text-light
+          strong= t(".tab_description.my")
+        .card-body.card-table
+          table.table.table-striped
+            tr
+              th = t('hospitals.index.name')
+              th = t('hospitals.index.city')
+              th = t('hospitals.index.state')
+            - @employed_hospitals.each do |hospital|
+              tr
+                td= link_to hospital.name, hospital
+                td= hospital.address.city
+                td= hospital.acceptance_state.capitalize

@@ -72,6 +72,9 @@ Rails.application.routes.draw do
     resources :ssi_questionnaires, only: [:edit, :update]
     resources :biopsy_questionnaires, only: [:edit, :update]
     resources :biopsy_outcome_questionnaires, only: [:edit, :update]
+
+    # Prevents stupid 404 message when reloading questionnaire page after saving
+    get '/:questionnaire/:id', to: redirect('/patients/%{patient_id}/%{questionnaire}/%{id}/edit')
   end
 
   get '/about' => 'site#about'

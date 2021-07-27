@@ -5,6 +5,10 @@
 
     <% unless ENV['KEYCLOAK_URL'].nil? %>
       <%= link_to "Sign in with #{keycloak_host}", omniauth_authorize_path('user', 'keycloakopenid'), class: 'btn btn-success' %>
+      <% if ENV['GPIU_STAGING'] == "1" %>
+        <hr>
+        <%= render 'devise/shared/login_form', user: resource %>
+      <% end %>
     <% else %>
       <%= render 'devise/shared/login_form', user: resource %>
       <%= render "devise/shared/links" %>
