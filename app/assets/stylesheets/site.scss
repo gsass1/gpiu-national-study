@@ -5,3 +5,25 @@
 .landing-box {
   max-width: 800px !important;
 }
+
+.asciidoc {
+  line-height: 1.5;
+  h2 {
+    font-size: 1.75rem;
+    padding-top: 2rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  .note {
+    background-color: #fff9e1;
+    padding: 0.5rem;
+    color: #857636;
+    border-color: #fff7d4;
+    border: 2px solid #e8e0b8;
+  }
+
+  td.icon {
+    display: none;
+  }
+}

@@ -80,6 +80,8 @@ Rails.application.routes.draw do
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
   get '/faq' => 'site#faq'
+  get '/help' => 'site#help'
+  get '/help/manual' => 'site#manual'
 
   match "/404", to: "errors#not_found", via: :all
   match "/500", to: "errors#internal_server_error", via: :all

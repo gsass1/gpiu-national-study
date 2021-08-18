@@ -1,0 +1,30 @@
+= National GPIU Study Manual
+Gian Sass <gian.sass@mni.thm.de>
+:toc:
+
+Welcome! We are excited you want to be part of the National GPIU Study.
+
+This manual contains terminology and instructions on how to use National GPIU Study platform.
+This includes registration, data input, and data export.
+
+== Overview
+Similar to the https://gpiu.esiu.org[Annual GPIU Study], the National Study is concerned with collecting UTI/SSI and Prostate Biopsy patients.
+The purpose of this platform is to conduct the study for each country _independently_. This allows data to be isolated to each specific nation.
+
+=== Regional Admins
+Each country is administrated by a select group of **regional admins.** These admins control when the study is active for their selective country.
+Data that is collected can be downloaded after the study is finished, when permission has been given by the global admins.
+
+=== Study Iterations
+A study iteration (or just SI) defines when the study is active for a specific country. Regional admins may create SIs on their
+Regional Admin Dashboard and submit them for reviewal. Once accepted the SI will be marked as active, and data will be accepted
+during its active durations.
+
+NOTE: There may only be one study iteration active at a time, though multiple countries may have study iterations that overlap each other.
+
+== Registration
+On the main page click on the "Sign in with sso.esiu.org" button. This will take you to our Single-Sign-On system. If you have not created an account yet,
+click on "Register".
+
+You will be shortly after redirected back to the National Study. You will now be prompted to enter further details about yourself. The most important detail is what
+**country** you choose. You can only input data of your corresponding country and you may not change your country after registration.
