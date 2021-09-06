@@ -20,7 +20,7 @@ COPY package.json /app/
 RUN yarn install --check-files
 
 COPY . /app
-bundle exec rake assets:precompile RAILS_ENV=production
+RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 EXPOSE 3000
 ENTRYPOINT ["/sbin/tini", "--"]
