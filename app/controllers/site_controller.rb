@@ -1,3 +1,5 @@
+require 'asciidoctor'
+
 class SiteController < ApplicationController
   def index
     if user_signed_in?
@@ -13,5 +15,11 @@ class SiteController < ApplicationController
 
   def faq
     @questions = t('.all').map { |k,v| k.to_s }
+  end
+
+  def help; end
+  def manual
+    file = File.read(Rails.root.to_s + '/app/views/site/manual.en.adoc')
+    @contents = Asciidoctor.convert file
   end
 end

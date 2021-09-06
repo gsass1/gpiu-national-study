@@ -52,7 +52,7 @@ gem 'chartkick'
 gem 'chartjs-ror'
 gem 'redcarpet'
 
-#gem 'asciidoctor'
+gem 'asciidoctor'
 #gem 'asciidoctor-rouge'
 #gem 'rouge'
 #gem 'rouge-rails'

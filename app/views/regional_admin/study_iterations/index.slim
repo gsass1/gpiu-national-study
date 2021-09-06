@@ -6,8 +6,8 @@
     .alert.alert-warning
       = link_to "You have not created any study iterations yet. You need to create at least one active study iterations to perform the study. Click here to create one.", new_regional_admin_country_study_iteration_path(@country)
   - else
-    table.table.table-bordered
-      tr
+    table.table.table-bordered.table-striped
+      tr.bg-primary.text-light
         th ID
         th Name
         th Active

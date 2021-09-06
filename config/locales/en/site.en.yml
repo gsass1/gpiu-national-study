@@ -1,5 +1,9 @@
 en:
   site:
+    help:
+      title: Help
+      create_support_request: Create Support Request
+      read_manual: Read Manual
     faq:
       title: "FAQ"
       questions: &all

@@ -8,7 +8,7 @@ en:
 
   support_requests:
     new:
-      title: "Help"
+      title: Support Request
       create: "Create a support request"
       submit: "Submit"
       support_type: "Type"
