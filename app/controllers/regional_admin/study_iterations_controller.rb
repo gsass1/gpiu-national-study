@@ -4,7 +4,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   load_and_authorize_resource
 
   before_action :load_si, :check_si_is_editable, only: [:create_study_range, :delete_study_range, :submit]
-  before_action :load_si, only: [:export]
+  before_action :load_si, only: [:export, :request_export_permission]
   before_action :check_has_ranges, only: [:submit]
   before_action :load_calendar_months, only: [:edit]
 
@@ -99,6 +99,20 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
       flash[:danger] = "This study iteration is not exportable yet."
       redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
     end
+  end
+
+  def request_export_permission
+    if @study_iteration.passed?
+      User.with_role(:admin).each do |user|
+        Notifier.new.notify(recipient: user, actor: current_user, notifiable: @study_iteration, action: "study_iterations.request_export_permission")
+      end
+
+      flash[:success] = "Request for export permission has been sent to the super admins."
+    else
+      flash[:danger] = "Study Iteration has not passed yet"
+    end
+
+    redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
   end
 
   private

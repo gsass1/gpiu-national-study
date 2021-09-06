@@ -34,3 +34,9 @@ en:
             A new study iteration titled "%{name}" from %{country_name} has been submitted for approval.
             <br/>
             <a href="%{admin_link}">You can inspect, approve or reject this study iteration by clicking here.</a>
+        request_export_permission:
+          title: 'Request Export Permission'
+          message_html: |
+            A regional admin has requested data export permission for "%{name}"
+            <br/>
+            <a href="%{admin_link}">You can give data export permission for this study iteration by clicking here.</a>
