@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale_from_params
   before_action :set_staging_flag
+  before_action :redirect_incomplete_users
 
   protected
 
@@ -11,6 +12,16 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def redirect_incomplete_users
+    if user_signed_in?
+      unless current_user.registration_complete?
+        unless ['finish_registration'].include?(controller_name)
+          redirect_to finish_registration_path()
+        end
+      end
+    end
+  end
 
   def set_locale_from_params
     I18n.locale = params[:locale] || I18n.locale

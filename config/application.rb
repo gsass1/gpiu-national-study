@@ -25,5 +25,7 @@ module GpiuNational
     # Set default locale to something other than :en
     #I18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    config.exceptions_app = self.routes
   end
 end

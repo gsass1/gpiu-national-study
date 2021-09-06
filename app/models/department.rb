@@ -14,6 +14,8 @@ class Department < ApplicationRecord
   viewable_admin_associations :department_questionnaires
   admin_custom_actions :admin_actions
 
+  scope :visible, -> { includes(:hospital).where(hospitals: { acceptance_state: :approved }) }
+
   def admin_actions
     unless current_department_questionnaire.nil?
       [{

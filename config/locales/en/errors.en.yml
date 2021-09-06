@@ -1,0 +1,8 @@
+en:
+  errors:
+    not_found:
+      heading: Page Not Found
+      message: Unfortunately the page you were looking for does not exist. If you believe this is an error please create a support request.
+    internal_server_error:
+      heading: Internal Server Error
+      message: There was a problem with processing your request. Please create a support request if the issue does not resolve.

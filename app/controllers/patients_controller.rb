@@ -11,7 +11,7 @@ class PatientsController < ApplicationController
   before_action :load_hospital_department, only: [:new]
 
   def index
-    @departments = current_user.departments.includes(:hospital)
+    @departments = current_user.departments.visible
   end
 
   def new

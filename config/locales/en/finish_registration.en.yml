@@ -1,0 +1,6 @@
+en:
+  finish_registration:
+    index:
+      title: Finish Registration
+      fill_out_data: Please fill out missing information relevant to your account
+      submit: Create Account

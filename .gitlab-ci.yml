@@ -61,6 +61,20 @@ migrate_db:
 
 # Staging System
 
+build_test_image_staging:
+  only:
+    - staging
+  stage: build_image
+  script:
+    - docker build -f Dockerfile.test -t gpiu-national-dev:staging .
+
+test_image_staging:
+  only:
+    - staging
+  stage: build_image
+  script:
+    - docker run --rm gpiu-national-dev:staging bundle exec rspec
+
 build_image_staging:
   only:
     - staging
@@ -112,3 +126,19 @@ migrate_db_staging:
     GPIU_NAT_DB_PASSWORD: gpiu-national
     RAILS_ENV: production
   script: docker run --network=gpiu-national-staging_gpiu_national_staging_net -e GPIU_NAT_DB_HOST  -e GPIU_NAT_DB_NAME -e GPIU_NAT_DB_USER -e GPIU_NAT_DB_PASSWORD -e RAILS_ENV -t gpiu-registry.mni.thm.de/gpiu-national:staging  rails db:migrate
+
+# Development/Test
+
+build_image_dev:
+  only:
+    - dev
+  stage: build_image
+  script:
+    - docker build -f Dockerfile.test -t gpiu-national-dev .
+
+test_image_dev:
+  only:
+    - dev
+  stage: build_image
+  script:
+    - docker run --rm gpiu-national-dev bundle exec rspec

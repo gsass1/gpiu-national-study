@@ -2,11 +2,6 @@
   "name": "gpiu_national",
   "private": true,
   "dependencies": {
-    "@angular/common": "^10.0.8",
-    "@angular/compiler": "^10.0.8",
-    "@angular/core": "^10.0.8",
-    "@angular/platform-browser": "^10.0.8",
-    "@angular/platform-browser-dynamic": "^10.0.8",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",

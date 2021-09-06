@@ -1,0 +1,23 @@
+FROM ruby:2.7.1-alpine3.12
+WORKDIR /app
+
+RUN apk update && apk -U upgrade \
+    && apk add build-base \
+    tini \
+    openssh \
+    nodejs \
+    git \
+    postgresql-dev \
+    sqlite-dev \
+    tzdata \
+    yarn
+
+# Install gems
+COPY Gemfile* /app/
+RUN bundle install --with development test
+
+# Install JS dependencies
+COPY package.json /app/
+RUN yarn install --check-files
+
+COPY . /app

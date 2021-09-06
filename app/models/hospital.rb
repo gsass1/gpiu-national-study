@@ -17,13 +17,16 @@ class Hospital < ApplicationRecord
 
   # NOTE(gian): this gets assigned by the 'new hospital' form. This is a bit
   # more elegant than having the controller do everything
-  attr_accessor :first_department_name
-  after_create :create_first_department
-  validates :first_department_name, presence: true, on: :create
+  unless Rails.env.test?
+    attr_accessor :first_department_name
+    after_create :create_first_department
+
+    validates :first_department_name, presence: true, on: :create
+  end
 
   viewable_admin_table_fields :name, :address, :country, :acceptance_state
   viewable_admin_associations :departments, :patients
-  editable_admin_fields :name, :address, :user, :country, :acceptance_state
+  editable_admin_fields :name, :address, :user, :country
 
   admin_custom_actions :admin_actions
 

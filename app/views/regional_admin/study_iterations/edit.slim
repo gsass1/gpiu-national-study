@@ -75,15 +75,16 @@
         td.table-success.text-center
           strong= @study_iteration.patients.prostate_biopsy.count
 
-  h3 Data Export
-  hr
-  - unless @study_iteration.exportable?
-    .alert.alert-danger Patient data will be exportable once you have been granted permission by an administrator.
-  - else
-    ul
-      li= link_to "Hospital data (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "hospitals")
-      li= link_to "UTI/SSI Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "uti_ssi_patients")
-      li= link_to "Prostate Biopsy Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "prostate_biopsy_patients")
+  - if @study_iteration.accepted?
+    h3 Data Export
+    hr
+    - unless @study_iteration.exportable?
+      .alert.alert-danger Patient data will be exportable once you have been granted permission by an administrator.
+    - else
+      ul
+        li= link_to "Hospital data (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "hospitals")
+        li= link_to "UTI/SSI Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "uti_ssi_patients")
+        li= link_to "Prostate Biopsy Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "prostate_biopsy_patients")
 
   - if @study_iteration.study_ranges.any?
     h3 Calendar View
@@ -108,6 +109,6 @@
   - if @study_iteration.unsubmitted?
     .alert.alert-warning.mt-5 Once you have added all the study ranges you may submit your study iteration to the National Study admins for approval. You will be notified once the approval process is done.
     - if @study_iteration.study_ranges.any?
-      = link_to "Submit Study Iteration", regional_admin_country_study_iteration_submit_path(@country, @study_iteration), class: "btn btn-lg btn-success", data: { confirm: "Submit study iteration? You will not be able to edit the study iteration during this process." }, method: :post
+      = link_to "Submit Study Iteration", regional_admin_country_study_iteration_submit_path(@country, @study_iteration), class: "btn btn-lg btn-success mb-5", data: { confirm: "Submit study iteration? You will not be able to edit the study iteration during this process." }, method: :post
     - else
-      button.btn.btn-lg.btn-success[disabled title="At least one study range is required."] Submit Study Iteration
+      button.btn.btn-lg.btn-success.mb-5[disabled title="At least one study range is required."] Submit Study Iteration

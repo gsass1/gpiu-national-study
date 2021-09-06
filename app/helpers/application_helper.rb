@@ -103,4 +103,12 @@ module ApplicationHelper
   def disable_header_margin
     @no_header_margin = true
   end
+
+  def keycloak_account_link
+    "#{ENV['KEYCLOAK_URL']}/auth/realms/#{ENV['KEYCLOAK_REALM']}/account/#/"
+  end
+
+  def keycloak_host
+    URI(ENV['KEYCLOAK_URL']).host
+  end
 end

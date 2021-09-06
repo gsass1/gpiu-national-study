@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+  get 'errors/internal_server_error'
   unless ENV['KEYCLOAK_CLIENT'].blank?
-    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
+
+    # Disable normal devise sign up page
+    devise_scope :users do
+      get '/sign_up', to: redirect('/')
+    end
   else
     devise_for :users
   end
+
+  get '/finish_registration' => 'finish_registration#index'
+  post '/finish_registration' => 'finish_registration#create'
 
   resources :notifications, only: [:index]
 
@@ -62,10 +72,17 @@ Rails.application.routes.draw do
     resources :ssi_questionnaires, only: [:edit, :update]
     resources :biopsy_questionnaires, only: [:edit, :update]
     resources :biopsy_outcome_questionnaires, only: [:edit, :update]
+
+    # Prevents stupid 404 message when reloading questionnaire page after saving
+    get '/:questionnaire/:id', to: redirect('/patients/%{patient_id}/%{questionnaire}/%{id}/edit')
   end
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
   get '/faq' => 'site#faq'
+
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+
   root 'site#index'
 end

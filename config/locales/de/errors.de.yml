@@ -1,0 +1,5 @@
+de:
+  errors:
+    not_found:
+      heading: Seite nicht gefunden
+      message: Die von Ihnen angeforderte Seite ist nicht vorhanden.

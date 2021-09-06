@@ -44,7 +44,7 @@ gem 'kaminari'
 
 gem 'identicon'
 gem 'material_icons'
-gem 'material_design_icons'
+#gem 'material_design_icons'
 
 gem 'jquery-rails'
 
@@ -52,10 +52,10 @@ gem 'chartkick'
 gem 'chartjs-ror'
 gem 'redcarpet'
 
-gem 'asciidoctor'
-gem 'asciidoctor-rouge'
-gem 'rouge'
-gem 'rouge-rails'
+#gem 'asciidoctor'
+#gem 'asciidoctor-rouge'
+#gem 'rouge'
+#gem 'rouge-rails'
 
 gem 'breadcrumbs_on_rails'
 
@@ -98,7 +98,11 @@ group :development do
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-doc'
+end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'factory_bot_rails'
   gem 'faker'
 end
 

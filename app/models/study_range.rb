@@ -1,17 +1,23 @@
 class StudyRange < ApplicationRecord
-  START_TRESHOLD = 14
+  if !Rails.env.production? || ENV['GPIU_STAGING'] == 1
+    START_TRESHOLD = 0
+  else
+    START_TRESHOLD = 14
+  end
 
   belongs_to :study_iteration
 
   validates :start, presence: true
   validates :end, presence: true
 
-  validate :is_in_the_future
+  #validate :is_in_the_future
   validate :start_after_treshold
   validate :end_after_start
   validate :no_overlaps
 
   default_scope { order(start: :asc) }
+
+  after_initialize :set_default_values
 
   def active?
     active_on? Date.today
@@ -58,5 +64,10 @@ class StudyRange < ApplicationRecord
         errors.add(:start, "is overlapping with another range. Please check above.")
       end
     end
+  end
+
+  def set_default_values
+    self.start ||= Date.today + START_TRESHOLD.days
+    self.end ||= self.start + 1.days
   end
 end

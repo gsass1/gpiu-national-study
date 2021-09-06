@@ -1,0 +1,19 @@
+.container
+  = simple_form_for(current_user, as: 'user', url: finish_registration_path, html: { method: :post }, wrapper: :horizontal_form, wrapper_mappings: { boolean: :horizontal_boolean }) do |f|
+
+    .form-inputs
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong= t('.title')
+          p= t('.fill_out_data')
+        .card-body
+          = f.error_notification
+
+          = f.input :title, required: true, autofocus: true, collection: User::TITLES 
+          = f.input :suffix, required: false
+
+          = f.input :country_id, collection: Country.all, label_method: :name, value_method: :id, required: true, autofocus: true
+
+
+    .form-actions
+      = f.button :submit, t(".submit"), class: 'btn btn-outline-primary float-right'
