@@ -111,8 +111,14 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  Rails.application.routes.default_url_options[:host] = 'national.esiu.org'
-  config.action_mailer.default_url_options = { host: 'national.esiu.org' }
+  if ENV['GPIU_STAGING'] == "1"
+    Rails.application.routes.default_url_options[:host] = 'national.staging.esiu.org'
+    config.action_mailer.default_url_options = { host: 'national.staging.esiu.org' }
+  else
+    Rails.application.routes.default_url_options[:host] = 'national.esiu.org'
+    config.action_mailer.default_url_options = { host: 'national.esiu.org' }
+  end
+
   config.action_mailer.default_options = { from: 'gpiu-serpens-mni@lists.thm.de' }
 
   config.action_mailer.delivery_method = :smtp
