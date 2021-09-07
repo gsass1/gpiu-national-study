@@ -82,7 +82,6 @@
       .alert.alert-danger Patient data will be exportable once you have been granted permission by an administrator.
 
       - if @study_iteration.passed?
-        hr
         = link_to "Request Export Permission", regional_admin_country_study_iteration_request_export_permission_path(@country, @study_iteration), method: :post, class: "btn btn-success", data: { confirm: "Are you sure you want to request export permission? This will send a notification to all super admins." }
         hr
     - else
