@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         post :submit
         delete '/delete_study_range/:study_range_id' => 'study_iterations#delete_study_range', as: :delete_study_range
         get :export
+        post :request_export_permission
       end
     end
   end
@@ -80,6 +81,8 @@ Rails.application.routes.draw do
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
   get '/faq' => 'site#faq'
+  get '/help' => 'site#help'
+  get '/help/manual' => 'site#manual'
 
   match "/404", to: "errors#not_found", via: :all
   match "/500", to: "errors#internal_server_error", via: :all

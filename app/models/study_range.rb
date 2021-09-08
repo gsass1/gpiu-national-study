@@ -1,5 +1,5 @@
 class StudyRange < ApplicationRecord
-  if !Rails.env.production? || ENV['GPIU_STAGING'] == 1
+  if !Rails.env.production? || ENV['GPIU_STAGING'] == "1"
     START_TRESHOLD = 0
   else
     START_TRESHOLD = 14
