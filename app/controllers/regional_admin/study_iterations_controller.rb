@@ -54,7 +54,9 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
     @study_range = @study_iteration.study_ranges.find(params[:study_range_id])
 
     if @study_range.active? || @study_range.passed?
-      flash[:danger] = "You cannot remove a study range that is active or has already passed."
+      unless @study_iteration.unsubmitted?
+        flash[:danger] = "You cannot remove a study range that is active or has already passed."
+      end
     else
       if @study_range.destroy
         flash[:success] = "Removed study range."

@@ -10,7 +10,6 @@ class StudyRange < ApplicationRecord
   validates :start, presence: true
   validates :end, presence: true
 
-  #validate :is_in_the_future
   validate :start_after_treshold
   validate :end_after_start
   validate :no_overlaps
@@ -20,7 +19,7 @@ class StudyRange < ApplicationRecord
   after_initialize :set_default_values
 
   def active?
-    active_on? Date.today
+    active_on? current_local_day
   end
 
   def active_on?(date)
@@ -28,11 +27,11 @@ class StudyRange < ApplicationRecord
   end
 
   def passed?
-    Date.today > self.end
+    current_local_day > self.end
   end
 
   def pending?
-    Date.today < self.start
+    current_local_day < self.start
   end
 
   def duration
@@ -40,12 +39,6 @@ class StudyRange < ApplicationRecord
   end
 
   private
-  def is_in_the_future
-    if self.start <= Date.today
-      errors.add(:start, "has to occur in the future!")
-    end
-  end
-
   def start_after_treshold
     if self.start < (Date.today + START_TRESHOLD.days)
       errors.add(:start, "has to occur at least #{START_TRESHOLD} days in the future!")
@@ -69,5 +62,9 @@ class StudyRange < ApplicationRecord
   def set_default_values
     self.start ||= Date.today + START_TRESHOLD.days
     self.end ||= self.start + 1.days
+  end
+
+  def current_local_day
+    @current_local_day ||= self.study_iteration.country.current_local_day
   end
 end
