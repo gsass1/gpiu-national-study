@@ -28,9 +28,11 @@ module StudyCalendarHelper
   def calendar_study_itr_color(day, study_iterations)
     study_iterations.each do |si|
       if si.active_on?(day)
-        if day == Date.today
+        local_day = si.country.current_local_day
+
+        if day == local_day
           return "bg-success text-dark border border-danger font-weight-bold"
-        elsif day < Date.today
+        elsif day < local_day
           return "bg-secondary text-light"
         else
           return "bg-primary text-light"

@@ -1,3 +1,5 @@
+require 'tzinfo'
+
 class Country < ApplicationRecord
   include AdminResource
 
@@ -11,9 +13,21 @@ class Country < ApplicationRecord
   validates :iso_2, presence: true
   validates :iso_3, presence: true
   validates :name, presence: true
+  validates :timezone, presence: true, inclusion: { in: TZInfo::Timezone.all_identifiers }
+
+  before_create :set_default_timezone
 
   viewable_admin_table_fields :name, :iso_2, :iso_3
-  editable_admin_fields :name, :iso_2, :iso_3
+  editable_admin_fields :name, :iso_2, :iso_3, :timezone
+  admin_custom_actions :admin_actions
+
+  def admin_actions
+    [{
+      name: "Open Regional Admin Dashboard",
+      color: :success,
+      route: [:regional_admin_country_dashboard_index_path, self.iso_2],
+    }]
+  end
 
   def to_s
     name
@@ -29,5 +43,26 @@ class Country < ApplicationRecord
 
   def next_or_current_study_iteration
     @next_or_current_study_iteration ||= study_iterations.accepted.select { |si| si.active? || !si.passed? }.first
+  end
+
+  def current_local_day
+    current_local_time.to_date
+  end
+
+  def current_local_time
+    tzinfo.utc_to_local(Time.now.utc)
+  end
+
+  def timezone_abbreviation
+    tzinfo.current_period.abbreviation.to_s
+  end
+
+  private
+  def set_default_timezone
+    self.timezone = "UTC"
+  end
+
+  def tzinfo
+    TZInfo::Timezone.get(self.timezone || "UTC")
   end
 end

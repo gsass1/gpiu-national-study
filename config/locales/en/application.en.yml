@@ -11,6 +11,7 @@ en:
       account: 'Account'
       dashboard: 'Dashboard'
     footer:
+      country_time: 'Time in %{country}: %{time} %{zone}'
       server_time: 'Server time: %{time} %{zone}'
       funding: 'The GPIU study is grateful for the unconditional funding support by Merian Iselin Clinic provided in 2017.'
       links: 'Links'
