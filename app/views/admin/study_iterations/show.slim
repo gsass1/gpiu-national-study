@@ -1,79 +1,133 @@
+.admin-study-iteration-header.mb-3
+  .container.pt-4
+    h2.d-flex.flex-row.align-items-center
+      span= "#{@study_iteration.country.name} - #{@study_iteration.name}"
+      - if @study_iteration.unsubmitted?
+        span.badge.badge-info.ml-3 Unsubmitted
+      - elsif @study_iteration.pending?
+        span.badge.badge-primary.ml-3 Pending
+      - elsif @study_iteration.accepted?
+        span.badge.badge-success.ml-3 Accepted
+      - elsif @study_iteration.declined?
+        span.badge.badge-danger.ml-3 Declined
+
+    ul.nav.nav-tabs
+      li.nav-item= admin_study_iteration_nav_link("overview")
+      li.nav-item= admin_study_iteration_nav_link("data")
+      li.nav-item= admin_study_iteration_nav_link("schedule")
+      li.nav-item= admin_study_iteration_nav_link("calendar")
+      li.nav-item= admin_study_iteration_nav_link("actions")
+
 .container
-  h1= "Study Iteration \"#{@study_iteration.name}\""
-  hr
-
-  = collapse_panel 'Overview', 'Overview', true
-    table.table.table-bordered[style="margin-bottom:0;"]
-      tr
-        th= "State"
-        td
-          - if @study_iteration.unsubmitted?
-            strong Unsubmitted
-          - if @study_iteration.pending?
-            strong Pending Approval
-          - elsif @study_iteration.accepted?
-            strong Accepted
-          - elsif @study_iteration.declined?
-            strong Declined
-      tr
-        th= "Country"
-        td= @study_iteration.country
-      tr
-        th= "Total duration"
-        td= "#{@study_iteration.duration} days"
-
-
-  - if @study_iteration.accepted?
-    = collapse_panel 'Data Export', 'DataExport', false
-      - unless @study_iteration.exportable?
-        .alert.alert-info Only you can see this. Regional admins need to be first granted permission to export data. See below. 
-      ul
-        li= link_to "Hospital data (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "hospitals")
-        li= link_to "UTI/SSI Patients (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "uti_ssi_patients")
-        li= link_to "Prostate Biopsy Patients (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "prostate_biopsy_patients")
-
-  = collapse_panel 'Schedule', 'Schedule', true
-    - if @study_iteration.study_ranges.any?
-      table.table
-        tr
-          th Start Date
-          th End Date
-          th Duration
-          th State
-        - @study_iteration.study_ranges.each do |range|
+  - if @tab == 'overview'
+    .card.mb-3
+      .card-header.bg-primary.text-light
+        strong Overview
+      .card-body.card-table
+        table.table
           tr
-            td= l(range.start, format: :long)
-            td= l(range.end, format: :long)
-            td= "#{range.duration} day(s)"
-            td= range_state(range)
+            th= "State"
+            td
+              - if @study_iteration.unsubmitted?
+                strong Unsubmitted
+              - if @study_iteration.pending?
+                strong Pending Approval
+              - elsif @study_iteration.accepted?
+                strong Accepted
+              - elsif @study_iteration.declined?
+                strong Declined
+          tr
+            th= "Country"
+            td= @study_iteration.country
+          tr
+            th= "Total duration"
+            td= "#{@study_iteration.duration} days"
 
-  - if @study_ranges.any?
-    = collapse_panel 'Calendar', 'Calendar', false
-      = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
 
-  = collapse_panel 'Actions', 'Actions', false
-    - if @study_iteration.pending?
-      h3 Approve
-      hr
-      = link_to "Approve this study iteration", admin_study_iteration_approve_path(@study_iteration), class: 'btn btn-success', method: :post
-
-      hr
-
-      h3 Reject
-      hr
-      = simple_form_for(@study_iteration, method: :post, url: admin_study_iteration_reject_path(@study_iteration)) do |f|
-        .form-inputs
-          = f.error_notification
-          = f.input :rejection_reason
-          .form-actions
-            = f.button :submit, "Reject this study iteration", class: 'btn btn-danger'
-
-    strong Data Export
-    hr
-    - if @study_iteration.exportable?
-      = link_to "Make unexportable", admin_study_iteration_toggle_exportable_path(@study_iteration), class: 'btn btn-success', method: :post
-      p.text-muted Revert regional admin permission to export patient data of this study iteration
+  - if @tab == 'data'
+    - if @study_iteration.accepted?
+      - unless @study_iteration.exportable?
+        .alert.alert-info Only you can see this. Regional admins need to be first granted permission to export data.
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Export Data
+        .card-body.card-table
+          table.table
+            tr
+              th= "Hospital data"
+              td= link_to "Download (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "hospitals")
+            tr
+              th= "UTI/SSI Patients"
+              td= link_to "Download (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "uti_ssi_patients")
+            tr
+              th= "Prostate Biopsy Patients"
+              td= link_to "Download (CSV)", admin_study_iteration_export_path(@study_iteration, type_of_data: "prostate_biopsy_patients")
     - else
-      = link_to "Make exportable", admin_study_iteration_toggle_exportable_path(@study_iteration), class: 'btn btn-success', method: :post
-      p.text-muted Allow regional admins to export patient data of this study iteration
+      .alert.alert-info Study Iteration not accepted yet
 
+  - if @tab == 'schedule'
+    - if @study_iteration.study_ranges.any?
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Schedule
+        .card-body.card-table
+            table.table
+              tr
+                th Start Date
+                th End Date
+                th Duration
+                th Comment
+                th State
+                - @study_iteration.study_ranges.each do |range|
+                  tr
+                    td= l(range.start, format: :long)
+                    td= l(range.end, format: :long)
+                    td= "#{range.duration} day(s)"
+                    td= range.comment
+                    td= range_state(range)
+    - else
+      .alert.alert-info No ranges added yet
+
+  - if @tab == 'calendar'
+    - if @study_ranges.any?
+      = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
+    - else
+      .alert.alert-info No ranges added yet
+
+  - if @tab == 'actions'
+    - if @study_iteration.pending?
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Approve Study Iteration
+        .card-body
+          p Approve this study iteration, also notifying all regional admins of this country.
+        .card-footer
+          = link_to "Approve", admin_study_iteration_approve_path(@study_iteration), class: 'btn btn-success', method: :post
+
+      .card.mb-3
+        .card-header.bg-danger.text-light
+          strong Reject Study Iteration
+        .card-body
+          p Reject this study iteration. Regional admins will be notified with the reason given.
+        .card-footer
+          = simple_form_for(@study_iteration, method: :post, url: admin_study_iteration_reject_path(@study_iteration)) do |f|
+            .form-inputs
+              = f.error_notification
+              = f.input :rejection_reason
+              .form-actions
+                = f.button :submit, "Reject", class: 'btn btn-danger'
+
+    - if @study_iteration.accepted?
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Data Export
+        - if @study_iteration.exportable?
+          .card-body
+            p Revert regional admin permission to export patient data of this study iteration
+          .card-footer
+            = link_to "Make unexportable", admin_study_iteration_toggle_exportable_path(@study_iteration), class: 'btn btn-success', method: :post
+        - else
+          .card-body
+            p Allow regional admins to export patient data of this study iteration
+          .card-footer
+            = link_to "Make exportable", admin_study_iteration_toggle_exportable_path(@study_iteration), class: 'btn btn-success', method: :post
