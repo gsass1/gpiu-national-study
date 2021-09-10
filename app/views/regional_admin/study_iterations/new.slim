@@ -1,11 +1,13 @@
 .container
-  h1 New Study Iteration
-  hr
-  = simple_form_for(@study_iteration, method: :post, url: regional_admin_country_study_iterations_path(@country), wrapper: :horizontal_form) do |f|
-    .form-inputs
-      = f.error_notification
+  .card.mt-5
+    .card-header.bg-primary.text-light
+      strong New Study Iteration
+    .card-body
+      = simple_form_for(@study_iteration, method: :post, url: regional_admin_country_study_iterations_path(@country), wrapper: :horizontal_form) do |f|
+        .form-inputs
+          = f.error_notification
 
-      = f.input :name, required: true, hint: "The name of the study iteration. For example \"2020 Q4 study\"."
+          = f.input :name, required: true, hint: "The name of the study iteration. For example \"2020 Q4 study\"."
 
-    .form-actions
-      = f.button :submit, t('hospitals.new.create'), class: 'btn btn-lg btn-outline-primary float-right'
+        .form-actions
+          = f.button :submit, t('hospitals.new.create'), class: 'btn btn-lg btn-outline-primary float-right'

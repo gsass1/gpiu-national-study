@@ -31,4 +31,10 @@ module RegionalAdmin::StudyIterationsHelper
       "table-default"
     end
   end
+
+  def regional_admin_study_iteration_nav_link(tab)
+    link_to edit_regional_admin_country_study_iteration_path(@country.iso_2, @study_iteration, tab: tab), class: "nav-link #{"active" if @tab == tab}" do
+      tab.capitalize
+    end
+  end
 end

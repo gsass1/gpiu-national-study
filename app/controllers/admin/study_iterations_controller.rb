@@ -23,6 +23,8 @@ class Admin::StudyIterationsController < ApplicationController
   end
 
   def show
+    @tab = params[:tab] || 'overview'
+
     @study_ranges = @study_iteration.study_ranges
 
     if @study_ranges.any?
@@ -68,7 +70,7 @@ class Admin::StudyIterationsController < ApplicationController
 
     @study_iteration.save
 
-    redirect_to admin_study_iteration_path(@study_iteration)
+    redirect_to admin_study_iteration_path(@study_iteration, tab: :actions)
   end
 
   def export
