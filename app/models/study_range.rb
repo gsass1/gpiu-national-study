@@ -41,13 +41,13 @@ class StudyRange < ApplicationRecord
   private
   def start_after_treshold
     if self.start < (Date.today + START_TRESHOLD.days)
-      errors.add(:start, "has to occur at least #{START_TRESHOLD} days in the future!")
+      errors.add(:start, "has to occur at least #{START_TRESHOLD} days in the future")
     end
   end
 
   def end_after_start
     if self.end < start
-      errors.add(:start, "must be after the start date")
+      errors.add(:end, "must be after the Start Date")
     end
   end
 
