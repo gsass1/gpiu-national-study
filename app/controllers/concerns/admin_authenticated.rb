@@ -6,6 +6,6 @@ module AdminAuthenticated
   end
 
   def authenticate_admin_user!
-    redirect_to root_path, flash: { alert: "You are not an admin." } unless current_user.has_role? :admin
+    redirect_to root_path, flash: { alert: "You are not an admin." } unless (user_signed_in? && current_user.has_role?(:admin))
   end
 end
