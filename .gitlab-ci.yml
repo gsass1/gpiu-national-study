@@ -7,6 +7,20 @@ stages:
 before_script:
   - docker info
 
+build_test_image:
+  only:
+    - staging
+  stage: build_image
+  script:
+    - docker build -f Dockerfile.test -t gpiu-national-dev:latest .
+
+test_image:
+  only:
+    - staging
+  stage: build_image
+  script:
+    - docker run --rm gpiu-national-dev:latest bundle exec rspec
+
 build_image:
   only:
     - master

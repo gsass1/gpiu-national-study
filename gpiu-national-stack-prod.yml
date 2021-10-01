@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    image: postgres:latest
+    image: postgres:13
     volumes:
       - gpiu_national_db:/var/lib/postgresql/data
     environment:
@@ -9,7 +9,7 @@ services:
       POSTGRES_DB: GpiuNational
       POSTGRES_PASSWORD: gpiu-national
     networks:
-      - gpiu_national_net
+      - gpiu_national_prod_net
     deploy:
       restart_policy:
         condition: on-failure
@@ -35,7 +35,7 @@ services:
       - KEYCLOAK_CLIENT=national-production
       - KEYCLOAK_CLIENT_SECRET=28395ecc-0503-4cba-a780-4c98cfd24256
     networks:
-      - gpiu_national_net
+      - gpiu_national_prod_net
       - traefik-net
     deploy:
       mode: replicated
@@ -63,7 +63,7 @@ services:
       placement:
         constraints: [node.hostname == gpiu-db]
     networks:
-      - gpiu_national_net
+      - gpiu_national_prod_net
     volumes:
       - 'redis_db:/data'
 
@@ -91,14 +91,14 @@ services:
         constraints:
           - "node.hostname!=gpiu-db"
     networks:
-      - gpiu_national_net
+      - gpiu_national_prod_net
 
 volumes:
   redis_db:
   gpiu_national_db:
 
 networks:
-  gpiu_national_net:
+  gpiu_national_prod_net:
     driver: overlay
     attachable: true
   traefik-net:
