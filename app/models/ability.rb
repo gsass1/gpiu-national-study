@@ -36,8 +36,8 @@ class Ability
       # Regional admin abilities
       Country.all.each do |country|
         if user.has_role? :regional_admin, country
-          can :manage, Country, id: country.id
-          can :manage, User, country_id: country.id
+          #can :manage, Country, id: country.id
+          can :read, User, country_id: country.id
           can :manage, Hospital, country_id: country.id
           can :manage, StudyIteration, country_id: country.id
           can :manage, StudyRange, study_iteration: { country_id: country.id }

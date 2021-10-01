@@ -1,7 +1,7 @@
-.container
-  div
-    h1.d-flex.flex-row.align-items-center
-      span= "Study Iteration \"#{@study_iteration.name}\""
+.admin-study-iteration-header.mb-3
+  .container.pt-4
+    h2.d-flex.flex-row.align-items-center
+      span= "#{@study_iteration.country.name} - #{@study_iteration.name}"
       - if @study_iteration.unsubmitted?
         span.badge.badge-info.ml-3 Unsubmitted
       - elsif @study_iteration.pending?
@@ -10,11 +10,16 @@
         span.badge.badge-success.ml-3 Accepted
       - elsif @study_iteration.declined?
         span.badge.badge-danger.ml-3 Declined
-  hr
 
-  - if @study_iteration.unsubmitted?
-    .alert.alert-warning Here you can add study ranges to your study iteration. Study ranges are consecutive days during which patient data is accepted into the database.
-  - elsif @study_iteration.pending?
+    ul.nav.nav-tabs
+      li.nav-item= regional_admin_study_iteration_nav_link("overview")
+      li.nav-item= regional_admin_study_iteration_nav_link("data")
+      li.nav-item= regional_admin_study_iteration_nav_link("schedule")
+      li.nav-item= regional_admin_study_iteration_nav_link("calendar")
+      li.nav-item= regional_admin_study_iteration_nav_link("actions")
+
+.container
+  - if @study_iteration.pending?
     .alert.alert-success This study iteration is waiting for approval by the GPIU National Study administrators. You will be notified once the approval process is done.
   - elsif @study_iteration.accepted?
     .alert.alert-success This study iteration was accepted. Users of your respective country will be able to enter patient data during the given study ranges.
@@ -22,97 +27,137 @@
     .alert.alert-warning
       p This study iteration was declined by an administrator. Please create a new study iteration.
       p= "Reason: #{@study_iteration.rejection_reason}"
-  
-  h3= "Study Ranges (#{@study_iteration.study_ranges.count} in total)"
+    
+  - if @tab == 'schedule'
+    - if @study_iteration.unsubmitted?
+      .alert.alert-warning Here you can add study ranges to your study iteration. Study ranges are consecutive days during which patient data is accepted into the database.
 
-  hr
-
-  p
-    strong Total duration =
-    = " #{@study_iteration.duration} day(s)"
-
-  - if @study_iteration.study_ranges.any?
-    table.table.table-bordered
-      tr
-        th Start Date
-        th End Date
-        th Duration
-        th State
-        th Comment
-        - if @study_iteration.unsubmitted?
-          th Actions
-      - @study_iteration.study_ranges.each do |range|
-        tr[class=range_color_table(range)]
-          td= range.start
-          td= range.end
-          td= "#{range.duration} day(s)"
-          td= range_state(range)
-          td= range.comment
-          - if @study_iteration.unsubmitted?
-            td
-              .btn-group
-                = link_to "Delete", regional_admin_country_study_iteration_delete_study_range_path(@country, @study_iteration, range), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to remove this study range?" }
-
-  - if @study_iteration.accepted?
-    h3 Insight
-    hr
-    p In the duration of this study iteration:
-    table.table
-      tr
-        td.table-primary Number of participating hospitals
-        td.table-success.text-center
-          strong= @study_iteration.patients.includes(:department => :hospital).pluck(:hospital_id).uniq.count
-      tr
-        td.table-primary Total Patients
-        td.table-success.text-center
-          strong= @study_iteration.patients.count
-      tr
-        td.table-primary UTI/SSI Patients
-        td.table-success.text-center
-          strong= @study_iteration.patients.uti_ssi.count
-      tr
-        td.table-primary Prostate Biopsy Patients
-        td.table-success.text-center
-          strong= @study_iteration.patients.prostate_biopsy.count
-
-  - if @study_iteration.accepted?
-    h3 Data Export
-    hr
-    - unless @study_iteration.exportable?
-      .alert.alert-danger Patient data will be exportable once you have been granted permission by an administrator.
-
-      - if @study_iteration.passed?
-        = link_to "Request Export Permission", regional_admin_country_study_iteration_request_export_permission_path(@country, @study_iteration), method: :post, class: "btn btn-success", data: { confirm: "Are you sure you want to request export permission? This will send a notification to all super admins." }
-        hr
-    - else
-      ul
-        li= link_to "Hospital data (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "hospitals")
-        li= link_to "UTI/SSI Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "uti_ssi_patients")
-        li= link_to "Prostate Biopsy Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "prostate_biopsy_patients")
-
-  - if @study_iteration.study_ranges.any?
-    h3 Calendar View
-    = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
-
-  - if @study_iteration.unsubmitted?
     .card.mb-3
       .card-header.bg-primary.text-light
-        strong.lead Add Range
-      .card-body
-        = simple_form_for(@study_range, method: :post, url: regional_admin_country_study_iteration_create_study_range_path(@country, @study_iteration), wrapper: :horizontal_form) do |f|
-          .form-inputs
-            = f.error_notification
-            .row
-              .col-lg-6= f.input :start, required: true, hint: "Start date of the range."
-              .col-lg-6= f.input :end, required: true, hint: "End date of the range."
-            hr
-            = f.input :comment, hint: "Notes for this study range. Optional."
-            .form-actions
-              = f.button :submit, "Add", class: 'btn btn-primary float-right'
+        strong Schedule
+        br
+        strong Total duration =
+        = " #{@study_iteration.duration} day(s)"
+      .card-body.card-table
+        - if @study_iteration.study_ranges.any?
+          table.table.table-bordered
+            tr
+              th Start Date
+              th End Date
+              th Duration
+              th State
+              th Comment
+              - if @study_iteration.unsubmitted?
+                th Actions
+            - @study_iteration.study_ranges.each do |range|
+              tr[class=range_color_table(range)]
+                td= range.start
+                td= range.end
+                td= "#{range.duration} day(s)"
+                td= range_state(range)
+                td= range.comment
+                - if @study_iteration.unsubmitted?
+                  td
+                    .btn-group
+                      = link_to "Delete", regional_admin_country_study_iteration_delete_study_range_path(@country, @study_iteration, range), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to remove this study range?" }
+        - else
+          .text-center
+            .m-3
+              strong No ranges added yet
 
-  - if @study_iteration.unsubmitted?
-    .alert.alert-warning.mt-5 Once you have added all the study ranges you may submit your study iteration to the National Study admins for approval. You will be notified once the approval process is done.
-    - if @study_iteration.study_ranges.any?
-      = link_to "Submit Study Iteration", regional_admin_country_study_iteration_submit_path(@country, @study_iteration), class: "btn btn-lg btn-success mb-5", data: { confirm: "Submit study iteration? You will not be able to edit the study iteration during this process." }, method: :post
+    - if @study_iteration.unsubmitted?
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Add Range
+        .card-body
+          = simple_form_for(@study_range, method: :post, url: regional_admin_country_study_iteration_create_study_range_path(@country, @study_iteration), wrapper: :horizontal_form) do |f|
+            .form-inputs
+              = f.error_notification
+              .row
+                .col-lg-6= f.input :start, required: true, hint: "Start date of the range."
+                .col-lg-6= f.input :end, required: true, hint: "End date of the range."
+              hr
+              = f.input :comment, hint: "Notes for this study range. Optional."
+              hr
+              .form-actions
+                = f.button :submit, "Add", class: 'btn btn-primary float-right'
+
+
+  - if @tab == 'overview'
+    - if @study_iteration.unsubmitted?
+      .alert.alert-warning
+        p Create and submit your study iteration by doing the following:
+        ol
+          li
+            = link_to "Add your study dates", edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'schedule')
+          li
+            = link_to "Submit study iteration for approval", edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'actions')
+          li You will be notified when the study iteration was accepted
+    - if @study_iteration.accepted?
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Insight
+        .card-body.card-table
+          table.table
+            tr
+              td.table-primary Number of participating hospitals
+              td.table-success.text-center
+                strong= @study_iteration.patients.includes(:department => :hospital).pluck(:hospital_id).uniq.count
+            tr
+              td.table-primary Total Patients
+              td.table-success.text-center
+                strong= @study_iteration.patients.count
+            tr
+              td.table-primary UTI/SSI Patients
+              td.table-success.text-center
+                strong= @study_iteration.patients.uti_ssi.count
+            tr
+              td.table-primary Prostate Biopsy Patients
+              td.table-success.text-center
+                strong= @study_iteration.patients.prostate_biopsy.count
+
+  - if @tab == 'data'
+    - if @study_iteration.accepted?
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Data Export
+        .card-body
+          - unless @study_iteration.exportable?
+            .alert.alert-danger Patient data will be exportable once you have been granted permission by an administrator.
+          - else
+            ul
+              li= link_to "Hospital data (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "hospitals")
+              li= link_to "UTI/SSI Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "uti_ssi_patients")
+              li= link_to "Prostate Biopsy Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "prostate_biopsy_patients")
+
+      - if @study_iteration.passed? && !@study_iteration.exportable?
+        .card.mb-3
+          .card-header.bg-primary.text-light
+            strong Request Export Permission
+          .card-body
+            p Request data access. This will send a notification to all global admins.
+          .card-footer
+            = link_to "Request", regional_admin_country_study_iteration_request_export_permission_path(@country, @study_iteration), method: :post, class: "btn btn-success", data: { confirm: "Are you sure you want to request export permission? This will send a notification to all super admins." }
     - else
-      button.btn.btn-lg.btn-success.mb-5[disabled title="At least one study range is required."] Submit Study Iteration
+      .alert.alert-info Study iteration has not started yet
+
+  - if @tab == 'calendar'
+    - if @study_iteration.study_ranges.any?
+      = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
+    - else
+      .alert.alert-info No ranges added yet
+
+  - if @tab == 'actions'
+    - if @study_iteration.unsubmitted?
+      .card.mb-3
+        .card-header.bg-primary.text-light
+          strong Submit Study Iteration
+        .card-body
+          p Once you have added all the study ranges you may submit your study iteration to the National Study admins for approval. You will be notified once the approval process is done.
+        .card-footer
+          - if @study_iteration.study_ranges.any?
+            = link_to "Submit", regional_admin_country_study_iteration_submit_path(@country, @study_iteration), class: "btn btn-success", data: { confirm: "Submit study iteration? You will not be able to edit the study iteration during this process." }, method: :post
+          - else
+            button.btn.btn-success[disabled title="At least one study range is required."] Submit
+    - else
+      .alert.alert-info No actions available

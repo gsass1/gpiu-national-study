@@ -3,7 +3,8 @@ class StudyCalendarController < ApplicationController
   include Authenticated
 
   def index
-    @study_iterations = current_user.country.study_iterations.accepted
+    @country = current_user.country
+    @study_iterations = @country.study_iterations.accepted
 
     if @study_iterations.any?
       @study_ranges = StudyRange.where(study_iteration_id: @study_iterations.pluck(:id))

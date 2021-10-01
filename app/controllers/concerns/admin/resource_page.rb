@@ -24,6 +24,7 @@ module Admin::ResourcePage
 
   def create
     @resource = resource_class.new(resource_params)
+    authorize! :create, @resource
     if @resource.save
       flash[:success] = "Resource was created."
       redirect_back_dashboard
@@ -64,6 +65,7 @@ module Admin::ResourcePage
   def edit
     link_prefix
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
+    authorize! :edit, @resource
     # NOTE(gian): load resource associations
     resource_associations
     add_breadcrumb "Edit #{@resource}", "/#{@link_prefix}/#{@resource_name}/#{@resource.id}/edit"
@@ -74,6 +76,7 @@ module Admin::ResourcePage
 
   def update
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
+    authorize! :update, @resource
     if @resource.update_attributes(resource_params)
       flash[:success] = "Resource was updated."
       redirect_back_dashboard
@@ -89,6 +92,7 @@ module Admin::ResourcePage
   # lazy. Change this later
   def destroy
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
+    authorize! :delete, @resource
     if @resource.discarded?
       @resource.undiscard!
       flash[:notice] = "Resource was restored."

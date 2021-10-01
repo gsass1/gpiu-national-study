@@ -28,6 +28,8 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   end
 
   def edit
+    @tab = params[:tab] || "overview"
+
     @study_range = StudyRange.new
   end
 
@@ -43,9 +45,10 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
 
     if @study_range.save
       flash[:success] = "Added new study range."
-      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'schedule')
     else
       load_calendar_months
+      @tab = 'schedule'
       render :edit
     end
   end
@@ -53,7 +56,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
   def delete_study_range
     @study_range = @study_iteration.study_ranges.find(params[:study_range_id])
 
-    if @study_range.active? || @study_range.passed?
+    if (@study_range.active? || @study_range.passed?) && @study_iteration.accepted?
       flash[:danger] = "You cannot remove a study range that is active or has already passed."
     else
       if @study_range.destroy
@@ -63,7 +66,7 @@ class RegionalAdmin::StudyIterationsController < ApplicationController
       end
     end
 
-    redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
+    redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'schedule')
   end
 
   def submit
