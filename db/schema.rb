@@ -377,7 +377,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "timezone"
+    t.string "timezone", default: "UTC"
     t.index ["iso_2", "iso_3", "name"], name: "index_countries_on_iso_2_and_iso_3_and_name", unique: true
   end
 
@@ -877,7 +877,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
   create_table "study_iterations", force: :cascade do |t|
     t.string "name"
     t.integer "country_id", null: false
-    t.integer "acceptance_state"
+    t.integer "acceptance_state", default: 0
     t.string "rejection_reason"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
@@ -965,7 +965,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
     t.boolean "catheter_ureteralstent"
     t.boolean "catheter_nephrostomy"
     t.boolean "catheter_others"
-    t.integer "catheterduration"
+    t.bigint "catheterduration"
     t.string "intervention_endoscopic", limit: 255
     t.string "intervention_laparoscopic", limit: 255
     t.string "intervention_percutaneous", limit: 255
