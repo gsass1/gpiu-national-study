@@ -68,7 +68,7 @@ migrate_db:
   variables:
     GPIU_NAT_DB_HOST: db
     GPIU_NAT_DB_NAME: GpiuNational
-    GPIU_NAT_DB_USER: production
+    GPIU_NAT_DB_USER: prod
     GPIU_NAT_DB_PASSWORD: gpiu-national
     RAILS_ENV: production
   script: docker run --network=gpiu-national_gpiu_national_prod_net  -e GPIU_NAT_DB_HOST  -e GPIU_NAT_DB_NAME -e GPIU_NAT_DB_USER -e GPIU_NAT_DB_PASSWORD -e RAILS_ENV -t gpiu-registry.mni.thm.de/gpiu-national:latest  rails db:migrate
