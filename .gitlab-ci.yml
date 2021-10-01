@@ -9,14 +9,14 @@ before_script:
 
 build_test_image:
   only:
-    - staging
+    - master
   stage: build_image
   script:
     - docker build -f Dockerfile.test -t gpiu-national-dev:latest .
 
 test_image:
   only:
-    - staging
+    - master
   stage: build_image
   script:
     - docker run --rm gpiu-national-dev:latest bundle exec rspec
