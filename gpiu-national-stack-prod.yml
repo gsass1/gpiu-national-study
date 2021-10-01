@@ -5,7 +5,7 @@ services:
     volumes:
       - gpiu_national_db:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: production
+      POSTGRES_USER: prod
       POSTGRES_DB: GpiuNational
       POSTGRES_PASSWORD: gpiu-national
     networks:
@@ -24,10 +24,16 @@ services:
     environment:
       - GPIU_NAT_DB_HOST=db
       - GPIU_NAT_DB_NAME=GpiuNational
-      - GPIU_NAT_DB_USER=production
+      - GPIU_NAT_DB_USER=prod
       - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - GPIU_NAT_REDIS_URL=redis:6379
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
+      - KEYCLOAK_REALM=ESIU
+      - KEYCLOAK_URL=https://sso.esiu.org
+      - KEYCLOAK_INTERNAL_URL=http://keycloak:8080
+      - KEYCLOAK_CLIENT=national-production
+      - KEYCLOAK_CLIENT_SECRET=28395ecc-0503-4cba-a780-4c98cfd24256
     networks:
       - gpiu_national_net
       - traefik-net
@@ -48,7 +54,47 @@ services:
         - "traefik.http.services.gpiu-national-prod-service.loadbalancer.server.port=3000"
         - "traefik.http.routers.gpiu-national-prod.tls=true"
 
+  redis:
+    image: 'redis:4.0-alpine'
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints: [node.hostname == gpiu-db]
+    networks:
+      - gpiu_national_net
+    volumes:
+      - 'redis_db:/data'
+
+  sidekiq:
+    image: gpiu-registry.mni.thm.de/gpiu-national:latest
+    depends_on:
+      - db
+      - redis
+    command: sidekiq -C config/sidekiq.yml
+    environment:
+      - GPIU_NAT_DB_HOST=db
+      - GPIU_NAT_DB_NAME=GpiuNational
+      - GPIU_NAT_DB_USER=prod
+      - GPIU_NAT_DB_PASSWORD=gpiu-national
+      - GPIU_NAT_REDIS_URL=redis:6379
+      - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints:
+          - "node.hostname!=gpiu-db"
+    networks:
+      - gpiu_national_net
+
 volumes:
+  redis_db:
   gpiu_national_db:
 
 networks:
