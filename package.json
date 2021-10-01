@@ -5,20 +5,20 @@
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.2.2",
-    "bootstrap": "^4.5.1",
-    "core-js": "^3.6.5",
-    "jquery": "^3.5.1",
+    "@rails/webpacker": "5.4.2",
+    "bootstrap": "^4.6.0",
+    "core-js": "^3.17.2",
+    "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
-    "rxjs": "^6.6.2",
+    "rxjs": "^6.6.7",
     "stimulus": "^1.1.1",
-    "ts-loader": "^8.0.2",
+    "ts-loader": "^8.3.0",
     "turbolinks": "^5.2.0",
     "typescript": "^3.9.7",
-    "zone.js": "^0.10.3"
+    "zone.js": "^0.11.4"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^4.1.1"
   }
 }
