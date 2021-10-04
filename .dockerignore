@@ -5,4 +5,5 @@ gpiu-national-stack-prod.yml
 gpiu-national-stack-staging.yml
 tmp
 node_modules
-yarn.lock
+log
+public/packs

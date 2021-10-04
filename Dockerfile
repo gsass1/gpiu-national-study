@@ -16,7 +16,7 @@ COPY Gemfile* /app/
 RUN bundle install --without development test
 
 # Install JS dependencies
-COPY package.json /app/
+COPY package.json yarn.lock /app/
 RUN yarn install --check-files
 
 COPY . /app
