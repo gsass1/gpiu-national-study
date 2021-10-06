@@ -1,10 +1,20 @@
 version: '3.8'
 services:
+  keycloak:
+    image: jboss/keycloak
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_IMPORT=/tmp/dev-realm.json
+    volumes:
+      - ./dev_realm.json:/tmp/dev-realm.json
+    ports:
+      - "8080:8080"
   db:
-    image: postgres
+    image: postgres:13
     restart: always
     environment:
-      POSTGRES_USER: production
+      POSTGRES_USER: dev
       POSTGRES_DB: GpiuNational
       POSTGRES_PASSWORD: gpiu-national
     volumes:
@@ -14,13 +24,20 @@ services:
     image: gpiu-national:latest
     depends_on:
       - db
+      - keycloak
     ports:
       - "3000:3000"
     environment:
       - GPIU_NAT_DB_HOST=db
       - GPIU_NAT_DB_NAME=GpiuNational
-      - GPIU_NAT_DB_USER=production
+      - GPIU_NAT_DB_USER=dev
       - GPIU_NAT_DB_PASSWORD=gpiu-national
       - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_ENV=production
+      - KEYCLOAK_REALM=ESIU
+      - KEYCLOAK_URL=http://localhost:8080
+      - KEYCLOAK_INTERNAL_URL=http://keycloak:8080
+      - KEYCLOAK_CLIENT=national-dev
+      - KEYCLOAK_CLIENT_SECRET=85c5603b-9acb-4e8e-82f0-369a33194dad
 volumes:
   pg_data:
