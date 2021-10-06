@@ -1,5 +1,4 @@
 class Patient < ApplicationRecord
-  include AdminResource
   include Discard::Model
   include CsvCollection
   include QuestionnaireStates
@@ -37,50 +36,6 @@ class Patient < ApplicationRecord
     else
       biopsy_state_valid? && biopsy_outcome_state_valid?
     end
-  end
-
-  viewable_admin_table_fields :initial, :creator, :study_iteration, :department, :patient_type, :identification_state, :uti_state, :ssi_state, :biopsy_state, :biopsy_outcome_state
-  editable_admin_fields :initial, :creator, :study_iteration, :patient_type
-  admin_custom_actions :admin_actions
-
-  def admin_actions
-    arr = [{
-      name: "Open Include Form",
-      color: :success,
-      route: [:edit_patient_identification_path, self.id, self.patient_identification.id],
-    }]
-
-    if uti_ssi?
-      if uti_form_needed?
-        arr.push({
-          name: "Open UTI Form",
-          color: :info,
-          route: [:edit_patient_uti_questionnaire_path, self.id, self.uti_questionnaire.id],
-        })
-      end
-
-      if ssi_form_needed?
-        arr.push({
-          name: "Open SSI Form",
-          color: :info,
-          route: [:edit_patient_ssi_questionnaire_path, self.id, self.ssi_questionnaire.id],
-        })
-      end
-    elsif prostate_biopsy?
-      arr.push({
-        name: "Open Biopsy Form",
-        color: :info,
-        route: [:edit_patient_biopsy_questionnaire_path, self.id, self.biopsy_questionnaire.id],
-      })
-
-      arr.push({
-        name: "Open Biopsy Outcome Form",
-        color: :info,
-        route: [:edit_patient_biopsy_outcome_questionnaire_path, self.id, self.biopsy_outcome_questionnaire.id],
-      })
-    end
-
-    arr
   end
 
   validates :department_id, presence: true

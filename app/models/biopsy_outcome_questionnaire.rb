@@ -1,5 +1,4 @@
 class BiopsyOutcomeQuestionnaire < ApplicationRecord
-  include AdminResource
   include CultureResult
   include Discard::Model
   include Questionnaire

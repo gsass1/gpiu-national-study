@@ -7,22 +7,22 @@
         tr
           th= "ID"
           td= @resource.id
-        - @resource_class.admin_form_fields.each do |field|
+        - resource_admin_class.form_fields.each do |field|
           tr
             th[style="width: 20%;"]= @resource_class.human_attribute_name field
             td[style="width: 80%;"]= resource_field_value(@resource, field)
-        - @resource_class.admin_associations.each do |assoc_field|
+        - resource_admin_class.associations.each do |assoc_field|
           tr
             th= "#{assoc_field.to_s.split('_').map(&:capitalize).join(' ')} (#{@resource.send(assoc_field).count})"
             td
               ul
                 - @resource.send(assoc_field).each do |assoc|
                   li= resource_association(assoc)
-        - unless @resource_class.admin_custom_actions_proc.nil?
+        - unless resource_admin_class.custom_actions_proc.nil?
           tr
             th Custom Actions
             td
-              .btn-group= resource_custom_actions(@resource, @resource_class)
+              .btn-group= resource_custom_actions(@resource, resource_admin_class)
         tr
           th Actions
           td

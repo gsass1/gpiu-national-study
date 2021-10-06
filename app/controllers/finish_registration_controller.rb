@@ -1,5 +1,10 @@
 class FinishRegistrationController < ApplicationController
   def index
+    unless user_signed_in?
+      redirect_to root_path
+      return
+    end
+
     if current_user.registration_complete?
       redirect_to dashboard_index_path
     end

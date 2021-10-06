@@ -2,37 +2,37 @@ module AdminResource
   extend ActiveSupport::Concern
 
   class_methods do
-    attr_writer :admin_table_fields
-    attr_writer :admin_form_fields
-    attr_writer :admin_associations
-    attr_accessor :admin_custom_actions_proc
+    attr_writer :table_fields
+    attr_writer :form_fields
+    attr_writer :associations
+    attr_accessor :custom_actions_proc
 
-    def admin_table_fields
-      @admin_table_fields || []
+    def table_fields
+      @table_fields || []
     end
 
-    def admin_form_fields 
-      @admin_form_fields || []
+    def form_fields 
+      @form_fields || []
     end
 
-    def admin_associations
-      @admin_associations || []
+    def associations
+      @associations || []
     end
 
     def admin_custom_actions(actions_proc)
-      self.admin_custom_actions_proc = actions_proc
+      self.custom_actions_proc = actions_proc
     end
 
     def viewable_admin_table_fields(*fields)
-      self.admin_table_fields = fields
+      self.table_fields = fields
     end
 
     def viewable_admin_associations(*assocs)
-      self.admin_associations = assocs
+      self.associations = assocs
     end
 
     def editable_admin_fields(*fields)
-      self.admin_form_fields = fields
+      self.form_fields = fields
     end
   end
 end

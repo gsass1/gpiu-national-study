@@ -77,14 +77,6 @@ class AppendixAntibiotic < ApplicationRecord
   enum nitrofuran: [:furazolidine, :nitrofurantoin], _prefix: true
   group_accessor :nitrofuran
 
-#   enum penicillins: [:amoxicillin, :ampicillin, :methicillin, :nafcillin,
-#                      :oxacillin, :penicillin_combinations,
-#                      :penicillin_combinations_amoxicillin_clavulunate,
-#                      :penicillin_combinations_ampicillin_sulbactam,
-#                      :penicillin_combinations_piperacillin_tazobactam,
-#                      :penicillin_combinations_ticarcillin_claculunate,
-#                      :penicillin_g, :ticarcillin]
-
   enum penicillin: [:amoxicillin, :ampicillin, :methicillin, :nafcillin,
                      :oxacillin,
                      :amoxicillin_clavulunate,

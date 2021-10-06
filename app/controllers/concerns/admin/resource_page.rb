@@ -112,12 +112,16 @@ module Admin::ResourcePage
     @resource_class ||= resource_name.classify.constantize
   end
 
+  def resource_admin_class
+    "Admin::#{@resource_class.name}".constantize
+  end
+
   private
 
   def resource_associations
     # NOTE(gian): Include all associations that are present in admin_table_fields
     # We do this by first getting all of the class' associations and then using & to remove every associations that is not in admin_table_fields
-    @resource_associations ||= resource_class.reflect_on_all_associations.map(&:name) & resource_class.admin_table_fields
+    @resource_associations ||= resource_class.reflect_on_all_associations.map(&:name) & resource_admin_class.table_fields
   end
 
   def resource_association_id_fields
@@ -126,7 +130,7 @@ module Admin::ResourcePage
   end
 
   def resource_fields_excluding_associations
-    resource_class.admin_form_fields - resource_associations
+    resource_admin__class.form_fields - resource_associations
   end
 
   def resource_params

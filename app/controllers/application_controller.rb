@@ -15,9 +15,10 @@ class ApplicationController < ActionController::Base
 
   def redirect_incomplete_users
     if user_signed_in?
-      unless current_user.registration_complete?
+      unless UserPolicy.new(current_user).finished_registration?
+        # Do not cause a redirect loop
         unless ['finish_registration'].include?(controller_name)
-          redirect_to finish_registration_path()
+          redirect_to finish_registration_path
         end
       end
     end

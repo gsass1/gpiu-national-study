@@ -1,4 +1,8 @@
 module Admin::ResourcesHelper
+  def resource_admin_class
+    "Admin::#{@resource_class.name}".constantize
+  end
+
   def resource_action_path(resource, action = nil)
     if action == nil
       action = ""
@@ -57,8 +61,8 @@ module Admin::ResourcesHelper
     end
   end
 
-  def resource_custom_actions(resource, resource_class)
-    actions = resource.send(resource_class.admin_custom_actions_proc)
+  def resource_custom_actions(resource, resource_admin_class)
+    actions = resource_admin_class.send(resource_admin_class.custom_actions_proc, resource)
 
     unless actions.nil?
       content_tag :div do

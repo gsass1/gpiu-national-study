@@ -1,5 +1,4 @@
 class Department < ApplicationRecord
-  include AdminResource
   include CsvCollection
 
   belongs_to :hospital
@@ -9,23 +8,7 @@ class Department < ApplicationRecord
   has_many :users, through: :employees
   validates :name, presence: true, uniqueness: { scope: :hospital_id }
 
-  viewable_admin_table_fields :name, :hospital
-  editable_admin_fields :name, :hospital
-  viewable_admin_associations :department_questionnaires
-  admin_custom_actions :admin_actions
-
   scope :visible, -> { includes(:hospital).where(hospitals: { acceptance_state: :approved }) }
-
-  def admin_actions
-    unless current_department_questionnaire.nil?
-      [{
-        name: "Open Hospital Questionnaire",
-        color: :success,
-        route: [:edit_hospital_department_department_questionnaire_path, hospital, self, current_department_questionnaire]
-      }]
-    end
-  end
-
   after_create :create_department_questionnaire
 
   def name_with_hospital

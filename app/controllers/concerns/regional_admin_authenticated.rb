@@ -10,6 +10,6 @@ module RegionalAdminAuthenticated
   end
 
   def authenticate_regional_admin_user!
-    redirect_to root_path, flash: { alert: "You are not a regional admin for this country." } unless (user_signed_in? && (current_user.has_role?(:regional_admin, current_country) || current_user.admin?))
+    redirect_to root_path, flash: { alert: "You are not a regional admin for this country." } unless UserPolicy.new(current_user).can_access_regional_admin?(current_country)
   end
 end

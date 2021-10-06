@@ -1,8 +1,6 @@
 require 'tzinfo'
 
 class Country < ApplicationRecord
-  include AdminResource
-
   resourcify
 
   has_many :hospitals
@@ -16,18 +14,6 @@ class Country < ApplicationRecord
   validates :timezone, presence: true, inclusion: { in: TZInfo::Timezone.all_identifiers }
 
   before_create :set_default_timezone
-
-  viewable_admin_table_fields :name, :iso_2, :iso_3
-  editable_admin_fields :name, :iso_2, :iso_3, :timezone
-  admin_custom_actions :admin_actions
-
-  def admin_actions
-    [{
-      name: "Open Regional Admin Dashboard",
-      color: :success,
-      route: [:regional_admin_country_dashboard_index_path, self.iso_2],
-    }]
-  end
 
   def to_s
     name

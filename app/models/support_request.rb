@@ -1,7 +1,6 @@
 require 'uri'
 
 class SupportRequest < ApplicationRecord
-  include AdminResource
   include Discard::Model
 
   belongs_to :user
@@ -12,9 +11,6 @@ class SupportRequest < ApplicationRecord
   enum state: [:open, :closed], _prefix: true
 
   enum support_type: [:site_help, :bug, :other_reason]
-
-  viewable_admin_table_fields :user, :email, :support_type, :custom_support_type
-  editable_admin_fields :user, :email, :support_type, :custom_support_type, :message, :state
 
   validates :user_id, presence: true
   validates :message, presence: true

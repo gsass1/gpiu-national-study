@@ -1,11 +1,7 @@
 class PatientIdentification < ApplicationRecord
-  include AdminResource
   include Discard::Model
   include Questionnaire
   include SaveWithErrors
-
-  viewable_admin_table_fields :patient
-  editable_admin_fields :patient
 
   enum sex: [:male, :female]
   enum admission_infection: [:home, :nursing, :other_hospital]
