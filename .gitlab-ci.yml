@@ -1,5 +1,6 @@
 stages:
   - build_image
+  - test_image
   - push_image
   - deploy_production
   - migrate_db
@@ -17,7 +18,7 @@ build_test_image:
 test_image:
   only:
     - master
-  stage: build_image
+  stage: test_image
   script:
     - docker run --rm gpiu-national-dev:latest bundle exec rspec
 
@@ -85,7 +86,7 @@ build_test_image_staging:
 test_image_staging:
   only:
     - staging
-  stage: build_image
+  stage: test_image
   script:
     - docker run --rm gpiu-national-dev:staging bundle exec rspec
 
@@ -153,6 +154,6 @@ build_image_dev:
 test_image_dev:
   only:
     - dev
-  stage: build_image
+  stage: test_image
   script:
     - docker run --rm gpiu-national-dev bundle exec rspec
