@@ -76,6 +76,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     aes_key_wrap (1.1.0)
     asciidoctor (2.0.16)
+    ast (2.4.2)
     bcrypt (3.1.16)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
@@ -251,6 +252,9 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
+    parallel (1.21.0)
+    parser (3.0.2.0)
+      ast (~> 2.4.1)
     pg (1.2.3)
     pry (0.14.1)
       coderay (~> 1.1)
@@ -298,6 +302,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
+    rainbow (3.0.0)
     rake (13.0.3)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
@@ -310,6 +315,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rexml (3.2.5)
     rolify (6.0.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
@@ -328,6 +334,24 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    rubocop (1.22.1)
+      parallel (~> 1.10)
+      parser (>= 3.0.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml
+      rubocop-ast (>= 1.12.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.12.0)
+      parser (>= 3.0.1.1)
+    rubocop-rails (2.12.3)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.7.0, < 2.0)
+    rubocop-rspec (2.5.0)
+      rubocop (~> 1.19)
+    ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -379,6 +403,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
+    unicode-display_width (2.1.0)
     uniform_notifier (1.14.2)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -447,6 +472,9 @@ DEPENDENCIES
   redis-namespace
   rolify
   rspec-rails (~> 5.0.0)
+  rubocop
+  rubocop-rails
+  rubocop-rspec
   sass-rails (>= 6)
   selenium-webdriver
   sidekiq (~> 6.1)
@@ -459,7 +487,6 @@ DEPENDENCIES
   sqlite3
   turbolinks (~> 5)
   tzinfo
-  tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
