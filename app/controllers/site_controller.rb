@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'asciidoctor'
 
 class SiteController < ApplicationController
@@ -19,7 +21,7 @@ class SiteController < ApplicationController
   def help; end
 
   def manual
-    file = File.read(Rails.root.to_s + '/app/views/site/manual.en.adoc')
+    file = File.read("#{Rails.root}/app/views/site/manual.en.adoc")
     @contents = Asciidoctor.convert file
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BiopsyQuestionnairesController < ApplicationController
   include Authenticated
   include ActiveStudyIteration
@@ -18,7 +20,7 @@ class BiopsyQuestionnairesController < ApplicationController
   end
 
   def update
-    @biopsy_questionnaire.update_attributes(biopsy_questionnaire_params)
+    @biopsy_questionnaire.update(biopsy_questionnaire_params)
     if @biopsy_questionnaire.save_with_errors
       flash[:success] = 'Updated biopsy form'
     else

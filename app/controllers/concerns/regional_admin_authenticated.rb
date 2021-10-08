@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RegionalAdminAuthenticated
   extend ActiveSupport::Concern
 
@@ -6,7 +8,7 @@ module RegionalAdminAuthenticated
   end
 
   def current_country
-    @country ||= Country.find_by_iso_2(params[:country].upcase)
+    @country ||= Country.find_by(iso_2: params[:country].upcase)
   end
 
   def authenticate_regional_admin_user!

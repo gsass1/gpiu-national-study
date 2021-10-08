@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FinishRegistrationController < ApplicationController
   def index
     unless user_signed_in?

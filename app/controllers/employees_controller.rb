@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmployeesController < ApplicationController
   include Authenticated
   load_and_authorize_resource

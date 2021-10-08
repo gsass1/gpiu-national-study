@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PatientIdentificationsController < ApplicationController
   include Authenticated
   include ActiveStudyIteration
@@ -15,7 +17,7 @@ class PatientIdentificationsController < ApplicationController
   end
 
   def update
-    @patient_identification.update_attributes(patient_identification_params)
+    @patient_identification.update(patient_identification_params)
     if @patient_identification.save_with_errors
       flash[:success] = 'Updated patient identification form'
     else

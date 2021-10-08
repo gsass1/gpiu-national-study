@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PatientsController < ApplicationController
   include Authenticated
   include ActiveStudyIteration

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UtiQuestionnairesController < ApplicationController
   include Authenticated
   include ActiveStudyIteration
@@ -22,7 +24,7 @@ class UtiQuestionnairesController < ApplicationController
   end
 
   def update
-    @uti_questionnaire.update_attributes(uti_questionnaire_params)
+    @uti_questionnaire.update(uti_questionnaire_params)
     if @uti_questionnaire.save_with_errors
       flash[:success] = 'Updated UTI form'
     else

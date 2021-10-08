@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SsiQuestionnairesController < ApplicationController
   include Authenticated
   include ActiveStudyIteration
@@ -22,7 +24,7 @@ class SsiQuestionnairesController < ApplicationController
   end
 
   def update
-    @ssi_questionnaire.update_attributes(ssi_questionnaire_params)
+    @ssi_questionnaire.update(ssi_questionnaire_params)
     if @ssi_questionnaire.save_with_errors
       flash[:success] = 'Updated SSI form'
     else

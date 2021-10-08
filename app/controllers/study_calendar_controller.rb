@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudyCalendarController < ApplicationController
   include ActiveStudyIteration
   include Authenticated

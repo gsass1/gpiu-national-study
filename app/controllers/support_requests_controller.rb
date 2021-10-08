@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SupportRequestsController < ApplicationController
   include Authenticated
   load_and_authorize_resource
@@ -12,7 +14,6 @@ class SupportRequestsController < ApplicationController
       flash[:success] = 'Your support request was created.'
       redirect_to dashboard_index_path
     else
-      p @support_request.errors.full_messages
       render :new
     end
   end

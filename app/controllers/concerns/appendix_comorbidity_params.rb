@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AppendixComorbidityParams
   extend ActiveSupport::Concern
 
