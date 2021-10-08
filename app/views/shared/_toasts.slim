@@ -1,0 +1,4 @@
+- if flash.any?
+  .toast-messages[data-controller="toasts" style="display:hidden"]
+    - flash.each do |message_type, message|
+      .toast-message[toast-type=message_type toast-message=message]

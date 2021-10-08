@@ -3,7 +3,7 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
+import Rails from "@rails/ujs"
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
@@ -16,10 +16,11 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import 'css/site'
-
 import 'controllers'
 
 import 'jquery'
-import 'popper.js'
-import 'bootstrap'
+import('src/plugins')
+
+import 'css/site'
+
+Rails.start()

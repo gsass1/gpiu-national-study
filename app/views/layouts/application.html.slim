@@ -18,14 +18,7 @@ html
           .container= render_breadcrumbs tag: 'span', separator: ' > '
 
       div class=("main_content #{"pt-5" unless (is_landing_page? || no_header_margin?)}")
-        .div[class="#{(is_landing_page? || no_header_margin?) ? "landing-page-flash-messages" : "container"}"]
-          - flash.each do |message_type, message|
-            = content_tag :div, class: "alert #{bootstrap_class_for_flash(message_type)} alert-dismissible fade show", role: :alert do
-              .d-flex.flex-row.align-items-center.justify-content-center
-                i.material-icons.px-4= icon_class_for_flash(message_type)
-                span= message
-              button[type="button" class="close" data-dismiss="alert" aria-label="Close"]
-                span[aria-hidden="true"] &times;
-
         = yield
     .mt-5= render 'shared/footer'
+
+    = render 'shared/toasts'
