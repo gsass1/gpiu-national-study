@@ -1,13 +1,11 @@
 class User < ApplicationRecord
+  include Discard::Model
   include Bitmask
   rolify
 
   TITLES = %w[Mr. Ms. Dr. Prof.].freeze
 
   after_create :assign_default_role
-
-  include Discard::Model
-  include AdminResource
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -49,10 +47,6 @@ class User < ApplicationRecord
     group.validates :country_id, presence: true
     group.validates :title, presence: true, inclusion: { in: TITLES }
   end
-
-  viewable_admin_table_fields :title, :first_name, :last_name, :email, :country
-  editable_admin_fields :title, :first_name, :last_name, :email, :country
-  viewable_admin_associations :hospitals, :patients, :support_requests
 
   bitmask :notifications_mask, [:email_notifications]
 
