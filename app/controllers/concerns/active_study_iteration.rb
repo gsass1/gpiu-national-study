@@ -6,7 +6,7 @@ module ActiveStudyIteration
   end
 
   class_methods do
-    def requires_active_study_iteration(options={})
+    def requires_active_study_iteration(options = {})
       before_action :check_current_study_iteration!, options
     end
   end

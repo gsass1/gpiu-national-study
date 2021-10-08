@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def keycloakopenid
-    auth = request.env["omniauth.auth"]
+    auth = request.env['omniauth.auth']
 
     @user = User.from_omniauth(auth)
 
@@ -9,7 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, event: :authentication
     else
       flash[:danger] = t('signed_in_keycloak_failed')
-      session["devise.keycloakopenid_data"] = request.env["omniauth.auth"].except("credentials")
+      session['devise.keycloakopenid_data'] = request.env['omniauth.auth'].except('credentials')
       redirect_to new_user_registration_url
     end
   end

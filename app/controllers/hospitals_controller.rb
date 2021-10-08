@@ -3,8 +3,8 @@ class HospitalsController < ApplicationController
   include ActiveStudyIteration
   load_and_authorize_resource
 
-  add_breadcrumb I18n.t("application.nav.dashboard"), :dashboard_index_path
-  add_breadcrumb I18n.t("hospitals.index.hospitals"), :hospitals_path
+  add_breadcrumb I18n.t('application.nav.dashboard'), :dashboard_index_path
+  add_breadcrumb I18n.t('hospitals.index.hospitals'), :hospitals_path
 
   before_action :ensure_country, only: :create
 
@@ -31,14 +31,14 @@ class HospitalsController < ApplicationController
   end
 
   def new
-    add_breadcrumb I18n.t("hospitals.new.new_hospital")
+    add_breadcrumb I18n.t('hospitals.new.new_hospital')
 
     @hospital.build_address
   end
 
   def create
     if CreateHospitalService.call(current_user, @hospital)
-      flash.notice = "Hospital was created."
+      flash.notice = 'Hospital was created.'
       redirect_to @hospital
     else
       render :new
@@ -46,11 +46,12 @@ class HospitalsController < ApplicationController
   end
 
   private
+
   def ensure_country
     @hospital.country = current_user.country
   end
 
   def hospital_params
-    params.require(:hospital).permit(:name, :first_department_name, address_attributes: [:street, :zip_code, :city])
+    params.require(:hospital).permit(:name, :first_department_name, address_attributes: %i[street zip_code city])
   end
 end

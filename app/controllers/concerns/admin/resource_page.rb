@@ -7,18 +7,18 @@ module Admin::ResourcePage
   extend ActiveSupport::Concern
 
   included do
-    @resource_name ||= self.controller_name
+    @resource_name ||= controller_name
 
     before_action :link_prefix, :add_breadcrumbs, :load_study_iterations
   end
 
   def new
-    add_breadcrumb "New", "/#{@link_prefix}/#{@resource_name}/new"
+    add_breadcrumb 'New', "/#{@link_prefix}/#{@resource_name}/new"
     @resource = resource_class.new
     # NOTE(gian): load resource associations
     resource_associations
     respond_to do |format|
-      format.html { render template: "admin/resources/new" }
+      format.html { render template: 'admin/resources/new' }
     end
   end
 
@@ -26,12 +26,12 @@ module Admin::ResourcePage
     @resource = resource_class.new(resource_params)
     authorize! :create, @resource
     if @resource.save
-      flash[:success] = "Resource was created."
+      flash[:success] = 'Resource was created.'
       redirect_back_dashboard
     else
-      flash[:danger] = "Failed to create resource."
+      flash[:danger] = 'Failed to create resource.'
       respond_to do |format|
-        format.html { render template: "admin/resources/new" }
+        format.html { render template: 'admin/resources/new' }
       end
     end
   end
@@ -39,11 +39,11 @@ module Admin::ResourcePage
   def index
     resource_query
     respond_to do |format|
-      format.html { render template: "admin/resources/index" }
-      format.csv {
+      format.html { render template: 'admin/resources/index' }
+      format.csv do
         csv_data = resource_class.as_csv_collection(resource_class.accessible_by(current_ability).includes(resource_associations))
-        send_data csv_data, filename: resource_name.pluralize + ".csv"
-      }
+        send_data csv_data, filename: resource_name.pluralize + '.csv'
+      end
     end
   end
 
@@ -54,11 +54,11 @@ module Admin::ResourcePage
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
     add_breadcrumb @resource, "/#{@link_prefix}/#{@resource_name}/#{@resource.id}"
     respond_to do |format|
-      format.html { render template: "admin/resources/show" }
-      format.csv {
+      format.html { render template: 'admin/resources/show' }
+      format.csv do
         csv_data = resource_class.as_csv_collection([@resource])
-        send_data csv_data, filename: @resource.to_s + ".csv"
-      }
+        send_data csv_data, filename: @resource.to_s + '.csv'
+      end
     end
   end
 
@@ -70,7 +70,7 @@ module Admin::ResourcePage
     resource_associations
     add_breadcrumb "Edit #{@resource}", "/#{@link_prefix}/#{@resource_name}/#{@resource.id}/edit"
     respond_to do |format|
-      format.html { render template: "admin/resources/edit" }
+      format.html { render template: 'admin/resources/edit' }
     end
   end
 
@@ -78,12 +78,12 @@ module Admin::ResourcePage
     @resource = resource_class.accessible_by(current_ability).find(params[:id])
     authorize! :update, @resource
     if @resource.update_attributes(resource_params)
-      flash[:success] = "Resource was updated."
+      flash[:success] = 'Resource was updated.'
       redirect_back_dashboard
     else
-      flash[:danger] = "Failed to update resource."
+      flash[:danger] = 'Failed to update resource.'
       respond_to do |format|
-        format.html { render template: "admin/resources/edit" }
+        format.html { render template: 'admin/resources/edit' }
       end
     end
   end
@@ -95,17 +95,17 @@ module Admin::ResourcePage
     authorize! :delete, @resource
     if @resource.discarded?
       @resource.undiscard!
-      flash[:notice] = "Resource was restored."
+      flash[:notice] = 'Resource was restored.'
     else
       @resource.discard!
-      flash[:notice] = "Resource was discarded."
+      flash[:notice] = 'Resource was discarded.'
     end
 
     redirect_back_dashboard
   end
 
   def resource_name
-    @resource_name ||= self.controller_name.remove('Admin::')
+    @resource_name ||= controller_name.remove('Admin::')
   end
 
   def resource_class
@@ -126,7 +126,7 @@ module Admin::ResourcePage
 
   def resource_association_id_fields
     # NOTE(gian): all association fields need to be "renamed" to represent their ID
-    resource_associations.map { |f| (f.to_s + "_id").to_sym }
+    resource_associations.map { |f| (f.to_s + '_id').to_sym }
   end
 
   def resource_fields_excluding_associations
@@ -139,16 +139,16 @@ module Admin::ResourcePage
 
   def prefix
     # NOTE(gian): Either 'admin' or 'regional_admin'
-    @prefix ||= self.controller_path.split('/')[0]
+    @prefix ||= controller_path.split('/')[0]
   end
 
   def link_prefix
-    @link_prefix ||= (prefix == "admin" ? "admin" : "regional_admin/#{@country.iso_2}")
+    @link_prefix ||= (prefix == 'admin' ? 'admin' : "regional_admin/#{@country.iso_2}")
   end
 
   def dashboard_path
     # NOTE(gian): Redirects to either one of the dashboards depending on the prefix
-    if prefix == "admin"
+    if prefix == 'admin'
       admin_dashboard_index_path
     else
       regional_admin_country_dashboard_index_path(@country.iso_2)
@@ -160,46 +160,38 @@ module Admin::ResourcePage
   end
 
   def add_breadcrumbs
-    add_breadcrumb "Admin", dashboard_path
+    add_breadcrumb 'Admin', dashboard_path
     add_breadcrumb resource_name.split('_').map(&:capitalize).join(' '), "/#{@link_prefix}/#{@resource_name}"
   end
 
   def resource_query
     @p = params[:page].to_i || 1
-    if @p <= 0
-      @p = 1
-    end
+    @p = 1 if @p <= 0
 
     @order = params[:order] || 'asc'
     @sort = params[:sort] || 'id'
     @per = params[:per].to_i || 10
 
-    if @per <= 0
-      @per = 10
-    end
+    @per = 10 if @per <= 0
 
     @resources = resource_class.accessible_by(current_ability).includes(resource_associations).order("#{@sort} #{@order}")
 
     @total_pages = (@resources.count / @per.to_f).ceil
 
     if params[:deleted]
-      if @resources.try(:discarded)
-        @resources = @resources.discarded
-      end
-    else
-      if @resources.try(:kept)
-        @resources = @resources.kept
-      end
+      @resources = @resources.discarded if @resources.try(:discarded)
+    elsif @resources.try(:kept)
+      @resources = @resources.kept
     end
 
     @total_count = @resources.count
 
-    unless params[:per] == 'all'
-      @resources = @resources.offset((@p-1)*@per).limit(@per)
-    else
+    if params[:per] == 'all'
       @p = 1
       @total_pages = 1
       @per = 'all'
+    else
+      @resources = @resources.offset((@p - 1) * @per).limit(@per)
     end
   end
 

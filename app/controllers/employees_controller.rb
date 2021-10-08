@@ -8,18 +8,18 @@ class EmployeesController < ApplicationController
     if @employee.save
       flash.notice = "You checked into #{@employee.department.name}"
     else
-      flash.alert = "Unable to check into department."
+      flash.alert = 'Unable to check into department.'
     end
 
     redirect_back fallback_location: root_url
   end
 
   def destroy
-    if @employee.destroy
-      flash.notice = "Successfully checked out of department."
-    else
-      flash.notice = "Unable to check out of department."
-    end
+    flash.notice = if @employee.destroy
+                     'Successfully checked out of department.'
+                   else
+                     'Unable to check out of department.'
+                   end
 
     redirect_back fallback_location: root_url
   end

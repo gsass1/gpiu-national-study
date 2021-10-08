@@ -4,7 +4,7 @@ class RegionalAdmin::DashboardController < ApplicationController
   layout 'regional_admin'
 
   def index
-    add_breadcrumb "Admin", regional_admin_country_dashboard_index_path(current_country.iso_2)
+    add_breadcrumb 'Admin', regional_admin_country_dashboard_index_path(current_country.iso_2)
 
     @user_count = @country.users.count
     @hospitals_count = @country.hospitals.count

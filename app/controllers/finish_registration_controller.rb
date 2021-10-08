@@ -5,9 +5,7 @@ class FinishRegistrationController < ApplicationController
       return
     end
 
-    if current_user.registration_complete?
-      redirect_to dashboard_index_path
-    end
+    redirect_to dashboard_index_path if current_user.registration_complete?
   end
 
   def create
@@ -19,6 +17,7 @@ class FinishRegistrationController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:title, :suffix, :country_id)
   end
