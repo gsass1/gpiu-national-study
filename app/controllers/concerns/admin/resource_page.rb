@@ -133,7 +133,7 @@ module Admin
     end
 
     def resource_fields_excluding_associations
-      resource_admin__class.form_fields - resource_associations
+      resource_admin_class.form_fields - resource_associations
     end
 
     def resource_params
