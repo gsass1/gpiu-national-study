@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CalendarUtil
   def self.collect_months(first_date, last_date)
     months = []
@@ -9,12 +11,12 @@ module CalendarUtil
     total_months.times do
       if current_month > 12
         current_month = 1
-        year = year + 1
+        year += 1
       end
 
       months.append year: year, month: current_month
 
-      current_month = current_month + 1
+      current_month += 1
     end
 
     months
