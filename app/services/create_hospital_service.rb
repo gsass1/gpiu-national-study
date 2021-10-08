@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateHospitalService < BaseService
   def initialize(user, hospital)
     @user = user
