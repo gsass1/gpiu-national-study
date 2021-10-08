@@ -11,13 +11,13 @@
 
       <div class="form-inputs">
 
-        <% if resource.external? %>
+        <% if resource.external? && Keycloak::enabled? %>
           <div class="card mb-3">
             <div class="card-header bg-primary text-light">
               <strong>Account Management</strong>
             </div>
             <div class="card-body">
-              <%= link_to t("devise.registrations.sso_link"), keycloak_account_link %>
+              <%= link_to t("devise.registrations.sso_link"), Keycloak::account_management_url %>
             </div>
           </div>
 

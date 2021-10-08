@@ -13,7 +13,7 @@ module Users
       else
         flash[:danger] = t('signed_in_keycloak_failed')
         session['devise.keycloakopenid_data'] = request.env['omniauth.auth'].except('credentials')
-        redirect_to new_user_registration_url
+        redirect_to root_path
       end
     end
 

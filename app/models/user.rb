@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  unless ENV['KEYCLOAK_CLIENT'].blank?
-    if ENV['GPIU_STAGING']
+  if Keycloak::enabled?
+    if Gpiu::allow_local_accounts?
       devise :database_authenticatable, :registerable,
         :rememberable, :trackable, :validatable,
         :recoverable,

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/internal_server_error'
-  unless ENV['KEYCLOAK_CLIENT'].blank?
+  if Keycloak::enabled?
     devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
 
     # Disable normal devise sign up page

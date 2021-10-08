@@ -7,11 +7,11 @@
           p = t('sites.landing.description_short')
 
       .bg-light.col-lg-6.p-5
-        - unless ENV['KEYCLOAK_URL'].blank?
+        - if Keycloak::enabled?
           h4.pt-5 Sign in
           hr
-          = link_to "Sign in with #{keycloak_host}", omniauth_authorize_path('user', 'keycloakopenid'), class: 'btn btn-success'
-          - if ENV['GPIU_STAGING'] == "1"
+          = link_to "Sign in with #{Keycloak::host}", omniauth_authorize_path('user', 'keycloakopenid'), class: 'btn btn-success'
+          - if Gpiu::allow_local_accounts?
             = link_to "Sign in locally", new_user_session_path, class: 'btn btn-primary mt-2'
         - else
           h4 Sign in

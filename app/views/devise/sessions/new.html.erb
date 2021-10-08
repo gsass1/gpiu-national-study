@@ -3,9 +3,9 @@
     <h2><%= t("devise.views.sessions.new.heading") %></h2>
     <hr>
 
-    <% unless ENV['KEYCLOAK_URL'].nil? %>
-      <%= link_to "Sign in with #{keycloak_host}", omniauth_authorize_path('user', 'keycloakopenid'), class: 'btn btn-success' %>
-      <% if ENV['GPIU_STAGING'] == "1" %>
+    <% if Keycloak::enabled? %>
+      <%= link_to "Sign in with #{Keycloak::host}", omniauth_authorize_path('user', 'keycloakopenid'), class: 'btn btn-success' %>
+      <% if Gpiu::allow_local_accounts? %>
         <hr>
         <%= render 'devise/shared/login_form', user: resource %>
       <% end %>

@@ -3,7 +3,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale_from_params
-  before_action :set_staging_flag
   before_action :redirect_incomplete_users
 
   protected
@@ -30,9 +29,5 @@ class ApplicationController < ActionController::Base
 
   def set_locale_from_params
     I18n.locale = params[:locale] || I18n.locale
-  end
-
-  def set_staging_flag
-    @is_staging_system = !ENV['GPIU_STAGING'].nil?
   end
 end
