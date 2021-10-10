@@ -45,7 +45,7 @@ en:
   form_hints:
     valid:
       title: "This questionnaire is valid"
-      text: "Please note that further edits may invalidate the questionnaire. To prevent that you can lock this patient."
+      text: "Please note that further edits may invalidate the questionnaire. To prevent that you can lock this questionnaire/patient."
     missing:
       title: "This questionnaire is missing"
       text: "This questionnaire has not been previously edited."
