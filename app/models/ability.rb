@@ -14,7 +14,7 @@ class Ability
       can [:create, :read, :update], Address
       can [:create, :read, :update], Department, { hospital: { country_id: user.country_id, acceptance_state: :approved } }
 
-      can [:create], Hospital, country_id: user.country_id
+      can [:create, :read], Hospital, country_id: user.country_id
       can [:create, :edit, :read, :update], Hospital, user_id: user.id
 
       can :create, Employee, department: { hospital: { country_id: user.country_id } }

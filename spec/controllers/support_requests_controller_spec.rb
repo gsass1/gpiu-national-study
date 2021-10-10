@@ -23,5 +23,11 @@ RSpec.describe SupportRequestsController, type: :controller do
     it 'creates a support request' do
       expect { create_support_request }.to change(SupportRequest, :count).by(1)
     end
+
+    it 'assigns user ID' do
+      create_support_request
+
+      expect(SupportRequest.last.user_id).to eq(user.id)
+    end
   end
 end
