@@ -8,6 +8,14 @@ FactoryBot.define do
     password { "password"} 
     password_confirmation { "password" }
 
+    factory :admin do
+      after(:create) {|u| u.add_role(:admin)}
+    end
+
+    factory :regional_admin do
+      after(:create) {|u| u.add_role(:regional_admin, u.country)}
+    end
+
     trait :registered_through_keycloak do
       registered_through_keycloak { true }
       keycloak_uid { "keycloak_uid" }

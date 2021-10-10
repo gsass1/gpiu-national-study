@@ -103,9 +103,28 @@ RSpec.describe HospitalsController, type: :controller do
         expect(Hospital.last.user_id).to eq(user.id)
       end
 
+      it 'should assign country' do
+        post_hospital
+        expect(Hospital.last.country).to eq(user.country)
+      end
+
       it 'should set acceptance state to pending' do
         post_hospital
         expect(Hospital.last.acceptance_state).to eq('pending')
+      end
+
+      describe 'triggering notifications' do
+        let(:regional_admin) { create(:regional_admin, country: user.country) }
+
+        it 'should notify regional admins' do
+          expect(User.with_role(:regional_admin, regional_admin.country)).to_not be_empty
+          expect { post_hospital }.to change(Notification, :count).by(1)
+
+          last_notification = Notification.last
+          expect(last_notification.actor).to eq(user)
+          expect(last_notification.recipient).to eq(regional_admin)
+          expect(last_notification.action).to eq('hospitals.submission')
+        end
       end
     end
   end

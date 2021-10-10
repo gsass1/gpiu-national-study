@@ -10,7 +10,9 @@ class Notifier
 
     create_on_site_notification notification
 
-    create_email_notification notification if notification.recipient.email_notifications?
+    unless Rails.env.test?
+      create_email_notification notification if notification.recipient.email_notifications?
+    end
   end
 
   private
