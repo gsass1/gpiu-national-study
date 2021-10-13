@@ -28,6 +28,7 @@ require 'rspec/rails'
 require 'devise'
 require './spec/support/factory_bot'
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
+require 'capybara/rails'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -36,6 +37,20 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  Capybara.register_driver :headless_firefox do |app|
+    version = Capybara::Selenium::Driver.load_selenium
+    options_key = Capybara::Selenium::Driver::CAPS_VERSION.satisfied_by?(version) ? :capabilities : :options
+    browser_options = ::Selenium::WebDriver::Firefox::Options.new.tap do |opts|
+      opts.add_argument '-headless'
+      opts.add_argument '--window-size=1920,1080'
+    end
+    Capybara::Selenium::Driver.new(app, **{ :browser => :firefox, options_key => browser_options })
+  end
+
+  Capybara.default_driver = :headless_firefox
+  Capybara.current_driver = :headless_firefox
+  Capybara.javascript_driver = :headless_firefox
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -69,4 +84,5 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :feature
 end
