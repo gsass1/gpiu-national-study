@@ -58,7 +58,7 @@ class StudyIteration < ApplicationRecord
 
   private
   def set_pending
-    self.acceptance_state = 0
+    self.acceptance_state = 0 if self.acceptance_state.nil?
   end
 
   def create_records_if_approved

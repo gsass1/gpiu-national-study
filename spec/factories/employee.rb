@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :employment do
+  factory :employee do
     user
     department
   end
