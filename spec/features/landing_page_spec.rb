@@ -17,7 +17,7 @@ RSpec.describe 'Landing Page' do
         fill_in 'Password', with: 'password'
 
         click_button 'Log in'
-        expect(page).to have_content('Dashboard')
+        expect(page).to have_content('This is your user dashboard')
       end
     end
   end
