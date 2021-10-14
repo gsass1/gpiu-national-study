@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Landing Page', :js do
+RSpec.describe 'Landing Page' do
   describe 'Login panel' do
     context 'without keycloak enabled' do
       it 'shows a sign in form' do
@@ -17,7 +17,7 @@ RSpec.describe 'Landing Page', :js do
         fill_in 'Password', with: 'password'
 
         click_button 'Log in'
-        expect(page).to have_content('Signed in successfully')
+        expect(page).to have_content('Dashboard')
       end
     end
   end
