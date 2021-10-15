@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UTI Questionnaire > Questionnaire', js: true do
+RSpec.describe 'Questionnaire > UTI Questionnaire', js: true do
   include_context 'within study iteration'
 
   let(:user) { create(:user) }

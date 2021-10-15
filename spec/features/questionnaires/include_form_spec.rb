@@ -8,11 +8,44 @@ RSpec.describe 'Patients > Include form' do
 
   before do
     sign_in(user)
+    visit edit_patient_identification_path(patient, patient.patient_identification)
+  end
+
+  it_behaves_like 'a questionnaire', name: 'patient identification'
+
+  describe 'form controls' do
+    describe 'pregnancy' do
+      context 'when male' do
+        before do
+          choose 'Male'
+        end
+
+        it 'should not show Pregnancy' do
+          expect(page).not_to have_content('Pregnancy')
+        end
+      end
+
+      context 'when female' do
+        before do
+          choose 'Female'
+        end
+
+        it 'should show Pregnancy' do
+          expect(page).to have_content('Pregnancy')
+        end
+      end
+    end
+
+    describe 'evidence infection' do
+      it_behaves_like 'a checkbox form control',
+        input_selector: '.patient_identification_evidence_infection',
+        checkbox: 'Evidence infection',
+        elem_selector: '#admission-infected'
+    end
   end
 
   describe 'setting infection type' do
     before do
-      visit edit_patient_identification_path(patient, patient.patient_identification)
       select '1999', from: :patient_identification_birth_year
       choose 'Male'
     end
@@ -56,7 +89,7 @@ RSpec.describe 'Patients > Include form' do
 
   def set_infection_type(type)
     choose type
-    click_button 'Update Patient Identification'
+    click_button 'Submit'
   end
 end
 
