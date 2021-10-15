@@ -12,7 +12,6 @@ class PatientIdentification < ApplicationRecord
     edit.validates :sex, presence: true
     edit.validates :pregnancy, inclusion: { in: [true, false] }, if: Proc.new { |f| f.female? }
     edit.validates :admission_date, presence: true
-    edit.validates :admission_date, presence: true
     edit.validate :admission_date_is_in_past
     edit.validates :evidence_infection, inclusion: { in: [true, false] }
     edit.validates :admission_infection, presence: true, if: Proc.new { |f| f.evidence_infection? }
@@ -23,12 +22,24 @@ class PatientIdentification < ApplicationRecord
     "Patient Include Form #{self.patient}-#{self.study_iteration.name}"
   end
 
+  before_save :sanitize_attributes
+
   private
   def admission_date_is_in_past 
     unless self.admission_date.nil?
       if self.admission_date > Date.today
         errors.add(:admission_date, "Patient cannot be admitted in the future")
       end
+    end
+  end
+
+  def sanitize_attributes
+    unless self.female?
+      self.pregnancy = nil
+    end
+
+    unless self.evidence_infection?
+      self.admission_infection = nil
     end
   end
 end
