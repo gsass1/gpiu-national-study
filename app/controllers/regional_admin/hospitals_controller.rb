@@ -21,7 +21,7 @@ module RegionalAdmin
     private
 
     def push_notifications
-      Notifier.new.notify(recipient: @hospital.user, actor: current_user, notifiable: @hospital,
+      Notifier.notify(recipient: @hospital.user, actor: current_user, notifiable: @hospital,
                           action: "hospitals.#{@hospital.approved? ? 'accepted' : 'rejected'}")
     end
   end

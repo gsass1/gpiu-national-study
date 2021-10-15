@@ -2,9 +2,13 @@
 
 # NOTE(gian): used to create and deliver notifications
 #
-# Usage: Notifier.new.notify(recipient: current_user, actor: ...)
+# Usage: Notifier.notify(recipient: current_user, actor: ...)
 #
 class Notifier
+  def self.notify(...)
+    new.notify(...)
+  end
+
   def notify(options = {})
     notification = OpenStruct.new(options.merge(created_at: DateTime.now))
 

@@ -21,7 +21,7 @@ class CreateHospitalService < BaseService
 
   def create_approval_notification
     User.with_role(:regional_admin, @hospital.country).each do |user|
-      Notifier.new.notify(recipient: user, actor: @user, notifiable: @hospital, action: 'hospitals.submission')
+      Notifier.notify(recipient: user, actor: @user, notifiable: @hospital, action: 'hospitals.submission')
     end
   end
 end
