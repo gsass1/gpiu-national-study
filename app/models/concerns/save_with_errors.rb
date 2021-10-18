@@ -1,15 +1,15 @@
 module SaveWithErrors
   extend ActiveSupport::Concern
 
-  def save_with_errors!(*args)
-    save_without_errors! *args
+  def save_with_errors!(**args)
+    save_without_errors! **args
   rescue ActiveRecord::RecordInvalid
     save_anyway
     raise # this re-raises the exception we just rescued
   end
 
-  def save_with_errors(*args)
-    save_without_errors *args or save_anyway
+  def save_with_errors(**args)
+    save_without_errors **args or save_anyway
   end
 
   def self.included(receiver)

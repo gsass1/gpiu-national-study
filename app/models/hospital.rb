@@ -16,10 +16,10 @@ class Hospital < ApplicationRecord
 
   # NOTE(gian): this gets assigned by the 'new hospital' form. This is a bit
   # more elegant than having the controller do everything
-  unless Rails.env.test?
-    attr_accessor :first_department_name
-    after_create :create_first_department
+  attr_accessor :first_department_name
+  after_create :create_first_department
 
+  unless Rails.env.test?
     validates :first_department_name, presence: true, on: :create
   end
 
@@ -47,6 +47,8 @@ class Hospital < ApplicationRecord
   private
 
   def create_first_department
-    departments.create name: first_department_name
+    if first_department_name.present?
+      departments.create name: first_department_name
+    end
   end
 end

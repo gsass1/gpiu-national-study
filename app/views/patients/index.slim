@@ -12,7 +12,7 @@
 
   - if @departments.any?
     - @departments.each do |department|
-      .card.mb-3
+      .card.mb-3[id="uti-ssi-#{department.id}"]
         .card-header.bg-primary.text-light
           strong.lead= "#{department.hospital.name} - #{department.name}"
           - if study_active?
@@ -30,7 +30,7 @@
               th= t('patients.index.uti_ssi.table.uti_form')
               th= t('patients.index.uti_ssi.table.ssi_form')
             - department.patients.uti_ssi.includes([:uti_questionnaire, :ssi_questionnaire, :patient_identification]).within_study_iteration(current_study_iteration).each do |patient|
-              tr
+              tr[id="patient-#{patient.id}"]
                 td[style="width:5%;"]= patient.id
                 td[style="width:5%;"]= patient.initial
                 td.text-center[style="width:5%;"]= patient_lock_button(patient)
@@ -55,7 +55,7 @@
 
   - if @departments.any?
     - @departments.each do |department|
-      .card.mb-3
+      .card.mb-3[id="biopsy-#{department.id}"]
         .card-header.bg-primary.text-light
           strong.lead= "#{department.hospital.name} - #{department.name}"
           - if study_active?
@@ -72,7 +72,7 @@
               th= t('patients.index.biopsy.table.biopsy_form')
               th= t('patients.index.biopsy.table.biopsy_outcome_form')
             - department.patients.prostate_biopsy.includes([:biopsy_questionnaire, :biopsy_outcome_questionnaire]).within_study_iteration(current_study_iteration).each do |patient|
-              tr
+              tr[id="patient-#{patient.id}"]
                 td[style="width:5%;"]= patient.id
                 td[style="width:5%;"]= patient.initial
                 td.text-center[style="width:5%;"]= patient_lock_button(patient)

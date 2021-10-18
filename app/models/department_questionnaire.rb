@@ -14,6 +14,7 @@ class DepartmentQuestionnaire < ApplicationRecord
   enum hospital_type: [:university, :teaching, :district, :other]
 
   before_update :set_state
+  before_save :sanitize_attributes
 
   with_options unless: :new_record? do |edit|
     # 2.
@@ -63,5 +64,11 @@ class DepartmentQuestionnaire < ApplicationRecord
   private
   def set_state
     self.state = errors.any? ? :invalid : :valid
+  end
+
+  def sanitize_attributes
+    unless self.hospital_type == 'other'
+      self.hospital_othertype = nil
+    end
   end
 end

@@ -2,7 +2,7 @@ en:
   patient_identifications:
     edit:
       title: 'Patient Identification'
-      update: 'Update Patient Identification'
+      update: 'Submit'
       sex:
         male: 'Male'
         female: 'Female'

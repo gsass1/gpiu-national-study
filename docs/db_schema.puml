@@ -91,7 +91,7 @@ class Department  {
     discarded_at
 }
 
-class StudyPeriod {
+class StudyRange {
     id
     start
     end
@@ -156,29 +156,15 @@ class SupportRequest {
     to create Issues)
 }
 
-User "*" -- "*" Role : "roles\nusers"
-User "1" -- "*" Employee : "employed\nuser"
-
-Hospital "1" -- "1" Address : "address\nhospital"
-Hospital "*" -- "1" Country : "country\nhospital"
-Hospital "1" -- "*" Department : "departments\nhospital"
-Hospital "1" -- "*" Role : "Role in\nhospital"
-
-Country -- "*" Role : "Role in\nCountry"
-
-Employee -- "1" Department : "department"
-
-StudyIteration "*" -- "1" Country : Periods in which\nthe study is active
-StudyIteration "1" -- "*" StudyPeriod
-
-Patient "*" -- "1" Department
-Patient "*" -- "1" StudyIteration
-Patient "1" -- "1" PatientIdentification
-
-SupportRequest "*" -- "1" User
-
-DepartmentQuestionnaire "*" -- "1" StudyIteration
-DepartmentQuestionnaire "*" -- "1" Department
+class Notification {
+    id
+    recipient_id
+    actor_id
+    read_at
+    action
+    notifiable_id
+    notifiable_type
+}
 
 class DepartmentQuestionnaire {
     id
@@ -191,5 +177,60 @@ class DepartmentQuestionnaire {
     (All the questionnaires answers
     See GPIU ESIU Study Platform)
 }
+
+class UtiSsiQuestionnaire {
+    id
+    patient_id
+    type
+}
+
+class UtiQuestionnaire {
+}
+
+class SsiQuestionnaire {
+}
+
+class BiopsyQuestionnaire {
+    id
+    patient_id
+}
+
+class BiopsyOutcomeQuestionnaire {
+    id
+    patient_id
+}
+
+User "*" -- "*" Role : "roles\nusers"
+User "1" -- "*" Employee : "employed\nuser"
+User "1" -- "*" Patient
+
+Hospital "1" -- "1" Address : "address\nhospital"
+Hospital "*" -- "1" Country : "country\nhospital"
+Hospital "1" -- "*" Department : "departments\nhospital"
+
+Country -- "*" Role : "Role in\nCountry"
+
+Employee -- "1" Department : "department"
+
+StudyIteration "*" -- "1" Country : Periods in which\nthe study is active
+StudyRange "*" -- "1" StudyIteration
+
+Patient "*" -- "1" Department
+Patient "*" -- "1" StudyIteration
+Patient "1" -- "1" PatientIdentification
+Patient "1" -- "0,2" UtiSsiQuestionnaire
+Patient "1" -- "0,1" BiopsyQuestionnaire
+Patient "1" -- "0,2" BiopsyOutcomeQuestionnaire
+
+UtiSsiQuestionnaire <|-- UtiQuestionnaire
+UtiSsiQuestionnaire <|-- SsiQuestionnaire
+
+SupportRequest "*" -- "1" User
+
+DepartmentQuestionnaire "*" -- "1" StudyIteration
+DepartmentQuestionnaire "*" -- "1" Department
+
+User "1" -- "*" Notification : "actor\nnotification"
+User "1" -- "*" Notification : "recipient\nnotification"
 @enduml
 

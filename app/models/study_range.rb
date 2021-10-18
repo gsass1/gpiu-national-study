@@ -1,5 +1,5 @@
 class StudyRange < ApplicationRecord
-  if !Rails.env.production? || Gpiu::staging?
+  if (!Rails.env.production? || Gpiu::staging?) && !Rails.env.test?
     START_TRESHOLD = 0
   else
     START_TRESHOLD = 14
@@ -53,7 +53,7 @@ class StudyRange < ApplicationRecord
 
   def no_overlaps 
     self.study_iteration.study_ranges.each do |range|
-      if self.start <= range.end && range.start <= self.end
+      if self.id != range.id && self.start <= range.end && range.start <= self.end
         errors.add(:start, "is overlapping with another range. Please check above.")
       end
     end
@@ -65,6 +65,6 @@ class StudyRange < ApplicationRecord
   end
 
   def current_local_day
-    @current_local_day ||= self.study_iteration.country.current_local_day
+    self.study_iteration.country.current_local_day
   end
 end

@@ -10,6 +10,7 @@ RUN apk update && apk -U upgrade \
     postgresql-dev \
     sqlite-dev \
     tzdata \
+    firefox \
     yarn
 
 # Install gems
