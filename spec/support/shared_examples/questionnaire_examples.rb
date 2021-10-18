@@ -114,3 +114,26 @@ RSpec.shared_examples_for 'a checkbox form control' do |input_selector:,checkbox
     end
   end
 end
+
+
+RSpec.shared_examples_for 'a radio form control' do |input_selector:,chosen_value:,elem_selector:|
+  context 'when chosen' do
+    before do
+      within input_selector do
+        choose chosen_value
+      end
+    end
+
+    it 'shows the toggled element' do
+      expect(page).to have_selector(:css, elem_selector)
+    end
+  end
+
+  context 'when not chosen' do
+    # Assumes nothing is chosen by default
+
+    it 'hides the toggled element' do
+      expect(page).not_to have_selector(:css, elem_selector)
+    end
+  end
+end
