@@ -24,10 +24,10 @@
             li = f.input :antibiotics_duration, label: t('.form.antibiotics_duration.question'), hint: t('.form.antibiotics_duration.append')
             li = f.input :antibiotics_route, as: :radio_buttons, label: t('.form.antibiotics_route.question'), collection: radio_button_collection(".form.antibiotics_route.answers", :oral, :iv, :im), value_method: :first, label_method: :second
         li= f.input :urogenital_infection_preceding_months, label: t('.form.urogenital_infection_preceding_months.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second
-        li= f.input :urinary_catheter, label: t('.form.urinary_catheter.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("antibiotics_preceding_questions", "yes"), input_html: form_trigger("urinary_catheter_duration", "yes")
+        li= f.input :urinary_catheter, label: t('.form.urinary_catheter.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("urinary_catheter_duration", "yes")
         ol#urinary_catheter_duration
           li= f.input :urinary_catheter_duration, label: t('.form.urinary_catheter_duration.question')
-        li= f.input :prostate_size_measured, label: t('.form.prostate_size_measured.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("antibiotics_preceding_questions", "yes"), input_html: form_trigger("prostate_size_measured", "yes")
+        li= f.input :prostate_size_measured, label: t('.form.prostate_size_measured.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second, input_html: form_trigger("prostate_size_measured", "yes")
         ol#prostate_size_measured
           li= f.input :prostate_size, label: t('.form.prostate_size.question')
         li= f.input :diabetes_mellitus, label: t('.form.diabetes_mellitus.question'), as: :radio_buttons, collection: radio_button_collection("yes_no_unknown", "yes", "no", "unknown"), value_method: :first, label_method: :second
