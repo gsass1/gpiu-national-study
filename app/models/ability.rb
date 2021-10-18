@@ -20,7 +20,7 @@ class Ability
       can :create, Employee, department: { hospital: { country_id: user.country_id } }
       can :destroy, Employee, user_id: user.id
 
-      can [:create, :read, :update], Patient, creator_id: user.id
+      can [:create, :read, :update], Patient, creator_id: user.id, department: { users: { id: user.id } }
       can :edit, PatientIdentification,  patient: { creator_id: user.id }
       can :update, PatientIdentification,  patient: { creator_id: user.id, locked: false }
 
