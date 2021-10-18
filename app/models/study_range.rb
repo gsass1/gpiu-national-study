@@ -65,6 +65,6 @@ class StudyRange < ApplicationRecord
   end
 
   def current_local_day
-    @current_local_day ||= self.study_iteration.country.current_local_day
+    self.study_iteration.country.current_local_day
   end
 end
