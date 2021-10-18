@@ -8,6 +8,7 @@ RSpec.shared_context 'within study iteration', shared_context: :metadata do
 
   before do
     study_iteration.study_ranges.create!(start: 14.days.from_now, end: 30.days.from_now)
+    department.create_department_questionnaire
     travel 14.days
   end
 end
