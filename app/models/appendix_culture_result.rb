@@ -3,7 +3,7 @@ class AppendixCultureResult < ApplicationRecord
 
   attr_accessor :should_valid
 
-  belongs_to :questionnaire, polymorphic: true
+  belongs_to :questionnaire, polymorphic: true, optional: true
   validates_presence_of :pos_id, strict: true
 
   before_validation :sanitize_attributes
@@ -67,18 +67,26 @@ class AppendixCultureResult < ApplicationRecord
           field: 'susceptibility_test_cephalosporins_ceftaroline',
           text: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.ceftaroline')
         },
+        # {
+        #   cat: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cephamycins'),
+        #   group: [
+        #     {
+        #       field: 'susceptibility_test_cephalosporins_cefoxitin',
+        #       text: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cefoxitin')
+        #     },
+        #     {
+        #       field: 'susceptibility_test_cephalosporins_cefotetan',
+        #       text: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cefotetan')
+        #     }
+        #   ]
+        # }
         {
-          cat: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cephamycins'),
-          group: [
-            {
-              field: 'susceptibility_test_cephalosporins_cefoxitin',
-              text: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cefoxitin')
-            },
-            {
-              field: 'susceptibility_test_cephalosporins_cefotetan',
-              text: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cefotetan')
-            }
-          ]
+          field: 'susceptibility_test_cephalosporins_cefoxitin',
+          text: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cefoxitin')
+        },
+        {
+          field: 'susceptibility_test_cephalosporins_cefotetan',
+          text: I18n.t('shared.appendix_culture.susceptibility_fields.cephalosporins_options.cefotetan')
         }
       ]
     },
@@ -280,11 +288,11 @@ class AppendixCultureResult < ApplicationRecord
 
     ['first', 'second'].each do |pos|
       define_method "#{pos}_#{group[:field]}_count" do
-        self.send("#{group[:field]}_count", "\"#{pos}\"")
+        self.send("#{group[:field]}_count", pos)
       end
 
       define_method "#{group[:field]}_count" do |place|
-        condition = group[:sub_fields].map { |f| self.send("#{pos}_#{f[:field]}") }.inject(false) { |acc, x| acc || x }
+        condition = group[:sub_fields].map { |f| self.send("#{place}_#{f[:field]}") }.inject(false) { |acc, x| acc || x }
         unless condition
           errors.add("#{place}_#{group[:field]}".to_sym, 'Please select')
         end
