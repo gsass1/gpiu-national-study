@@ -46,6 +46,8 @@ RSpec.describe 'Regional Admins > Submit study iteration' do
         accept_alert do
           click_link 'Submit'
         end
+
+        expect(page).to have_content('Submitted for approval')
       end
     end
   end

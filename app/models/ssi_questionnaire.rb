@@ -27,4 +27,18 @@ class SsiQuestionnaire < UtiSsiQuestionnaire
   validates_boolean :provennauti
   validates :antibioticculture, presence: true
   validates :antimicrobial_treatment, presence: true
+
+  validates_associated :first_appendix_antibiotic, if: Proc.new { |f| f.antibioticculture == 'yes' }
+  validates_associated :second_appendix_antibiotic, if: Proc.new { |f| f.antimicrobial_treatment == 'yes' }
+  validates_associated :appendix_culture_result
+
+  private
+
+  def first_appendix_antibiotic
+    self.get_appendix_antibiotics_at(0)
+  end
+
+  def second_appendix_antibiotic
+    self.get_appendix_antibiotics_at(1)
+  end
 end

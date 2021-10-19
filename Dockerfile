@@ -1,5 +1,4 @@
-FROM ruby:2.7.1-alpine3.12
-WORKDIR /app
+FROM ruby:2.7.4-alpine3.13
 
 RUN apk update && apk -U upgrade \
     && apk add build-base \
@@ -11,15 +10,23 @@ RUN apk update && apk -U upgrade \
     tzdata \
     yarn
 
+RUN adduser -D -h /app gpiu
+USER gpiu
+
+WORKDIR /app
+
 # Install gems
-COPY Gemfile* /app/
-RUN bundle install --without development test
+COPY --chown=gpiu Gemfile* /app/
+
+RUN bundle config set with production
+RUN bundle install
 
 # Install JS dependencies
-COPY package.json yarn.lock /app/
+COPY --chown=gpiu package.json yarn.lock /app/
 RUN yarn install --check-files
 
-COPY . /app
+COPY --chown=gpiu . /app/
+
 RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 EXPOSE 3000
