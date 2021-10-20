@@ -22,7 +22,7 @@ class AppendixAntibiotic < ApplicationRecord
     :antimycobacterial_drug,
     :other]
 
-  belongs_to :questionnaire, polymorphic: true
+  belongs_to :questionnaire, polymorphic: true, optional: true
   validates_presence_of :pos_id, strict: true
 
   def self.group_accessor(group)
