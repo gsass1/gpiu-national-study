@@ -19,6 +19,7 @@ WORKDIR /app
 COPY --chown=gpiu Gemfile* /app/
 
 RUN bundle config set with production
+RUN bundle config set without 'development test'
 RUN bundle install
 
 # Install JS dependencies
