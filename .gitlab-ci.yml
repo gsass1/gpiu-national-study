@@ -22,12 +22,10 @@ eslint:
 rspec:
   stage: test
   script:
-    - mkdir -p $PWD/coverage
-    - chown -R 1000:1000 $PWD/coverage
-    - docker run -v $PWD/coverage:/app/coverage --rm gpiu-national-test bundle exec rspec
+    - docker run -v /tmp/gn-coverage:/app/coverage --rm gpiu-national-test bundle exec rspec
   artifacts:
     paths:
-      - coverage
+      - /tmp/gn-coverage
     expire_in: 1 week
 
 build_image:
