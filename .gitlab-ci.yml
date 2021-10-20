@@ -1,6 +1,6 @@
 stages:
   - build_test_image
-  - run_tests
+  - test
   - build_image
   - push_image
   - deploy_production
@@ -14,8 +14,13 @@ build_test_image:
   script:
     - docker build -f Dockerfile.test -t gpiu-national-test .
 
-test_image:
-  stage: run_tests
+eslint:
+  stage: test
+  script:
+    - docker run --rm gpiu-national-test yarn run eslint app/javascript/controllers
+
+rspec:
+  stage: test
   script:
     - docker run --rm gpiu-national-test bundle exec rspec
 
