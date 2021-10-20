@@ -2,10 +2,10 @@
 
 module Gpiu
   def self.allow_local_accounts?
-    Keycloak::enabled? && staging?
+    Keycloak.enabled? && staging?
   end
 
   def self.staging?
-    %w(1 yes true).include?(ENV['GPIU_STAGING'])
+    %w[1 yes true].include?(ENV['GPIU_STAGING'])
   end
 end

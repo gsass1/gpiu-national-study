@@ -1,2 +1,6 @@
-module Admin::SupportRequestsHelper
+# frozen_string_literal: true
+
+module Admin
+  module SupportRequestsHelper
+  end
 end

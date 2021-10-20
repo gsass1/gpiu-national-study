@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NotificationsHelper
   def notifiable_attributes(notifiable)
     attrs = {}
