@@ -16,6 +16,12 @@ Gemspec/DateAssignment: # new in 1.10
   Enabled: true                                                                                                                                                                                                                                                                                  
 Layout/LineEndStringConcatenationIndentation: # new in 1.18                                                                                                                                                                                                                                      
   Enabled: true                                                                                                                                                                                                                                                                                  
+Layout/LineLength:
+  Enabled: true
+  Exclude:
+    - app/controllers/concerns/appendix_antibiotic_params.rb
+    - app/controllers/concerns/appendix_comorbidity_params.rb
+    - app/controllers/concerns/appendix_culture_result_params.rb
 Layout/SpaceBeforeBrackets: # new in 1.7                                                                                                                                                                                                                                                         
   Enabled: true                                                                                                                                                                                                                                                                                  
 Lint/AmbiguousAssignment: # new in 1.7                                                                                                                                                                                                                                                           
@@ -66,6 +72,8 @@ Style/ArgumentsForwarding: # new in 1.1
   Enabled: true                                                                                                                                                                                                                                                                                  
 Style/CollectionCompact: # new in 1.2                                                                                                                                                                                                                                                            
   Enabled: true                                                                                                                                                                                                                                                                                  
+Style/Documentation:
+  Enabled: false
 Style/DocumentDynamicEvalDefinition: # new in 1.1                                                                                                                                                                                                                                                
   Enabled: true                                                                                                                                                                                                                                                                                  
 Style/EndlessMethod: # new in 1.8                                                                                                                                                                                                                                                                
