@@ -1,4 +1,6 @@
-import { Controller } from "stimulus"
+/* eslint class-methods-use-this: "off" */
+
+import { Controller } from 'stimulus'
 
 export default class extends Controller {
   connect() {
@@ -19,44 +21,40 @@ export default class extends Controller {
     const cond = e.target.getAttribute('data-condition');
 
     let conditionMatched = false;
-    if (e.target.type == "radio") {
-      conditionMatched = (e.target.value == cond) && e.target.checked;
+    if (e.target.type === 'radio') {
+      conditionMatched = (e.target.value === cond) && e.target.checked;
 
-      if (cond.includes(",")) {
-        conditionMatched = cond.split(",").includes(e.target.value) && e.target.checked;
+      if (cond.includes(',')) {
+        conditionMatched = cond.split(',').includes(e.target.value) && e.target.checked;
       } else {
-        conditionMatched = (e.target.value == cond) && e.target.checked;
+        conditionMatched = (e.target.value === cond) && e.target.checked;
       }
-    } else if (e.target.type == "checkbox") {
-      conditionMatched = e.target.checked == (cond == "true");
+    } else if (e.target.type === 'checkbox') {
+      conditionMatched = e.target.checked === (cond === 'true');
+    } else if (cond.includes(',')) {
+      conditionMatched = cond.split(',').includes(e.target.value);
     } else {
-      if (cond.includes(",")) {
-        conditionMatched = cond.split(",").includes(e.target.value);
-      } else {
-        conditionMatched = e.target.value == cond;
-      }
+      conditionMatched = e.target.value === cond;
     }
 
     if (conditionMatched) {
       if (elem instanceof HTMLLIElement) {
-        elem.style.display = "list-item";
+        elem.style.display = 'list-item';
       } else {
-        elem.style.display = "block";
+        elem.style.display = 'block';
+      }
+    } else if (e.first) {
+      if (elem.style.display !== 'block' && elem.style.display !== 'list-item') {
+        elem.style.display = 'none';
       }
     } else {
-      if (e.first) {
-        if (elem.style.display != "block" && elem.style.display != "list-item") {
-          elem.style.display = "none";
-        }
-      } else {
-        elem.style.display = "none";
-      }
+      elem.style.display = 'none';
     }
   }
 
   disableForm(form) {
-    form.querySelectorAll("input, select, textarea").forEach((elem) => {
-      elem.setAttribute("disabled", true);
+    form.querySelectorAll('input, select, textarea').forEach((elem) => {
+      elem.setAttribute('disabled', true);
     });
   }
 }
