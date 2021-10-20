@@ -40,11 +40,37 @@ class DepartmentQuestionnairesController < ApplicationController
   end
 
   def questionnaire_params
-    %i[hospital_beds hospital_type hospital_othertype department_beds department_admissions
-       department_stay department_urinecultures patient_male patient_female patient_category1 patient_category2 patient_category3
-       patient_opensurgery patient_endoscopic patient_laparoscopic patient_prostaticbiopsy patient_transurethral_closed patient_transurethral_open
-       patient_intermittent patient_suprapubic patient_nephrostromy patient_ureteral patient_provenuti patient_suspecteduti patient_otherinfections
-       patient_prophylaxis perioperative urinary nautireports pathogens resistance]
+    %i[hospital_beds
+       hospital_type
+       hospital_othertype
+       department_beds
+       department_admissions
+       department_stay
+       department_urinecultures
+       patient_male
+       patient_female
+       patient_category1
+       patient_category2
+       patient_category3
+       patient_opensurgery
+       patient_endoscopic
+       patient_laparoscopic
+       patient_prostaticbiopsy
+       patient_transurethral_closed
+       patient_transurethral_open
+       patient_intermittent
+       patient_suprapubic
+       patient_nephrostromy
+       patient_ureteral
+       patient_provenuti
+       patient_suspecteduti
+       patient_otherinfections
+       patient_prophylaxis
+       perioperative
+       urinary
+       nautireports
+       pathogens
+       resistance]
   end
 
   def antimicrobial_params

@@ -29,8 +29,15 @@ class PatientIdentificationsController < ApplicationController
   private
 
   def patient_identification_params
-    params.require(:patient_identification).permit(:birth_year, :sex, :pregnancy, :admission_date, :evidence_infection,
-                                                   :admission_infection, :infection_type)
+    params.require(:patient_identification).permit(
+      :birth_year,
+      :sex,
+      :pregnancy,
+      :admission_date,
+      :evidence_infection,
+      :admission_infection,
+      :infection_type
+    )
   end
 
   def add_breadcrumbs
