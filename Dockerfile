@@ -24,7 +24,7 @@ RUN bundle install
 
 # Install JS dependencies
 COPY --chown=gpiu package.json yarn.lock /app/
-RUN yarn install --check-files
+RUN yarn install --check-files --production
 
 COPY --chown=gpiu . /app/
 
