@@ -103,7 +103,7 @@ module Admin
     def push_notifications
       ::User.with_role(:regional_admin, @study_iteration.country).each do |user|
         Notifier.notify(recipient: user, actor: current_user, notifiable: @study_iteration,
-                            action: "study_iterations.#{@study_iteration.accepted? ? 'accepted' : 'rejected'}")
+                        action: "study_iterations.#{@study_iteration.accepted? ? 'accepted' : 'rejected'}")
       end
     end
   end
