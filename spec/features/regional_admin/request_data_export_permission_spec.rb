@@ -64,6 +64,8 @@ RSpec.describe 'Regional Admins > Request data export permission' do
           accept_alert do
             click_link 'Request'
           end
+
+          expect(page).to have_content('Request for export permission has been sent to the super admins.')
         end
       end
     end
