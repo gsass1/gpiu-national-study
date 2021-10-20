@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tzinfo'
 
 class Country < ApplicationRecord
@@ -24,7 +26,7 @@ class Country < ApplicationRecord
   end
 
   def current_study_iteration
-    @current_study_iteration ||= study_iterations.includes([:study_ranges]).accepted.select { |si| !si.passed? }.first
+    @current_study_iteration ||= study_iterations.includes([:study_ranges]).accepted.reject(&:passed?).first
   end
 
   def next_or_current_study_iteration
@@ -44,11 +46,12 @@ class Country < ApplicationRecord
   end
 
   private
+
   def set_default_timezone
-    self.timezone = "UTC"
+    self.timezone = 'UTC'
   end
 
   def tzinfo
-    TZInfo::Timezone.get(self.timezone || "UTC")
+    TZInfo::Timezone.get(timezone || 'UTC')
   end
 end

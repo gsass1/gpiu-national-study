@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Patient < ApplicationRecord
   include Discard::Model
   include CsvCollection
@@ -8,7 +10,7 @@ class Patient < ApplicationRecord
   belongs_to :creator, class_name: 'User'
   belongs_to :study_iteration
 
-  enum patient_type: [:uti_ssi, :prostate_biopsy]
+  enum patient_type: { uti_ssi: 0, prostate_biopsy: 1 }
 
   has_one :patient_identification, inverse_of: :patient, dependent: :destroy
   has_one :uti_questionnaire, inverse_of: :patient, dependent: :destroy
@@ -25,12 +27,8 @@ class Patient < ApplicationRecord
   def questionnaires_valid?
     if uti_ssi?
       valid = identification_state_valid?
-      if uti_form_needed?
-        valid = valid && uti_state_valid?
-      end
-      if ssi_form_needed?
-        valid = valid && ssi_state_valid?
-      end
+      valid &&= uti_state_valid? if uti_form_needed?
+      valid &&= ssi_state_valid? if ssi_form_needed?
 
       valid
     else
@@ -48,24 +46,26 @@ class Patient < ApplicationRecord
   after_create :create_questionnaires
 
   def uti_form_needed?
-    return false unless (self.identification_state_valid? && self.patient_identification.try(&:infection_type))
-    self.uti_ssi? && [:uti, :both].include?(self.patient_identification.infection_type.to_sym)
+    return false unless identification_state_valid? && patient_identification.try(&:infection_type)
+
+    uti_ssi? && %i[uti both].include?(patient_identification.infection_type.to_sym)
   end
 
   def ssi_form_needed?
-    return false unless (self.identification_state_valid? && self.patient_identification.try(&:infection_type))
-    self.uti_ssi? && [:ssi, :both].include?(self.patient_identification.infection_type.to_sym)
+    return false unless identification_state_valid? && patient_identification.try(&:infection_type)
+
+    uti_ssi? && %i[ssi both].include?(patient_identification.infection_type.to_sym)
   end
 
   def to_s
-    "Patient #{self.id}-#{self.initial}-#{self.study_iteration.name}"
+    "Patient #{id}-#{initial}-#{study_iteration.name}"
   end
 
   def create_questionnaires
-    self.create_patient_identification
-    self.create_ssi_questionnaire
-    self.create_uti_questionnaire
-    self.create_biopsy_questionnaire
-    self.create_biopsy_outcome_questionnaire
+    create_patient_identification
+    create_ssi_questionnaire
+    create_uti_questionnaire
+    create_biopsy_questionnaire
+    create_biopsy_outcome_questionnaire
   end
 end

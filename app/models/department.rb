@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Department < ApplicationRecord
   include CsvCollection
 
@@ -12,7 +14,7 @@ class Department < ApplicationRecord
   after_create :create_department_questionnaire
 
   def name_with_hospital
-    "#{self.hospital.name} - #{self.name}"
+    "#{hospital.name} - #{name}"
   end
 
   def to_s
@@ -24,25 +26,20 @@ class Department < ApplicationRecord
   end
 
   def create_department_questionnaire
-    study_iteration = self.hospital.country.current_study_iteration
-    unless study_iteration.nil?
-      if current_department_questionnaire.nil?
-        self.department_questionnaires.create study_iteration_id: study_iteration.id
-      end
+    study_iteration = hospital.country.current_study_iteration
+    if !study_iteration.nil? && current_department_questionnaire.nil?
+      department_questionnaires.create study_iteration_id: study_iteration.id
     end
   end
 
   def patient_count
-    Patient.where(department_id: self.id).count
+    Patient.where(department_id: id).count
   end
 
   private
+
   def load_current_department_questionnaire
-    study_iteration = self.hospital.country.current_study_iteration
-    unless study_iteration.nil?
-      self.department_questionnaires.within_study_iteration(study_iteration).first
-    else
-      nil
-    end
+    study_iteration = hospital.country.current_study_iteration
+    department_questionnaires.within_study_iteration(study_iteration).first unless study_iteration.nil?
   end
 end

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class StudyRange < ApplicationRecord
-  if (!Rails.env.production? || Gpiu::staging?) && !Rails.env.test?
-    START_TRESHOLD = 0
-  else
-    START_TRESHOLD = 14
-  end
+  START_TRESHOLD = if (!Rails.env.production? || Gpiu.staging?) && !Rails.env.test?
+                     0
+                   else
+                     14
+                   end
 
   belongs_to :study_iteration
 
@@ -23,7 +25,7 @@ class StudyRange < ApplicationRecord
   end
 
   def active_on?(date)
-    date >= self.start && date <= self.end
+    date >= start && date <= self.end
   end
 
   def passed?
@@ -31,40 +33,39 @@ class StudyRange < ApplicationRecord
   end
 
   def pending?
-    current_local_day < self.start
+    current_local_day < start
   end
 
   def duration
-    (self.end - self.start).to_i
+    (self.end - start).to_i
   end
 
   private
+
   def start_after_treshold
-    if self.start < (Date.today + START_TRESHOLD.days)
+    if start < (Date.today + START_TRESHOLD.days)
       errors.add(:start, "has to occur at least #{START_TRESHOLD} days in the future")
     end
   end
 
   def end_after_start
-    if self.end < start
-      errors.add(:end, "must be after the Start Date")
-    end
+    errors.add(:end, 'must be after the Start Date') if self.end < start
   end
 
-  def no_overlaps 
-    self.study_iteration.study_ranges.each do |range|
-      if self.id != range.id && self.start <= range.end && range.start <= self.end
-        errors.add(:start, "is overlapping with another range. Please check above.")
+  def no_overlaps
+    study_iteration.study_ranges.each do |range|
+      if id != range.id && start <= range.end && range.start <= self.end
+        errors.add(:start, 'is overlapping with another range. Please check above.')
       end
     end
   end
 
   def set_default_values
     self.start ||= Date.today + START_TRESHOLD.days
-    self.end ||= self.start + 1.days
+    self.end ||= self.start + 1.day
   end
 
   def current_local_day
-    self.study_iteration.country.current_local_day
+    study_iteration.country.current_local_day
   end
 end

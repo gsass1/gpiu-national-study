@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AdminResource
   extend ActiveSupport::Concern
 
@@ -11,7 +13,7 @@ module AdminResource
       @table_fields || []
     end
 
-    def form_fields 
+    def form_fields
       @form_fields || []
     end
 

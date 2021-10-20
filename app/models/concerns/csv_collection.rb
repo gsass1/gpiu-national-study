@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOTE(gian): allows a model or an array of things to be converted to a CSV file.
 #
 # When you include this concern you must define a class with the name Csv::#{class.name} (see csv folder)

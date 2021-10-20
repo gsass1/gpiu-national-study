@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module SaveWithErrors
   extend ActiveSupport::Concern
 
   def save_with_errors!(**args)
-    save_without_errors! **args
+    save_without_errors!(**args)
   rescue ActiveRecord::RecordInvalid
     save_anyway
     raise # this re-raises the exception we just rescued
   end
 
   def save_with_errors(**args)
-    save_without_errors **args or save_anyway
+    save_without_errors(**args) or save_anyway
   end
 
   def self.included(receiver)
@@ -20,7 +22,8 @@ module SaveWithErrors
     receiver.alias_method :save!, :save_with_errors!
   end
 
-private
+  private
+
   def save_anyway
     save(validate: false)
   end

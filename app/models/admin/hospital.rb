@@ -1,35 +1,39 @@
-class Admin::Hospital
-  include AdminResource
+# frozen_string_literal: true
 
-  viewable_admin_table_fields :name, :address, :country, :acceptance_state
-  viewable_admin_associations :departments, :patients
-  editable_admin_fields       :name, :address, :user, :country
+module Admin
+  class Hospital
+    include AdminResource
 
-  admin_custom_actions :admin_actions
+    viewable_admin_table_fields :name, :address, :country, :acceptance_state
+    viewable_admin_associations :departments, :patients
+    editable_admin_fields       :name, :address, :user, :country
 
-  def self.admin_actions(h)
-    arr = [{
-      name: "View",
-      color: :info,
-      route: [:hospital_path, h]
-    }]
+    admin_custom_actions :admin_actions
 
-    if h.pending?
-      arr.push({
-        name: "Accept",
-        color: :success,
-        method: :post,
-        route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, state: :approved]
-      })
+    def self.admin_actions(h)
+      arr = [{
+        name: 'View',
+        color: :info,
+        route: [:hospital_path, h]
+      }]
 
-      arr.push({
-        name: "Reject",
-        color: :danger,
-        method: :post,
-        route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, state: :rejected]
-      })
+      if h.pending?
+        arr.push({
+                   name: 'Accept',
+                   color: :success,
+                   method: :post,
+                   route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, { state: :approved }]
+                 })
+
+        arr.push({
+                   name: 'Reject',
+                   color: :danger,
+                   method: :post,
+                   route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, { state: :rejected }]
+                 })
+      end
+
+      arr
     end
-
-    arr
   end
 end

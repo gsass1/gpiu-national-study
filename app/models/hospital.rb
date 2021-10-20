@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hospital < ApplicationRecord
   include Discard::Model
   include Notifiable
@@ -9,7 +11,7 @@ class Hospital < ApplicationRecord
   has_many :patients, through: :departments
   accepts_nested_attributes_for :address
 
-  enum acceptance_state: [:pending, :approved, :rejected]
+  enum acceptance_state: { pending: 0, approved: 1, rejected: 2 }
   scope :visible, -> { where(acceptance_state: :approved) }
 
   validates :name, presence: true
@@ -17,13 +19,12 @@ class Hospital < ApplicationRecord
   # NOTE(gian): this gets assigned by the 'new hospital' form. This is a bit
   # more elegant than having the controller do everything
   attr_accessor :first_department_name
+
   after_create :create_first_department
 
-  unless Rails.env.test?
-    validates :first_department_name, presence: true, on: :create
-  end
+  validates :first_department_name, presence: true, on: :create unless Rails.env.test?
 
-  notify_with Proc.new { |f|
+  notify_with proc { |f|
     {
       site_link: Rails.application.routes.url_helpers.hospital_path(f),
       admin_link: Rails.application.routes.url_helpers.regional_admin_country_hospital_path(f.country, f)
@@ -35,11 +36,11 @@ class Hospital < ApplicationRecord
   end
 
   def patient_count
-    self.departments.to_a.sum(&:patient_count)
+    departments.to_a.sum(&:patient_count)
   end
 
   def employee_count
-    self.departments.to_a.sum do |d|
+    departments.to_a.sum do |d|
       d.employees.count
     end
   end
@@ -47,8 +48,6 @@ class Hospital < ApplicationRecord
   private
 
   def create_first_department
-    if first_department_name.present?
-      departments.create name: first_department_name
-    end
+    departments.create name: first_department_name if first_department_name.present?
   end
 end

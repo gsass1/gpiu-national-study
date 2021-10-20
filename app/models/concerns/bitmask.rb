@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Bitmask
   extend ActiveSupport::Concern
 
@@ -16,10 +18,10 @@ module Bitmask
         end
 
         define_method "#{state}=" do |flag|
-          if flag == true || flag == 1 || flag == "1"
+          if [true, 1, '1'].include?(flag)
             self[name] |= n
           else
-            self[name] &= ((2**32-1) ^ n)
+            self[name] &= (((2**32) - 1) ^ n)
           end
         end
       end

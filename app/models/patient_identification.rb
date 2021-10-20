@@ -1,45 +1,42 @@
+# frozen_string_literal: true
+
 class PatientIdentification < ApplicationRecord
   include Discard::Model
   include Questionnaire
   include SaveWithErrors
 
-  enum sex: [:male, :female]
-  enum admission_infection: [:home, :nursing, :other_hospital]
-  enum infection_type: [:uti, :ssi, :both]
+  enum sex: { male: 0, female: 1 }
+  enum admission_infection: { home: 0, nursing: 1, other_hospital: 2 }
+  enum infection_type: { uti: 0, ssi: 1, both: 2 }
 
   with_options unless: :new_record? do |edit|
     edit.validates :birth_year, presence: true
     edit.validates :sex, presence: true
-    edit.validates :pregnancy, inclusion: { in: [true, false] }, if: Proc.new { |f| f.female? }
+    edit.validates :pregnancy, inclusion: { in: [true, false] }, if: proc { |f| f.female? }
     edit.validates :admission_date, presence: true
     edit.validate :admission_date_is_in_past
     edit.validates :evidence_infection, inclusion: { in: [true, false] }
-    edit.validates :admission_infection, presence: true, if: Proc.new { |f| f.evidence_infection? }
+    edit.validates :admission_infection, presence: true, if: proc { |f| f.evidence_infection? }
     edit.validates :infection_type, presence: true
   end
 
   def to_s
-    "Patient Include Form #{self.patient}-#{self.study_iteration.name}"
+    "Patient Include Form #{patient}-#{study_iteration.name}"
   end
 
   before_save :sanitize_attributes
 
   private
-  def admission_date_is_in_past 
-    unless self.admission_date.nil?
-      if self.admission_date > Date.today
-        errors.add(:admission_date, "Patient cannot be admitted in the future")
-      end
+
+  def admission_date_is_in_past
+    if !admission_date.nil? && (admission_date > Date.today)
+      errors.add(:admission_date, 'Patient cannot be admitted in the future')
     end
   end
 
   def sanitize_attributes
-    unless self.female?
-      self.pregnancy = nil
-    end
+    self.pregnancy = nil unless female?
 
-    unless self.evidence_infection?
-      self.admission_infection = nil
-    end
+    self.admission_infection = nil unless evidence_infection?
   end
 end
