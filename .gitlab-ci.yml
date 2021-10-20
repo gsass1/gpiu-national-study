@@ -22,6 +22,8 @@ eslint:
 rspec:
   stage: test
   script:
+    - mkdir -p $PWD/coverage
+    - chown -R 1000:1000 $PWD/coverage
     - docker run -v $PWD/coverage:/app/coverage --rm gpiu-national-test bundle exec rspec
   artifacts:
     paths:
