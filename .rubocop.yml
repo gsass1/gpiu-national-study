@@ -5,6 +5,7 @@ require:
 AllCops:                                                                                                                                                                                                                                                                                       
   NewCops: enable                                                                                                                                                                                                                                                                              
   Exclude:
+    - 'app/models/csv/**/*'
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
