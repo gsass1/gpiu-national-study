@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe SupportRequest do
@@ -13,7 +15,7 @@ RSpec.describe SupportRequest do
   end
 
   it 'requires a valid email' do
-    support_request.email = "not_an_email"
+    support_request.email = 'not_an_email'
     expect(!support_request.valid?)
   end
 
@@ -23,9 +25,9 @@ RSpec.describe SupportRequest do
   end
 
   it 'requires a valid support type' do
-    expect {
+    expect do
       support_request.support_type = :not_a_support_type
-    }.to raise_error(ArgumentError)
+    end.to raise_error(ArgumentError)
   end
 
   describe 'custom support types' do
@@ -33,7 +35,7 @@ RSpec.describe SupportRequest do
       support_request.support_type = :other_reason
       expect(!support_request.valid?)
 
-      support_request.custom_support_type = "Help"
+      support_request.custom_support_type = 'Help'
       expect(support_request.valid?)
     end
   end

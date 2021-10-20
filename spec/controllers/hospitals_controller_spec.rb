@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe HospitalsController, type: :controller do
   render_views
 
   let(:user) { create(:user) }
-  before(:each) { sign_in(user) }
+
+  before { sign_in(user) }
 
   describe 'GET #index' do
     it_behaves_like 'a protected route', :index
@@ -21,21 +24,21 @@ RSpec.describe HospitalsController, type: :controller do
         hospital = create(:hospital, country: user.country, acceptance_state: :pending)
 
         get :index
-        expect(response.body).to_not include(hospital.name)
+        expect(response.body).not_to include(hospital.name)
       end
 
       it 'hides rejected hospitals of the same country' do
         hospital = create(:hospital, country: user.country, acceptance_state: :rejected)
 
         get :index
-        expect(response.body).to_not include(hospital.name)
+        expect(response.body).not_to include(hospital.name)
       end
 
       it 'hides hospitals of other countres' do
         hospital = create(:hospital)
 
         get :index
-        expect(response.body).to_not include(hospital.name)
+        expect(response.body).not_to include(hospital.name)
       end
     end
   end
@@ -66,7 +69,7 @@ RSpec.describe HospitalsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:post_hospital) {
+    let(:post_hospital) do
       post :create, params: {
         hospital: {
           name: 'My Hospital',
@@ -78,37 +81,37 @@ RSpec.describe HospitalsController, type: :controller do
           }
         }
       }
-    }
+    end
 
     context 'logged out' do
-      before(:each) { sign_out(user) }
+      before { sign_out(user) }
 
-      it 'should not create hospital' do
-        expect { post_hospital }.to_not change(Hospital, :count)
+      it 'does not create hospital' do
+        expect { post_hospital }.not_to change(Hospital, :count)
       end
     end
 
     context 'logged in' do
-      it 'should create the hospital' do
+      it 'creates the hospital' do
         expect { post_hospital }.to change(Hospital, :count).by(1)
       end
 
-      it 'should redirect to the hospital' do
+      it 'redirects to the hospital' do
         post_hospital
         expect(response).to redirect_to(Hospital.last)
       end
 
-      it 'should assign user ID' do
+      it 'assigns user ID' do
         post_hospital
         expect(Hospital.last.user_id).to eq(user.id)
       end
 
-      it 'should assign country' do
+      it 'assigns country' do
         post_hospital
         expect(Hospital.last.country).to eq(user.country)
       end
 
-      it 'should set acceptance state to pending' do
+      it 'sets acceptance state to pending' do
         post_hospital
         expect(Hospital.last.acceptance_state).to eq('pending')
       end
@@ -116,8 +119,8 @@ RSpec.describe HospitalsController, type: :controller do
       describe 'triggering notifications' do
         let(:regional_admin) { create(:regional_admin, country: user.country) }
 
-        it 'should notify regional admins' do
-          expect(User.with_role(:regional_admin, regional_admin.country)).to_not be_empty
+        it 'notifies regional admins' do
+          expect(User.with_role(:regional_admin, regional_admin.country)).not_to be_empty
           expect { post_hospital }.to change(Notification, :count).by(1)
 
           last_notification = Notification.last

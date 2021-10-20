@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :patient do
     sequence(:initial) { |n| Faker::Lorem.word + n.to_s }

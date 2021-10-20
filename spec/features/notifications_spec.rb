@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Notifications', type: :feature do
   let(:user) { create(:user) }
   let(:actor) { create(:user) }
 
-  before :each do
+  before do
     sign_in(user)
   end
 
@@ -12,7 +14,7 @@ RSpec.describe 'Notifications', type: :feature do
     Notification.create actor: actor, recipient: user, action: 'hospitals.submission', notifiable: create(:hospital)
 
     visit notifications_path
-    expect(page).to have_content("Hospital Submitted For Approval")
+    expect(page).to have_content('Hospital Submitted For Approval')
   end
 
   it 'navbar shows the unread notifications count and is cleared after visiting the notifications page' do
@@ -24,6 +26,6 @@ RSpec.describe 'Notifications', type: :feature do
     expect(page).to have_selector(:css, '.unread-notifications-badge', text: '10')
 
     visit notifications_path
-    expect(page).to_not have_selector(:css, '.unread-notifications-badge')
+    expect(page).not_to have_selector(:css, '.unread-notifications-badge')
   end
 end

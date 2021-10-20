@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples_for 'a questionnaire' do |name:|
   context 'when patient is unlocked' do
     before do
@@ -24,7 +26,7 @@ RSpec.shared_examples_for 'a questionnaire' do |name:|
   end
 end
 
-RSpec.shared_examples_for 'a yes/no form control' do |input_selector:,elem_selector:|
+RSpec.shared_examples_for 'a yes/no form control' do |input_selector:, elem_selector:|
   context 'when yes is chosen' do
     before do
       within input_selector do
@@ -50,7 +52,7 @@ RSpec.shared_examples_for 'a yes/no form control' do |input_selector:,elem_selec
   end
 end
 
-RSpec.shared_examples_for 'a yes/no/unknown form control' do |input_selector:,elem_selector:|
+RSpec.shared_examples_for 'a yes/no/unknown form control' do |input_selector:, elem_selector:|
   context 'when yes is chosen' do
     before do
       within input_selector do
@@ -86,10 +88,9 @@ RSpec.shared_examples_for 'a yes/no/unknown form control' do |input_selector:,el
       expect(page).not_to have_selector(:css, elem_selector)
     end
   end
-
 end
 
-RSpec.shared_examples_for 'a checkbox form control' do |input_selector:,checkbox:,elem_selector:|
+RSpec.shared_examples_for 'a checkbox form control' do |input_selector:, checkbox:, elem_selector:|
   context 'when chosen' do
     before do
       within input_selector do
@@ -115,8 +116,7 @@ RSpec.shared_examples_for 'a checkbox form control' do |input_selector:,checkbox
   end
 end
 
-
-RSpec.shared_examples_for 'a radio form control' do |input_selector:,chosen_value:,elem_selector:|
+RSpec.shared_examples_for 'a radio form control' do |input_selector:, chosen_value:, elem_selector:|
   context 'when chosen' do
     before do
       within input_selector do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Questionnaire > UTI Questionnaire', js: true do
@@ -14,4 +16,3 @@ RSpec.describe 'Questionnaire > UTI Questionnaire', js: true do
   it_behaves_like 'a questionnaire', name: 'UTI'
   it_behaves_like 'a UTI/SSI questionnaire', type: 'uti'
 end
-

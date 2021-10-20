@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Regional Admins > Submit study iteration' do
@@ -41,7 +43,8 @@ RSpec.describe 'Regional Admins > Submit study iteration' do
 
       it 'notifies the admins' do
         admin = create(:admin)
-        expect(Notifier).to receive(:notify).with(hash_including(recipient: admin, notifiable: study_iteration, action: 'study_iterations.submission'))
+        expect(Notifier).to receive(:notify).with(hash_including(recipient: admin, notifiable: study_iteration,
+                                                                 action: 'study_iterations.submission'))
 
         accept_alert do
           click_link 'Submit'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'cancan/matchers'
 
@@ -10,11 +12,11 @@ RSpec.describe DepartmentQuestionnaire do
         subject.update(hospital_type: :other, hospital_othertype: 'Cool Hospital')
       end
 
-      it 'should not sanitize hospital_othertype if hospital type is other' do
+      it 'does not sanitize hospital_othertype if hospital type is other' do
         expect(subject.reload.hospital_othertype).not_to be(nil)
       end
 
-      it 'should sanitize hospital_othertype if hospital is not other type' do
+      it 'sanitizes hospital_othertype if hospital is not other type' do
         subject.update(hospital_type: :university)
         expect(subject.reload.hospital_othertype).to be(nil)
       end

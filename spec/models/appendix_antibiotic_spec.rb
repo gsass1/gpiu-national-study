@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AppendixAntibiotic, type: :model do
@@ -8,8 +10,8 @@ RSpec.describe AppendixAntibiotic, type: :model do
   end
 
   shared_examples 'an antibiotic group' do |group:|
-    enum_values = AppendixAntibiotic::send(group.to_s.pluralize)
-    enum_values.each do |antibiotic, value|
+    enum_values = described_class.send(group.to_s.pluralize)
+    enum_values.each do |antibiotic, _value|
       context 'when a group and an antibiotic are checked' do
         before do
           subject.send("#{group}_group=", true)
@@ -17,8 +19,8 @@ RSpec.describe AppendixAntibiotic, type: :model do
           subject.save
         end
 
-        it 'should save the antibiotic' do
-          expect(subject.reload.send("#{group}")).to eq(antibiotic)
+        it 'saves the antibiotic' do
+          expect(subject.reload.send(group.to_s)).to eq(antibiotic)
         end
 
         context 'when the group is unchecked' do
@@ -27,8 +29,8 @@ RSpec.describe AppendixAntibiotic, type: :model do
             subject.save
           end
 
-          it 'should sanitize the antibiotic' do
-            expect(subject.reload.send("#{group}")).to eq(nil)
+          it 'sanitizes the antibiotic' do
+            expect(subject.reload.send(group.to_s)).to eq(nil)
           end
         end
       end

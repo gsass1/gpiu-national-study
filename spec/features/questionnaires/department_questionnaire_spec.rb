@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Patients > Department questionnaire' do
@@ -7,7 +9,8 @@ RSpec.describe 'Patients > Department questionnaire' do
 
   before do
     sign_in(user)
-    visit edit_hospital_department_department_questionnaire_path(hospital.id, department.id, department.current_department_questionnaire.id)
+    visit edit_hospital_department_department_questionnaire_path(hospital.id, department.id,
+                                                                 department.current_department_questionnaire.id)
   end
 
   describe 'questionnaire' do

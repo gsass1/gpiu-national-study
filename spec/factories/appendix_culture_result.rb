@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :appendix_culture_result do
     pos_id { 0 }

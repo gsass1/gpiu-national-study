@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'cancan/matchers'
 
@@ -11,15 +13,15 @@ RSpec.describe PatientIdentification do
           subject.admission_date = 10.days.from_now
         end
 
-        it { should_not be_valid }
+        it { is_expected.not_to be_valid }
       end
 
       context 'when in the past' do
         before do
-          subject.admission_date = 1.days.ago
+          subject.admission_date = 1.day.ago
         end
 
-        it { should be_valid }
+        it { is_expected.to be_valid }
       end
     end
   end
@@ -30,7 +32,7 @@ RSpec.describe PatientIdentification do
         subject.update(sex: :female, pregnancy: true)
       end
 
-      it 'should be sanitized if sex set to male' do
+      it 'is sanitized if sex set to male' do
         subject.update(sex: :male)
         expect(subject.reload.pregnancy).to be(nil)
       end
@@ -41,7 +43,7 @@ RSpec.describe PatientIdentification do
         subject.update(evidence_infection: true, admission_infection: :home)
       end
 
-      it 'should sanitize admission infection if set to false' do
+      it 'sanitizes admission infection if set to false' do
         subject.update(evidence_infection: false)
         expect(subject.reload.admission_infection).to be(nil)
       end

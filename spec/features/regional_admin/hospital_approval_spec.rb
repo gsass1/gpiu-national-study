@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Regional Admins > Hospital Approval' do
@@ -25,7 +27,8 @@ RSpec.describe 'Regional Admins > Hospital Approval' do
       end
 
       it 'notifies the hospital creator' do
-        expect(Notifier).to receive(:notify).with(hash_including(recipient: hospital.user, action: 'hospitals.accepted', notifiable: hospital))
+        expect(Notifier).to receive(:notify).with(hash_including(recipient: hospital.user,
+                                                                 action: 'hospitals.accepted', notifiable: hospital))
         click_link 'Accept'
       end
     end
@@ -37,7 +40,8 @@ RSpec.describe 'Regional Admins > Hospital Approval' do
       end
 
       it 'notifies the hospital creator' do
-        expect(Notifier).to receive(:notify).with(hash_including(recipient: hospital.user, action: 'hospitals.rejected', notifiable: hospital))
+        expect(Notifier).to receive(:notify).with(hash_including(recipient: hospital.user,
+                                                                 action: 'hospitals.rejected', notifiable: hospital))
         click_link 'Reject'
       end
     end

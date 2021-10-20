@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Patients > Create patient' do
@@ -16,7 +18,7 @@ RSpec.describe 'Patients > Create patient' do
     it 'reminds the user to check into a department' do
       visit patients_path
 
-      expect(page).to have_content("Please check into a department first before creating patients.")
+      expect(page).to have_content('Please check into a department first before creating patients.')
     end
   end
 
@@ -65,4 +67,3 @@ RSpec.describe 'Patients > Create patient' do
     end
   end
 end
-

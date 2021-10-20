@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Patients > Include form' do
@@ -20,7 +22,7 @@ RSpec.describe 'Patients > Include form' do
           choose 'Male'
         end
 
-        it 'should not show Pregnancy' do
+        it 'does not show Pregnancy' do
           expect(page).not_to have_content('Pregnancy')
         end
       end
@@ -30,7 +32,7 @@ RSpec.describe 'Patients > Include form' do
           choose 'Female'
         end
 
-        it 'should show Pregnancy' do
+        it 'shows Pregnancy' do
           expect(page).to have_content('Pregnancy')
         end
       end
@@ -38,9 +40,9 @@ RSpec.describe 'Patients > Include form' do
 
     describe 'evidence infection' do
       it_behaves_like 'a checkbox form control',
-        input_selector: '.patient_identification_evidence_infection',
-        checkbox: 'Evidence infection',
-        elem_selector: '#admission-infected'
+                      input_selector: '.patient_identification_evidence_infection',
+                      checkbox: 'Evidence infection',
+                      elem_selector: '#admission-infected'
     end
   end
 
@@ -92,4 +94,3 @@ RSpec.describe 'Patients > Include form' do
     click_button 'Submit'
   end
 end
-
