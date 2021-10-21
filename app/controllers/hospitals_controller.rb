@@ -13,7 +13,7 @@ class HospitalsController < ApplicationController
   def index
     @tab = params[:tab] || 'all'
 
-    @hospitals = QueryHospitalsService.call(current_user, params[:q])
+    @hospitals = Hospitals::QueryService.call(current_user, params[:q])
 
     @own_hospitals = current_user.hospitals.includes([:address])
     @employed_hospitals = current_user.employed_hospitals.includes([:address])
@@ -39,7 +39,7 @@ class HospitalsController < ApplicationController
   end
 
   def create
-    if CreateHospitalService.call(current_user, @hospital)
+    if Hospitals::CreateService.call(current_user, @hospital)
       flash.notice = 'Hospital was created.'
       redirect_to @hospital
     else
