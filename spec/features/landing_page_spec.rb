@@ -24,11 +24,7 @@ RSpec.describe 'Landing Page' do
     end
 
     context 'when keycloak is enabled' do
-      before do
-        allow(Keycloak).to receive(:enabled?).and_return(true)
-        allow(Keycloak).to receive(:host).and_return('keycloak.local')
-        allow_any_instance_of(ApplicationHelper).to receive(:keycloak_authorize_path).and_return('not important')
-      end
+      include_context 'with SSO'
 
       it 'shows a button for signing into keycloak' do
         visit root_path
