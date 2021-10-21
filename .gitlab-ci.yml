@@ -22,7 +22,7 @@ eslint:
 rspec:
   stage: test
   script:
-    - docker run --rm gpiu-national-test bundle exec rspec
+    - docker run --rm gpiu-national-test bundle exec rspec --format documentation
 
 build_image:
   only:
