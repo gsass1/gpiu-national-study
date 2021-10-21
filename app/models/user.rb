@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include DeviseConfiguration
   include Discard::Model
   include Bitmask
   rolify
@@ -9,24 +10,6 @@ class User < ApplicationRecord
 
   before_create :set_default_notification_settings
   after_create :assign_default_role
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  if Keycloak.enabled?
-    if Gpiu.allow_local_accounts?
-      devise :database_authenticatable, :registerable,
-             :rememberable, :trackable, :validatable,
-             :recoverable,
-             :omniauthable, omniauth_providers: [:keycloakopenid]
-    else
-      devise :database_authenticatable, :registerable,
-             :rememberable, :trackable, :validatable,
-             :omniauthable, omniauth_providers: [:keycloakopenid]
-    end
-  else
-    devise :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :trackable, :validatable
-  end
 
   has_many :employed, dependent: :destroy, class_name: 'Employee'
   has_many :departments, through: :employed
