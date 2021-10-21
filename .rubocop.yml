@@ -66,6 +66,11 @@ Lint/UnexpectedBlockArity: # new in 1.5
   Enabled: true                                                                                                                                                                                                                                                                                  
 Lint/UnmodifiedReduceAccumulator: # new in 1.1                                                                                                                                                                                                                                                   
   Enabled: true                                                                                                                                                                                                                                                                                  
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+Naming/VariableNumber:
+  Enabled: true
+  AllowedIdentifiers: ['iso_2', ['iso_3']]
 Security/IoMethods: # new in 1.22                                                                                                                                                                                                                                                                
   Enabled: true                                                                                                                                                                                                                                                                                  
 Style/ArgumentsForwarding: # new in 1.1                                                                                                                                                                                                                                                          

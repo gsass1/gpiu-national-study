@@ -5,9 +5,9 @@ class StudyIteration < ApplicationRecord
 
   belongs_to :country
 
-  has_many :study_ranges
-  has_many :patients
-  has_many :department_questionnaires
+  has_many :study_ranges, dependent: :destroy
+  has_many :patients, dependent: :destroy
+  has_many :department_questionnaires, dependent: :destroy
   has_many :departments, through: :department_questionnaires
 
   enum acceptance_state: { unsubmitted: 0, pending: 1, accepted: 2, declined: 3 }
@@ -19,12 +19,12 @@ class StudyIteration < ApplicationRecord
 
   after_update :create_records_if_approved
 
-  notify_with proc { |f|
+  notify_with(proc { |f|
     {
       country_name: f.country.name,
       admin_link: Rails.application.routes.url_helpers.admin_study_iteration_url(f.id)
     }
-  }
+  })
 
   def active?
     study_ranges.any?(&:active?)
@@ -65,8 +65,10 @@ class StudyIteration < ApplicationRecord
   end
 
   def create_records_if_approved
-    if acceptance_state_previously_changed? && accepted?
-      Department.includes(:hospital).where(hospitals: { country_id: country_id }).find_each(&:create_department_questionnaire)
-    end
+    return unless acceptance_state_previously_changed? && accepted?
+
+    Department.includes(:hospital)
+              .where(hospitals: { country_id: country_id })
+              .find_each(&:create_department_questionnaire)
   end
 end

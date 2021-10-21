@@ -7,7 +7,7 @@ class Hospital < ApplicationRecord
   belongs_to :address, dependent: :destroy
   belongs_to :country
   belongs_to :user
-  has_many :departments
+  has_many :departments, dependent: :destroy
   has_many :patients, through: :departments
   accepts_nested_attributes_for :address
 
@@ -24,12 +24,12 @@ class Hospital < ApplicationRecord
 
   validates :first_department_name, presence: true, on: :create unless Rails.env.test?
 
-  notify_with proc { |f|
+  notify_with(proc { |f|
     {
       site_link: Rails.application.routes.url_helpers.hospital_path(f),
       admin_link: Rails.application.routes.url_helpers.regional_admin_country_hospital_path(f.country, f)
     }
-  }
+  })
 
   def to_s
     name

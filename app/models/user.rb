@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include DeviseConfiguration
   include Discard::Model
   include Bitmask
   rolify
@@ -10,31 +11,13 @@ class User < ApplicationRecord
   before_create :set_default_notification_settings
   after_create :assign_default_role
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  if Keycloak.enabled?
-    if Gpiu.allow_local_accounts?
-      devise :database_authenticatable, :registerable,
-             :rememberable, :trackable, :validatable,
-             :recoverable,
-             :omniauthable, omniauth_providers: [:keycloakopenid]
-    else
-      devise :database_authenticatable, :registerable,
-             :rememberable, :trackable, :validatable,
-             :omniauthable, omniauth_providers: [:keycloakopenid]
-    end
-  else
-    devise :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :trackable, :validatable
-  end
-
   has_many :employed, dependent: :destroy, class_name: 'Employee'
   has_many :departments, through: :employed
-  has_many :hospitals
+  has_many :hospitals, dependent: :destroy
   has_many :employed_hospitals, through: :departments, source: :hospital
-  has_many :notifications, foreign_key: :recipient_id
-  has_many :patients, dependent: :destroy, foreign_key: :creator_id
-  has_many :support_requests
+  has_many :notifications, foreign_key: :recipient_id, dependent: :destroy, inverse_of: :recipient
+  has_many :patients, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
+  has_many :support_requests, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -66,11 +49,11 @@ class User < ApplicationRecord
   end
 
   # NOTE(gian): helper methods for employment
-  def is_employed?
+  def employed?
     employed.any?
   end
 
-  def is_employed_in?(department)
+  def employed_in?(department)
     !employement_for(department).nil?
   end
 
@@ -94,24 +77,6 @@ class User < ApplicationRecord
 
   def invalid_patients_count
     patients.count - valid_patients_count
-  end
-
-  def self.from_omniauth(auth)
-    where(keycloak_uid: auth.uid).first_or_create do |user|
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.registered_through_keycloak = true
-    end
-  end
-
-  def synchronize_with_keycloak_info(auth)
-    self.first_name = auth.info.first_name
-    self.last_name = auth.info.last_name
-    self.email = auth.info.email
-    self.registered_through_keycloak = true
-    save
   end
 
   def external?

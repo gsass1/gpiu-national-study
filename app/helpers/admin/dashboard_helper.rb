@@ -34,7 +34,7 @@ module Admin
     end
 
     def study_iteration_sidepanel_section
-      subsections = Country.all.order(name: :asc).map do |c|
+      subsections = ::Country.all.order(name: :asc).map do |c|
         {
           name: c.name,
           path: admin_study_iterations_path(country: c.iso_2),

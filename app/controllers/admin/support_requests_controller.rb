@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 module Admin
-  class SupportRequestsController < ApplicationController
-    include AdminAuthenticated
-    include Admin::ResourcePage
-    layout 'admin'
+  class SupportRequestsController < ResourceController
   end
 end

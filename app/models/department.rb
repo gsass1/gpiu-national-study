@@ -4,9 +4,9 @@ class Department < ApplicationRecord
   include CsvCollection
 
   belongs_to :hospital
-  has_many :department_questionnaires
-  has_many :employees
-  has_many :patients
+  has_many :department_questionnaires, dependent: :destroy
+  has_many :employees, dependent: :destroy
+  has_many :patients, dependent: :destroy
   has_many :users, through: :employees
   validates :name, presence: true, uniqueness: { scope: :hospital_id }
 
@@ -27,9 +27,9 @@ class Department < ApplicationRecord
 
   def create_department_questionnaire
     study_iteration = hospital.country.current_study_iteration
-    if !study_iteration.nil? && current_department_questionnaire.nil?
-      department_questionnaires.create study_iteration_id: study_iteration.id
-    end
+    return unless !study_iteration.nil? && current_department_questionnaire.nil?
+
+    department_questionnaires.create study_iteration_id: study_iteration.id
   end
 
   def patient_count

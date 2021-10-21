@@ -5,10 +5,10 @@ require 'tzinfo'
 class Country < ApplicationRecord
   resourcify
 
-  has_many :hospitals
+  has_many :hospitals, dependent: :destroy
   has_many :departments, through: :hospitals
-  has_many :study_iterations
-  has_many :users
+  has_many :study_iterations, dependent: :destroy
+  has_many :users, dependent: :destroy
 
   validates :iso_2, presence: true
   validates :iso_3, presence: true
