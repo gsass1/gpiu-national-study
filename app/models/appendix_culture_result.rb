@@ -245,20 +245,27 @@ class AppendixCultureResult < ApplicationRecord
     }
   ].freeze
 
+  OTHER_PATHOGENS = ['Other enterobacteriaceae.',
+                     'Other non-fermenter.',
+                     'Other gram-positive cocci.',
+                     'Other bacteria',
+                     'Other fungi.'].freeze
+
   validates :first_pathogen, presence: { message: 'Please select.' }
 
-  validates :first_pathogen_specify, presence: { message: 'Please specify.' }, if: proc { |f|
-                                                                                     f.first_pathogen == 'Other enterobacteriaceae.' || f.first_pathogen == 'Other non-fermenter.' || f.first_pathogen == 'Other gram-positive cocci.' || f.first_pathogen == 'Other bacteria' || f.first_pathogen == 'Other fungi.'
-                                                                                   }
+  validates :first_pathogen_specify,
+            presence: { message: 'Please specify.' },
+            if: proc { |f| OTHER_PATHOGENS.include?(f.first_pathogen) }
   validates :first_pathogen_enter_cfu_ml, inclusion: { in: 1..5, message: 'Please select.' }
 
   validates :second_pathogen, presence: { message: 'Please select.' }, if: proc { |f| f.second_pathogen.present? }
-  validates :second_pathogen_specify, presence: { message: 'Please specify.' }, if: proc { |f|
-                                                                                      f.second_pathogen == 'Other enterobacteriaceae.' || f.second_pathogen == 'Other non-fermenter.' || f.second_pathogen == 'Other gram-positive cocci.' || f.second_pathogen == 'Other bacteria' || f.second_pathogen == 'Other fungi.'
-                                                                                    }
-  validates :second_pathogen_enter_cfu_ml, inclusion: { in: 1..5, message: 'Please select.' }, if: proc { |f|
-                                                                                                     f.second_pathogen.present?
-                                                                                                   }
+
+  validates :second_pathogen_specify,
+            presence: { message: 'Please specify.' },
+            if: proc { |f| OTHER_PATHOGENS.include?(f.second_pathogen) }
+  validates :second_pathogen_enter_cfu_ml,
+            inclusion: { in: 1..5, message: 'Please select.' },
+            if: proc { |f| f.second_pathogen.present?  }
 
   validates :susceptibility_standard, inclusion: { in: 1..4, message: 'Please select.' }
 
@@ -270,12 +277,14 @@ class AppendixCultureResult < ApplicationRecord
           fgroup.validate "#{pos}_#{group[:field]}_count".to_sym
           group[:sub_fields].each do |sub_field|
             if sub_field[:cat].nil?
-              fgroup.validates "#{pos}_#{sub_field[:field]}_s".to_sym, inclusion: { in: 0..2, message: 'Please select' },
-                                                                       if: "#{pos}_#{sub_field[:field]}".to_sym
+              fgroup.validates "#{pos}_#{sub_field[:field]}_s".to_sym,
+                               inclusion: { in: 0..2, message: 'Please select' },
+                               if: "#{pos}_#{sub_field[:field]}".to_sym
             else
               sub_field[:group].each do |sub_sub_field|
                 fgroup.validates "#{pos}_#{sub_sub_field[:field]}_s".to_sym,
-                                 inclusion: { in: 0..2, message: 'Please select' }, if: "#{pos}_#{sub_sub_field[:field]}".to_sym
+                                 inclusion: { in: 0..2, message: 'Please select' },
+                                 if: "#{pos}_#{sub_sub_field[:field]}".to_sym
               end
             end
           end
@@ -299,9 +308,10 @@ class AppendixCultureResult < ApplicationRecord
       end
 
       define_method "#{group[:field]}_count" do |place|
-        condition = group[:sub_fields].map do |f|
-                      send("#{place}_#{f[:field]}")
-                    end.inject(false) { |acc, x| acc || x }
+        field_values = group[:sub_fields].map do |f|
+          send("#{place}_#{f[:field]}")
+        end
+        condition = field_values.inject(false) { |acc, x| acc || x }
         errors.add("#{place}_#{group[:field]}".to_sym, 'Please select') unless condition
       end
     end

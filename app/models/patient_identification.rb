@@ -29,9 +29,9 @@ class PatientIdentification < ApplicationRecord
   private
 
   def admission_date_is_in_past
-    if !admission_date.nil? && (admission_date > Date.today)
-      errors.add(:admission_date, 'Patient cannot be admitted in the future')
-    end
+    return unless !admission_date.nil? && (admission_date > Date.today)
+
+    errors.add(:admission_date, 'Patient cannot be admitted in the future')
   end
 
   def sanitize_attributes

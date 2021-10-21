@@ -26,14 +26,16 @@ class BiopsyQuestionnaire < ApplicationRecord
   validate_yes_no_unknown :prostate_size_measured
   validate_yes_no_unknown :diabetes_mellitus
   validate_yes_no_unknown :psa
-  validates :psa_size, presence: true, numericality: { greater_than_or_equal_to: 0 }, if: proc { |f|
-                                                                                            f.psa == 'yes'
-                                                                                          }
+  validates :psa_size,
+            presence: true,
+            numericality: { greater_than_or_equal_to: 0 },
+            if: proc { |f| f.psa == 'yes' }
 
   validate_yes_no_unknown :repeated_biopsy
-  validates :repeated_biopsy_number_previous_procedures, presence: true, numericality: { greater_than_or_equal_to: 0 }, if: proc { |f|
-                                                                                                                              f.repeated_biopsy == 'yes'
-                                                                                                                            }
+  validates :repeated_biopsy_number_previous_procedures,
+            presence: true,
+            numericality: { greater_than_or_equal_to: 0 },
+            if: proc { |f| f.repeated_biopsy == 'yes' }
 
   validate_yes_no_unknown :preoperative_urine_examination
   validate_yes_no_unknown :preoperative_bowel_preparation
@@ -53,7 +55,7 @@ class BiopsyQuestionnaire < ApplicationRecord
   enum preoperative_urine_examination_type: { dipstick: 0, culture: 1 }, _prefix: true
 
   def initial=(initial)
-    patient.update_attribute :initial, initial
+    patient.update(initial: initial)
   end
 
   delegate :initial, to: :patient

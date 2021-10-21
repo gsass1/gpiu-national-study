@@ -30,11 +30,11 @@ class User < ApplicationRecord
 
   has_many :employed, dependent: :destroy, class_name: 'Employee'
   has_many :departments, through: :employed
-  has_many :hospitals
+  has_many :hospitals, dependent: :destroy
   has_many :employed_hospitals, through: :departments, source: :hospital
-  has_many :notifications, foreign_key: :recipient_id
-  has_many :patients, dependent: :destroy, foreign_key: :creator_id
-  has_many :support_requests
+  has_many :notifications, foreign_key: :recipient_id, dependent: :destroy, inverse_of: :recipient
+  has_many :patients, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
+  has_many :support_requests, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -66,11 +66,11 @@ class User < ApplicationRecord
   end
 
   # NOTE(gian): helper methods for employment
-  def is_employed?
+  def employed?
     employed.any?
   end
 
-  def is_employed_in?(department)
+  def employed_in?(department)
     !employement_for(department).nil?
   end
 

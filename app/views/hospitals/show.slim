@@ -67,7 +67,7 @@
             strong.lead= "#{department.name}"
             .float-right
               .btn-group
-                - unless current_user.is_employed_in?(department)
+                - unless current_user.employed_in?(department)
                   = simple_form_for([@hospital, department, Employee.new], method: :post) do |f|
                     = f.hidden_field :department_id, value: department.id
                     = f.button :submit, t('hospitals.show.check_into_department'), class: 'btn btn-success btn-sm'
@@ -76,7 +76,7 @@
                     = f.hidden_field :department_id, value: department.id
                     = f.button :submit, t('hospitals.show.check_out_of_department'), class: 'btn btn-danger btn-sm'
           .card-body.department-patients
-            - unless current_user.is_employed_in?(department)
+            - unless current_user.employed_in?(department)
               table.table.table-striped
                 tr
                   th.text-center
