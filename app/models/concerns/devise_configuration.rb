@@ -12,9 +12,8 @@ module DeviseConfiguration
       flags = BASE_FLAGS.dup
 
       if Keycloak.enabled?
-        flags.push(*KEYCLOAK_FLAGS)
-
         flags.push(:recoverable) if Gpiu.allow_local_accounts?
+        flags.push(*KEYCLOAK_FLAGS)
       else
         flags.push(:recoverable)
 
@@ -33,5 +32,5 @@ module DeviseConfiguration
                   rememberable
                   registerable].freeze
 
-  KEYCLOAK_FLAGS = [:omniauthable, { omniauth_providers: [:keycloakopenid] }].freeze
+  KEYCLOAK_FLAGS = [:omniauthable, omniauth_providers: [:keycloakopenid]].freeze
 end
