@@ -79,24 +79,6 @@ class User < ApplicationRecord
     patients.count - valid_patients_count
   end
 
-  def self.from_omniauth(auth)
-    where(keycloak_uid: auth.uid).first_or_create do |user|
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.registered_through_keycloak = true
-    end
-  end
-
-  def synchronize_with_keycloak_info(auth)
-    self.first_name = auth.info.first_name
-    self.last_name = auth.info.last_name
-    self.email = auth.info.email
-    self.registered_through_keycloak = true
-    save
-  end
-
   def external?
     keycloak_uid.present?
   end
