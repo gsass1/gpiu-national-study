@@ -4,17 +4,15 @@ module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def keycloakopenid
       auth = request.env['omniauth.auth']
+      user = SynchronizeUserService.call(auth)
 
-      @user = User.from_omniauth(auth)
-
-      if @user.persisted? && @user.synchronize_with_keycloak_info(auth)
+      if user
         flash[:success] = t('signed_in_keycloak')
-        sign_in_and_redirect @user, event: :authentication
-      else
-        flash[:danger] = t('signed_in_keycloak_failed')
-        session['devise.keycloakopenid_data'] = request.env['omniauth.auth'].except('credentials')
-        redirect_to root_path
+        sign_in_and_redirect(user, event: :authentication) and return
       end
+
+      flash[:danger] = t('signed_in_keycloak_failed')
+      redirect_to root_path
     end
 
     def failure
