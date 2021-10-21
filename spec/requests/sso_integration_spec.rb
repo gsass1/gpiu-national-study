@@ -36,7 +36,7 @@ RSpec.describe 'SSO Integration', type: :request do
       it 'assigns the correct info' do
         get_callback
 
-        expect(User.last).to have_attributes(name: 'Max', last_name: 'Mustermann', email: 'test@test.com',
+        expect(User.last).to have_attributes(first_name: 'Max', last_name: 'Mustermann', email: 'test@test.com',
                                              keycloak_uid: '123456789')
       end
 
