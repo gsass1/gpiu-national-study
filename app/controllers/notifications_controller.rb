@@ -8,6 +8,6 @@ class NotificationsController < ApplicationController
                                                                                                    :notifiable)
 
     # Update unread notifications
-    current_user.unread_notifications.update_all(read_at: DateTime.now)
+    current_user.unread_notifications.each { |n| n.update(read_at: DateTime.now) }
   end
 end
