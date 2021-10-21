@@ -105,4 +105,8 @@ module ApplicationHelper
   def disable_header_margin
     @no_header_margin = true
   end
+
+  def keycloak_authorize_path
+    omniauth_authorize_path('user', 'keycloakopenid')
+  end
 end
