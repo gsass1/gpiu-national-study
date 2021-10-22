@@ -12,8 +12,6 @@ RSpec.describe 'Regional Admins > Export data' do
   before do
     travel 100.days # Pass the study iteration
     sign_in(user)
-
-    #allow(Department).to receive(:as_csv_collection).and_return('1,2,3,4')
   end
 
   shared_examples 'cannot export data' do
