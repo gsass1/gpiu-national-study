@@ -17,21 +17,10 @@ build_test_image:
   script:
     - docker build -f Dockerfile.test -t gpiu-national-test .
 
-eslint:
-  stage: test
-  script:
-    - docker run --rm gpiu-national-test yarn run eslint app/javascript/controllers
-
 rspec:
   stage: test
   script:
-    - mkdir -p $PWD/coverage
-    - chmod -R 777 $PWD/coverage
-    - docker run -v $PWD/coverage:/app/coverage --rm gpiu-national-test bundle exec rspec
-  artifacts:
-    paths:
-      - coverage
-    expire_in: 1 week
+    - docker run --rm gpiu-national-test bundle exec rspec --format documentation
 
 build_image:
   only:
