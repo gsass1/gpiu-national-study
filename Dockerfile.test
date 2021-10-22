@@ -1,4 +1,4 @@
-FROM ruby:2.7.4-alpine3.13
+FROM ruby:2.7.4-alpine3.13 as BUILDER
 
 RUN apk update && apk -U upgrade \
     && apk add build-base \
@@ -9,22 +9,45 @@ RUN apk update && apk -U upgrade \
     postgresql-dev \
     sqlite-dev \
     tzdata \
-    firefox \
     yarn
+
+WORKDIR /app
+
+# Install gems, clean unneeded files
+COPY Gemfile* /app/
+RUN bundle config set with 'development test' \
+    && bundle install -j4 --retry 3 \
+    && rm -rf /usr/local/bundle/cache/*.gem \
+    && find /usr/local/bundle/gems/ -name "*.c" -delete \
+    && find /usr/local/bundle/gems/ -name "*.o" -delete
+
+# Install JS dependencies
+COPY package.json yarn.lock /app/
+RUN yarn install
+
+# Copy the app source
+COPY . /app
+
+# Precompile assets
+RUN RAILS_ENV=test bundle exec rake assets:precompile
+
+# Remove folders not needed in resulting image
+RUN rm -rf node_modules tmp/cache
+
+FROM ruby:2.7.4-alpine3.13
+
+RUN apk update && apk -U upgrade \
+    && apk add tini \
+    sqlite \
+    firefox \
+    tzdata
 
 RUN adduser -D -h /app gpiu
 USER gpiu
 
+COPY --from=BUILDER /usr/local/bundle/ /usr/local/bundle/
+COPY --from=BUILDER --chown=gpiu:gpiu /app /app
+
 WORKDIR /app
 
-# Install gems
-COPY --chown=gpiu Gemfile* /app/
-
-RUN bundle config set with 'development test'
-RUN bundle install
-
-# Install JS dependencies
-COPY --chown=gpiu package.json yarn.lock /app/
-RUN yarn install --check-files
-
-COPY --chown=gpiu . /app/
+EXPOSE 3000
