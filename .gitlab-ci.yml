@@ -1,3 +1,6 @@
+include:
+  - template: Code-Quality.gitlab-ci.yml
+
 stages:
   - build_test_image
   - test
@@ -13,24 +16,6 @@ build_test_image:
   stage: build_test_image
   script:
     - docker build -f Dockerfile.test -t gpiu-national-test .
-
-eslint:
-  stage: test
-  script:
-    - docker run --rm gpiu-national-test yarn run eslint app/javascript/controllers
-  allow_failure: true
-
-rubocop_app:
-  stage: test
-  script:
-    - docker run --rm gpiu-national-test bundle exec rubocop app
-  allow_failure: true
-
-rubocop_spec:
-  stage: test
-  script:
-    - docker run --rm gpiu-national-test bundle exec rubocop spec
-  allow_failure: true
 
 rspec:
   stage: test
