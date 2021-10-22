@@ -149,8 +149,6 @@ module RegionalAdmin
                 end
     end
 
-    private
-
     def set_tab
       @tab = params[:tab] || 'overview'
     end
