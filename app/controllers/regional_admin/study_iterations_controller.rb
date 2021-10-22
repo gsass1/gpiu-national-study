@@ -3,9 +3,11 @@
 module RegionalAdmin
   class StudyIterationsController < ApplicationController
     include RegionalAdminAuthenticated
+    include Admin::ExportData
     layout 'regional_admin'
     load_and_authorize_resource
 
+    before_action :set_tab, only: [:edit]
     before_action :load_si, :check_si_is_editable, only: %i[create_study_range delete_study_range submit]
     before_action :load_si, only: %i[export request_export_permission]
     before_action :check_has_ranges, only: [:submit]
@@ -68,7 +70,7 @@ module RegionalAdmin
     end
 
     def submit
-      if @study_iteration.update_attribute(:acceptance_state, :pending)
+      if @study_iteration.update(acceptance_state: :pending)
         User.with_role(:admin).each do |user|
           Notifier.notify(recipient: user, actor: current_user, notifiable: @study_iteration,
                           action: 'study_iterations.submission')
@@ -83,24 +85,9 @@ module RegionalAdmin
     end
 
     def export
-      if @study_iteration.exportable?
-        @type_of_data = params[:type_of_data]
-        case @type_of_data
-        when 'uti_ssi_patients'
-          @csv_data = Patient.as_csv_collection(@study_iteration.patients.uti_ssi)
-        when 'prostate_biopsy_patients'
-          @csv_data = Patient.as_csv_collection(@study_iteration.patients.prostate_biopsy)
-        when 'hospitals'
-          @csv_data = Department.as_csv_collection(@study_iteration.departments)
-        else
-          return
-        end
+      return if export_study_iteration
 
-        send_data @csv_data, filename: "#{@study_iteration.name.to_param}-#{@type_of_data}.csv"
-      else
-        flash[:danger] = 'This study iteration is not exportable yet.'
-        redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
-      end
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
     end
 
     def request_export_permission
@@ -133,22 +120,26 @@ module RegionalAdmin
     end
 
     def check_has_ranges
-      unless @study_iteration.study_ranges.any?
-        redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration),
-                    flash: { danger: 'A minimum of one study range is required.' }
-      end
+      return if @study_iteration.study_ranges.any?
+
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration),
+                  flash: { danger: 'A minimum of one study range is required.' }
     end
 
     def check_si_is_editable
       load_si
-      unless @study_iteration.unsubmitted?
-        flash[:danger] =
-          'This study iteration was already accepted or declined and cannot be changed anymore. Please create a new study iteration.'
-        redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
-      end
+
+      return if @study_iteration.unsubmitted?
+
+      flash[:danger] =
+        'This study iteration was already accepted or declined and cannot be changed anymore.'\
+        ' Please create a new study iteration.'
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
     end
 
     def load_calendar_months
+      return unless @tab == 'calendar'
+
       @study_ranges = @study_iteration.study_ranges
 
       @months = if @study_ranges.any?
@@ -156,6 +147,12 @@ module RegionalAdmin
                 else
                   []
                 end
+    end
+
+    private
+
+    def set_tab
+      @tab = params[:tab] || 'overview'
     end
   end
 end

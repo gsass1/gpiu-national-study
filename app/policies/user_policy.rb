@@ -28,4 +28,8 @@ class UserPolicy
   def admin?
     @user.has_role?(:admin)
   end
+
+  def can_export_data?(study_iteration)
+    signed_in? && (admin? || (regional_admin_for?(study_iteration.country) && study_iteration.exportable?))
+  end
 end

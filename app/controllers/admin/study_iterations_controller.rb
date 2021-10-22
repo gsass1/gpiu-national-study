@@ -3,6 +3,7 @@
 module Admin
   class StudyIterationsController < ApplicationController
     include AdminAuthenticated
+    include ExportData
     layout 'admin'
     load_and_authorize_resource
 
@@ -75,19 +76,9 @@ module Admin
     end
 
     def export
-      @type_of_data = params[:type_of_data]
-      case @type_of_data
-      when 'uti_ssi_patients'
-        @csv_data = Patient.as_csv_collection(@study_iteration.patients.uti_ssi)
-      when 'prostate_biopsy_patients'
-        @csv_data = Patient.as_csv_collection(@study_iteration.patients.prostate_biopsy)
-      when 'hospitals'
-        @csv_data = Department.as_csv_collection(@study_iteration.departments)
-      else
-        return
-      end
+      return if export_study_iteration
 
-      send_data @csv_data, filename: "#{@study_iteration.name.to_param}-#{@type_of_data}.csv"
+      redirect_to admin_study_iteration_path(@study_iteration, tab: :data)
     end
 
     private
