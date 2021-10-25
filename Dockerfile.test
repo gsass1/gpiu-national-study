@@ -45,7 +45,7 @@ RUN apk update && apk -U upgrade \
 ARG UID=1000
 ARG GID=1000
 
-RUN adduser -D -h /app gpiu --uid $UID --gid $GID
+RUN adduser -D -h /app gpiu -u $UID -G $GID
 USER gpiu
 
 
