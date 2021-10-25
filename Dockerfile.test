@@ -43,9 +43,8 @@ RUN apk update && apk -U upgrade \
     tzdata
 
 ARG UID=1000
-ARG GID=1000
 
-RUN adduser -D -h /app gpiu -u $UID -G $GID
+RUN adduser -D -h /app gpiu -u $UID
 USER gpiu
 
 
