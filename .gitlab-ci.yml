@@ -15,7 +15,7 @@ before_script:
 build_test_image:
   stage: build_test_image
   script:
-    - docker build -f Dockerfile.test -t gpiu-national-test .
+    - docker build -f Dockerfile.test -t gpiu-national-test --build-arg UID=$(id -u) --build-arg GID=$(id -g) .
 
 rspec:
   stage: test
