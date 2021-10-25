@@ -49,12 +49,29 @@ RSpec.configure do |config|
       opts.add_argument '-headless'
       opts.add_argument '--window-size=1920,1080'
     end
+
+    profile = Selenium::WebDriver::Firefox::Profile.new.tap do |prof|
+      prof['browser.download.folderList'] = 2
+      prof['browser.download.dir'] = DownloadHelpers::PATH.to_s
+      prof['browser.helperApps.neverAsk.saveToDisk'] =
+        'text/csv,text/tsv,text/xml,text/plain,application/pdf,application/doc,application/docx,image/jpeg,application/gzip,application/x-gzip'
+    end
+    browser_options.profile = profile
+
     Capybara::Selenium::Driver.new(app, **{ :browser => :firefox, options_key => browser_options })
   end
 
   Capybara.default_driver = :headless_firefox
   Capybara.current_driver = :headless_firefox
   Capybara.javascript_driver = :headless_firefox
+
+  config.before(:each, type: :feature) do
+    clear_downloads
+  end
+
+  config.after(:each, type: :feature) do
+    clear_downloads
+  end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -91,4 +108,5 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include DownloadHelpers
 end

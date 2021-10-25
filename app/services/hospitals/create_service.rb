@@ -10,6 +10,8 @@ module Hospitals
     def call
       save_hospital
 
+      return false unless @hospital.persisted?
+
       create_approval_notification
     end
 

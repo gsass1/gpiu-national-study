@@ -40,6 +40,10 @@ class StudyRange < ApplicationRecord
     (self.end - start).to_i
   end
 
+  def can_be_removed?
+    !((self.active? || self.passed?) && self.study_iteration.accepted?)
+  end
+
   private
 
   def start_after_treshold

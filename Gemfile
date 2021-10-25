@@ -46,10 +46,6 @@ gem 'identicon'
 gem 'material_icons'
 #gem 'material_design_icons'
 
-gem 'jquery-rails'
-
-gem 'chartkick'
-gem 'chartjs-ror'
 gem 'redcarpet'
 
 gem 'asciidoctor'
@@ -64,11 +60,6 @@ gem 'flag-icons-rails'
 gem 'sidekiq', '~>6.1'
 gem 'redis-namespace'
 gem 'omniauth-keycloak', git: 'https://github.com/gsass1/omniauth-keycloak'
-
-gem 'wicked_pdf'
-group :wk_binary do
-  gem 'wkhtmltopdf-binary'
-end
 
 gem 'tzinfo'
 
@@ -100,16 +91,16 @@ group :development do
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-doc'
-
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
 end
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'factory_bot_rails'
   gem 'faker'
+
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do

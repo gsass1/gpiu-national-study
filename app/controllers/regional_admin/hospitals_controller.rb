@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 module RegionalAdmin
-  class HospitalsController < ApplicationController
-    include RegionalAdminAuthenticated
-    include Admin::ResourcePage
-    layout 'regional_admin'
+  class HospitalsController < ResourceController
+    before_action :set_hospital, only: [:set_state]
 
     def set_state
-      @hospital = @country.hospitals.find_by(id: params[:hospital_id])
       if @hospital.update(acceptance_state: params[:state])
         flash[:success] = "Set acceptance state of #{@hospital.name} to #{params[:state]}"
         push_notifications
@@ -19,6 +16,10 @@ module RegionalAdmin
     end
 
     private
+
+    def set_hospital
+      @hospital = @country.hospitals.find_by(id: params[:hospital_id])
+    end
 
     def push_notifications
       Notifier.notify(recipient: @hospital.user, actor: current_user, notifiable: @hospital,
