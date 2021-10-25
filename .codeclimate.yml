@@ -1,7 +1,14 @@
 plugins:
   eslint:
-    enabled: true
+    enabled: false
     channel: "eslint-7"
+    config:
+      file: .eslintrc.json
   rubocop:
     enabled: true
-    channel: "rubocop-1-12-0"
+    channel: "rubocop-1-9-1"
+    config:
+      file: .rubocop.yml
+  exlude_patterns:
+    - 'public/**/*'
+    - 'node_modules/**/*'
