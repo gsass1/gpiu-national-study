@@ -41,7 +41,7 @@ class StudyRange < ApplicationRecord
   end
 
   def can_be_removed?
-    !((self.active? || self.passed?) && self.study_iteration.accepted?)
+    !((active? || passed?) && study_iteration.accepted?)
   end
 
   private
