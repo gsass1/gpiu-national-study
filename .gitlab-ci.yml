@@ -20,7 +20,11 @@ build_test_image:
 rspec:
   stage: test
   script:
-    - docker run --rm gpiu-national-test bundle exec rspec --format documentation
+    - mkdir -p $PWD/coverage
+    - docker run --rm -u gpiu -v $PWD/coverage:/app/coverage gpiu-national-test bundle exec rspec --format documentation
+  artifacts:
+    reports:
+      cobertura: coverage/coverage.xml
 
 build_image:
   only:

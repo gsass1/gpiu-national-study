@@ -111,6 +111,7 @@ group :test do
   gem 'webdrivers'
 
   gem 'simplecov', require: false
+  gem 'simplecov-cobertura'
 end
 
 group :production do
