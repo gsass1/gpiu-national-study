@@ -1,4 +1,6 @@
 # GPIU - National Study Platform
+[![pipeline status](https://git.thm.de/gpiu-esiu/gpiu-national/badges/dev/pipeline.svg)](https://git.thm.de/gpiu-esiu/gpiu-national/-/commits/dev)
+[![coverage report](https://git.thm.de/gpiu-esiu/gpiu-national/badges/dev/coverage.svg)](https://git.thm.de/gpiu-esiu/gpiu-national/-/commits/dev)
 
 ## Developed by
 * Felix Münscher
