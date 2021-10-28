@@ -15,12 +15,18 @@ before_script:
 build_test_image:
   stage: build_test_image
   script:
-    - docker build -f Dockerfile.test -t gpiu-national-test .
+    - docker build -f Dockerfile.test -t gpiu-national-test --build-arg UID=$(id -u) .
 
 rspec:
   stage: test
   script:
-    - docker run --rm gpiu-national-test bundle exec rspec --format documentation
+    - mkdir -p $PWD/coverage
+    - docker run --rm -u gpiu -v $PWD/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test bundle exec rspec --format documentation
+  variables:
+    SIMPLECOV_COBERTURA: "true"
+  artifacts:
+    reports:
+      cobertura: coverage/coverage.xml
 
 build_image:
   only:

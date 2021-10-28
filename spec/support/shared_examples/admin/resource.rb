@@ -19,6 +19,18 @@ RSpec.shared_examples_for 'admin resource' do |resource_class:|
         expect(page).to have_css('table tr', count: 11)
         expect(page).to have_content("Displaying #{resource_class.name.pluralize} 1 - 10")
       end
+
+      if resource_class.included_modules.include?(CsvCollection)
+        it 'can be downloaded as CSV' do
+          create(resource_class.name.underscore)
+
+          visit index_path
+          click_link 'Export All'
+
+          wait_for_download
+          expect(downloads.length).to eq(1)
+        end
+      end
     end
 
     context 'when logged in as normal user' do
@@ -41,6 +53,16 @@ RSpec.shared_examples_for 'admin resource' do |resource_class:|
       it 'shows the resource' do
         visit show_path
         expect(page).to have_content(resource.to_s)
+      end
+
+      if resource_class.included_modules.include?(CsvCollection)
+        it 'can be downloaded as CSV' do
+          visit show_path
+          click_link 'Export'
+
+          wait_for_download
+          expect(downloads.length).to eq(1)
+        end
       end
     end
 

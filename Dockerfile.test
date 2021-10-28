@@ -42,8 +42,11 @@ RUN apk update && apk -U upgrade \
     firefox \
     tzdata
 
-RUN adduser -D -h /app gpiu
+ARG UID=1000
+
+RUN adduser -D -h /app gpiu -u $UID
 USER gpiu
+
 
 COPY --from=BUILDER /usr/local/bundle/ /usr/local/bundle/
 COPY --from=BUILDER --chown=gpiu:gpiu /app /app
