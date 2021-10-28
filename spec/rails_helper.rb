@@ -3,7 +3,9 @@
 require 'simplecov'
 require 'simplecov-cobertura'
 
-SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+if ENV['SIMPLECOV_COBERTURA']
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+end
 SimpleCov.start
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'

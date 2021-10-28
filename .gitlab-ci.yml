@@ -21,7 +21,9 @@ rspec:
   stage: test
   script:
     - mkdir -p $PWD/coverage
-    - docker run --rm -u gpiu -v $PWD/coverage:/app/coverage gpiu-national-test bundle exec rspec --format documentation
+    - docker run --rm -u gpiu -v $PWD/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test bundle exec rspec --format documentation
+  variables:
+    SIMPLECOV_COBERTURA: "true"
   artifacts:
     reports:
       cobertura: coverage/coverage.xml

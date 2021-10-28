@@ -5,5 +5,7 @@ module RegionalAdmin
     include RegionalAdminAuthenticated
     include Admin::ResourcePage
     layout 'regional_admin'
+
+    helper_method :current_country
   end
 end
