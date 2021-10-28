@@ -32,5 +32,5 @@ module DeviseConfiguration
                   rememberable
                   registerable].freeze
 
-  KEYCLOAK_FLAGS = [:omniauthable, omniauth_providers: [:keycloakopenid]].freeze
+  KEYCLOAK_FLAGS = [:omniauthable, omniauth_providers: [:keycloakopenid]].freeze # rubocop:disable Style/HashAsLastArrayItem
 end

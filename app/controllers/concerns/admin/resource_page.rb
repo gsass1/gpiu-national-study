@@ -12,14 +12,13 @@ module Admin
     included do
       @resource_name ||= controller_name
 
-      before_action :link_prefix, :add_breadcrumbs, :load_study_iterations
+      before_action :set_resource_class_presenter, :url_prefix, :add_breadcrumbs, :load_study_iterations
+      before_action :resource_query, only: [:index]
     end
 
     def new
-      add_breadcrumb 'New', "/#{@link_prefix}/#{@resource_name}/new"
-      @resource = resource_class.new
-      # NOTE(gian): load resource associations
-      resource_associations
+      add_breadcrumb 'New', "/#{@url_prefix}/#{@resource_name}/new"
+      @resource = ResourcePresenter.new(resource: resource_class.new)
       respond_to do |format|
         format.html { render template: 'admin/resources/new' }
       end
@@ -34,30 +33,39 @@ module Admin
       else
         flash[:danger] = 'Failed to create resource.'
         respond_to do |format|
+          @resource = ResourcePresenter.new(resource: @resource)
           format.html { render template: 'admin/resources/new' }
         end
       end
     end
 
     def index
-      resource_query
       respond_to do |format|
-        format.html { render template: 'admin/resources/index' }
+        format.html do
+          @resources = @resources.map { |r| ResourcePresenter.new(resource: r) }
+          render template: 'admin/resources/index'
+        end
         format.csv do
-          csv_data = resource_class.as_csv_collection(resource_class.accessible_by(current_ability).includes(resource_associations))
+          csv_data = resource_class.as_csv_collection(
+            resource_class.accessible_by(current_ability)
+                          .includes(@class_presenter.all_associations)
+          )
           send_data csv_data, filename: "#{resource_name.pluralize}.csv"
         end
       end
     end
 
     def show
-      resource_associations
-      resource_class
-      link_prefix
       @resource = resource_class.accessible_by(current_ability).find(params[:id])
-      add_breadcrumb @resource, "/#{@link_prefix}/#{@resource_name}/#{@resource.id}"
+      authorize! :read, @resource
+
+      add_breadcrumb @resource, "/#{@url_prefix}/#{@resource_name}/#{@resource.id}"
+
       respond_to do |format|
-        format.html { render template: 'admin/resources/show' }
+        format.html do
+          @resource = ResourcePresenter.new(resource: @resource)
+          render template: 'admin/resources/show'
+        end
         format.csv do
           csv_data = resource_class.as_csv_collection([@resource])
           send_data csv_data, filename: "#{@resource}.csv"
@@ -66,12 +74,12 @@ module Admin
     end
 
     def edit
-      link_prefix
       @resource = resource_class.accessible_by(current_ability).find(params[:id])
       authorize! :edit, @resource
-      # NOTE(gian): load resource associations
-      resource_associations
-      add_breadcrumb "Edit #{@resource}", "/#{@link_prefix}/#{@resource_name}/#{@resource.id}/edit"
+
+      add_breadcrumb "Edit #{@resource}", "/#{@url_prefix}/#{@resource_name}/#{@resource.id}/edit"
+
+      @resource = ResourcePresenter.new(resource: @resource)
       respond_to do |format|
         format.html { render template: 'admin/resources/edit' }
       end
@@ -80,13 +88,17 @@ module Admin
     def update
       @resource = resource_class.accessible_by(current_ability).find(params[:id])
       authorize! :update, @resource
+
       if @resource.update(resource_params)
         flash[:success] = 'Resource was updated.'
         redirect_back_dashboard
       else
         flash[:danger] = 'Failed to update resource.'
         respond_to do |format|
-          format.html { render template: 'admin/resources/edit' }
+          format.html do
+            @resource = ResourcePresenter.new(resource: @resource)
+            render template: 'admin/resources/edit'
+          end
         end
       end
     end
@@ -96,6 +108,7 @@ module Admin
     def destroy
       @resource = resource_class.accessible_by(current_ability).find(params[:id])
       authorize! :delete, @resource
+
       if @resource.discarded?
         @resource.undiscard!
         flash[:notice] = 'Resource was restored.'
@@ -121,23 +134,9 @@ module Admin
 
     private
 
-    def resource_associations
-      # NOTE(gian): Include all associations that are present in admin_table_fields
-      # We do this by first getting all of the class' associations and then using & to remove every associations that is not in admin_table_fields
-      @resource_associations ||= resource_class.reflect_on_all_associations.map(&:name) & resource_admin_class.table_fields
-    end
-
-    def resource_association_id_fields
-      # NOTE(gian): all association fields need to be "renamed" to represent their ID
-      resource_associations.map { |f| "#{f}_id".to_sym }
-    end
-
-    def resource_fields_excluding_associations
-      resource_admin_class.form_fields - resource_associations
-    end
-
     def resource_params
-      params.require(resource_class.name.parameterize.underscore.to_sym).permit(*(resource_fields_excluding_associations + resource_association_id_fields))
+      params.require(resource_class.name.parameterize.underscore.to_sym)
+            .permit(*(@class_presenter.fields_excluding_associations + @class_presenter.all_associations_with_id))
     end
 
     def prefix
@@ -145,8 +144,8 @@ module Admin
       @prefix ||= controller_path.split('/')[0]
     end
 
-    def link_prefix
-      @link_prefix ||= (prefix == 'admin' ? 'admin' : "regional_admin/#{@country.iso_2}")
+    def url_prefix
+      @url_prefix ||= (prefix == 'admin' ? 'admin' : "regional_admin/#{@country.iso_2}")
     end
 
     def dashboard_path
@@ -164,7 +163,7 @@ module Admin
 
     def add_breadcrumbs
       add_breadcrumb 'Admin', dashboard_path
-      add_breadcrumb resource_name.split('_').map(&:capitalize).join(' '), "/#{@link_prefix}/#{@resource_name}"
+      add_breadcrumb resource_name.split('_').map(&:capitalize).join(' '), "/#{@url_prefix}/#{@resource_name}"
     end
 
     def resource_query
@@ -177,7 +176,9 @@ module Admin
 
       @per = 10 if @per <= 0
 
-      @resources = resource_class.accessible_by(current_ability).includes(resource_associations).order("#{@sort} #{@order}")
+      @resources = resource_class.accessible_by(current_ability)
+                                 .includes(@class_presenter.all_associations)
+                                 .order("#{@sort} #{@order}")
 
       @total_pages = (@resources.count / @per.to_f).ceil
 
@@ -200,6 +201,10 @@ module Admin
 
     def load_study_iterations
       @study_iterations = current_user.country.study_iterations
+    end
+
+    def set_resource_class_presenter
+      @class_presenter = ResourceClassPresenter.new(resource_class: resource_class)
     end
   end
 end
