@@ -60,6 +60,7 @@ gem 'flag-icons-rails'
 gem 'sidekiq', '~>6.1'
 gem 'redis-namespace'
 gem 'omniauth-keycloak', git: 'https://github.com/gsass1/omniauth-keycloak'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 gem 'tzinfo'
 
