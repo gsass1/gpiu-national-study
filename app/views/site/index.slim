@@ -10,7 +10,7 @@
         - if Keycloak::enabled?
           h4.pt-5 Sign in
           hr
-          = link_to "Sign in with #{Keycloak::host}", keycloak_authorize_path, class: 'btn btn-success'
+          = link_to "Sign in with #{Keycloak::host}", keycloak_authorize_path, class: 'btn btn-success', method: :post
           - if Gpiu::allow_local_accounts?
             = link_to "Sign in locally", new_user_session_path, class: 'btn btn-primary mt-2'
         - else
