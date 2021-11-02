@@ -80,7 +80,7 @@ module Admin
     end
 
     def admin_controller?
-      @prefix == 'admin'
+      controller_path.start_with?('admin')
     end
 
     def resource_page_path(p, order = @order, sort = @sort, per = @per.to_s)

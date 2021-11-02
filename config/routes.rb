@@ -23,7 +23,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :dashboard, only: :index
-    resources :users
+    resources :users do
+      resources :roles, only: [:index, :create, :destroy]
+    end
     resources :hospitals
     resources :support_requests
     resources :patients
