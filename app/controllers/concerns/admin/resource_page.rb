@@ -89,7 +89,12 @@ module Admin
       @resource = resource_class.accessible_by(current_ability).find(params[:id])
       authorize! :update, @resource
 
-      if @resource.update(resource_params)
+      @resource.assign_attributes(resource_params)
+      unless can?(:update, @resource)
+        redirect_back_dashboard(alert: 'Unable to update resource because the change would cause you to have insufficient permissions to access it further.') and return
+      end
+
+      if @resource.save
         flash[:success] = 'Resource was updated.'
         redirect_back_dashboard
       else
@@ -136,7 +141,7 @@ module Admin
 
     def resource_params
       params.require(resource_class.name.parameterize.underscore.to_sym)
-            .permit(*(@class_presenter.fields_excluding_associations + @class_presenter.all_associations_with_id))
+            .permit(*@class_presenter.controller_params)
     end
 
     def prefix
@@ -157,8 +162,8 @@ module Admin
       end
     end
 
-    def redirect_back_dashboard
-      redirect_back fallback_location: dashboard_path
+    def redirect_back_dashboard(options = {})
+      redirect_back fallback_location: dashboard_path, **options
     end
 
     def add_breadcrumbs

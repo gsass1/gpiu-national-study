@@ -1,0 +1,11 @@
+- resource.single_form_fields.each do |field|
+  = resource_form_input(f, resource, field)
+
+- resource.nested_form_fields.each do |field, attributes|
+  hr
+  = f.simple_fields_for(field, resource.get_or_build_association(field)) do |nested_form|
+    - attributes.each do |attr|
+      = nested_form.input attr
+
+.form-actions
+  = f.button :submit, class: "btn btn-success float-right"
