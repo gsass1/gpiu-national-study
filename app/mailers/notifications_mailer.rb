@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NotificationsMailer < ApplicationMailer
-  add_template_helper NotificationsHelper
+  helper NotificationsHelper
 
   default from: 'gpiu-serpens-mni@lists.thm.de'
 
