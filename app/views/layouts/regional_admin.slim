@@ -19,6 +19,7 @@ html
           - if breadcrumbs.any?
             .breadcrumbs-nav
               .container= render_breadcrumbs tag: 'span', separator: ' > '
+          = render 'shared/noscript_flash_messages'
           = yield
       = render 'shared/footer'
     = render 'shared/toasts'

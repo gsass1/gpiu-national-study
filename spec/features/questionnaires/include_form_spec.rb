@@ -15,7 +15,7 @@ RSpec.describe 'Patients > Include form' do
 
   it_behaves_like 'a questionnaire', name: 'patient identification'
 
-  describe 'form controls' do
+  describe 'form controls', js: true do
     describe 'pregnancy' do
       context 'when male' do
         before do
