@@ -12,6 +12,8 @@ module Admin
 
     delegate :table_fields, to: :class_presenter
     delegate :form_fields, to: :class_presenter
+    delegate :single_form_fields, to: :class_presenter
+    delegate :nested_form_fields, to: :class_presenter
     delegate :associations, to: :class_presenter
     delegate :custom_actions_proc, to: :class_presenter
     delegate :association?, to: :class_presenter
@@ -41,6 +43,35 @@ module Admin
 
     def class_name
       resource_class.name
+    end
+
+    def get_or_build_association(name)
+      result = resource.send(name)
+      return result unless result.nil?
+
+      resource.send("build_#{name}")
+    end
+
+    def field_association_collection(field)
+      value = field_value(field)
+      return value.class.all unless value.nil?
+
+      clazz = association_model(field)
+      return clazz.all unless clazz.nil?
+
+      nil
+    end
+
+    private
+
+    # Returns the class of an association
+    def association_model(field)
+      association = resource_class.reflect_on_all_associations.filter { |a| a.name == field }.first
+      return assocation.options[:class_name].constantize if association.options.key?(:class_name)
+
+      field.to_s.camelize.constantize.all
+    rescue StandardError
+      nil
     end
   end
 end

@@ -2,11 +2,12 @@ Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/internal_server_error'
   if Keycloak::enabled?
-    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
+    devise_for :users, skip: [:registrations], controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
     # Disable normal devise sign up page
-    devise_scope :users do
-      get '/sign_up', to: redirect('/')
+    as :user do
+      get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
+      match 'users' => 'registrations#update', :as => 'user_registration', via: [:patch, :put]
     end
   else
     devise_for :users

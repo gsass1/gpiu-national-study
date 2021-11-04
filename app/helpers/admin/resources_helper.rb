@@ -35,11 +35,13 @@ module Admin
 
     def resource_form_input(f, resource, field)
       if resource.class_presenter.all_associations.include?(field)
+        collection = resource.field_association_collection(field)
         value = resource.field_value(field)
-        f.input "#{field}_id".to_sym, collection: value.nil? ? nil : value.class.all,
+
+        f.input "#{field}_id".to_sym, collection: collection,
                                       selected: value.nil? ? nil : value.id, label_method: :to_s
       elsif resource.enum?(field)
-        f.input field, collection: resource.resource_class.send(field.to_s.pluralize.to_sym).keys
+        f.input field, collection: resource.class_presenter.enum_values(field)
       else
         f.input field
       end

@@ -1,19 +1,22 @@
 .container
   .card.mt-3
     .card-header.bg-primary.text-light
-      strong= "#{@resource} (#{@resource.id})"
+      strong= @resource
+      span.badge.badge-info.ml-2= "##{@resource.id}"
     .card-body[style="padding: 0;"]
       table.table.table-bordered[style="margin-bottom:0;"]
         tr
           th= "ID"
           td= @resource.id
-        - @resource.form_fields.each do |field|
+        - @resource.single_form_fields.each do |field|
           tr
             th[style="width: 20%;"]= @resource.human_attribute_name(field)
             td[style="width: 80%;"]= resource_field_value(@resource, field)
         - @resource.associations.each do |assoc_field|
           tr
-            th= "#{assoc_field.to_s.split('_').map(&:capitalize).join(' ')} (#{@resource.field_value(assoc_field).count})"
+            th
+              = "#{assoc_field.to_s.split('_').map(&:capitalize).join(' ')}"
+              span.badge.badge-info.ml-1= @resource.field_value(assoc_field).count
             td
               ul
                 - @resource.field_value(assoc_field).each do |assoc|

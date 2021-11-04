@@ -48,7 +48,27 @@ module Admin
     end
 
     def fields_excluding_associations
-      resource_admin_class.form_fields - all_associations
+      single_form_fields - all_associations
+    end
+
+    def nested_field_attributes
+      nested_form_fields.map { |k, v| { "#{k}_attributes" => v } }
+    end
+
+    def single_form_fields
+      form_fields.reject { |f| f.is_a?(Hash) }
+    end
+
+    def nested_form_fields
+      form_fields.filter { |f| f.is_a?(Hash) }.first || {}
+    end
+
+    def controller_params
+      fields_excluding_associations + all_associations_with_id + nested_field_attributes
+    end
+
+    def enum_values(field)
+      resource_class.send(field.to_s.pluralize).keys
     end
   end
 end

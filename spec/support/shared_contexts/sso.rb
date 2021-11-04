@@ -9,4 +9,8 @@ RSpec.shared_context 'with SSO', shared_context: :metadata do
     allow_any_instance_of(ApplicationHelper).to receive(:keycloak_authorize_path).and_return('not important')
     Rails.application.reload_routes!
   end
+
+  after(:all) do
+    Rails.application.reload_routes!
+  end
 end

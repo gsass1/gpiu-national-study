@@ -6,8 +6,4 @@
       = resource_form(@resource, @url_prefix, :post) do |f|
         = f.error_notification
 
-        - @resource.form_fields.each do |field|
-          = resource_form_input(f, @resource, field)
-
-        .form-actions
-          = f.button :submit, "Create", class: "btn btn-lg btn-success float-right"
+        = render 'admin/resources/form', resource: @resource, f: f
