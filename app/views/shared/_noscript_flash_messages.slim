@@ -1,0 +1,9 @@
+noscript
+  div
+  - flash.each do |message_type, message|
+    = content_tag :div, class: "alert #{bootstrap_class_for_flash(message_type)} alert-dismissible fade show", role: :alert do
+      .d-flex.flex-row.align-items-center.justify-content-center
+        i.material-icons.px-4= icon_class_for_flash(message_type)
+        span= message
+      button[type="button" class="close" data-dismiss="alert" aria-label="Close"]
+        span[aria-hidden="true"] &times;

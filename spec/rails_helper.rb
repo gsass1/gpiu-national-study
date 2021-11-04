@@ -47,12 +47,14 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  Capybara.server = :puma, { Silent: true }
+
   Capybara.register_driver :headless_firefox do |app|
     version = Capybara::Selenium::Driver.load_selenium
     options_key = Capybara::Selenium::Driver::CAPS_VERSION.satisfied_by?(version) ? :capabilities : :options
     browser_options = ::Selenium::WebDriver::Firefox::Options.new.tap do |opts|
       opts.add_argument '-headless'
-      opts.add_argument '--window-size=1920,1080'
+      opts.add_argument '--window-size=1280,720'
     end
 
     profile = Selenium::WebDriver::Firefox::Profile.new.tap do |prof|
@@ -66,9 +68,35 @@ RSpec.configure do |config|
     Capybara::Selenium::Driver.new(app, **{ :browser => :firefox, options_key => browser_options })
   end
 
-  Capybara.default_driver = :headless_firefox
-  Capybara.current_driver = :headless_firefox
-  Capybara.javascript_driver = :headless_firefox
+  Capybara.register_driver :headless_chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_preference(:download, prompt_for_download: false,
+                           default_directory: DownloadHelpers::PATH.to_s)
+    options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
+
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1280,800')
+
+    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
+
+    # Allow file downloads in Google Chrome when headless!!!
+    # https://bugs.chromium.org/p/chromium/issues/detail?id=696481#c89
+    bridge = driver.browser.send(:bridge)
+    path = "/session/#{bridge.session_id}/chromium/send_command"
+    bridge.http.call(:post, path, cmd: 'Page.setDownloadBehavior',
+                     params: {
+                       behavior: 'allow',
+                       downloadPath: DownloadHelpers::PATH.to_s
+                     })
+    driver
+  end
+
+  Capybara.default_driver = :headless_chrome
+  Capybara.current_driver = :headless_chrome
+  Capybara.javascript_driver = :headless_chrome
 
   config.before(:each, type: :feature) do
     clear_downloads

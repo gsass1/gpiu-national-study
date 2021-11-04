@@ -21,7 +21,7 @@ RSpec.describe 'Patients > Department questionnaire' do
   end
 
   describe 'section 2' do
-    describe 'Other type of hospital' do
+    describe 'Other type of hospital', js: true do
       context 'when Other hospital is chosen' do
         before do
           within '.department_questionnaire_hospital_type' do
