@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
     # Disable normal devise sign up page
     as :user do
+      if Gpiu.allow_local_accounts?
+        get 'users/new' => 'registrations#new', as: 'new_user_registration'
+        post 'users' => 'registrations#create'
+      end
       get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
       match 'users' => 'registrations#update', :as => 'user_registration', via: [:patch, :put]
     end
