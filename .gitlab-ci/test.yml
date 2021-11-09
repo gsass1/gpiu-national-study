@@ -1,7 +1,7 @@
 build_test_image:
   stage: build_test_image
   script:
-    - docker build -f Dockerfile.test -t gpiu-national-test:$CI_COMMIT_SHORT_SHA --build-arg UID=$(id -u) .
+    - docker build -f Dockerfile.test -t gpiu-national-test:$CI_COMMIT_SHORT_SHA .
   tags:
     - esiu
     - build
