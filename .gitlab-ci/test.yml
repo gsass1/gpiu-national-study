@@ -20,15 +20,12 @@ rspec:
   stage: test
   script:
     - mkdir -p /tmp/coverage
-    - docker run --rm -v /tmp/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
-    - ls /tmp/coverage
-  after_script:
-    - ls /tmp/coverage
+    - docker run --rm -v /builds/gpiu-esiu/gpiu-national/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
   variables:
     SIMPLECOV_COBERTURA: "true"
   artifacts:
     reports:
-      cobertura: /tmp/coverage/coverage.xml
+      cobertura: /builds/gpiu-esiu/gpiu-national/coverage/coverage.xml
   tags:
     - esiu
     - build
