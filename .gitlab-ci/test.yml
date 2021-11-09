@@ -21,6 +21,9 @@ rspec:
   script:
     - mkdir -p /tmp/coverage
     - docker run --rm -v /tmp/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
+    - ls /tmp/coverage
+  after_script:
+    - ls /tmp/coverage
   variables:
     SIMPLECOV_COBERTURA: "true"
   artifacts:
