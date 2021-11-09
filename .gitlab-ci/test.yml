@@ -11,10 +11,10 @@ build_test_image:
 #include:
 #  - template: Code-Quality.gitlab-ci.yml
 
-code_quality:
-  tags:
-    - esiu
-    - build
+# code_quality:
+#   tags:
+#     - esiu
+#     - build
 
 rspec:
   stage: test
