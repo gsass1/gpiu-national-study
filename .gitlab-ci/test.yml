@@ -8,8 +8,8 @@ build_test_image:
 
 # <============================================================================>
 
-include:
-  - template: Code-Quality.gitlab-ci.yml
+#include:
+#  - template: Code-Quality.gitlab-ci.yml
 
 code_quality:
   tags:
@@ -19,13 +19,13 @@ code_quality:
 rspec:
   stage: test
   script:
-    - mkdir -p $PWD/coverage
-    - docker run --rm -v $PWD/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
+    - mkdir -p /tmp/coverage
+    - docker run --rm -v /tmp/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
   variables:
     SIMPLECOV_COBERTURA: "true"
   artifacts:
     reports:
-      cobertura: coverage/coverage.xml
+      cobertura: /tmp/coverage/coverage.xml
   tags:
     - esiu
     - build
