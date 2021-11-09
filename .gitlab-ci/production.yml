@@ -1,0 +1,69 @@
+build_image_production:
+  only:
+    - master
+  stage: build_image
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest
+  tags:
+    - esiu
+    - build
+
+push_image_production:
+  only:
+    - master
+  stage: push_image
+  before_script:
+    - docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD
+  script:
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  tags:
+    - esiu
+    - build
+
+# <============================================================================>
+
+deploy_production:
+  only:
+    - master
+  stage: deploy_production
+  script:
+    - docker stack rm gpiu-national
+    - sleep 10
+    - docker stack deploy -c gpiu-national-stack-prod.yml gpiu-national --with-registry-auth
+  environment:
+    name: production
+    url: https://national.esiu.org/
+    on_stop: stop_production
+
+stop_production:
+  only:
+    - master
+  stage: deploy_production
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  script:
+    - docker stack rm gpiu-national
+  environment:
+    name: production
+    action: stop
+  tags:
+    - esiu
+    - deploy
+
+migrate_db:
+  only:
+    - master
+  stage: migrate_db
+  variables:
+    GPIU_NAT_DB_HOST: db
+    GPIU_NAT_DB_NAME: GpiuNational
+    GPIU_NAT_DB_USER: prod
+    GPIU_NAT_DB_PASSWORD: gpiu-national
+    RAILS_ENV: production
+  script: docker run --network=gpiu-national_gpiu_national_prod_net  -e GPIU_NAT_DB_HOST  -e GPIU_NAT_DB_NAME -e GPIU_NAT_DB_USER -e GPIU_NAT_DB_PASSWORD -e RAILS_ENV -t gpiu-registry.mni.thm.de/gpiu-national:latest  rails db:migrate
+  tags:
+    - esiu
+    - deploy
