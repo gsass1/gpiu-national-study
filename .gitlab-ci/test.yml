@@ -12,6 +12,7 @@ rspec:
   stage: test
   script:
     - mkdir -p $PWD/coverage
+    - chown -R 1000:1000 $PWD/coverage
     - docker run --rm -u gpiu -v $PWD/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
   variables:
     SIMPLECOV_COBERTURA: "true"
