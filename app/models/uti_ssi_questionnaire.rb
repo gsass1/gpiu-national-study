@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class UtiSsiQuestionnaire < ApplicationRecord
-  include AdminResource
   include Discard::Model
   include Questionnaire
   include SaveWithErrors
@@ -10,9 +11,9 @@ class UtiSsiQuestionnaire < ApplicationRecord
 
   belongs_to :patient
 
-  enum form_type: [:uti, :ssi]
+  enum form_type: { uti: 0, ssi: 1 }
 
-  enum antimicrobial_treatment: [:none, :oral, :parenteral, :both], _prefix: true
+  enum antimicrobial_treatment: { none: 0, oral: 1, parenteral: 2, both: 3 }, _prefix: true
 
   def appendix_antibiotics_count
     2

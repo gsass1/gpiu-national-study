@@ -1,9 +1,19 @@
+# frozen_string_literal: true
+
+require 'simplecov'
+require 'simplecov-cobertura'
+
+if ENV['SIMPLECOV_COBERTURA']
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+end
+SimpleCov.start
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -27,6 +37,8 @@ require 'rspec/rails'
 
 require 'devise'
 require './spec/support/factory_bot'
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+require 'capybara/rails'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -35,6 +47,65 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  Capybara.server = :puma, { Silent: true }
+
+  Capybara.register_driver :headless_firefox do |app|
+    version = Capybara::Selenium::Driver.load_selenium
+    options_key = Capybara::Selenium::Driver::CAPS_VERSION.satisfied_by?(version) ? :capabilities : :options
+    browser_options = ::Selenium::WebDriver::Firefox::Options.new.tap do |opts|
+      opts.add_argument '-headless'
+      opts.add_argument '--window-size=1280,720'
+    end
+
+    profile = Selenium::WebDriver::Firefox::Profile.new.tap do |prof|
+      prof['browser.download.folderList'] = 2
+      prof['browser.download.dir'] = DownloadHelpers::PATH.to_s
+      prof['browser.helperApps.neverAsk.saveToDisk'] =
+        'text/csv,text/tsv,text/xml,text/plain,application/pdf,application/doc,application/docx,image/jpeg,application/gzip,application/x-gzip'
+    end
+    browser_options.profile = profile
+
+    Capybara::Selenium::Driver.new(app, **{ :browser => :firefox, options_key => browser_options })
+  end
+
+  Capybara.register_driver :headless_chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_preference(:download, prompt_for_download: false,
+                           default_directory: DownloadHelpers::PATH.to_s)
+    options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
+
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1280,800')
+
+    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
+
+    # Allow file downloads in Google Chrome when headless!!!
+    # https://bugs.chromium.org/p/chromium/issues/detail?id=696481#c89
+    bridge = driver.browser.send(:bridge)
+    path = "/session/#{bridge.session_id}/chromium/send_command"
+    bridge.http.call(:post, path, cmd: 'Page.setDownloadBehavior',
+                     params: {
+                       behavior: 'allow',
+                       downloadPath: DownloadHelpers::PATH.to_s
+                     })
+    driver
+  end
+
+  Capybara.default_driver = :headless_chrome
+  Capybara.current_driver = :headless_chrome
+  Capybara.javascript_driver = :headless_chrome
+
+  config.before(:each, type: :feature) do
+    clear_downloads
+  end
+
+  config.after(:each, type: :feature) do
+    clear_downloads
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -68,4 +139,7 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include ActiveSupport::Testing::TimeHelpers
+  config.include DownloadHelpers
 end

@@ -1,5 +1,4 @@
-FROM ruby:2.7.1-alpine3.12
-WORKDIR /app
+FROM ruby:2.7.4-alpine3.13 as BUILDER
 
 RUN apk update && apk -U upgrade \
     && apk add build-base \
@@ -10,14 +9,43 @@ RUN apk update && apk -U upgrade \
     postgresql-dev \
     sqlite-dev \
     tzdata \
-    yarn
+    yarn \
+    python3 python3-dev py3-pip
 
-# Install gems
+WORKDIR /app
+
+# Install gems, clean unneeded files
 COPY Gemfile* /app/
-RUN bundle install --with development test
+RUN bundle config set with 'development test' \
+    && bundle install -j4 --retry 3 \
+    && rm -rf /usr/local/bundle/cache/*.gem \
+    && find /usr/local/bundle/gems/ -name "*.c" -delete \
+    && find /usr/local/bundle/gems/ -name "*.o" -delete
 
 # Install JS dependencies
-COPY package.json /app/
-RUN yarn install --check-files
+COPY package.json yarn.lock /app/
+RUN yarn install
 
+# Copy the app source
 COPY . /app
+
+# Precompile assets
+RUN RAILS_ENV=test bundle exec rake assets:precompile
+
+# Remove folders not needed in resulting image
+RUN rm -rf node_modules tmp/cache
+
+FROM ruby:2.7.4-alpine3.13
+
+RUN apk update && apk -U upgrade \
+    && apk add tini \
+    sqlite \
+    chromium chromium-chromedriver \
+    tzdata
+
+COPY --from=BUILDER /usr/local/bundle/ /usr/local/bundle/
+COPY --from=BUILDER /app /app
+
+WORKDIR /app
+
+EXPOSE 3000

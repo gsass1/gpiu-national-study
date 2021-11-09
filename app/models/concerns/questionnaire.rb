@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Questionnaire
   extend ActiveSupport::Concern
 
@@ -11,6 +13,7 @@ module Questionnaire
 
   included do
     attr_accessor :state
+
     belongs_to :patient
     validates :patient_id, presence: true, strict: true
 
@@ -18,17 +21,19 @@ module Questionnaire
   end
 
   private
+
   def set_state!
-    unless errors.any?
-      self.state = :valid
-    else
-      self.state = :invalid
-    end
+    self.state = if errors.any?
+                   :invalid
+                 else
+                   :valid
+                 end
   end
 
   # Updates the state of this questionnaire in the patient
   def set_state_in_patient!
-    name = @custom_questionnaire_state_name || "#{self.class.name.gsub('Patient', '').gsub('Questionnaire', '').underscore}_state".to_sym
-    self.patient.update_attribute(name, self.state)
+    name = @custom_questionnaire_state_name || "#{self.class.name.gsub('Patient', '').gsub('Questionnaire',
+                                                                                           '').underscore}_state".to_sym
+    patient.update_attribute(name, state)
   end
 end

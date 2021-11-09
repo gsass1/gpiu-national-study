@@ -1,2 +1,0 @@
-module RegionalAdmin::UsersHelper
-end

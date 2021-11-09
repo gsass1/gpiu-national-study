@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.7.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.1.4'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -46,10 +46,6 @@ gem 'identicon'
 gem 'material_icons'
 #gem 'material_design_icons'
 
-gem 'jquery-rails'
-
-gem 'chartkick'
-gem 'chartjs-ror'
 gem 'redcarpet'
 
 gem 'asciidoctor'
@@ -64,11 +60,7 @@ gem 'flag-icons-rails'
 gem 'sidekiq', '~>6.1'
 gem 'redis-namespace'
 gem 'omniauth-keycloak', git: 'https://github.com/gsass1/omniauth-keycloak'
-
-gem 'wicked_pdf'
-group :wk_binary do
-  gem 'wkhtmltopdf-binary'
-end
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 gem 'tzinfo'
 
@@ -106,20 +98,22 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'factory_bot_rails'
   gem 'faker'
+
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+
+  gem 'simplecov', require: false
+  gem 'simplecov-cobertura'
 end
 
 group :production do
   # Use postgresql as the database for Active Record
   gem 'pg', '>= 0.18', '< 2.0'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -36,16 +36,16 @@ en:
         first_pathogen: "First Pathogen"
         second_pathogen: "Second Pathogen"
 
-  #errors:
-    #format: "%{message}"
+  errors:
+    format: "%{message}"
 
   signed_in_keycloak: 'Successfully signed in through SSO'
-  signed_in_keycloak_failed: 'Unable to sign in through SSO. Please register manually.'
+  signed_in_keycloak_failed: 'Unable to sign in through SSO. Please contact support.'
 
   form_hints:
     valid:
       title: "This questionnaire is valid"
-      text: "Please note that further edits may invalidate the questionnaire. To prevent that you can lock this patient."
+      text: "Please note that further edits may invalidate the questionnaire. To prevent that you can lock this questionnaire/patient."
     missing:
       title: "This questionnaire is missing"
       text: "This questionnaire has not been previously edited."

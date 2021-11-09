@@ -1,4 +1,6 @@
 # GPIU - National Study Platform
+[![pipeline status](https://git.thm.de/gpiu-esiu/gpiu-national/badges/dev/pipeline.svg)](https://git.thm.de/gpiu-esiu/gpiu-national/-/commits/dev)
+[![coverage report](https://git.thm.de/gpiu-esiu/gpiu-national/badges/dev/coverage.svg)](https://git.thm.de/gpiu-esiu/gpiu-national/-/commits/dev)
 
 ## Developed by
 * Felix Münscher
@@ -9,7 +11,7 @@
 ### Dependencies
 In order to get this app running, the following dependencies are required:
 
-* Ruby: 2.7.1
+* Ruby: 2.7.4
     * Installation via [rbenv](https://github.com/rbenv/rbenv) recommended
 * SQLite
     * For development environment 

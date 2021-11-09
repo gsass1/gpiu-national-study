@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Address < ApplicationRecord
   include Discard::Model
 
-  has_one :hospital
+  has_one :hospital, dependent: :destroy
 
   validates :city, presence: true
   validates :street, presence: true

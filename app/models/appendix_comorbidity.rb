@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AppendixComorbidity < ApplicationRecord
   include Discard::Model
 
   belongs_to :questionnaire, polymorphic: true
-  validates_presence_of :pos_id, strict: true
+  validates :pos_id, presence: { strict: true }
 end

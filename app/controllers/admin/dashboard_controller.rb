@@ -1,9 +1,12 @@
-class Admin::DashboardController < ApplicationController
-  include AdminAuthenticated
-  add_breadcrumb "Admin", :admin_dashboard_index_path
+# frozen_string_literal: true
 
-  layout 'admin'
+module Admin
+  class DashboardController < ApplicationController
+    include AdminAuthenticated
+    add_breadcrumb 'Admin', :admin_dashboard_index_path
 
-  def index
+    layout 'admin'
+
+    def index; end
   end
 end

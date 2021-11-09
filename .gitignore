@@ -248,3 +248,4 @@ yarn-debug.log*
 /diagramm.puml
 
 #/config/credentials/production.key
+coverage

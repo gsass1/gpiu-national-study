@@ -12,6 +12,7 @@
     "popper.js": "^1.16.1",
     "rxjs": "^6.6.7",
     "stimulus": "^1.1.1",
+    "toastr": "^2.1.4",
     "ts-loader": "^8.3.0",
     "turbolinks": "^5.2.0",
     "typescript": "^3.9.7",
@@ -19,6 +20,10 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
     "webpack-dev-server": "^4.1.1"
   }
 }

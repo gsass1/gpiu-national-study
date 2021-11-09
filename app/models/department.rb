@@ -1,35 +1,20 @@
+# frozen_string_literal: true
+
 class Department < ApplicationRecord
-  include AdminResource
   include CsvCollection
 
   belongs_to :hospital
-  has_many :department_questionnaires
-  has_many :employees
-  has_many :patients
+  has_many :department_questionnaires, dependent: :destroy
+  has_many :employees, dependent: :destroy
+  has_many :patients, dependent: :destroy
   has_many :users, through: :employees
   validates :name, presence: true, uniqueness: { scope: :hospital_id }
 
-  viewable_admin_table_fields :name, :hospital
-  editable_admin_fields :name, :hospital
-  viewable_admin_associations :department_questionnaires
-  admin_custom_actions :admin_actions
-
   scope :visible, -> { includes(:hospital).where(hospitals: { acceptance_state: :approved }) }
-
-  def admin_actions
-    unless current_department_questionnaire.nil?
-      [{
-        name: "Open Hospital Questionnaire",
-        color: :success,
-        route: [:edit_hospital_department_department_questionnaire_path, hospital, self, current_department_questionnaire]
-      }]
-    end
-  end
-
   after_create :create_department_questionnaire
 
   def name_with_hospital
-    "#{self.hospital.name} - #{self.name}"
+    "#{hospital.name} - #{name}"
   end
 
   def to_s
@@ -41,25 +26,20 @@ class Department < ApplicationRecord
   end
 
   def create_department_questionnaire
-    study_iteration = self.hospital.country.current_study_iteration
-    unless study_iteration.nil?
-      if current_department_questionnaire.nil?
-        self.department_questionnaires.create study_iteration_id: study_iteration.id
-      end
-    end
+    study_iteration = hospital.country.current_study_iteration
+    return unless !study_iteration.nil? && current_department_questionnaire.nil?
+
+    department_questionnaires.create study_iteration_id: study_iteration.id
   end
 
   def patient_count
-    Patient.where(department_id: self.id).count
+    Patient.where(department_id: id).count
   end
 
   private
+
   def load_current_department_questionnaire
-    study_iteration = self.hospital.country.current_study_iteration
-    unless study_iteration.nil?
-      self.department_questionnaires.within_study_iteration(study_iteration).first
-    else
-      nil
-    end
+    study_iteration = hospital.country.current_study_iteration
+    department_questionnaires.within_study_iteration(study_iteration).first unless study_iteration.nil?
   end
 end

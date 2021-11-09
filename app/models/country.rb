@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 require 'tzinfo'
 
 class Country < ApplicationRecord
-  include AdminResource
-
   resourcify
 
-  has_many :hospitals
+  has_many :hospitals, dependent: :destroy
   has_many :departments, through: :hospitals
-  has_many :study_iterations
-  has_many :users
+  has_many :study_iterations, dependent: :destroy
+  has_many :users, dependent: :destroy
 
   validates :iso_2, presence: true
   validates :iso_3, presence: true
@@ -16,18 +16,6 @@ class Country < ApplicationRecord
   validates :timezone, presence: true, inclusion: { in: TZInfo::Timezone.all_identifiers }
 
   before_create :set_default_timezone
-
-  viewable_admin_table_fields :name, :iso_2, :iso_3
-  editable_admin_fields :name, :iso_2, :iso_3, :timezone
-  admin_custom_actions :admin_actions
-
-  def admin_actions
-    [{
-      name: "Open Regional Admin Dashboard",
-      color: :success,
-      route: [:regional_admin_country_dashboard_index_path, self.iso_2],
-    }]
-  end
 
   def to_s
     name
@@ -38,7 +26,7 @@ class Country < ApplicationRecord
   end
 
   def current_study_iteration
-    @current_study_iteration ||= study_iterations.includes([:study_ranges]).accepted.select { |si| !si.passed? }.first
+    @current_study_iteration ||= study_iterations.includes([:study_ranges]).accepted.reject(&:passed?).first
   end
 
   def next_or_current_study_iteration
@@ -58,11 +46,12 @@ class Country < ApplicationRecord
   end
 
   private
+
   def set_default_timezone
-    self.timezone = "UTC"
+    self.timezone = 'UTC'
   end
 
   def tzinfo
-    TZInfo::Timezone.get(self.timezone || "UTC")
+    TZInfo::Timezone.get(timezone || 'UTC')
   end
 end

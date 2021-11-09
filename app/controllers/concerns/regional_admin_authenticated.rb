@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RegionalAdminAuthenticated
   extend ActiveSupport::Concern
 
@@ -6,10 +8,12 @@ module RegionalAdminAuthenticated
   end
 
   def current_country
-    @country ||= Country.find_by_iso_2(params[:country].upcase)
+    @country ||= Country.find_by(iso_2: params[:country].upcase) # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 
   def authenticate_regional_admin_user!
-    redirect_to root_path, flash: { alert: "You are not a regional admin for this country." } unless (user_signed_in? && (current_user.has_role?(:regional_admin, current_country) || current_user.admin?))
+    return if UserPolicy.new(current_user).can_access_regional_admin?(current_country)
+
+    redirect_to root_path, flash: { alert: 'You are not a regional admin for this country.' }
   end
 end

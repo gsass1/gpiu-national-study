@@ -11,10 +11,10 @@ en:
     my_hospitals: 'View your hospitals here.'
     hospital_search: 'Browse national hospitals here.'
     patients: 'Patients'
-    patients_count: 'You have created %{patients} patients so far.'
+    patients_count: 'You have entered %{patients} patients so far.'
     patients_questionnaires: '%{invalid_count} of your patients have incomplete/invalid questionnaires.'
     no_patients: 'You have not registered any patients yet.'
-    patients_site: 'You can create and edit patients here.'
+    patients_site: 'You can enter and edit patients here.'
 
     support: "Support"
     support_hint: "Please report any problems you have with using the site as well as any bugs."

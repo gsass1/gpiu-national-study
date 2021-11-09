@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DepartmentQuestionnairesHelper
   def antimicrobial_prophylaxis_list
     {

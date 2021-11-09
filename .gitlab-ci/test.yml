@@ -1,0 +1,31 @@
+build_test_image:
+  stage: build_test_image
+  script:
+    - docker build -f Dockerfile.test -t gpiu-national-test:$CI_COMMIT_SHORT_SHA .
+  tags:
+    - esiu
+    - build
+
+# <============================================================================>
+
+#include:
+#  - template: Code-Quality.gitlab-ci.yml
+
+# code_quality:
+#   tags:
+#     - esiu
+#     - build
+
+rspec:
+  stage: test
+  script:
+    - mkdir -p /tmp/coverage
+    - docker run --rm -v /builds/gpiu-esiu/gpiu-national/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
+  variables:
+    SIMPLECOV_COBERTURA: "true"
+  artifacts:
+    reports:
+      cobertura: /builds/gpiu-esiu/gpiu-national/coverage/coverage.xml
+  tags:
+    - esiu
+    - build

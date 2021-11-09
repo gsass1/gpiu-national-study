@@ -9,20 +9,20 @@
 # Setup participating countries
 puts "Seeding Database..."
 puts "Seeding participating countries"
-Country.create(iso_2: "GB", iso_3: "GBR", name: "United Kingdom")
-Country.create(iso_2: "DE", iso_3: "DEU", name: "Germany")
-Country.create(iso_2: "ES", iso_3: "ESP", name: "Spain")
-Country.create(iso_2: "TR", iso_3: "TUR", name: "Turkey")
-Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway")
-Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran")
-Country.create(iso_2: "HU", iso_3: "HUN", name: "Hungary")
-Country.create(iso_2: "AU", iso_3: "AUS", name: "Australia")
-Country.create(iso_2: "FR", iso_3: "FRA", name: "France")
-Country.create(iso_2: "GH", iso_3: "GHA", name: "Ghana")
-Country.create(iso_2: "KZ", iso_3: "KAZ", name: "Kazakhstan")
-Country.create(iso_2: "MY", iso_3: "MYS", name: "Malaysia")
-Country.create(iso_2: "PT", iso_3: "PRT", name: "Portugal")
-Country.create(iso_2: "RO", iso_3: "ROU", name: "Romania")
+Country.create(iso_2: "GB", iso_3: "GBR", name: "United Kingdom", timezone: "Europe/London")
+Country.create(iso_2: "DE", iso_3: "DEU", name: "Germany", timezone: "Europe/Berlin")
+Country.create(iso_2: "ES", iso_3: "ESP", name: "Spain", timezone: "Europe/Madrid")
+Country.create(iso_2: "TR", iso_3: "TUR", name: "Turkey", timezone: "Europe/Istanbul")
+Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway", timezone: "Europe/Oslo")
+Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran", timezone: "Iran")
+Country.create(iso_2: "HU", iso_3: "HUN", name: "Hungary", timezone: "Europe/Budapest")
+Country.create(iso_2: "AU", iso_3: "AUS", name: "Australia", timezone: "Australia/Sydney")
+Country.create(iso_2: "FR", iso_3: "FRA", name: "France", timezone: "Europe/Paris")
+Country.create(iso_2: "GH", iso_3: "GHA", name: "Ghana", timezone: "GMT")
+Country.create(iso_2: "KZ", iso_3: "KAZ", name: "Kazakhstan", timezone: "Asia/Almaty")
+Country.create(iso_2: "MY", iso_3: "MYS", name: "Malaysia", timezone: "Asia/Kuala_Lumpur")
+Country.create(iso_2: "PT", iso_3: "PRT", name: "Portugal", timezone: "Europe/Lisbon")
+Country.create(iso_2: "RO", iso_3: "ROU", name: "Romania", timezone: "Europe/Bucharest")
 
 if Rails.env.development?
   NUM_USERS = 5

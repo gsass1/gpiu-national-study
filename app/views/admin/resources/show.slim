@@ -1,41 +1,34 @@
 .container
   .card.mt-3
     .card-header.bg-primary.text-light
-      strong= "#{@resource} (#{@resource.id})"
+      strong= @resource
+      span.badge.badge-info.ml-2= "##{@resource.id}"
     .card-body[style="padding: 0;"]
       table.table.table-bordered[style="margin-bottom:0;"]
         tr
           th= "ID"
           td= @resource.id
-        - @resource_class.admin_form_fields.each do |field|
+        - @resource.single_form_fields.each do |field|
           tr
-            th[style="width: 20%;"]= @resource_class.human_attribute_name field
+            th[style="width: 20%;"]= @resource.human_attribute_name(field)
             td[style="width: 80%;"]= resource_field_value(@resource, field)
-        - @resource_class.admin_associations.each do |assoc_field|
+        - @resource.associations.each do |assoc_field|
           tr
-            th= "#{assoc_field.to_s.split('_').map(&:capitalize).join(' ')} (#{@resource.send(assoc_field).count})"
+            th
+              = "#{assoc_field.to_s.split('_').map(&:capitalize).join(' ')}"
+              span.badge.badge-info.ml-1= @resource.field_value(assoc_field).count
             td
               ul
-                - @resource.send(assoc_field).each do |assoc|
+                - @resource.field_value(assoc_field).each do |assoc|
                   li= resource_association(assoc)
-        - unless @resource_class.admin_custom_actions_proc.nil?
-          tr
-            th Custom Actions
-            td
-              .btn-group= resource_custom_actions(@resource, @resource_class)
+        - if @resource.custom_actions?
+          - custom_actions = @resource.custom_actions
+          - unless custom_actions.nil?
+            tr
+              th Custom Actions
+              td
+                .btn-group= resource_custom_action_buttons(custom_actions)
         tr
           th Actions
           td
-            - if can_be_exported?(@resource_class)
-              = link_to "Export", resource_action_path(@resource) + ".csv", class: "btn btn-sm btn-info"
-
-            - if can?(:edit, @resource)
-              = link_to "Edit", resource_action_path(@resource, :edit), class: "btn btn-sm btn-secondary"
-
-            - if can?(:delete, @resource)
-              - unless @resource.try(:discarded?).nil?
-                - if @resource.discarded?
-                  = link_to "Restore", resource_action_path(@resource), method: :delete, class: "btn btn-sm btn-success"
-                - else
-                  = link_to "Delete", resource_action_path(@resource), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"
-
+            = render 'shared/admin/resource_table_actions', class_presenter: @resource.class_presenter, resource: @resource

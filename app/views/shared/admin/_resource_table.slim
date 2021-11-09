@@ -1,36 +1,24 @@
 table.table.table-bordered.table-striped
   tr.bg-primary.text-light
-    - ([:id] + @resource_class.admin_table_fields).each do |field|
+    - @class_presenter.table_fields.each do |field|
       th
-        - if can_sort_by_field?(field)
+        - if @class_presenter.field_can_be_sorted?(field)
           = link_to resource_table_header_link(field), class: "admin-resource-table-header-link" do
             .d-flex
-              = @resource_class.human_attribute_name(field)
+              = @class_presenter.human_attribute_name(field)
               i.material-icons sort
 
         - else
-          = @resource_class.human_attribute_name(field)
+          = @class_presenter.human_attribute_name(field)
     th
       = "Actions"
-      - if can_be_exported?(@resource_class)
+      - if @class_presenter.can_be_exported?
         .float-right
-          = link_to "Export All", resource_index_path(@resource_class) + ".csv", class: "btn btn-sm btn-info"
+          = link_to "Export All", resource_export_all_path(@resource_class), class: "btn btn-sm btn-info"
   - @resources.each do |resource|
     tr
-      td= resource.id
-      - @resource_class.admin_table_fields.each do |field|
+      - @class_presenter.table_fields.each do |field|
         td= resource_field_value(resource, field)
       td
         .float-right.btn-group
-          - if can_be_exported?(@resource_class)
-            = link_to "Export", resource_action_path(resource) + ".csv", class: "btn btn-sm btn-info"
-          - if can?(:read, resource)
-            = link_to "Show", resource_action_path(resource), class: "btn btn-sm btn-primary"
-          - if can?(:edit, resource)
-            = link_to "Edit", resource_action_path(resource, :edit), class: "btn btn-sm btn-secondary"
-          - if can?(:delete, resource)
-            - unless resource.try(:discarded?).nil?
-              - if resource.discarded?
-                = link_to "Restore", resource_action_path(resource), method: :delete, class: "btn btn-sm btn-success"
-              - else
-                = link_to "Delete", resource_action_path(resource), method: :delete, data: { confirm: "Are you sure you want to delete this resource?" }, class: "btn btn-sm btn-danger"
+          = render 'shared/admin/resource_table_actions', class_presenter: @class_presenter, resource: resource

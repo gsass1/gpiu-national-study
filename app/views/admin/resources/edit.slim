@@ -1,15 +1,11 @@
 .container.mt-3
   .card
     .card-header.bg-primary.text-light
-      strong= "Editing #{@resource} (#{@resource.id})"
+      strong= "Editing #{@resource}"
+      span.badge.badge-info.ml-2= "##{@resource.id}"
     .card-body
-      = simple_form_for(@resource, as: @resource_class.name.downcase, url: "/#{@link_prefix}/#{@resource_class.name.underscore.downcase.pluralize}/#{@resource.id}", html: { method: :patch }, wrapper: :horizontal_form) do |f|
+      = resource_form(@resource, @url_prefix, :patch) do |f|
         = f.error_notification
 
         = f.input :id, as: :hidden
-
-        - @resource_class.admin_form_fields.each do |field|
-          = resource_form_input(f, field)
-
-        .form-actions
-          = f.button :submit, "Update", class: "btn btn-lg btn-outline-primary float-right"
+        = render 'admin/resources/form', resource: @resource, f: f

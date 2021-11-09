@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/internal_server_error'
-  unless ENV['KEYCLOAK_CLIENT'].blank?
-    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
+  if Keycloak::enabled?
+    devise_for :users, skip: [:registrations], controllers: { sessions: 'users/sessions', omniauth_callbacks: 'users/omniauth_callbacks' }
 
     # Disable normal devise sign up page
-    devise_scope :users do
-      get '/sign_up', to: redirect('/')
+    as :user do
+      if Gpiu.allow_local_accounts?
+        get 'users/new' => 'registrations#new', as: 'new_user_registration'
+        post 'users' => 'registrations#create'
+      end
+      get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
+      match 'users' => 'registrations#update', :as => 'user_registration', via: [:patch, :put]
     end
   else
     devise_for :users
@@ -23,7 +28,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :dashboard, only: :index
-    resources :users
+    resources :users do
+      resources :roles, only: [:index, :create, :destroy]
+    end
     resources :hospitals
     resources :support_requests
     resources :patients

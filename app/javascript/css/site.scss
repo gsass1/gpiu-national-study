@@ -3,4 +3,5 @@ $theme-colors: (
   "success": #ffe367,
 );
 
-@import "~bootstrap/scss/bootstrap.scss"
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~toastr/toastr.scss";
