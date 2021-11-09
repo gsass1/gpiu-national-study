@@ -43,13 +43,8 @@ RUN apk update && apk -U upgrade \
     chromium chromium-chromedriver \
     tzdata
 
-ARG UID=1000
-
-RUN adduser -D -h /app gpiu -u $UID
-USER gpiu
-
 COPY --from=BUILDER /usr/local/bundle/ /usr/local/bundle/
-COPY --from=BUILDER --chown=gpiu:gpiu /app /app
+COPY --from=BUILDER /app /app
 
 WORKDIR /app
 
