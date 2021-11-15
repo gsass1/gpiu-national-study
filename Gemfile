@@ -111,6 +111,8 @@ group :test do
 
   gem 'simplecov', require: false
   gem 'simplecov-cobertura'
+
+  gem 'rspec_junit_formatter'
 end
 
 group :production do

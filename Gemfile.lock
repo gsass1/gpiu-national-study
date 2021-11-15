@@ -344,6 +344,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.3)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.22.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -481,6 +483,7 @@ DEPENDENCIES
   redis-namespace
   rolify
   rspec-rails (~> 5.0.0)
+  rspec_junit_formatter
   rubocop
   rubocop-rails
   rubocop-rspec
