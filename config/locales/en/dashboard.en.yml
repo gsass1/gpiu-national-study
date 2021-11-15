@@ -1,5 +1,7 @@
 en:
   dashboard:
+    index:
+      title: Dashboard
     welcome_back: 'Welcome'
     description: 'This is your user dashboard. On here you can manage everything!'
     si_dates_header: 'Thank you for registering with the GPIU study. The study dates are as follows.'
