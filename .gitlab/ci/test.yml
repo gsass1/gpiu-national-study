@@ -17,15 +17,17 @@ build_test_image:
 #     - build
 
 rspec:
+  image: docker:dind
   stage: test
   script:
-    - mkdir -p /tmp/coverage
-    - docker run --rm -v /builds/gpiu-esiu/gpiu-national/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation
+    - mkdir -p $PWD/coverage
+    - docker run --rm -v $PWD/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation --format RspecJunitFormatter --out coverage/rspec.xml
   variables:
     SIMPLECOV_COBERTURA: "true"
   artifacts:
     reports:
-      cobertura: /builds/gpiu-esiu/gpiu-national/coverage/coverage.xml
+      cobertura: coverage/coverage.xml
+      junit: coverage/rspec.xml
   tags:
     - esiu
     - build

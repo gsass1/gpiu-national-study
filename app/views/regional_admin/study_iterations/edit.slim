@@ -137,7 +137,10 @@
           .card-body
             p Request data access. This will send a notification to all global admins.
           .card-footer
-            = link_to "Request", regional_admin_country_study_iteration_request_export_permission_path(@country, @study_iteration), method: :post, class: "btn btn-success", data: { confirm: "Are you sure you want to request export permission? This will send a notification to all super admins." }
+            - unless @study_iteration.request_permission_timeout?
+              = link_to "Request", regional_admin_country_study_iteration_request_export_permission_path(@country, @study_iteration), method: :post, class: "btn btn-success", data: { confirm: "Are you sure you want to request export permission? This will send a notification to all super admins." }
+            - else
+              p You have already made a request previously. Please wait.
     - else
       .alert.alert-info Study iteration has not started yet
 

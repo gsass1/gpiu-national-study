@@ -36,6 +36,9 @@ deploy_production:
     name: production
     url: https://national.esiu.org/
     on_stop: stop_production
+  tags:
+    - esiu
+    - deploy
 
 stop_production:
   only:

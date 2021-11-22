@@ -1,5 +1,7 @@
 en:
   notifications:
+    index:
+      title: Notifications
     title: 'Notifications'
     header: 'Notification from %{date}'
     none: 'You have no current notifications'

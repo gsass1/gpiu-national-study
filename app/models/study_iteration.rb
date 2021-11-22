@@ -58,7 +58,19 @@ class StudyIteration < ApplicationRecord
     name
   end
 
+  def request_permission_timeout?
+    return false if requested_export_permission_at.nil?
+
+    DateTime.now.to_i - requested_export_permission_at.to_i <= REQUEST_EXPORT_PERMISSION_TIMEOUT_DURATION.to_i
+  end
+
+  def request_permission_timeout!
+    self.requested_export_permission_at = DateTime.now
+  end
+
   private
+
+  REQUEST_EXPORT_PERMISSION_TIMEOUT_DURATION = 24.hours
 
   def set_pending
     self.acceptance_state = 0 if acceptance_state.nil?
