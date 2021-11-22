@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_201321) do
+ActiveRecord::Schema.define(version: 2021_11_22_072343) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -315,17 +315,17 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
     t.boolean "physician_visit_admission_hospital_internal_medicine"
     t.boolean "physician_visit_admission_hospital_intensive_care"
     t.integer "physician_visit_psa"
-    t.bigint "physician_visit_psa_value"
+    t.integer "physician_visit_psa_value"
     t.integer "physician_visit_wbc_count"
-    t.bigint "physician_visit_wbc_value"
+    t.integer "physician_visit_wbc_value"
     t.integer "physician_visit_crp"
-    t.bigint "physician_visit_crp_value"
+    t.integer "physician_visit_crp_value"
     t.integer "physician_visit_urine_culture"
     t.string "physician_visit_urine_culture_result", limit: 20
     t.integer "antibiotic_treatment"
     t.string "antibiotics_type", limit: 255
     t.string "antibiotics_dosage", limit: 255
-    t.bigint "antibiotics_duration"
+    t.integer "antibiotics_duration"
     t.string "antibiotics_route", limit: 5
     t.string "outcome", limit: 15
     t.datetime "created_at", precision: 6, null: false
@@ -336,22 +336,22 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
   create_table "biopsy_questionnaires", force: :cascade do |t|
     t.integer "patient_id", null: false
     t.datetime "discarded_at"
-    t.bigint "age"
+    t.integer "age"
     t.integer "antibiotics_preceding_months"
     t.string "antibiotics_type", limit: 255
     t.string "antibiotics_dosage", limit: 255
-    t.bigint "antibiotics_duration"
+    t.integer "antibiotics_duration"
     t.string "antibiotics_route", limit: 5
     t.integer "urogenital_infection_preceding_months"
     t.integer "urinary_catheter"
-    t.bigint "urinary_catheter_duration"
+    t.integer "urinary_catheter_duration"
     t.integer "prostate_size_measured"
-    t.bigint "prostate_size"
+    t.integer "prostate_size"
     t.integer "diabetes_mellitus"
     t.integer "psa"
-    t.bigint "psa_size"
+    t.integer "psa_size"
     t.integer "repeated_biopsy"
-    t.bigint "repeated_biopsy_number_previous_procedures"
+    t.integer "repeated_biopsy_number_previous_procedures"
     t.integer "preoperative_urine_examination"
     t.integer "preoperative_urine_examination_type"
     t.string "preoperative_urine_culture_result", limit: 20
@@ -360,7 +360,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
     t.integer "antibiotic_prophylaxis"
     t.string "antibiotic_prophylaxis_type", limit: 255
     t.string "antibiotic_prophylaxis_dosage", limit: 255
-    t.bigint "antibiotic_prophylaxis_duration"
+    t.integer "antibiotic_prophylaxis_duration"
     t.string "antibiotic_prophylaxis_route", limit: 5
     t.integer "biopsy_anesthesia"
     t.string "biopsy_anesthesia_type", limit: 45
@@ -883,6 +883,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "exportable", default: false
+    t.datetime "requested_export_permission_at"
     t.index ["country_id"], name: "index_study_iterations_on_country_id"
     t.index ["discarded_at"], name: "index_study_iterations_on_discarded_at"
   end
@@ -965,7 +966,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_201321) do
     t.boolean "catheter_ureteralstent"
     t.boolean "catheter_nephrostomy"
     t.boolean "catheter_others"
-    t.bigint "catheterduration"
+    t.integer "catheterduration"
     t.string "intervention_endoscopic", limit: 255
     t.string "intervention_laparoscopic", limit: 255
     t.string "intervention_percutaneous", limit: 255
