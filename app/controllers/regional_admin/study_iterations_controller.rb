@@ -71,10 +71,8 @@ module RegionalAdmin
 
     def submit
       if @study_iteration.update(acceptance_state: :pending)
-        User.with_role(:admin).each do |user|
-          Notifier.notify(recipient: user, actor: current_user, notifiable: @study_iteration,
-                          action: 'study_iterations.submission')
-        end
+        Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
+                             action: 'study_iterations.submission')
 
         flash[:success] = 'Submitted for approval.'
       else
@@ -98,10 +96,8 @@ module RegionalAdmin
           @study_iteration.request_permission_timeout!
           @study_iteration.save!
 
-          User.with_role(:admin).each do |user|
-            Notifier.notify(recipient: user, actor: current_user, notifiable: @study_iteration,
-                            action: 'study_iterations.request_export_permission')
-          end
+          Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
+                               action: 'study_iterations.request_export_permission')
 
           flash[:success] = 'Request for export permission has been sent to the super admins.'
         end
