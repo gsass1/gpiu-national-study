@@ -72,7 +72,7 @@ module RegionalAdmin
     def submit
       if @study_iteration.update(acceptance_state: :pending)
         Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
-                             action: 'study_iterations.submission')
+                                     action: 'study_iterations.submission')
 
         flash[:success] = 'Submitted for approval.'
       else
@@ -97,7 +97,7 @@ module RegionalAdmin
           @study_iteration.save!
 
           Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
-                               action: 'study_iterations.request_export_permission')
+                                       action: 'study_iterations.request_export_permission')
 
           flash[:success] = 'Request for export permission has been sent to the super admins.'
         end
