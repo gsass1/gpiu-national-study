@@ -3,6 +3,10 @@
 module Notifiable
   extend ActiveSupport::Concern
 
+  included do
+    has_many :notifications, as: :notifiable, dependent: :destroy
+  end
+
   class_methods do
     attr_accessor :notification_attr_proc
 
