@@ -322,6 +322,8 @@ GEM
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     regexp_parser (2.1.1)
+    requestjs-rails (0.0.5)
+      rails (>= 6.0.0)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -481,6 +483,7 @@ DEPENDENCIES
   rails-plantuml-generator!
   redcarpet
   redis-namespace
+  requestjs-rails
   rolify
   rspec-rails (~> 5.0.0)
   rspec_junit_formatter

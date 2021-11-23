@@ -11,6 +11,12 @@ class NotificationsController < ApplicationController
 
     # Update unread notifications
     current_user.unread_notifications.each { |n| n.update(read_at: DateTime.now) }
+
+    unless params[:dropdown].present?
+      render :index
+    else
+      render partial: 'shared/notifications_dropdown', locals: { notifications: @notifications }, layout: false
+    end
   end
 
   def destroy
