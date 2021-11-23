@@ -1,10 +1,10 @@
 = render 'shared/study_dates', study_iteration: next_or_current_study_iteration
 
-.container
-  h2= "#{t('dashboard.welcome_back')}, #{current_user.short_name}."
-  p = t('dashboard.description')
-
-  hr
+- content_for :before_content
+  .bg-light.border.border-bottom
+    .container.pt-3
+      h2= "#{t('dashboard.welcome_back')}, #{current_user.short_name}!"
+      p = t('dashboard.description')
 
 .px-5
   .ml-auto.mr-auto

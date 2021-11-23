@@ -3,7 +3,7 @@ en:
     index:
       title: Dashboard
     welcome_back: 'Welcome'
-    description: 'This is your user dashboard. On here you can manage everything!'
+    description: 'This is your user dashboard. Here you can access all important parts of the platform.'
     si_dates_header: "Thank you for registering with the GPIU study. Please check the <a href='/study_calendar'>study calendar</a> to check when the study is active for your country."
     si_current_range_active: 'The current study period is active from <b>%{start} to %{end}</b>. During this period you can enter data.'
     si_no_current_active_ranges: 'No study range is active at the moment. Please wait until %{next_date} before inputting data.'
