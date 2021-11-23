@@ -1,7 +1,9 @@
 .card.mb-3
   .card-header.bg-primary.text-light
     strong= t("notifications.action.#{notification.action}.title")
-    .float-right= l(notification.created_at, format: :long)
+    .float-right
+      = l(notification.created_at, format: :long)
+      = link_to '✖', notification, method: :delete, class: 'text-white ml-3'
   .card-body
     div= "From: #{notification.actor}"
     div= "To: #{notification.recipient}"

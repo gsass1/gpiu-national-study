@@ -1,14 +1,12 @@
+= render 'shared/study_dates', study_iteration: next_or_current_study_iteration
+
 .container
   h2= "#{t('dashboard.welcome_back')}, #{current_user.short_name}."
   p = t('dashboard.description')
 
   hr
 
-  = render 'shared/study_dates', study_iteration: next_or_current_study_iteration
-
-  hr
-
-.px-5.py-5
+.px-5
   .ml-auto.mr-auto
     .container
       .d-flex.flex-row.flex-wrap.align-items-center
