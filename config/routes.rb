@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get '/finish_registration' => 'finish_registration#index'
   post '/finish_registration' => 'finish_registration#create'
 
-  resources :notifications, only: [:index]
+  resources :notifications, only: [:index, :destroy]
 
   resources :support_requests, only: [:new, :create]
 

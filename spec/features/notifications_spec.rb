@@ -28,4 +28,15 @@ RSpec.describe 'Notifications', type: :feature do
     visit notifications_path
     expect(page).not_to have_selector(:css, '.unread-notifications-badge')
   end
+
+  it 'can dismiss notifications' do
+    Notification.create actor: actor, recipient: user, action: 'hospitals.submission', notifiable: create(:hospital)
+
+    visit notifications_path
+    expect(page).to have_content('Hospital Submitted For Approval')
+
+    click_link '✖'
+    expect(page).to have_content('Removed notification')
+    expect(page).to_not have_content('Hospital Submitted For Approval')
+  end
 end
