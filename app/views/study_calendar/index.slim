@@ -1,7 +1,8 @@
+= render 'shared/study_dates', study_iteration: next_or_current_study_iteration
+
 .container
   h1= t('.title')
   hr
-  = render 'shared/study_dates', study_iteration: next_or_current_study_iteration
   .alert.alert-info.text-center
     strong = t('application.footer.country_time', country: @country.name, time: l(@country.current_local_time, format: :long), zone: @country.timezone_abbreviation)
     div = t('.time_hint', zone: @country.timezone_abbreviation)

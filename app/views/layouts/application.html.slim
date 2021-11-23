@@ -19,6 +19,8 @@ html
 
       = render 'shared/noscript_flash_messages'
 
+      = yield :before_content
+
       div class=("main_content #{"pt-5" unless (is_landing_page? || no_header_margin?)}")
         = yield
     .mt-5= render 'shared/footer'

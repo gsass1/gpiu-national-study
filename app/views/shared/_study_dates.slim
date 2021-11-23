@@ -1,20 +1,25 @@
-- unless study_iteration.nil?
-  .alert.alert-info
-    p= t('dashboard.si_dates_header')
-    - study_iteration.study_ranges.each do |range|
-      - if range.active?
-        strong= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
-      - else
-        span= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
-      br
-    - unless study_iteration.active_range.nil?
-      br
-      strong= t('dashboard.si_current_range_active', start: l(study_iteration.active_range.start, format: :long), end: l(study_iteration.active_range.end, format: :long))
-    - else
-      br
-      strong= t('dashboard.si_no_current_active_ranges', next_date: l(study_iteration.next_range.start, format: :long))
-- else
-  .alert.alert-danger
-    .d-flex.flex-row.align-items-center
-      i.material-icons.md-36.pr-5 warning
-      strong= t('dashboard.no_planned_si')
+- content_for :before_content
+  - unless study_iteration.nil?
+    .alert.alert-info.rounded-0
+      .container
+        .d-flex.flex-row.align-items-center
+          i.material-icons.md-36.pr-5 info
+          span
+            span
+              = t('dashboard.si_dates_header').html_safe
+              / - study_iteration.study_ranges.each do |range|
+              /   - if range.active?
+              /     strong= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
+              /   - else
+              /     span= "#{l(range.start, format: :long)} - #{l(range.end, format: :long)}"
+              br
+              - unless study_iteration.active_range.nil?
+                = t('dashboard.si_current_range_active', start: l(study_iteration.active_range.start, format: :long), end: l(study_iteration.active_range.end, format: :long)).html_safe
+              - else
+                strong= t('dashboard.si_no_current_active_ranges', next_date: l(study_iteration.next_range.start, format: :long))
+  - else
+    .alert.alert-danger.rounded-0
+      .container
+        .d-flex.flex-row.align-items-center
+          i.material-icons.md-36.pr-5 warning
+          strong= t('dashboard.no_planned_si')
