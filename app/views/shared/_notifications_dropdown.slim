@@ -1,0 +1,11 @@
+h5.pl-4
+  = link_to t('notifications.index.title'), notifications_path, class: 'text-dark'
+
+.dropdown-divider
+
+- if notifications.any?
+  - notifications.each do |notification|
+    .px-4= render 'shared/notification_small', notification: notification
+    .dropdown-divider
+- else
+  p.px-4= t('notifications.none')

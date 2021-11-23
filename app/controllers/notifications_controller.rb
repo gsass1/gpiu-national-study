@@ -6,11 +6,17 @@ class NotificationsController < ApplicationController
   before_action :set_notification, only: :destroy
 
   def index
-    @notifications = Notification.where(recipient: current_user).order(created_at: :desc).includes(:actor, :recipient,
-                                                                                                   :notifiable)
+    @notifications = Notification.where(recipient: current_user).order(created_at: :desc).includes(:notifiable)
 
     # Update unread notifications
-    current_user.unread_notifications.each { |n| n.update(read_at: DateTime.now) }
+    @notifications.each { |n| n.read! }
+
+    unless params[:dropdown].present?
+      @notifications = @notifications.includes(:actor, :recipient)
+      render :index
+    else
+      render partial: 'shared/notifications_dropdown', locals: { notifications: @notifications }, layout: false
+    end
   end
 
   def destroy

@@ -42,7 +42,7 @@ module ApplicationHelper
   def unread_notifications_badge
     unread = current_user.unread_notifications_count
     if unread.positive?
-      content_tag :span, class: 'badge badge-pill badge-danger unread-notifications-badge' do
+      content_tag :span, class: 'text-bold badge badge-pill badge-danger unread-notifications-badge' do
         unread.to_s
       end
     end
