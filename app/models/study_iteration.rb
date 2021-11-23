@@ -15,9 +15,9 @@ class StudyIteration < ApplicationRecord
 
   before_create :set_pending
 
-  scope :accepted, -> { where(acceptance_state: :accepted) }
+  after_save :create_depending_records, if: :became_accepted?
 
-  after_update :create_records_if_approved
+  scope :accepted, -> { where(acceptance_state: :accepted) }
 
   notify_with(proc { |f|
     {
@@ -54,10 +54,6 @@ class StudyIteration < ApplicationRecord
     study_ranges.first.start.year
   end
 
-  def to_s
-    name
-  end
-
   def request_permission_timeout?
     return false if requested_export_permission_at.nil?
 
@@ -68,6 +64,10 @@ class StudyIteration < ApplicationRecord
     self.requested_export_permission_at = DateTime.now
   end
 
+  def to_s
+    name
+  end
+
   private
 
   REQUEST_EXPORT_PERMISSION_TIMEOUT_DURATION = 24.hours
@@ -76,9 +76,11 @@ class StudyIteration < ApplicationRecord
     self.acceptance_state = 0 if acceptance_state.nil?
   end
 
-  def create_records_if_approved
-    return unless acceptance_state_previously_changed? && accepted?
+  def became_accepted?
+    acceptance_state_previously_changed?(to: 'accepted')
+  end
 
+  def create_depending_records
     Department.includes(:hospital)
               .where(hospitals: { country_id: country_id })
               .find_each(&:create_department_questionnaire)
