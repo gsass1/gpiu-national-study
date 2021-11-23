@@ -7,7 +7,14 @@ class Notification < ApplicationRecord
 
   scope :unread, -> { where(read_at: nil) }
 
+  def read!
+    return unless read_at.nil?
+
+    @new = true
+    update!(read_at: DateTime.now)
+  end
+
   def new?
-    read_at.nil?
+    @new
   end
 end

@@ -39,4 +39,22 @@ RSpec.describe 'Notifications', type: :feature do
     expect(page).to have_content('Removed notification')
     expect(page).to_not have_content('Hospital Submitted For Approval')
   end
+
+  describe 'notifications dropdown' do
+    let!(:notification) { create(:notification, recipient: user, actor: actor) }
+
+    before do
+      visit dashboard_index_path
+    end
+
+    it 'opens dropdown which displays current notifications' do
+      find(:css, '#dropdownNotificationsLink').click
+
+      expect(page).to have_selector('#notifications-dropdown')
+
+      within '#notifications-dropdown' do
+        expect(page).to have_content('Hospital Submitted For Approval')
+      end
+    end
+  end
 end
