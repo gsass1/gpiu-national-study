@@ -1,0 +1,8 @@
+h5.pl-4
+  = link_to 'Notifications', notifications_path, class: 'text-dark'
+
+.dropdown-divider
+
+- current_user.notifications.order(created_at: :desc).each do |notification|
+  .px-4= render 'shared/notification_small', notification: notification
+  .dropdown-divider

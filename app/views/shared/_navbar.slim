@@ -17,9 +17,12 @@
       - if user_signed_in?
         a.text-light.d-flex.flex-row.align-items-center[href=study_calendar_index_path]
           i.material-icons.md-36 date_range
-        a.pl-3.text-light.d-flex.flex-row.align-items-center[href=notifications_path]
-          i.material-icons.md-36 mail
-          = unread_notifications_badge
+        span
+          a.pl-3.text-light.d-flex.flex-row.align-items-center.dropdown-toggle#dropdownNotificationsLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+            i.material-icons.md-36 mail
+            = unread_notifications_badge
+          .dropdown-menu.dropdown-menu-left.notifications-dropdown.bg-light[aria-labelledby="dropdownNotificationsLink"]
+            = render 'shared/notifications_dropdown'
         span.dropdown.show
           a.p-3.text-light.dropdown-toggle#dropdownMenuLink[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"] = t('application.nav.account')
           .dropdown-menu[aria-labelledby="dropdownMenuLink"]

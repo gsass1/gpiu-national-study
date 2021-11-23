@@ -23,7 +23,7 @@ body {
 
 .top-bar {
   a {
-    font-size: 1.25em;
+    //font-size: 1.25em;
 
     &:hover {
       text-decoration: none;
@@ -247,4 +247,8 @@ p {
 
 .toast {
   opacity: 0.9 !important;
+}
+
+.notifications-dropdown {
+  max-width: 350px;
 }
