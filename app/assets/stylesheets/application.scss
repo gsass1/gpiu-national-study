@@ -251,4 +251,14 @@ p {
 
 .notifications-dropdown {
   max-width: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.new-dropdown-notification-title {
+  &:before {
+    content: '•';
+    color: red;
+    padding-right: 5px;
+  }
 }

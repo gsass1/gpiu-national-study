@@ -1,8 +1,11 @@
 h5.pl-4
-  = link_to 'Notifications', notifications_path, class: 'text-dark'
+  = link_to t('notifications.index.title'), notifications_path, class: 'text-dark'
 
 .dropdown-divider
 
-- current_user.notifications.order(created_at: :desc).each do |notification|
-  .px-4= render 'shared/notification_small', notification: notification
-  .dropdown-divider
+- if @current_notifications.any?
+  - @current_notifications.each do |notification|
+    .px-4= render 'shared/notification_small', notification: notification
+    .dropdown-divider
+- else
+  p.px-4= t('notifications.none')

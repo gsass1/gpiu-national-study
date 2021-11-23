@@ -1,4 +1,4 @@
-strong= t("notifications.action.#{notification.action}.title")
-br
-.text-muted= l(notification.created_at, format: :short)
+strong[class="#{if notification.new? then 'new-dropdown-notification-title' else ''}"]
+  = t("notifications.action.#{notification.action}.title")
+.text-muted= t('time_ago', time: time_ago_in_words(notification.created_at))
 p= render('shared/notification_message', notification: notification)

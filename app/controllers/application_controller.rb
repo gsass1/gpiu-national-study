@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale_from_params
   before_action :redirect_incomplete_users
+  before_action :set_current_notifications, if: :user_signed_in?
 
   protected
 
@@ -29,5 +30,9 @@ class ApplicationController < ActionController::Base
 
   def set_locale_from_params
     I18n.locale = params[:locale] || I18n.locale
+  end
+
+  def set_current_notifications
+    @current_notifications = current_user.notifications.order(created_at: :desc)
   end
 end
