@@ -18,6 +18,7 @@ class StudyIteration < ApplicationRecord
   after_save :create_depending_records, if: :became_accepted?
 
   scope :accepted, -> { where(acceptance_state: :accepted) }
+  scope :pending, -> { where(acceptance_state: :pending) }
 
   notify_with(proc { |f|
     {
