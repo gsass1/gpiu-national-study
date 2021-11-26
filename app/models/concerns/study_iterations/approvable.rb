@@ -13,8 +13,8 @@ module StudyIterations
       after_initialize :set_initial_acceptance_state
 
       after_save :remember_decision
-      after_save_commit :broadcast_submission,           if: :was_submitted?
-      after_save_commit :broadcast_approval_decision,    if: :was_accepted?
+      after_save_commit :broadcast_submission, if: :was_submitted?
+      after_save_commit :broadcast_announcement, :broadcast_approval_decision, if: :was_accepted?
       after_save_commit :broadcast_declination_decision, if: :was_declined?
     end
 
@@ -45,6 +45,13 @@ module StudyIterations
     def broadcast_submission
       Notifications::NotifyAdminsJob.perform_later(notification: { notifiable: self,
                                                                    action: 'study_iterations.submission' })
+    end
+
+    def broadcast_announcement
+      Notifications::NotifyCountryJob.perform_later(country: country,
+                                                    notification: {
+                                                      notifiable: self, action: 'study_iterations.announce'
+                                                    })
     end
 
     def broadcast_approval_decision
