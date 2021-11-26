@@ -110,12 +110,12 @@ module ApplicationHelper
     'GPIU National Study'
   end
 
-  def tab_links(path:, path_args:[])
+  def tab_links(path:, path_args: [])
     capture do
       current_tabs.each do |tab|
         concat(
           content_tag(:li) do
-            link_to send(path, *(path_args + [{tab: tab}])), class: "nav-link #{'active' if current_tab == tab}" do
+            link_to send(path, *(path_args + [{ tab: tab }])), class: "nav-link #{'active' if current_tab == tab}" do
               t(".tabs.#{tab}")
             end
           end

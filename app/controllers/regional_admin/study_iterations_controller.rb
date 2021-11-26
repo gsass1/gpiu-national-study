@@ -13,7 +13,7 @@ module RegionalAdmin
     before_action :load_si, only: %i[export request_export_permission]
     before_action :check_has_ranges, only: [:submit]
 
-    tabbed :edit, tabs: [:overview, :data, :schedule, :calendar, :actions], default: :overview
+    tabbed :edit, tabs: %i[overview data schedule calendar actions], default: :overview
     before_action :load_calendar_months, only: [:edit]
 
     def index

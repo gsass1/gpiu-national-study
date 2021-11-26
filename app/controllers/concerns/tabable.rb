@@ -5,6 +5,7 @@ module Tabable
 
   included do
     attr_reader :current_tab, :current_tabs
+
     helper_method :current_tab, :current_tabs
   end
 
@@ -13,11 +14,11 @@ module Tabable
       define_method "setup_tabs_for_#{action}!" do
         tab = (params[:tab] || default).to_sym
 
-        if tabs.include?(tab)
-          @current_tab = tab
-        else
-          @current_tab = default
-        end
+        @current_tab = if tabs.include?(tab)
+                         tab
+                       else
+                         default
+                       end
 
         @current_tabs = tabs
       end
