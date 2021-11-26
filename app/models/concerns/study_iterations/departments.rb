@@ -17,8 +17,8 @@ module StudyIterations
 
     def create_department_questionnaires
       Department.includes(:hospital)
-        .where(hospitals: { country_id: country_id })
-        .find_each(&:create_department_questionnaire)
+                .where(hospitals: { country_id: country_id })
+                .find_each(&:create_department_questionnaire)
     end
   end
 end

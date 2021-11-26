@@ -20,7 +20,7 @@ module StudyIterations
 
     private
 
-    def set_initial_acceptance_state 
+    def set_initial_acceptance_state
       self.acceptance_state = 0 if acceptance_state.nil?
     end
 
@@ -43,7 +43,8 @@ module StudyIterations
     end
 
     def broadcast_submission
-      Notifications::NotifyAdminsJob.perform_later(notification: { notifiable: self, action: 'study_iterations.submission' })
+      Notifications::NotifyAdminsJob.perform_later(notification: { notifiable: self,
+                                                                   action: 'study_iterations.submission' })
     end
 
     def broadcast_approval_decision
@@ -55,7 +56,10 @@ module StudyIterations
     end
 
     def push_notifications(action)
-      Notifications::NotifyRegionalAdminsJob.perform_later(country: country, notification: { notifiable: self, action: action })
+      Notifications::NotifyRegionalAdminsJob.perform_later(country: country,
+                                                           notification: {
+                                                             notifiable: self, action: action
+                                                           })
     end
   end
 end

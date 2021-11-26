@@ -21,7 +21,7 @@ module Hospitals
 
     private
 
-    def set_initial_acceptance_state 
+    def set_initial_acceptance_state
       self.acceptance_state = 0 if acceptance_state.nil?
     end
 
@@ -47,7 +47,10 @@ module Hospitals
     end
 
     def broadcast_submission
-      Notifications::NotifyRegionalAdminsJob.perform_later(country: country, notification: { notifiable: self, action: 'hospitals.submission' })
+      Notifications::NotifyRegionalAdminsJob.perform_later(country: country,
+                                                           notification: {
+                                                             notifiable: self, action: 'hospitals.submission'
+                                                           })
     end
 
     def broadcast_approval

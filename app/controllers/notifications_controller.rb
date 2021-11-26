@@ -9,13 +9,13 @@ class NotificationsController < ApplicationController
     @notifications = Notification.where(recipient: current_user).order(created_at: :desc).includes(:notifiable)
 
     # Update unread notifications
-    @notifications.each { |n| n.read! }
+    @notifications.each(&:read!)
 
-    unless params[:dropdown].present?
+    if params[:dropdown].present?
+      render partial: 'shared/notifications_dropdown', locals: { notifications: @notifications }, layout: false
+    else
       @notifications = @notifications.includes(:actor, :recipient)
       render :index
-    else
-      render partial: 'shared/notifications_dropdown', locals: { notifications: @notifications }, layout: false
     end
   end
 

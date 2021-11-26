@@ -29,7 +29,8 @@ module StudyIterations
     end
 
     def broadcast_export_data_request
-      Notifications::NotifyAdminsJob.perform_later(notification: { notifiable: self, action: 'study_iterations.request_export_permission' })
+      Notifications::NotifyAdminsJob.perform_later(notification: { notifiable: self,
+                                                                   action: 'study_iterations.request_export_permission' })
     end
   end
 end

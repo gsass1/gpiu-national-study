@@ -89,12 +89,10 @@ module RegionalAdmin
       if @study_iteration.passed?
         if @study_iteration.request_permission_timeout?
           flash[:danger] = 'You have already made a request previously. Please wait.'
+        elsif @study_iteration.request_export_permission
+          flash[:success] = 'Request for export permission has been sent to the super admins.'
         else
-          if @study_iteration.request_export_permission
-            flash[:success] = 'Request for export permission has been sent to the super admins.'
-          else
-            flash[:danger] = 'There was an error requesting export permission.'
-          end
+          flash[:danger] = 'There was an error requesting export permission.'
         end
       else
         flash[:danger] = 'Study Iteration has not passed yet'
