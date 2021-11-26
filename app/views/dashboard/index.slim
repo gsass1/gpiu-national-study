@@ -9,34 +9,21 @@
 .px-5
   .ml-auto.mr-auto
     .container
-      .d-flex.flex-row.flex-wrap.align-items-center
-        .box.alert-info
-          h2
-            .d-flex.flex-row.align-items-center
-              i.material-icons.md-36 date_range
-              = t('dashboard.calendar')
+      .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
+        = render 'box', bg: 'info', text: 'light', icon: 'date_range', title: t('dashboard.calendar') do
           div= t('dashboard.calendar_hint')
           br
           = link_to t('dashboard.calendar_link'), study_calendar_index_path
 
-        .box.bg-primary.text-light
-          h2
-            .d-flex.flex-row.align-items-center
-              i.material-icons.md-36 local_hospital
-              = t('dashboard.hospitals')
+        = render 'box', bg: 'primary', text: 'light', icon: 'local_hospital', title: t('dashboard.hospitals') do
           - unless current_user.employed?
-            p = t('dashboard.no_hospitals')
+            p= t('dashboard.no_hospitals')
           - else
             = link_to t('dashboard.my_hospitals'), hospitals_path(tab: 'my')
             br
           = link_to t('dashboard.hospital_search'), hospitals_path
 
-
-        .box.bg-success.text-dark
-          h2
-            .d-flex.flex-row.align-items-center
-              i.material-icons.md-36 accessibility
-              = t('dashboard.patients')
+        = render 'box', bg: 'success', text: 'dark', icon: 'accessibility', title: t('dashboard.patients') do
           - unless current_user.patients.any?
             p = t('dashboard.no_patients')
           - else
@@ -45,11 +32,7 @@
             br
           = link_to t('dashboard.patients_site'), patients_path
 
-        .box.bg-primary.text-light
-          h2
-            .d-flex.flex-row.align-items-center
-              i.material-icons.md-36 help
-              = t('dashboard.support')
+        = render 'box', bg: 'primary', text: 'light', icon: 'help', title: t('dashboard.support') do
           div= t('dashboard.support_hint')
           br
           = link_to t('dashboard.support_request'), new_support_request_path

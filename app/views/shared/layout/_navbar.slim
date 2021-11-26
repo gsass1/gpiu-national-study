@@ -1,0 +1,8 @@
+= render 'shared/layout/navbar/staging_warning' if Gpiu::staging?
+
+.container-fluid.box-shadow.bg-primary
+  .container.d-flex.flex-column.flex-md-row.align-items-center.py-1.text-light.top-bar
+    = render 'shared/layout/navbar/brand'
+    nav.my-2.my-md-0.mr-mid-3.d-flex.flex-row.align-items-center
+      - if user_signed_in?
+        = render 'shared/layout/navbar/content'

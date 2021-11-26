@@ -1,0 +1,6 @@
+span[data-controller="notifications"]
+  a.pl-3.text-light.d-flex.flex-row.align-items-center.dropdown-toggle#dropdownNotificationsLink[href="#" role="button" data-action="click->notifications#load" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+    i.material-icons.md-36 mail
+    = unread_notifications_badge
+  .dropdown-menu.dropdown-menu-left.notifications-dropdown.bg-light[aria-labelledby="dropdownNotificationsLink"]
+    span#notifications-dropdown[data-target="notifications.dropdown"]
