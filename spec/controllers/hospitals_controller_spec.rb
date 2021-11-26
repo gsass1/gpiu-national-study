@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe HospitalsController, type: :controller do
+  include ActiveJob::TestHelper
   render_views
 
   let(:user) { create(:user) }
@@ -28,7 +29,7 @@ RSpec.describe HospitalsController, type: :controller do
       end
 
       it 'hides rejected hospitals of the same country' do
-        hospital = create(:hospital, country: user.country, acceptance_state: :rejected)
+        hospital = create(:hospital, country: user.country, acceptance_state: :declined)
 
         get :index
         expect(response.body).not_to include(hospital.name)
@@ -117,16 +118,14 @@ RSpec.describe HospitalsController, type: :controller do
       end
 
       describe 'triggering notifications' do
-        let(:regional_admin) { create(:regional_admin, country: user.country) }
+        let!(:regional_admin) { create(:regional_admin, country: user.country) }
 
         it 'notifies regional admins' do
-          expect(User.with_role(:regional_admin, regional_admin.country)).not_to be_empty
-          expect { post_hospital }.to change(Notification, :count).by(1)
+          perform_enqueued_jobs do
+            expect(Notifier).to receive(:notify).with(hash_including(recipient: regional_admin, action: 'hospitals.submission'))
 
-          last_notification = Notification.last
-          expect(last_notification.actor).to eq(user)
-          expect(last_notification.recipient).to eq(regional_admin)
-          expect(last_notification.action).to eq('hospitals.submission')
+            post_hospital
+          end
         end
       end
     end

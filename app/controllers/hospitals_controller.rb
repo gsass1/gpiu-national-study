@@ -39,7 +39,9 @@ class HospitalsController < ApplicationController
   end
 
   def create
-    if Hospitals::CreateService.call(current_user, @hospital)
+    @hospital = Hospital.new(hospital_params.merge(user_id: current_user.id, country_id: current_user.country_id))
+
+    if @hospital.save
       flash.notice = 'Hospital was created.'
       redirect_to @hospital
     else

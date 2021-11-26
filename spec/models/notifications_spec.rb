@@ -3,13 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Notification do
-  subject { create(:notification) }
-
   it 'deleting its notifiable also deletes the notification' do
-    subject
+    Notification.destroy_all
+    notification = create(:notification)
 
     expect {
-      subject.notifiable.destroy
+      notification.notifiable.destroy
     }.to change(Notification, :count).by(-1)
   end
 end

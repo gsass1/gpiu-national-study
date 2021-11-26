@@ -4,25 +4,26 @@ class Hospital < ApplicationRecord
   include Discard::Model
   include Notifiable
 
+  include Hospitals::Approvable
+
   belongs_to :address, dependent: :destroy
   belongs_to :country
   belongs_to :user
+
   has_many :departments, dependent: :destroy
   has_many :patients, through: :departments
   accepts_nested_attributes_for :address
 
-  enum acceptance_state: { pending: 0, approved: 1, rejected: 2 }
-  scope :visible, -> { where(acceptance_state: :approved) }
-
   validates :name, presence: true
+
+  scope :visible, -> { where(acceptance_state: :accepted, discarded_at: nil) }
 
   # NOTE(gian): this gets assigned by the 'new hospital' form. This is a bit
   # more elegant than having the controller do everything
   attr_accessor :first_department_name
+  validates :first_department_name, presence: true, on: :create unless Rails.env.test?
 
   after_create :create_first_department
-
-  validates :first_department_name, presence: true, on: :create unless Rails.env.test?
 
   notify_with(proc { |f|
     {

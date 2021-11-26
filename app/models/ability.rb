@@ -12,7 +12,7 @@ class Ability
       can %i[create read], SupportRequest, user_id: user.id
 
       can %i[create read update], Address
-      can %i[create read update], Department, hospital: { country_id: user.country_id, acceptance_state: :approved }
+      can %i[create read update], Department, hospital: { country_id: user.country_id, acceptance_state: :accepted }
 
       can %i[create read], Hospital, country_id: user.country_id
       can %i[create edit read update], Hospital, user_id: user.id

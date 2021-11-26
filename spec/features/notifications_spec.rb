@@ -8,6 +8,7 @@ RSpec.describe 'Notifications', type: :feature do
 
   before do
     sign_in(user)
+    Notification.destroy_all
   end
 
   it 'shows the users current notifications' do

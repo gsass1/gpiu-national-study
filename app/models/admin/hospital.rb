@@ -22,14 +22,14 @@ module Admin
                    name: 'Accept',
                    color: :success,
                    method: :post,
-                   route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, { state: :approved }]
+                   route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, { state: :accepted }]
                  })
 
         arr.push({
-                   name: 'Reject',
+                   name: 'Decline',
                    color: :danger,
                    method: :post,
-                   route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, { state: :rejected }]
+                   route: [:regional_admin_country_hospital_set_state_path, h.country.iso_2, h.id, { state: :declined }]
                  })
       end
 

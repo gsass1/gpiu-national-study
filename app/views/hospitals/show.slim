@@ -1,14 +1,14 @@
 - disable_header_margin()
 - @title = @hospital.name
 
-- unless @hospital.approved?
+- unless @hospital.accepted?
   .alert-info
     .container.p-2
       .text-center
         span
           - if @hospital.pending?
             = t('.pending_notice')
-          - elsif @hospital.rejected?
+          - elsif @hospital.declined?
             = t('.rejected_notice')
 
 .hospital-header.mb-3
@@ -57,10 +57,10 @@
     - unless @hospital.departments.any?
       p
         = t('hospitals.show.no_departments')
-        - if @hospital.approved?
+        - if @hospital.accepted?
           = link_to "Create?", new_hospital_department_path(@hospital)
     - else
-      - if @hospital.approved?
+      - if @hospital.accepted?
         .text-center= link_to t('hospitals.show.create_new_department'), new_hospital_department_path(@hospital), class: 'btn btn-outline-primary mb-3'
       - @hospital.departments.each do |department|
         .card.mb-3
