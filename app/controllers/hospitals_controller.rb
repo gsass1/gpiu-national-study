@@ -3,16 +3,17 @@
 class HospitalsController < ApplicationController
   include Authenticated
   include ActiveStudyIteration
+  include Tabable
+
   load_and_authorize_resource
 
   add_breadcrumb I18n.t('application.nav.dashboard'), :dashboard_index_path
   add_breadcrumb I18n.t('hospitals.index.hospitals'), :hospitals_path
 
-  before_action :ensure_country, only: :create
+  tabbed :index, tabs: [:all, :my], default: :all
+  tabbed :show, tabs: [:overview, :departments, :employees], default: :overview
 
   def index
-    @tab = params[:tab] || 'all'
-
     @hospitals = Hospitals::QueryService.call(current_user, params[:q])
 
     @own_hospitals = current_user.hospitals.includes([:address])
@@ -21,8 +22,6 @@ class HospitalsController < ApplicationController
 
   def show
     add_breadcrumb @hospital.name
-
-    @tab = params[:tab] || 'overview'
 
     @department_ids = @hospital.departments.pluck(:id)
 
@@ -50,10 +49,6 @@ class HospitalsController < ApplicationController
   end
 
   private
-
-  def ensure_country
-    @hospital.country = current_user.country
-  end
 
   def hospital_params
     params.require(:hospital).permit(:name, :first_department_name, address_attributes: %i[street zip_code city])

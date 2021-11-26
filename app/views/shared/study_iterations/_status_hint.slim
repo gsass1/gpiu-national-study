@@ -1,0 +1,8 @@
+- if study_iteration.pending?
+  .alert.alert-success This study iteration is waiting for approval by the GPIU National Study administrators. You will be notified once the approval process is done.
+- elsif study_iteration.accepted?
+  .alert.alert-success This study iteration was accepted. Users of your respective country will be able to enter patient data during the given study ranges.
+- elsif study_iteration.declined?
+  .alert.alert-warning
+    p This study iteration was declined by an administrator. Please create a new study iteration.
+    p= "Reason: #{study_iteration.rejection_reason}"

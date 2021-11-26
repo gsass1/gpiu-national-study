@@ -1,0 +1,32 @@
+- if @study_iteration.unsubmitted?
+  .alert.alert-warning
+    p Create and submit your study iteration by doing the following:
+    ol
+      li
+        = link_to "Add your study dates", edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'schedule')
+      li
+        = link_to "Submit study iteration for approval", edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'actions')
+      li You will be notified when the study iteration was accepted
+- if @study_iteration.accepted?
+  .card.mb-3
+    .card-header.bg-primary.text-light
+      strong Insight
+    .card-body.card-table
+      table.table
+        tr
+          td.table-primary Number of participating hospitals
+          td.table-success.text-center
+            strong= @study_iteration.patients.includes(:department => :hospital).pluck(:hospital_id).uniq.count
+        tr
+          td.table-primary Total Patients
+          td.table-success.text-center
+            strong= @study_iteration.patients.count
+        tr
+          td.table-primary UTI/SSI Patients
+          td.table-success.text-center
+            strong= @study_iteration.patients.uti_ssi.count
+        tr
+          td.table-primary Prostate Biopsy Patients
+          td.table-success.text-center
+            strong= @study_iteration.patients.prostate_biopsy.count
+

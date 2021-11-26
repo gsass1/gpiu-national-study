@@ -4,13 +4,16 @@ module RegionalAdmin
   class StudyIterationsController < ApplicationController
     include RegionalAdminAuthenticated
     include Admin::ExportData
+    include Tabable
+
     layout 'regional_admin'
     load_and_authorize_resource
 
-    before_action :set_tab, only: [:edit]
     before_action :load_si, :check_si_is_editable, only: %i[create_study_range delete_study_range submit]
     before_action :load_si, only: %i[export request_export_permission]
     before_action :check_has_ranges, only: [:submit]
+
+    tabbed :edit, tabs: [:overview, :data, :schedule, :calendar, :actions], default: :overview
     before_action :load_calendar_months, only: [:edit]
 
     def index
@@ -32,8 +35,6 @@ module RegionalAdmin
     end
 
     def edit
-      @tab = params[:tab] || 'overview'
-
       @study_range = StudyRange.new
     end
 
@@ -49,8 +50,9 @@ module RegionalAdmin
         flash[:success] = 'Added new study range.'
         redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'schedule')
       else
+        setup_tabs_for_edit!
+        @current_tab = :schedule
         load_calendar_months
-        @tab = 'schedule'
         render :edit
       end
     end
@@ -134,7 +136,7 @@ module RegionalAdmin
     end
 
     def load_calendar_months
-      return unless @tab == 'calendar'
+      return unless current_tab == :calendar
 
       @study_ranges = @study_iteration.study_ranges
 
@@ -143,10 +145,6 @@ module RegionalAdmin
                 else
                   []
                 end
-    end
-
-    def set_tab
-      @tab = params[:tab] || 'overview'
     end
   end
 end

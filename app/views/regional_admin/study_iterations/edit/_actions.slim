@@ -1,0 +1,13 @@
+- if @study_iteration.unsubmitted?
+  .card.mb-3
+    .card-header.bg-primary.text-light
+      strong Submit Study Iteration
+    .card-body
+      p Once you have added all the study ranges you may submit your study iteration to the National Study admins for approval. You will be notified once the approval process is done.
+    .card-footer
+      - if @study_iteration.study_ranges.any?
+        = link_to "Submit", regional_admin_country_study_iteration_submit_path(@country, @study_iteration), class: "btn btn-success", data: { confirm: "Submit study iteration? You will not be able to edit the study iteration during this process." }, method: :post
+      - else
+        button.btn.btn-success[disabled title="At least one study range is required."] Submit
+- else
+  .alert.alert-info No actions available
