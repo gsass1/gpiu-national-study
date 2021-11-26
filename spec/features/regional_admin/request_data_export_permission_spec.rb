@@ -56,16 +56,20 @@ RSpec.describe 'Regional Admins > Request data export permission' do
       end
 
       context 'when the request button is clicked' do
+        include ActiveJob::TestHelper
+
         it 'notifies the admins' do
-          admin = create(:admin)
-          expect(Notifier).to receive(:notify).with(hash_including(notifiable: study_iteration, recipient: admin,
-                                                                   action: 'study_iterations.request_export_permission'))
+          perform_enqueued_jobs do
+            admin = create(:admin)
+            expect(Notifier).to receive(:notify).with(hash_including(notifiable: study_iteration, recipient: admin,
+                                                                     action: 'study_iterations.request_export_permission'))
 
-          accept_alert do
-            click_link 'Request'
+            accept_alert do
+              click_link 'Request'
+            end
+
+            expect(page).to have_content('Request for export permission has been sent to the super admins.')
           end
-
-          expect(page).to have_content('Request for export permission has been sent to the super admins.')
         end
       end
     end

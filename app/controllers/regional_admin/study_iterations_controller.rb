@@ -71,9 +71,6 @@ module RegionalAdmin
 
     def submit
       if @study_iteration.update(acceptance_state: :pending)
-        Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
-                                     action: 'study_iterations.submission')
-
         flash[:success] = 'Submitted for approval.'
       else
         flash[:danger] = 'Failed to submit for approval.'
@@ -93,13 +90,11 @@ module RegionalAdmin
         if @study_iteration.request_permission_timeout?
           flash[:danger] = 'You have already made a request previously. Please wait.'
         else
-          @study_iteration.request_permission_timeout!
-          @study_iteration.save!
-
-          Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
-                                       action: 'study_iterations.request_export_permission')
-
-          flash[:success] = 'Request for export permission has been sent to the super admins.'
+          if @study_iteration.request_export_permission
+            flash[:success] = 'Request for export permission has been sent to the super admins.'
+          else
+            flash[:danger] = 'There was an error requesting export permission.'
+          end
         end
       else
         flash[:danger] = 'Study Iteration has not passed yet'

@@ -41,7 +41,6 @@ module Admin
     def approve
       if @study_iteration.update(acceptance_state: :accepted)
         flash[:success] = "Approved study iteration \"#{@study_iteration.name}\""
-        push_notifications
       else
         flash[:danger] = 'Failed approving study iteration'
       end
@@ -53,7 +52,6 @@ module Admin
       @study_iteration.acceptance_state = :declined
       if @study_iteration.update(rejection_params)
         flash[:success] = "Rejected study iteration \"#{@study_iteration.name}\""
-        push_notifications
       else
         flash[:danger] = 'Failed rejecting study iteration'
       end
@@ -89,13 +87,6 @@ module Admin
 
     def load_study_iteration
       @study_iteration = StudyIteration.find(params[:study_iteration_id])
-    end
-
-    def push_notifications
-      ::User.with_role(:regional_admin, @study_iteration.country).each do |user|
-        Notifier.notify(recipient: user, actor: current_user, notifiable: @study_iteration,
-                        action: "study_iterations.#{@study_iteration.accepted? ? 'accepted' : 'rejected'}")
-      end
     end
   end
 end
