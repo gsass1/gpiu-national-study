@@ -23,11 +23,13 @@ RSpec.describe 'Admin > Manage Study Iterations' do
     end
 
     it 'notifies the regional admins' do
-      expect(Notifier).to receive(:notify).with(hash_including(recipient: regional_admin_user, notifiable: study_iteration, action: 'study_iterations.accepted'))
+      allow(Notifier).to receive(:notify)
 
       perform_enqueued_jobs do
         click_link 'Approve'
       end
+
+      expect(Notifier).to have_received(:notify).with(hash_including(recipient: regional_admin_user, notifiable: study_iteration, action: 'study_iterations.accepted')).at_least(:once)
     end
   end
 
