@@ -39,6 +39,7 @@ class Patient < ApplicationRecord
   validates :department_id, presence: true
   validates :study_iteration_id, presence: true
   validates :patient_type, presence: true
+  validates :initial, presence: true, allow_blank: false
 
   scope :uti_ssi, -> { where(patient_type: :uti_ssi) }
   scope :prostate_biopsy, -> { where(patient_type: :prostate_biopsy) }
