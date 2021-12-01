@@ -1,0 +1,13 @@
+/= link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: type), class: 'btn btn-sm btn-success'
+span
+  a.dropdown-toggle.btn.btn-sm.btn-success[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+    = t('patients.index.new_patient')
+  .dropdown-menu.dropdown-menu-left[id="new_patient_dropdown_#{department.id}_#{type}"]
+    .container
+      = simple_form_for department.patients.build(patient_type: type), url: hospital_department_patients_path(department.hospital, department), html: { method: :post } do |f|
+        = f.input :department_id, as: :hidden
+        = f.input :patient_type, as: :hidden
+        = f.input :initial, required: true, label: t('patients.new.initials')
+
+        .form-actions
+          = f.button :submit, "Create", class: "btn btn-sm btn-outline-primary"

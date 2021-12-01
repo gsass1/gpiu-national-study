@@ -18,7 +18,7 @@
             .float-right
               .btn-group
                 = link_to department_questionnaire_text(department.current_department_questionnaire.state_valid?), edit_hospital_department_department_questionnaire_path(department.hospital, department, department.current_department_questionnaire), class: 'btn btn-sm btn-info'
-                = link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'uti_ssi'), class: 'btn btn-sm btn-success'
+                = render 'new_patient_button', department: department, type: 'uti_ssi'
         .card-body.department-patients
           table.table.table-striped
             tr
@@ -61,7 +61,7 @@
             .float-right
               .btn-group
                 = link_to department_questionnaire_text(department.current_department_questionnaire.state_valid?), edit_hospital_department_department_questionnaire_path(department.hospital, department, department.current_department_questionnaire), class: 'btn btn-sm btn-info'
-                = link_to t('patients.index.new_patient'), new_hospital_department_patient_path(department.hospital, department, type: 'prostate_biopsy'), class: 'btn btn-sm btn-success'
+                = render 'new_patient_button', department: department, type: 'prostate_biopsy'
         .card-body.department-patients
           table.table.table-striped
             tr
