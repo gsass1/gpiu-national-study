@@ -17,4 +17,14 @@ RSpec.describe 'Regional Admins > Create study iteration' do
 
     expect(page).to have_content('Created study iteration with name "My Study Iteration"')
   end
+
+  it 'notifies the global admins' do
+    visit new_regional_admin_country_study_iteration_path(user.country)
+
+    fill_in 'Name', with: 'My Study Iteration'
+    click_button 'Create'
+
+    expect(page).to have_content('Created study iteration with name "My Study Iteration"')
+  end
+
 end

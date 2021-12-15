@@ -262,3 +262,12 @@ p {
     padding-right: 5px;
   }
 }
+
+.tabbed-heading {
+  background: #fafafa;
+  border-bottom: 1px solid #e1e4e8;
+
+  .nav-tabs {
+    border: none !important;
+  }
+}

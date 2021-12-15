@@ -1,0 +1,43 @@
+- unless hospital.departments.any?
+  p
+    = t('hospitals.show.no_departments')
+    - if hospital.accepted?
+      = link_to "Create?", new_hospital_department_path(hospital)
+- else
+  - if hospital.accepted?
+    .text-center= link_to t('hospitals.show.create_new_department'), new_hospital_department_path(hospital), class: 'btn btn-outline-primary mb-3'
+  - hospital.departments.each do |department|
+    .card.mb-3
+      .card-header.bg-primary.text-light
+        strong.lead= "#{department.name}"
+        .float-right
+          .btn-group
+            - unless current_user.employed_in?(department)
+              = simple_form_for([hospital, department, Employee.new], method: :post) do |f|
+                = f.hidden_field :department_id, value: department.id
+                = f.button :submit, t('hospitals.show.check_into_department'), class: 'btn btn-success btn-sm'
+            - else
+              = simple_form_for([hospital, department, current_user.employement_for(department)], method: :delete) do |f|
+                = f.hidden_field :department_id, value: department.id
+                = f.button :submit, t('hospitals.show.check_out_of_department'), class: 'btn btn-danger btn-sm'
+      .card-body.department-patients
+        - unless current_user.employed_in?(department)
+          table.table.table-striped
+            tr
+              th.text-center
+                p= t('.not_employed_in_department')
+        - else
+          table.table.table-striped
+            tr
+              th= t('patients.index.uti_ssi.table.id')
+              th= t('patients.index.uti_ssi.table.initials')
+              th= t('patients.index.uti_ssi.table.locked')
+              th
+            - if department.patients.within_study_iteration(current_study_iteration).any?
+              - department.patients.within_study_iteration(current_study_iteration).each do |patient|
+                tr
+                  td[style="width:5%;"]= patient.id
+                  td[style="width:5%;"]= patient.initial
+                  td.text-center[style="width:5%;"]= patient_lock_button(patient)
+                  td.text-center[style="width:75%;"]= t('.edit_on_patients_page_html', patients_page: patients_path)
+

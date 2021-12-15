@@ -1,0 +1,28 @@
+.row
+  .col-sm-8
+    .card.mb-3
+      .card-header.bg-primary.text-light
+        strong.lead= hospital.name
+      .card-body
+        strong= t("hospitals.show.info.creator")
+        div= hospital.user
+
+        hr
+
+        strong= t("hospitals.show.info.address")
+        div= hospital.address.street
+        div= "#{hospital.address.zip_code} #{hospital.address.city}"
+        div= hospital.country.name
+
+  .col-sm-4
+    .card.mb-3
+      .card-header.bg-primary.text-light
+        strong.lead= t("hospitals.show.stats.title")
+      .card-body.card-table
+        table.table
+          tr
+            th= t('hospitals.show.stats.num_patients')
+            td= hospital.patient_count
+          tr
+            th= t('hospitals.show.stats.num_employees')
+            td= hospital.employee_count

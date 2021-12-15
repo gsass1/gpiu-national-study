@@ -1,0 +1,4 @@
+- if @study_iteration.study_ranges.any?
+  = render 'shared/study_calendar', months: @months, study_iterations: [@study_iteration]
+- else
+  .alert.alert-info No ranges added yet

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe StudyIteration do
+  include ActiveJob::TestHelper
+
   let(:study_iteration) { create(:study_iteration, acceptance_state: :pending) }
   let!(:department) { create(:department, hospital: create(:hospital, country: study_iteration.country)) }
   subject { study_iteration }
@@ -18,17 +20,30 @@ RSpec.describe StudyIteration do
       study_iteration.update(acceptance_state: :pending)
     end
 
-    it 'creates a department questionnaire' do
-      expect {
-        approve
-      }.to change(DepartmentQuestionnaire, :count).by(1)
+    describe 'depending records' do
+      it 'creates a department questionnaire' do
+        expect {
+          approve
+        }.to change(DepartmentQuestionnaire, :count).by(1)
+      end
+
+      it 'does not create a department questionnaire twice' do
+        expect {
+          approve
+          approve
+        }.to change(DepartmentQuestionnaire, :count).by(1)
+      end
     end
 
-    it 'does not create a department questionnaire twice' do
-      expect {
-        approve
-        approve
-      }.to change(DepartmentQuestionnaire, :count).by(1)
+    describe 'notifications' do
+      it 'broadcasts an announcement for users of that country' do
+        perform_enqueued_jobs do
+          user = create(:user, country: study_iteration.country)
+          expect(Notifier).to receive(:notify).with(hash_including(recipient: user, notifiable: study_iteration, action: 'study_iterations.announce'))
+
+          approve
+        end
+      end
     end
   end
 end

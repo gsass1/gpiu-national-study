@@ -1,0 +1,26 @@
+- if @study_iteration.accepted?
+  .card.mb-3
+    .card-header.bg-primary.text-light
+      strong Data Export
+    .card-body
+      - unless @study_iteration.exportable?
+        .alert.alert-danger Patient data will be exportable once you have been granted permission by an administrator.
+      - else
+        ul
+          li= link_to "Hospital data (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "hospitals")
+          li= link_to "UTI/SSI Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "uti_ssi_patients")
+          li= link_to "Prostate Biopsy Patients (CSV)", regional_admin_country_study_iteration_export_path(@study_iteration.country, @study_iteration, type_of_data: "prostate_biopsy_patients")
+
+  - if @study_iteration.passed? && !@study_iteration.exportable?
+    .card.mb-3
+      .card-header.bg-primary.text-light
+        strong Request Export Permission
+      .card-body
+        p Request data access. This will send a notification to all global admins.
+      .card-footer
+        - unless @study_iteration.request_permission_timeout?
+          = link_to "Request", regional_admin_country_study_iteration_request_export_permission_path(@country, @study_iteration), method: :post, class: "btn btn-success", data: { confirm: "Are you sure you want to request export permission? This will send a notification to all super admins." }
+        - else
+          p You have already made a request previously. Please wait.
+- else
+  .alert.alert-info Study iteration has not started yet

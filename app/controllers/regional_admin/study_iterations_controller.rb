@@ -4,13 +4,16 @@ module RegionalAdmin
   class StudyIterationsController < ApplicationController
     include RegionalAdminAuthenticated
     include Admin::ExportData
+    include Tabable
+
     layout 'regional_admin'
     load_and_authorize_resource
 
-    before_action :set_tab, only: [:edit]
     before_action :load_si, :check_si_is_editable, only: %i[create_study_range delete_study_range submit]
     before_action :load_si, only: %i[export request_export_permission]
     before_action :check_has_ranges, only: [:submit]
+
+    tabbed :edit, tabs: %i[overview data schedule calendar actions], default: :overview
     before_action :load_calendar_months, only: [:edit]
 
     def index
@@ -32,8 +35,6 @@ module RegionalAdmin
     end
 
     def edit
-      @tab = params[:tab] || 'overview'
-
       @study_range = StudyRange.new
     end
 
@@ -49,8 +50,9 @@ module RegionalAdmin
         flash[:success] = 'Added new study range.'
         redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'schedule')
       else
+        setup_tabs_for_edit!
+        @current_tab = :schedule
         load_calendar_months
-        @tab = 'schedule'
         render :edit
       end
     end
@@ -71,9 +73,6 @@ module RegionalAdmin
 
     def submit
       if @study_iteration.update(acceptance_state: :pending)
-        Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
-                                     action: 'study_iterations.submission')
-
         flash[:success] = 'Submitted for approval.'
       else
         flash[:danger] = 'Failed to submit for approval.'
@@ -92,14 +91,10 @@ module RegionalAdmin
       if @study_iteration.passed?
         if @study_iteration.request_permission_timeout?
           flash[:danger] = 'You have already made a request previously. Please wait.'
-        else
-          @study_iteration.request_permission_timeout!
-          @study_iteration.save!
-
-          Notifier.bulk_notify(:admin, actor: current_user, notifiable: @study_iteration,
-                                       action: 'study_iterations.request_export_permission')
-
+        elsif @study_iteration.request_export_permission
           flash[:success] = 'Request for export permission has been sent to the super admins.'
+        else
+          flash[:danger] = 'There was an error requesting export permission.'
         end
       else
         flash[:danger] = 'Study Iteration has not passed yet'
@@ -141,7 +136,7 @@ module RegionalAdmin
     end
 
     def load_calendar_months
-      return unless @tab == 'calendar'
+      return unless current_tab == :calendar
 
       @study_ranges = @study_iteration.study_ranges
 
@@ -150,10 +145,6 @@ module RegionalAdmin
                 else
                   []
                 end
-    end
-
-    def set_tab
-      @tab = params[:tab] || 'overview'
     end
   end
 end

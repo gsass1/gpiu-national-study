@@ -33,11 +33,12 @@ en:
         departments: "Departments"
         employees: "Employees"
         acceptance_state: "Acceptance State"
-      employees_table:
-        title: "Employees"
-        id: "ID"
-        name: "Name"
-        departments: "Departments"
+      employees:
+        employees_table:
+          title: "Employees"
+          id: "ID"
+          name: "Name"
+          departments: "Departments"
       info:
         address: "Address"
         creator: "Creator"

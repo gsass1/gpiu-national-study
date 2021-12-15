@@ -60,14 +60,18 @@ RSpec.describe 'Regional Admins > Request data export permission > Timeout' do
       visit edit_regional_admin_country_study_iteration_path(user.country, study_iteration, tab: 'data')
     end
 
+    include ActiveJob::TestHelper
+
     it 'creates a notification' do
-      expect(Notifier).to receive(:notify)
+      perform_enqueued_jobs do
+        expect(Notifier).to receive(:notify)
 
-      accept_alert do
-        click_link 'Request'
+        accept_alert do
+          click_link 'Request'
+        end
+
+        expect(page).to have_content('Request for export permission has been sent to the super admins.')
       end
-
-      expect(page).to have_content('Request for export permission has been sent to the super admins.')
     end
   end
 end

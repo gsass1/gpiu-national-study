@@ -1,0 +1,52 @@
+- if @study_iteration.unsubmitted?
+  .alert.alert-warning Here you can add study ranges to your study iteration. Study ranges are consecutive days during which patient data is accepted into the database.
+
+.card.mb-3
+  .card-header.bg-primary.text-light
+    strong Schedule
+    br
+    strong Total duration =
+    = " #{@study_iteration.duration} day(s)"
+  .card-body.card-table
+    - if @study_iteration.study_ranges.any?
+      table.table.table-bordered
+        tr
+          th Start Date
+          th End Date
+          th Duration
+          th State
+          th Comment
+          - if @study_iteration.unsubmitted?
+            th Actions
+        - @study_iteration.study_ranges.each do |range|
+          tr[class=range_color_table(range)]
+            td= range.start
+            td= range.end
+            td= "#{range.duration} day(s)"
+            td= range_state(range)
+            td= range.comment
+            - if @study_iteration.unsubmitted?
+              td
+                .btn-group
+                  = link_to "Delete", regional_admin_country_study_iteration_delete_study_range_path(@country, @study_iteration, range), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to remove this study range?" }
+    - else
+      .text-center
+        .m-3
+          strong No ranges added yet
+
+- if @study_iteration.unsubmitted?
+  .card.mb-3
+    .card-header.bg-primary.text-light
+      strong Add Range
+    .card-body
+      = simple_form_for(@study_range, method: :post, url: regional_admin_country_study_iteration_create_study_range_path(@country, @study_iteration), wrapper: :horizontal_form) do |f|
+        .form-inputs
+          = f.error_notification
+          .row
+            .col-lg-6= f.input :start, required: true, hint: "Start date of the range."
+            .col-lg-6= f.input :end, required: true, hint: "End date of the range."
+          hr
+          = f.input :comment, hint: "Notes for this study range. Optional."
+          hr
+          .form-actions
+            = f.button :submit, "Add", class: 'btn btn-primary float-right'

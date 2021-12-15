@@ -35,8 +35,9 @@ class Notifier
   end
 
   def create_email_notification(options)
+    actor_id = options.actor.present? ? options.actor.id : nil
     options_hash = {
-      actor_id: options.actor.id,
+      actor_id: actor_id,
       recipient_id: options.recipient.id,
       action: options.action,
       notifiable_id: options.notifiable.id,

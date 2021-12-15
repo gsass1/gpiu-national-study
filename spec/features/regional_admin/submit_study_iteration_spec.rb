@@ -32,6 +32,8 @@ RSpec.describe 'Regional Admins > Submit study iteration' do
     end
 
     context 'when the user clicks the submit button' do
+      include ActiveJob::TestHelper
+
       it 'sets the acceptance state to pending' do
         accept_alert do
           click_link 'Submit'
@@ -42,15 +44,17 @@ RSpec.describe 'Regional Admins > Submit study iteration' do
       end
 
       it 'notifies the admins' do
-        admin = create(:admin)
-        expect(Notifier).to receive(:notify).with(hash_including(recipient: admin, notifiable: study_iteration,
-                                                                 action: 'study_iterations.submission'))
+        perform_enqueued_jobs do
+          admin = create(:admin)
+          expect(Notifier).to receive(:notify).with(hash_including(recipient: admin, notifiable: study_iteration,
+                                                                   action: 'study_iterations.submission'))
 
-        accept_alert do
-          click_link 'Submit'
+          accept_alert do
+            click_link 'Submit'
+          end
+
+          expect(page).to have_content('Submitted for approval')
         end
-
-        expect(page).to have_content('Submitted for approval')
       end
     end
   end
