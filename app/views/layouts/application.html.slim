@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title= @title || "GPIU National"
+    title= page_title || "GPIU National"
     meta[name="viewport" content="width=device-width, initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
@@ -12,15 +12,14 @@ html
 
   body.d-flex.flex-column.min-vh-100
     main.flex-grow-1
-      = render 'shared/navbar'
-      - if breadcrumbs.any?
-        .breadcrumbs-nav
-          .container= render_breadcrumbs tag: 'span', separator: ' > '
+      = render 'shared/layout/navbar'
+      = render 'shared/layout/breadcrumbs'
+      = render 'shared/layout/noscript_flash_messages'
 
-      = render 'shared/noscript_flash_messages'
+      = yield :before_content
 
       div class=("main_content #{"pt-5" unless (is_landing_page? || no_header_margin?)}")
         = yield
-    .mt-5= render 'shared/footer'
+    .mt-5= render 'shared/layout/footer'
 
-    = render 'shared/toasts'
+    = render 'shared/layout/toasts'

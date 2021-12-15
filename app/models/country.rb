@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'tzinfo'
-
 class Country < ApplicationRecord
+  include Timezoned
+
   resourcify
 
   has_many :hospitals, dependent: :destroy
@@ -13,9 +13,6 @@ class Country < ApplicationRecord
   validates :iso_2, presence: true
   validates :iso_3, presence: true
   validates :name, presence: true
-  validates :timezone, presence: true, inclusion: { in: TZInfo::Timezone.all_identifiers }
-
-  before_create :set_default_timezone
 
   def to_s
     name
@@ -26,32 +23,20 @@ class Country < ApplicationRecord
   end
 
   def current_study_iteration
-    @current_study_iteration ||= study_iterations.includes([:study_ranges]).accepted.reject(&:passed?).first
+    @current_study_iteration ||= find_current_study_iteration
   end
 
   def next_or_current_study_iteration
-    @next_or_current_study_iteration ||= study_iterations.accepted.select { |si| si.active? || !si.passed? }.first
-  end
-
-  def current_local_day
-    current_local_time.to_date
-  end
-
-  def current_local_time
-    tzinfo.utc_to_local(Time.now.utc)
-  end
-
-  def timezone_abbreviation
-    tzinfo.current_period.abbreviation.to_s
+    @next_or_current_study_iteration ||= find_next_or_current_study_iteration
   end
 
   private
 
-  def set_default_timezone
-    self.timezone = 'UTC'
+  def find_current_study_iteration
+    study_iterations.includes([:study_ranges]).accepted.reject(&:passed?).first
   end
 
-  def tzinfo
-    TZInfo::Timezone.get(timezone || 'UTC')
+  def find_next_or_current_study_iteration
+    study_iterations.accepted.select { |si| si.active? || !si.passed? }.first
   end
 end

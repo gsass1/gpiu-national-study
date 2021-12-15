@@ -15,26 +15,26 @@ RSpec.describe User do
       describe 'ability to create departments' do
         context 'when hospital is approved' do
           context 'when not in same country' do
-            let(:hospital) { FactoryBot.create(:hospital) }
+            let(:hospital) { create(:hospital) }
 
             it { is_expected.not_to be_able_to(:create, hospital.departments.new) }
           end
 
           context 'when in same country' do
-            let(:hospital) { FactoryBot.create(:hospital, country: user.country) }
+            let(:hospital) { create(:hospital, country: user.country) }
 
             it { is_expected.to be_able_to(:create, hospital.departments.new) }
           end
         end
 
         context 'when hospital is pending' do
-          let(:hospital) { FactoryBot.create(:hospital, acceptance_state: :pending, country: user.country) }
+          let(:hospital) { create(:hospital, acceptance_state: :pending, country: user.country) }
 
           it { is_expected.not_to be_able_to(:create, hospital.departments.new) }
         end
 
         context 'when hospital is rejected' do
-          let(:hospital) { FactoryBot.create(:hospital, acceptance_state: :rejected, country: user.country) }
+          let(:hospital) { create(:hospital, acceptance_state: :declined, country: user.country) }
 
           it { is_expected.not_to be_able_to(:create, hospital.departments.new) }
         end

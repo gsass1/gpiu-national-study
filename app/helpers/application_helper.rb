@@ -42,7 +42,7 @@ module ApplicationHelper
   def unread_notifications_badge
     unread = current_user.unread_notifications_count
     if unread.positive?
-      content_tag :span, class: 'badge badge-pill badge-danger unread-notifications-badge' do
+      content_tag :span, class: 'text-bold badge badge-pill badge-danger unread-notifications-badge' do
         unread.to_s
       end
     end
@@ -98,5 +98,29 @@ module ApplicationHelper
 
   def keycloak_authorize_path
     omniauth_authorize_path('user', 'keycloakopenid')
+  end
+
+  def page_title
+    return "#{@title} - GPIU National Study" if @title.present?
+
+    key = "#{controller_name}.#{action_name}.title"
+
+    return "#{t(key)} - GPIU National Study" if I18n.exists?(key)
+
+    'GPIU National Study'
+  end
+
+  def tab_links(path:, path_args: [])
+    capture do
+      current_tabs.each do |tab|
+        concat(
+          content_tag(:li) do
+            link_to send(path, *(path_args + [{ tab: tab }])), class: "nav-link #{'active' if current_tab == tab}" do
+              t(".tabs.#{tab}")
+            end
+          end
+        )
+      end
+    end
   end
 end

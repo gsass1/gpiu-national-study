@@ -1,5 +1,7 @@
 en:
   notifications:
+    index:
+      title: Notifications
     title: 'Notifications'
     header: 'Notification from %{date}'
     none: 'You have no current notifications'
@@ -40,3 +42,17 @@ en:
             A regional admin has requested data export permission for "%{name}"
             <br/>
             <a href="%{admin_link}">You can give data export permission for this study iteration by clicking here.</a>
+        announce:
+          title: 'Announcing the Start of the GPIU Study in your Country'
+          message_html: |
+            Thank you for participating in the National GPIU study. This message is to inform you about the <strong>upcoming study dates in your country.</strong>
+            <br/>
+            The following dates have been chosen:
+            <br/>
+            <br/>
+            %{formatted_dates}
+            <br/>
+            <br/>
+            You can also use the <a href="%{calendar_url}">calendar</a> to view the dates.
+            <br/>
+            On these dates you will be able to enter patient data into our database.

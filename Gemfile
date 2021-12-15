@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.4'
+gem 'rails', '~> 6.1.4.3'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -64,6 +64,8 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 gem 'tzinfo'
 
+gem 'requestjs-rails'
+
 # Groups
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -111,6 +113,8 @@ group :test do
 
   gem 'simplecov', require: false
   gem 'simplecov-cobertura'
+
+  gem 'rspec_junit_formatter'
 end
 
 group :production do

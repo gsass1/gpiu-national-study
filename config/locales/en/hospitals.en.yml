@@ -1,6 +1,7 @@
 en:
   hospitals:
     index:
+      title: Hospitals
       hospitals: 'Hospital Index'
       find: 'Find your hospital in our database.'
       create: 'Create'
@@ -16,6 +17,7 @@ en:
         my: "Listing of hospitals in which you are currently employed."
         own: "Listing of hospitals that you have created."
     new:
+      title: New Hospital
       general_info: '1. General info'
       general_hint: 'Fill in the hospital name and address information.'
       department_info: '2. Department info'
@@ -31,11 +33,12 @@ en:
         departments: "Departments"
         employees: "Employees"
         acceptance_state: "Acceptance State"
-      employees_table:
-        title: "Employees"
-        id: "ID"
-        name: "Name"
-        departments: "Departments"
+      employees:
+        employees_table:
+          title: "Employees"
+          id: "ID"
+          name: "Name"
+          departments: "Departments"
       info:
         address: "Address"
         creator: "Creator"

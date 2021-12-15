@@ -1,0 +1,14 @@
+.card.mb-3
+  .card-header.bg-primary.text-light
+    strong.lead= t('.employees_table.title')
+  .card-body.card-table
+    table.table.table-striped
+      tr
+        th= t('.employees_table.id')
+        th= t('.employees_table.name')
+        th= t('.employees_table.departments')
+      - users_employed.each do |user|
+        tr
+          td= user.id
+          td= user.to_s
+          td= user.departments.where(hospital_id: hospital.id).order("name ASC").pluck(:name).join(", ")

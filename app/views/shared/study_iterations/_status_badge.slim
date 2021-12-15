@@ -1,0 +1,8 @@
+- if study_iteration.unsubmitted?
+  span.badge.badge-info.ml-3 Unsubmitted
+- elsif study_iteration.pending?
+  span.badge.badge-primary.ml-3 Pending
+- elsif study_iteration.accepted?
+  span.badge.badge-success.ml-3 Accepted
+- elsif study_iteration.declined?
+  span.badge.badge-danger.ml-3 Declined

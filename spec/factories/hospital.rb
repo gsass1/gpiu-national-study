@@ -6,6 +6,6 @@ FactoryBot.define do
     country
     address
     user
-    acceptance_state { :approved }
+    acceptance_state { :accepted }
   end
 end

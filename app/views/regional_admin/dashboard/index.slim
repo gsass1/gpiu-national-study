@@ -1,24 +1,73 @@
+.bg-light.border.border-bottom.mb-3
+  .container
+    h2.py-3= "Dashboard for #{@country.name}"
+
 .container
-  h1 Regional Admin Dashboard
+  .d-flex.flex-row.flex-wrap.align-items-center
+    - unless @current_study_iteration.nil?
+
+      - if @current_study_iteration.active?
+        .box.bg-success.text-dark
+          h4
+            .d-flex.flex-row.align-items-center
+              i.material-icons.md-48 date_range
+              span Study Is Active
+          p Currently users can enter data into the database.
+          = link_to "View current Study Iteration.", edit_regional_admin_country_study_iteration_path(@country, @current_study_iteration)
+      - else
+        .box.bg-success.text-dark
+          h4
+            .d-flex.flex-row.align-items-center
+              i.material-icons.md-48 date_range 
+              span Study Is Approved
+          p The Study Iteration is approved but today users cannot enter data.
+          = link_to "View current Study Iteration.", edit_regional_admin_country_study_iteration_path(@country, @current_study_iteration)
+
+
+    - else
+      - if @pending_study_iterations.any?
+        .box.bg-info.text-white
+          h4
+            .d-flex.flex-row.align-items-center
+              i.material-icons.md-48 date_range 
+              span Study is pending for approval
+          p A Study Iteration has been submitted and is waiting for approval by the global administrators. You will be notified once the acceptance state changes.
+
+      - else
+        .box.bg-danger.text-white
+          h4
+            .d-flex.flex-row.align-items-center
+              i.material-icons.md-48 alarm
+              span Study Not Planned
+          p Create and submit a Study Iteration to get it approved for your country.
+          = link_to "Click here to create a Study Iteration.", new_regional_admin_country_study_iteration_path, class: 'btn btn-success'
+
+    - if @pending_hospitals.any?
+      .box.bg-primary.text-light
+        h4
+          .d-flex.flex-row.align-items-center
+            i.material-icons.md-48 local_hospital
+            span Hospitals need approval
+        p= "You need to approve #{pluralize(@pending_hospitals.count, 'new hospital')} in your country."
+        = link_to "Go to the hospital list.", regional_admin_country_hospitals_path(@country)
+
+
+
+  h2 Quick Overview
   hr
 
-  .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
+  .d-flex.flex-row.flex-wrap.align-items-center
+    .box.bg-success.text-dark.d-flex.align-items-center.justify-content-center
+      h4.d-flex.flex-row.align-items-center
+        i.material-icons.md-48 alarm
+        span= "#{@study_iterations_count} Study Iterations"
+
     .box.bg-primary.text-light.d-flex.align-items-center.justify-content-center
-      h2.d-flex.flex-row.align-items-center
+      h4.d-flex.flex-row.align-items-center
         i.material-icons.md-48 accessibility
         span= "#{@user_count} Users"
 
     .box.bg-success.text-dark.d-flex.align-items-center.justify-content-center
-      h2.d-flex.flex-row.align-items-center
+      h4.d-flex.flex-row.align-items-center
         i.material-icons.md-48 local_hospital
         span= "#{@hospitals_count} Hospitals"
-
-    .box.bg-primary.text-light.d-flex.align-items-center.justify-content-center
-      h2.d-flex.flex-row.align-items-center
-        i.material-icons.md-48 local_hospital
-        span= "#{@departments_count} Departments"
-
-    .box.bg-success.text-dark.d-flex.align-items-center.justify-content-center
-      h2.d-flex.flex-row.align-items-center
-        i.material-icons.md-48 alarm
-        span= "#{@study_iterations_count} Study Iterations"

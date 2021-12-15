@@ -34,3 +34,4 @@ en:
     new:
       title: 'New Patient'
       initial_hint: 'The initial is an ID of your choosing that helps you associate this patient with a patient in your hospital database. Please do not input any patient identifiers.'
+      initials: Initials

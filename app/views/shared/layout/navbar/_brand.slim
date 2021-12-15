@@ -1,0 +1,7 @@
+div.my-0.mr-md-auto.d-flex.flex-row.align-items-center
+  h5.font-weight-normal.national-study
+    = link_to t('application.nav.title_html'), root_path
+  - if user_signed_in?
+    - unless current_user.country.nil?
+      = flag_image current_user.country.iso_2
+

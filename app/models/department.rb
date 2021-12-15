@@ -10,8 +10,10 @@ class Department < ApplicationRecord
   has_many :users, through: :employees
   validates :name, presence: true, uniqueness: { scope: :hospital_id }
 
-  scope :visible, -> { includes(:hospital).where(hospitals: { acceptance_state: :approved }) }
+  scope :visible, -> { includes(:hospital).where(hospitals: { acceptance_state: :accepted }) }
   after_create :create_department_questionnaire
+
+  delegate :country, to: :hospital
 
   def name_with_hospital
     "#{hospital.name} - #{name}"
@@ -26,7 +28,7 @@ class Department < ApplicationRecord
   end
 
   def create_department_questionnaire
-    study_iteration = hospital.country.current_study_iteration
+    study_iteration = country.current_study_iteration
     return unless !study_iteration.nil? && current_department_questionnaire.nil?
 
     department_questionnaires.create study_iteration_id: study_iteration.id
@@ -39,7 +41,7 @@ class Department < ApplicationRecord
   private
 
   def load_current_department_questionnaire
-    study_iteration = hospital.country.current_study_iteration
+    study_iteration = country.current_study_iteration
     department_questionnaires.within_study_iteration(study_iteration).first unless study_iteration.nil?
   end
 end

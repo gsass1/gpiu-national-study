@@ -9,12 +9,22 @@ class Notifier
     new.notify(...)
   end
 
+  def self.bulk_notify(...)
+    new.bulk_notify(...)
+  end
+
   def notify(options = {})
     notification = OpenStruct.new(options.merge(created_at: DateTime.now))
 
     create_on_site_notification notification
 
     create_email_notification notification if !Rails.env.test? && notification.recipient.email_notifications?
+  end
+
+  def bulk_notify(role, options = {})
+    User.with_role(role).each do |user|
+      Notifier.notify(options.merge(recipient: user))
+    end
   end
 
   private
@@ -25,8 +35,9 @@ class Notifier
   end
 
   def create_email_notification(options)
+    actor_id = options.actor.present? ? options.actor.id : nil
     options_hash = {
-      actor_id: options.actor.id,
+      actor_id: actor_id,
       recipient_id: options.recipient.id,
       action: options.action,
       notifiable_id: options.notifiable.id,
