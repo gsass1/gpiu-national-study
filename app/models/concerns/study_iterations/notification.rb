@@ -20,7 +20,7 @@ module StudyIterations
 
       study_ranges.collect do |range|
         "#{I18n.l(range.start, format: :long)} - #{I18n.l(range.end, format: :long)}"
-      end.join('<br/>')
+      end.join('<br/>').html_safe
     end
   end
 end
