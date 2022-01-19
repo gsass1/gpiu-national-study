@@ -61,7 +61,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.after_initialize do
-    Bullet.enable = true
+    Bullet.enable = false
     Bullet.alert = true
     Bullet.rails_logger = true
     Bullet.bullet_logger = true
@@ -84,7 +84,7 @@ Rails.application.configure do
     # NOTE(gian): Preventing unused eager loading with my admin framework is
     # kind of a hassle. We don't really need top performance on the admin pages
     # anyway
-    Bullet.stacktrace_excludes = [ 'admin', 'save_with_errors', 'notifications', 'patients' ]
+    Bullet.stacktrace_excludes = [ 'admin', 'save_with_errors', 'notifications', 'patients_controller.rb' ]
   end
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'

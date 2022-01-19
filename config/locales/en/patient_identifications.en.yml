@@ -1,4 +1,11 @@
 en:
+  activerecord:
+    attributes:
+      patient_identification:
+        admission_infection: Please choose from where this patient was admitted
+        evidence_infection: Was there evidence of an infection?
+        infection_type: Please classify the infection
+
   patient_identifications:
     edit:
       title: 'Patient Identification'

@@ -21,7 +21,7 @@ class UtiQuestionnairesController < ApplicationController
   before_action :add_breadcrumbs
 
   def edit
-    @uti_questionnaire.valid?
+    @uti_questionnaire.valid? unless @patient.uti_state == 'missing'
   end
 
   def update

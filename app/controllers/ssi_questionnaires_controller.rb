@@ -16,7 +16,7 @@ class SsiQuestionnairesController < ApplicationController
   requires_active_study_iteration only: [:update]
 
   def edit
-    @ssi_questionnaire.valid?
+    @ssi_questionnaire.valid? unless @patient.ssi_state == 'missing'
   end
 
   def update
