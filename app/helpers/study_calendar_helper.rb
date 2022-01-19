@@ -8,7 +8,8 @@ module StudyCalendarHelper
     first_cweek = first_day_of_month.cweek
 
     # I think this is correct?
-    first_day = if first_cweek == 53
+    # First of january can either be the 52nd or 53rd calendar week
+    first_day = if first_cweek >= 52
                   Date.commercial(year - 1, first_cweek)
                 else
                   Date.commercial(year, first_cweek)
