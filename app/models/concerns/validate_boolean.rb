@@ -5,7 +5,7 @@ module ValidateBoolean
 
   class_methods do
     def validates_boolean(field, options = {})
-      validates field, inclusion: { in: [true, false] }, **options
+      validates field, inclusion: { in: [true, false], message: 'Please select.'}, **options
     end
   end
 end
