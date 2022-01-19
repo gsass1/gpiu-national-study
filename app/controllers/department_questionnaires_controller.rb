@@ -16,7 +16,7 @@ class DepartmentQuestionnairesController < ApplicationController
     add_breadcrumb I18n.t('department_questionnaires.edit.title')
 
     # Makes Rails validate all attributes again
-    @department_questionnaire.valid?
+    @department_questionnaire.valid? unless @department_questionnaire.state == 'missing'
   end
 
   def update
