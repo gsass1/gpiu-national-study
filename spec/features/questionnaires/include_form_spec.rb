@@ -41,7 +41,7 @@ RSpec.describe 'Patients > Include form' do
     describe 'evidence infection' do
       it_behaves_like 'a checkbox form control',
                       input_selector: '.patient_identification_evidence_infection',
-                      checkbox: 'Evidence infection',
+                      checkbox: 'Was there evidence of an infection?',
                       elem_selector: '#admission-infected'
     end
   end

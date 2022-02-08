@@ -13,7 +13,7 @@ class PatientIdentificationsController < ApplicationController
   before_action :add_breadcrumbs
 
   def edit
-    @patient_identification.valid?
+    @patient_identification.valid? unless @patient_identification.patient.identification_state == 'missing'
   end
 
   def update

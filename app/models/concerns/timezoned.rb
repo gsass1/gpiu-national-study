@@ -26,7 +26,7 @@ module Timezoned
   private
 
   def set_default_timezone
-    self.timezone = 'UTC'
+    self.timezone ||= 'UTC'
   end
 
   def tzinfo
