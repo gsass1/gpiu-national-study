@@ -88,7 +88,7 @@ if Rails.env.development?
                                 address: address,
                                 user: user,
                                 first_department_name: dept_name,
-                                acceptance_state: :approved)
+                                acceptance_state: :accepted)
 
     rand(0..NUM_MAX_DEPTS-1).times do |dept_i|
       dept = Department.create(hospital: hospital,
