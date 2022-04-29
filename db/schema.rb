@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "biopsy_outcome_questionnaires", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.datetime "discarded_at"
     t.integer "histopathology_analysis"
     t.integer "histopathology_biopsy_material_change"
@@ -315,17 +315,17 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.boolean "physician_visit_admission_hospital_internal_medicine"
     t.boolean "physician_visit_admission_hospital_intensive_care"
     t.integer "physician_visit_psa"
-    t.integer "physician_visit_psa_value"
+    t.bigint "physician_visit_psa_value"
     t.integer "physician_visit_wbc_count"
-    t.integer "physician_visit_wbc_value"
+    t.bigint "physician_visit_wbc_value"
     t.integer "physician_visit_crp"
-    t.integer "physician_visit_crp_value"
+    t.bigint "physician_visit_crp_value"
     t.integer "physician_visit_urine_culture"
     t.string "physician_visit_urine_culture_result", limit: 20
     t.integer "antibiotic_treatment"
     t.string "antibiotics_type", limit: 255
     t.string "antibiotics_dosage", limit: 255
-    t.integer "antibiotics_duration"
+    t.bigint "antibiotics_duration"
     t.string "antibiotics_route", limit: 5
     t.string "outcome", limit: 15
     t.datetime "created_at", precision: 6, null: false
@@ -334,24 +334,24 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "biopsy_questionnaires", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.datetime "discarded_at"
-    t.integer "age"
+    t.bigint "age"
     t.integer "antibiotics_preceding_months"
     t.string "antibiotics_type", limit: 255
     t.string "antibiotics_dosage", limit: 255
-    t.integer "antibiotics_duration"
+    t.bigint "antibiotics_duration"
     t.string "antibiotics_route", limit: 5
     t.integer "urogenital_infection_preceding_months"
     t.integer "urinary_catheter"
-    t.integer "urinary_catheter_duration"
+    t.bigint "urinary_catheter_duration"
     t.integer "prostate_size_measured"
-    t.integer "prostate_size"
+    t.bigint "prostate_size"
     t.integer "diabetes_mellitus"
     t.integer "psa"
-    t.integer "psa_size"
+    t.bigint "psa_size"
     t.integer "repeated_biopsy"
-    t.integer "repeated_biopsy_number_previous_procedures"
+    t.bigint "repeated_biopsy_number_previous_procedures"
     t.integer "preoperative_urine_examination"
     t.integer "preoperative_urine_examination_type"
     t.string "preoperative_urine_culture_result", limit: 20
@@ -360,7 +360,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.integer "antibiotic_prophylaxis"
     t.string "antibiotic_prophylaxis_type", limit: 255
     t.string "antibiotic_prophylaxis_dosage", limit: 255
-    t.integer "antibiotic_prophylaxis_duration"
+    t.bigint "antibiotic_prophylaxis_duration"
     t.string "antibiotic_prophylaxis_route", limit: 5
     t.integer "biopsy_anesthesia"
     t.string "biopsy_anesthesia_type", limit: 45
@@ -382,8 +382,8 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "department_questionnaires", force: :cascade do |t|
-    t.integer "department_id"
-    t.integer "study_iteration_id", null: false
+    t.bigint "department_id"
+    t.bigint "study_iteration_id", null: false
     t.integer "state", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
@@ -784,7 +784,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "departments", force: :cascade do |t|
-    t.integer "hospital_id", null: false
+    t.bigint "hospital_id", null: false
     t.string "name"
     t.integer "patient_counter"
     t.datetime "created_at", precision: 6, null: false
@@ -794,8 +794,8 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.integer "department_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "department_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id"], name: "index_employees_on_department_id"
@@ -804,8 +804,8 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
 
   create_table "hospitals", force: :cascade do |t|
     t.string "name"
-    t.integer "country_id", null: false
-    t.integer "address_id", null: false
+    t.bigint "country_id", null: false
+    t.bigint "address_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -829,7 +829,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "patient_identifications", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.integer "birth_year"
     t.integer "sex"
     t.boolean "pregnancy"
@@ -866,7 +866,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
@@ -876,7 +876,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
 
   create_table "study_iterations", force: :cascade do |t|
     t.string "name"
-    t.integer "country_id", null: false
+    t.bigint "country_id", null: false
     t.integer "acceptance_state", default: 0
     t.string "rejection_reason"
     t.datetime "discarded_at"
@@ -892,14 +892,14 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.date "start"
     t.date "end"
     t.text "comment"
-    t.integer "study_iteration_id", null: false
+    t.bigint "study_iteration_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["study_iteration_id"], name: "index_study_ranges_on_study_iteration_id"
   end
 
   create_table "support_requests", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "support_type"
     t.string "custom_support_type"
     t.text "message"
@@ -917,7 +917,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.string "last_name", default: "", null: false
     t.string "title", default: "", null: false
     t.string "suffix", default: ""
-    t.integer "country_id"
+    t.bigint "country_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -940,15 +940,15 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
+    t.bigint "user_id"
+    t.bigint "role_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
   create_table "uti_ssi_questionnaires", force: :cascade do |t|
-    t.integer "patient_id", null: false
+    t.bigint "patient_id", null: false
     t.datetime "discarded_at"
     t.integer "form_type"
     t.boolean "previous"
@@ -966,7 +966,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.boolean "catheter_ureteralstent"
     t.boolean "catheter_nephrostomy"
     t.boolean "catheter_others"
-    t.integer "catheterduration"
+    t.bigint "catheterduration"
     t.string "intervention_endoscopic", limit: 255
     t.string "intervention_laparoscopic", limit: 255
     t.string "intervention_percutaneous", limit: 255
