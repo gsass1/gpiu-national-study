@@ -1,5 +1,8 @@
 .container.mt-3
-  h1 Study Iterations
+  h1
+    = "Study Iterations"
+    .float-right
+      = link_to "New", new_regional_admin_country_study_iteration_path(@country), class: "btn btn-md btn-success"
   hr
 
   - unless @study_iterations.any?
@@ -32,6 +35,9 @@
                 i.material-icons.18 check_circle
               - if itr.declined?
                 strong Declined
+                i.material-icons.18 error
+              - if itr.revoked?
+                strong Revoked
                 i.material-icons.18 error
           td
             - if itr.study_ranges.any?

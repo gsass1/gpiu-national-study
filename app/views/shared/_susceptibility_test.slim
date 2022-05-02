@@ -1,0 +1,35 @@
+- susceptibility_test.valid?
+
+= f.fields_for :susceptibility_tests, susceptibility_test do |g|
+  = g.hidden_field :pos_id
+
+  .row
+    .col-sm-6
+      ol
+        li
+          = g.input :pathogen,
+            as: :grouped_select,
+            collection: pathogen_options,
+            group_method: :last,
+            input_html: form_trigger("pathogen_specify_#{g.object.div_id}", SusceptibilityTest::OTHER_PATHOGENS.join(','))
+          div[id="pathogen_specify_#{g.object.div_id}"]= g.input :pathogen_specify, label: t('shared.appendix_culture.pathogen.please_specify')
+    .col-sm-6
+      ol start='2'
+        li= g.input :cfu, as: :select,
+          include_blank: true,
+          collection: SusceptibilityTest::cfus.keys,
+          label: t('shared.appendix_culture.pathogen.enter_cfu_ml')
+
+  .row
+    .col-sm-12
+      ol start='3'
+        p.question= 'Susceptibility test'
+        - SusceptibilityTest::SUSCEPTIBILITY_FIELDS.each do |group|
+          - if group.has_key?(:sub_fields)
+            li
+              = g.input group[:field], label: t("shared.appendix_culture.susceptibility_fields.#{group[:field]}"), input_html: form_trigger("#{group[:field]}_#{g.object.div_id}", "true")
+              ol[id="#{group[:field]}_#{g.object.div_id}"]
+                - group[:sub_fields].each do |sub_field|
+                  li= render 'shared/susceptibility_test_field', g: g, field: sub_field, parent_field: group[:field]
+          - else
+            li= render 'shared/susceptibility_test_field', g: g, field: group

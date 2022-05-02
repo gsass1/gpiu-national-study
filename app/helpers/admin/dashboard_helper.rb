@@ -5,7 +5,7 @@ module Admin
     def sidepanel_sections
       [
         {
-          name: 'Dashboard',
+          name: 'Admin Dashboard',
           path: admin_dashboard_index_path,
           controller: 'dashboard',
           icon: 'home',

@@ -46,10 +46,19 @@ module Admin
           render template: 'admin/resources/index'
         end
         format.csv do
-          csv_data = resource_class.as_csv_collection(
-            resource_class.accessible_by(current_ability)
-                          .includes(@class_presenter.all_associations)
-          )
+          begin
+            csv_data = Exporters::CommaSeparated.new.tap do |e|
+              resource_class.accessible_by(current_ability).each do |resource|
+                e.export_row resource
+              end
+            end.as_string
+          rescue Exporters::InvalidObject
+            csv_data = resource_class.as_csv_collection(
+              resource_class.accessible_by(current_ability)
+              .includes(@class_presenter.all_associations)
+            )
+          end
+
           send_data csv_data, filename: "#{resource_name.pluralize}.csv"
         end
       end
@@ -67,7 +76,14 @@ module Admin
           render template: 'admin/resources/show'
         end
         format.csv do
-          csv_data = resource_class.as_csv_collection([@resource])
+          begin
+            csv_data = Exporters::CommaSeparated.new.tap do |e|
+              e.export_row @resource
+            end.as_string
+          rescue Exporters::InvalidObject
+            csv_data = resource_class.as_csv_collection([@resource])
+          end
+
           send_data csv_data, filename: "#{@resource}.csv"
         end
       end

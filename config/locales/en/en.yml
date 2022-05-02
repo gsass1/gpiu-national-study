@@ -38,13 +38,25 @@ en:
 
   errors:
     format: "%{message}"
+    messages:
+      blank: "must be filled out"
+      date_in_future: "must be in the past"
 
   time_ago: '%{time} ago'
 
   signed_in_keycloak: 'Successfully signed in through SSO'
   signed_in_keycloak_failed: 'Unable to sign in through SSO. Please contact support.'
 
+  shared_section: 'This section is shared with the UTI and SSI study'
+
+  cookie_banner:
+    text: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
+    button: Ok
+
   form_hints:
+    locked:
+      title: "This questionnaire is locked"
+      text: "To edit this form you have to unlock the patient again."
     valid:
       title: "This questionnaire is valid"
       text: "Please note that further edits may invalidate the questionnaire. To prevent that you can lock this questionnaire/patient."
@@ -52,5 +64,5 @@ en:
       title: "This questionnaire is missing"
       text: "This questionnaire has not been previously edited."
     invalid:
-      title: "This questionnaire is invalid"
-      text: "There are at least %{errors} error(s) in this form. Please correct them below."
+      title: "This questionnaire is incomplete"
+      text: "Please correct the issues below."

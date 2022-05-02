@@ -41,5 +41,34 @@ module RegionalAdmin
         tab.capitalize
       end
     end
+
+    CREATION_STEPS = [
+      :overview,
+      :schedule,
+      :calendar,
+      :actions
+    ]
+
+    def study_iteration_creation_prev_button(step)
+      return unless step.in?(CREATION_STEPS)
+
+      idx = CREATION_STEPS.index(step)
+      return if idx == 0
+
+      link_to 'Previous',
+        edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: CREATION_STEPS[idx-1]),
+        class: 'btn btn-md btn-outline-primary'
+    end
+
+    def study_iteration_creation_next_button(step)
+      return unless step.in?(CREATION_STEPS)
+
+      idx = CREATION_STEPS.index(step)
+      return if idx == CREATION_STEPS.length-1
+
+      link_to 'Next',
+        edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: CREATION_STEPS[idx+1]),
+        class: 'btn btn-md btn-outline-primary'
+    end
   end
 end

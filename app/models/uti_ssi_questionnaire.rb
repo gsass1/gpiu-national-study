@@ -5,15 +5,16 @@ class UtiSsiQuestionnaire < ApplicationRecord
   include Questionnaire
   include SaveWithErrors
 
-  include Antibiotics
-  include Comorbidity
-  include CultureResult
-
   belongs_to :patient
+  has_one :uti_ssi_history, through: :patient
+  accepts_nested_attributes_for :patient
+
+  delegate :uti_form_needed?, to: :patient
+  delegate :ssi_form_needed?, to: :patient
+
+  validates_associated :uti_ssi_history
 
   enum form_type: { uti: 0, ssi: 1 }
-
-  enum antimicrobial_treatment: { none: 0, oral: 1, parenteral: 2, both: 3 }, _prefix: true
 
   def appendix_antibiotics_count
     2

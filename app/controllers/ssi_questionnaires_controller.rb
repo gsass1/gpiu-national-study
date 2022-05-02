@@ -7,6 +7,7 @@ class SsiQuestionnairesController < ApplicationController
   include AppendixAntibioticParams
   include AppendixCultureResultParams
   include SsiQuestionnaireParams
+  include UtiSsiHistoryParams
 
   before_action :load_patient, :load_ssi_questionnaire, :add_breadcrumbs
 

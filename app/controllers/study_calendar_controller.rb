@@ -6,11 +6,11 @@ class StudyCalendarController < ApplicationController
 
   def index
     @country = current_user.country
-    @study_iteration = @country.next_or_current_study_iteration
+    @study_iterations = @country.current_and_upcoming_study_iterations
 
-    return if @study_iteration.nil?
+    return unless @study_iterations.any?
 
-    @study_ranges = @study_iteration.study_ranges
+    @study_ranges = @study_iterations.sum(&:study_ranges)
     @months = CalendarUtil.collect_months(@study_ranges.first.start, @study_ranges.last.end)
   end
 end

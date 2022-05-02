@@ -24,7 +24,7 @@ class Hospital < ApplicationRecord
 
   validates :first_department_name, presence: true, on: :create unless Rails.env.test?
 
-  after_create :create_first_department
+  after_create :create_first_department, :employ_creator_in_first_department
 
   notify_with(proc { |f|
     {
@@ -51,5 +51,9 @@ class Hospital < ApplicationRecord
 
   def create_first_department
     departments.create name: first_department_name if first_department_name.present?
+  end
+
+  def employ_creator_in_first_department
+    departments.first.employees.create user: user if departments.any?
   end
 end

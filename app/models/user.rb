@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   include DeviseConfiguration
+
   include Discard::Model
   include Bitmask
   rolify
@@ -65,10 +66,21 @@ class User < ApplicationRecord
     has_role? :admin
   end
 
+  def regional_admin?
+    Country.with_role(:regional_admin, self).any?
+  end
+
   delegate :count, to: :unread_notifications, prefix: true
 
   def unread_notifications
     Notification.where(recipient: self, read_at: nil)
+  end
+
+  def current_patients
+    study_iteration = country.next_or_current_study_iteration
+    return [] if study_iteration.nil?
+
+    study_iteration.patients.where(creator: self)
   end
 
   def valid_patients_count

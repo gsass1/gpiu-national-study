@@ -5,7 +5,7 @@ module RegionalAdmin
     def regional_admin_sidepanel_sections
       [
         {
-          name: 'Dashboard',
+          name: "#{@country.name} Dashboard",
           path: regional_admin_country_dashboard_index_path(@country),
           controller: 'dashboard',
           icon: 'home',

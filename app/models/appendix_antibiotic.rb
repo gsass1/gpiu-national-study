@@ -2,15 +2,12 @@
 
 class AppendixAntibiotic < ApplicationRecord
   include Discard::Model
+  include Exportable
 
   GROUPS = %i[
     aminoglycoside
     carbapenem
-    first_generation_cephalosporin
-    second_generation_cephalosporin
-    third_generation_cephalosporin
-    fourth_generation_cephalosporin
-    fifth_generation_cephalosporin
+    cephalosporin
     glycopeptide
     lincosamide
     macrolide
@@ -19,10 +16,27 @@ class AppendixAntibiotic < ApplicationRecord
     penicillin
     polypeptide
     quinolone
-    sulfonamide
+    trimethoprim_sulfamethoxazole
     tetracycline
     antimycobacterial_drug
     other
+  ].freeze
+
+  CEPHALOSPORIN_GENERATIONS = [
+    # 1st generation
+    %i[cefadroxil cefalexin cefazolin],
+
+    # 2nd generation
+    %i[cefaclor cefprozil cefuroxime],
+
+    # 3rd generation
+    %i[cefdinir cefixim cefotaxime cefpodoxime ceftazidime ceftibuten ceftriaxone],
+
+    # 4th generation
+    %i[cefepime],
+
+    # 5th generation
+    %i[ceftaroline_fosamil ceftobiprole]
   ].freeze
 
   belongs_to :questionnaire, polymorphic: true, optional: true
@@ -48,28 +62,48 @@ class AppendixAntibiotic < ApplicationRecord
   enum carbapenem: { doripenem: 0, ertapenem: 1, imipenem: 2, meropenem: 3 }, _prefix: true
   group_accessor :carbapenem
 
-  enum first_generation_cephalosporin: { cefadroxil: 0, cefalexin: 1, cefazolin: 2 }, _prefix: true
-  group_accessor :first_generation_cephalosporin
-
-  enum second_generation_cephalosporin: { cefaclor: 0, cefprozil: 1, cefuroxime: 2 }, _prefix: true
-  group_accessor :second_generation_cephalosporin
-
-  enum third_generation_cephalosporin: {
-    cefdinir: 0,
-    cefixim: 1,
-    cefotaxime: 2,
-    cefpodoxime: 3,
-    ceftazidime: 4,
-    ceftibuten: 5,
-    ceftriaxone: 6
+  enum cephalosporin: {
+    cefaclor: 0,
+    cefadroxil: 1,
+    cefalexin: 2,
+    cefazolin: 3,
+    cefdinir: 4,
+    cefepime: 5,
+    cefixim: 6,
+    cefotaxime: 7,
+    cefpodoxime: 8,
+    cefprozil: 9,
+    ceftaroline_fosamil: 10,
+    ceftazidime: 11,
+    ceftibuten: 12,
+    ceftobiprole: 13,
+    ceftriaxone: 14,
+    cefuroxime: 15
   }, _prefix: true
-  group_accessor :third_generation_cephalosporin
+  group_accessor :cephalosporin
 
-  enum fourth_generation_cephalosporin: { cefepime: 0 }, _prefix: true
-  group_accessor :fourth_generation_cephalosporin
+  #   enum first_generation_cephalosporin: { cefadroxil: 0, cefalexin: 1, cefazolin: 2 }, _prefix: true
+  #   group_accessor :first_generation_cephalosporin
 
-  enum fifth_generation_cephalosporin: { ceftaroline_fosamil: 0, ceftobiprole: 1 }, _prefix: true
-  group_accessor :fifth_generation_cephalosporin
+  #   enum second_generation_cephalosporin: { cefaclor: 0, cefprozil: 1, cefuroxime: 2 }, _prefix: true
+  #   group_accessor :second_generation_cephalosporin
+
+  #   enum third_generation_cephalosporin: {
+  #     cefdinir: 0,
+  #     cefixim: 1,
+  #     cefotaxime: 2,
+  #     cefpodoxime: 3,
+  #     ceftazidime: 4,
+  #     ceftibuten: 5,
+  #     ceftriaxone: 6
+  #   }, _prefix: true
+  #   group_accessor :third_generation_cephalosporin
+
+  #   enum fourth_generation_cephalosporin: { cefepime: 0 }, _prefix: true
+  #   group_accessor :fourth_generation_cephalosporin
+
+  #   enum fifth_generation_cephalosporin: { ceftaroline_fosamil: 0, ceftobiprole: 1 }, _prefix: true
+  #   group_accessor :fifth_generation_cephalosporin
 
   enum glycopeptide: { teicoplanin: 0, telavancin: 1, vancomycin: 2 }, _prefix: true
   group_accessor :glycopeptide
@@ -125,8 +159,8 @@ class AppendixAntibiotic < ApplicationRecord
   }, _prefix: true
   group_accessor :quinolone
 
-  enum sulfonamide: { sulfamethoxazole: 0, trimephtoprim_sulfamethoxazole: 1 }, _prefix: true
-  group_accessor :sulfonamide
+  enum trimethoprim_sulfamethoxazole: { trimethoprim_sulfamethoxazole: 0 }, _prefix: true
+  group_accessor :trimethoprim_sulfamethoxazole
 
   enum tetracycline: { doxycycline: 0, tetracycline: 1 }, _prefix: true
   group_accessor :tetracycline
@@ -149,6 +183,12 @@ class AppendixAntibiotic < ApplicationRecord
   group_accessor :other
 
   before_validation :sanitize_attributes, on: :update
+
+  exports_as do |e, p|
+    GROUPS.each_with_index do |group, index|
+      e.value (index + 1).to_s, p.send(group)
+    end
+  end
 
   private
 

@@ -1,6 +1,13 @@
 en:
   shared:
     appendix_culture:
+      susceptibility_standard:
+        nccls_clsi: "NCCLS/CLSI"
+        din: "DIN"
+        eucast: "EUCAST"
+        other: "Other"
+        unknown: "Unknown"
+
       field:
         answer:
           sensitive: "Sensitive"
@@ -19,6 +26,7 @@ en:
             din: "DIN"
             eucast: "EUCAST"
             other: "Other"
+            unknown: "Unknown"
         susceptibility_standard_other:
           question: "Please specify"
       pathogen:
@@ -54,46 +62,46 @@ en:
       susceptibility_fields:
         penicillins: "Penicillins"
         penicillins_options:
-          ampicillin_amoxicillin: "ampicillin/amoxicillin"
-          ampicillin_amoxicillin_bli: "ampicillin/amoxicillin+BLI"
-          piperacillin: "piperacillin"
-          piperacillin_bli: "piperacillin+BLI"
-          oxacillin: "oxacillin"
-          ticarcillin_clavulanic_acid: "Ticarcillin + Clavulanic acid"
+          penicillins_ampicillin: "Ampicillin/Amoxicillin"
+          penicillins_ampicillin_bli: "Ampicillin/Amoxicillin+BLI"
+          penicillins_piperacillin: "Piperacillin"
+          penicillins_piperacillin_bli: "Piperacillin+BLI"
+          penicillins_oxacillin: "Oxacillin"
+          penicillins_ticarcillin: "Ticarcillin + Clavulanic acid"
         cephalosporins: "Cephalosporins"
         cephalosporins_options:
-          cephazolin: "cephazolin"
-          cefuroxime: "cefuroxime"
-          cefotaxime_ceftriaxone: "cefotaxime/ceftriaxone"
-          ceftazidime: "ceftazidime"
-          cefepime: "cefepime"
-          ceftaroline: "Ceftaroline"
+          cephalosporins_cephazolin: "Cephazolin"
+          cephalosporins_cefuroxime: "Cefuroxime"
+          cephalosporins_cefotaxime: "Cefotaxime/ceftriaxone"
+          cephalosporins_ceftazidime: "Ceftazidime"
+          cephalosporins_cefepime: "Cefepime"
+          cephalosporins_ceftaroline: "Ceftaroline"
           cephamycins: "Cephamycins"
-          cefoxitin: "Cefoxitin"
-          cefotetan: "Cefotetan"
+          cephalosporins_cefoxitin: "Cefoxitin"
+          cephalosporins_cefotetan: "Cefotetan"
         carbapenem: "Carbapenem"
         carbapenem_options:
-          imipenem_meronem: "Imipenem/meronem"
-          doripenem: "Doripenem"
-          ertapenem: "Ertapenem"
+          carbapenem_imipenem: "Imipenem/meronem"
+          carbapenem_doripenem: "Doripenem"
+          carbapenem_ertapenem: "Ertapenem"
         aminoglycosides: "Aminoglycosides"
         aminoglycosides_options:
-          gentamicin: "gentamicin"
-          amikacin: "amikacin"
-          tobramicin: "Tobramicin"
-          netilmicin: "Netilmicin"
+          aminoglycosides_gentamicin: "Gentamicin"
+          aminoglycosides_amikacin: "Amikacin"
+          aminoglycosides_tobramicin: "Tobramicin"
+          aminoglycosides_netilmicin: "Netilmicin"
         fluoroquinolones: "Fluoroquinolones"
         fluoroquinolones_options:
-          ofloxacin: "ofloxacin"
-          ciprofloxacin: "ciprofloxacin"
-          levofloxacin: "levofloxacin"
-          moxifloxacin: "Moxifloxacin"
+          fluoroquinolones_ofloxacin: "Ofloxacin"
+          fluoroquinolones_ciprofloxacin: "Ciprofloxacin"
+          fluoroquinolones_levofloxacin: "Levofloxacin"
+          fluoroquinolones_moxifloxacin: "Moxifloxacin"
         tetracyclines: "Tetracyclines"
         tetracyclines_options:
-          doxycyclin: "doxycyclin"
-          tetracycline: "Tetracycline"
-          minocycline: "Minocycline"
-          glycylcylines_tigecyline: "Glycylcylines - Tigecyline"
+          tetracyclines_doxycyclin: "Doxycyclin"
+          tetracyclines_tetracycline: "Tetracycline"
+          tetracyclines_minocycline: "Minocycline"
+          tetracyclines_glycylcylines: "Glycylcylines - Tigecyline"
         fosfomycin_trometamol: "Fosfomycin trometamol"
         trimethoprim_solfonamide_cotrimoxazole: "Trimethoprim/Sulfonamide (Cotrimoxazole)"
         nitrofurantoin: "Nitrofurantoin"
@@ -101,18 +109,17 @@ en:
         clindamycin: "Clindamycin"
         glycopeptides: "Glycopeptides"
         glycopeptides_options:
-          vancomycin: "vancomycin"
-          teicoplanin: "Teicoplanin"
-          telavancin: "Telavancin"
+          glycopeptides_vancomycin: "Vancomycin"
+          glycopeptides_teicoplanin: "Teicoplanin"
+          glycopeptides_telavancin: "Telavancin"
         linezolid: "Linezolid"
         phenicols: "Phenicols"
         polymixins: "Polymixins"
         polymixins_options:
-          colistins: "Colistins"
-          polymixin_b: "Polymixin B"
+          polymixins_colistins: "Colistins"
+          polymixins_polymixin: "Polymixin B"
         monobactams: "Monobactams"
         daptomycin: "Daptomycin"
         rifampin_rifampicin: "Rifampin/Rifampicin"
         fucidanes: "Fucidanes"
-
 

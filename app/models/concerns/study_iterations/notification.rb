@@ -16,7 +16,7 @@ module StudyIterations
     end
 
     def formatted_dates
-      return "" unless study_ranges.any?
+      return '' unless study_ranges.any?
 
       study_ranges.collect do |range|
         "#{I18n.l(range.start, format: :long)} - #{I18n.l(range.end, format: :long)}"

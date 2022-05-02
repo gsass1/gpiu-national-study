@@ -34,7 +34,7 @@ RSpec.describe PatientIdentification do
 
       it 'is sanitized if sex set to male' do
         subject.update(sex: :male)
-        expect(subject.reload.pregnancy).to be(nil)
+        expect(subject.reload.pregnancy).to be_nil
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe PatientIdentification do
 
       it 'sanitizes admission infection if set to false' do
         subject.update(evidence_infection: false)
-        expect(subject.reload.admission_infection).to be(nil)
+        expect(subject.reload.admission_infection).to be_nil
       end
     end
   end

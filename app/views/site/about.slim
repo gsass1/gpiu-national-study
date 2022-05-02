@@ -1,2 +1,161 @@
-.container
-  h1 = t('sites.about.about')
+.container.mt-2
+  .row
+    .col-lg-4.d-lg-block.d-none
+      .about-toc.text-white
+        a.toc-entry[href='#introduction']= '1. Introduction'
+        a.toc-entry[href='#aims']= '2. Aims of study'
+        a.toc-entry[href='#pbx']= '3. GPIU Prostate Biopsy Side Study'
+        a.toc-entry[href='#pbx_rationale']= '4. GPIU Prostate Biopsy Side Study Rationale'
+        a.toc-entry[href='#study']= '5. Study design/methods'
+        a.toc-entry[href='#benefits']= '6. Benefits of GPIU participation'
+        a.toc-entry[href='#publications']= '7. Publications based on the PEAP/GPIU-studies'
+
+    .col-lg-8.col-md-12.text-grey
+      div.study-info
+        h2 Global Prevalence Study on Infections in Urology (GPIU-study)
+        hr
+        div
+          h3#introduction 1. Introduction
+          hr
+
+          p Health-care associated (HAI) affecting the urinary tract or surgical sites pose a serious threat to patients in urology departments. Increasing antimicrobial resistance worldwide is also a cause of concern since pathogens do not respect geographical borders. The prevalence and outcome of HAI is an important quality parameter that is routinely collected by monitors of healthcare in a number of countries. Reducing the risk and hence prevalence of HAI is a key priority in all healthcare systems and is made easier by local and international monitoring. In addition community - acquired urinary tract infection (UTI) is a common reason for admission to urology departments and adds to the burden of infectious disease seen in the specialty.
+          p The Global Prevalence Study on Infections in Urology (GPIU-study) is an international internet-based audit carried out through the UROWEB portal of the European Section of Infections in Urology (ESIU) of the European Association of Urology (EAU)(http://www.uroweb.org/). All uploaded patient information will be reported anonymously to the central study file. All participating departments will be allocated their own separate study page where their patients are listed anonymously according to subject numbers.
+        div
+          h3#aims 2. Aims of study
+          hr
+          | Primary aims:
+          br
+          em To study
+          ol
+            li Urinary tract infections (UTI) and surgical site infections (SSI) in hospitalised urological patients
+            li the prevalence of health-care associated (HAI) (according to Centers for Disease Control - CDC criteria)
+            li the pathogens involved
+            li the resistance patterns
+            li the use of antibiotics for prophylaxis and treatment of both health-care associated and community acquired UTI and SSI
+          p in Urology Departments throughout the world. Through these aims the results of the study will provide national and international prevalence data on UTI for use in further research and will allow individual institutions to bench-mark their performance against national and international peers.
+          | Secondary aims:
+          br
+          em To offer participating Urology Departments and urologists
+          ol
+            li an instrument for quality control of HAI within their institution
+            li ESIU/EAU Certificate for infection control
+            li EU-ACME credit points for participants
+        / div
+        /   h3 Methods
+        /   em Study day
+        /   p Each participating department can freely choose a single study day within one of the following periods during #{Rails.application.config.study_year}:
+        /   table.studydates
+        /     - Rails.application.config.study_dates.each do |range|
+        /       tr
+        /         td
+        /           strong #{format_study_range range}
+        /         - if range == Rails.application.config.study_dates.first
+        /           td The Study-day is one day within one of these periods
+        /         - elsif range == Rails.application.config.study_dates.last
+        /           td Last day for sending report forms!
+        /         - else
+        /           td
+        /   hr
+          p
+            strong
+              | On the chosen single study day at 08:00 AM local time all patients present on the ward should be included. The presence of UTI and/ or SSI according to the CDC definitions (
+              a[href="/CDC_criteria.docx"]
+                | Appendix
+              | ) during their entire hospital stay should be documented and audited. Thus the charts and case records of the included patients should be examined both retrospectively and prospectively and patients should be categorized as having or not having a UTI or SSI.
+
+          em Registration of investigators
+          p Study-report forms will be available through the GPIU portal at https://gpiu.esiu.org after Nov. 1, #{Time.now.year}. At the time of registration each department will be allocated a Centre number and Patient - unique study numbers through the study website. Completed forms can then be submitted on-line to a patient study file on the study website. All submissions should be received on or before midnight on Dec. 31, #{Time.now.year} at which point the study will close.
+
+          em Variables to be recorded
+          p Each participating department must first complete the 'Hospital Registration' Form A which details the population of patients hospitalized in that departments at 8:00 AM on the chosen Study-day. Departments previously participating will be exhibited the 'Hospital Registration Form' of the previous year and are asked to update the information for #{Time.now.year}. An individual 'Patient Registration Form' must be completed for each patient categorized as having UTI or SSI (according to CDC criteria) and hospitalized in the participating urology department at 8:00 AM on the chosen Study day. Definitions of all requested variables included in the different Forms are available by means of help buttons.
+
+        div
+          h3#pbx 3. GPIU Prostate Biopsy Side Study
+          hr
+          p For GPIU-#{Time.now.year} we are requesting participation in a side study designed to audit the prevalence of infective complications following prostate biopsy.
+
+        div
+          h3#pbx_rationale 4. GPIU-#{Time.now.year} Prostate Biopsy Side Study Rationale
+          hr
+          p Prostate biopsy is an extremely valuable and frequently performed diagnostic procedure in urology. There is some evidence that infective complications following prostate biopsy are increasing in number and severity in many countries possibly related to increased resistance of fecal pathogens to antibiotics such as fluorquinolones used for prophylaxis. The GPIU prostate biopsy side study is a prevalence study on infective complications of prostate biopsy.
+
+          p Aims/Objectives:
+          ol
+            li To audit prevalence of infective complications after prostate biopsy across centres and countries participating in GPIU
+            li To establish risk factors associated with higher risk of infective complications
+            li To determine changing resistance patterns to antibiotics used for prophylaxis
+
+        div
+          h3#study 5. Study design/methods
+          hr
+          p All patients undergoing prostate biopsy during the 2 week period commencing on the GPIU study day in November 2012 chosen by each centre should be included and followed up. Each patient has to be contacted at approximately 14 days following their biopsy and interviewed regarding infective complications either by telephone or face-to-face (see figure for study design).
+
+          p The investigator for each centre will complete a participant data file for each patient including detailing relevant pre-biopsy characteristics, biopsy protocol followed and infective complications during the 14 day period following biopsy.
+
+        div
+          h3#benefits 6. Benefits of GPIU-#{Time.now.year} Participation
+          hr
+          p Investigators can read accumulated results from their own hospital and compare them to average results of other hospitals. The statistics will be generated automatically after the deadline for submission of report forms on 31st December #{Time.now.year}. If the investigators continue to contribute to GPIU in subsequent years the data program will accumulate results for several years (as long as the study lasts) and offer presentations of the development in prevalence and resistance patterns over time.
+
+          p Urology Departments that take part in the GPIU-study will be awarded the ESIU/EAU Certificate for infection control, which can be downloaded via the website (See Form A, question V.).
+
+          p All investigators (one for each centre) will receive copies of presentations of study results and will be acknowledged in publications from the study.
+        div
+          h3#publications 7. Publications based on the PEAP/GPIU-studies
+          hr
+          p
+            | 1. M. Çek, Z. Tandogdu, K. Naber, P. Tenke, F. Wagenlehner, E. van Oostrum, B. Kristensen and T.E. Bjerklund Johansen, On behalf of the GPIU investigators.
+            em Antibiotic prophylaxis in urology departments 2005-2010.
+            | European Urology 2012, accepted.
+          p
+            | 2. F. Wagenlehner, E. van Oostrum, P. Tenke, Z. Tandogdu, M. Çek, M. Grabe, B. Wullt, R. Pickard, K.G. Naber, A. Pilatz, W. Weidner, T. Bjerklund-Johansen, On behalf of the GPIU investigators.
+            em Infective complications after prostate biopsy: Outcome of the Global Prevalence of Infections in Urology (GPIU) prostate biopsy study 2010 and 2011 - a prospective, multinational, multicenter study.
+            | European Urology 2012, epub ahead of print.
+          p
+            | 3. Bjerklund Johansen TE, Cek M, Naber KG, Stratchounski L, Svendsen M, Tenke P on behalf of the PEP and PEAP-study investigators and the board of the European Society of Infections in Urology.
+            em Hospital acquired urinary tract infections in urology departments: Pathogens, susceptibility and use of antibiotics. Data from the PEP and PEAP-studies.
+            | IJAA 2006;28S: S91-S107.
+          p
+            | 4. Bjerklund Johansen TE, Cek M, Naber KG, Stratchounski L, Svendsen M, Tenke P on behalf of the PEP and PEAP-study investigators and the board of the European Society of Infections in Urology.
+            em Prevalence of Hospital-Acquired Urinary Tract Infections in Urology departments.
+            | Eur Urol 2007;51(4):1100-1012.
+          p
+            | 5. Tandoğdu Z, Bartoletti R, Cai T, Çek M, Grabe M, Kulchavenya E, Köves B, Menon V, Naber K, Perepanova T, Tenke P, Wullt B, Johansen TE, Wagenlehner F.
+            em Antimicrobial resistance in urosepsis: outcomes from the multinational, multicenter global prevalence of infections in urology (GPIU) study 2003-2013.
+            | World J Urol. 2016 Aug;34(8):1193-200. doi: 10.1007/s00345-015-1722-1. Epub 2015 Dec 11.
+          p
+            | October 20th , #{Time.now.year} On behalf of the ESIU-board,
+            br
+            | Truls E. Bjerklund Johansen, Florian M.E. Wagenlehner
+            br
+            br
+            u Other members of the GPIU-Study working group:
+            br
+            | Riccardo Bartoletti
+            br
+            | Gernot Bonkat
+            br
+            | Franck Bruyere
+            br
+            | Tommaso Cai
+            br
+            | Mete Cek
+            br
+            | Bela Koves
+            br
+            | Ekaterina Kulchavenya
+            br
+            | Kurt G. Naber
+            br
+            | Tamara Perepanova
+            br
+            | Peter Tenke
+            br
+            |
+            br
+            u GPIU-Study working group Associates:
+            br
+            | Jose Medina Polo
+            br
+            | Kristin Rennesund
+

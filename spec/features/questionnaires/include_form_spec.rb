@@ -59,8 +59,8 @@ RSpec.describe 'Patients > Include form' do
 
       it 'sets the correct infection type' do
         patient.reload
-        expect(patient.uti_form_needed?).to eq(true)
-        expect(patient.ssi_form_needed?).to eq(false)
+        expect(patient.uti_form_needed?).to be(true)
+        expect(patient.ssi_form_needed?).to be(false)
       end
     end
 
@@ -71,8 +71,8 @@ RSpec.describe 'Patients > Include form' do
 
       it 'sets the correct infection type' do
         patient.reload
-        expect(patient.uti_form_needed?).to eq(false)
-        expect(patient.ssi_form_needed?).to eq(true)
+        expect(patient.uti_form_needed?).to be(false)
+        expect(patient.ssi_form_needed?).to be(true)
       end
     end
 
@@ -83,8 +83,8 @@ RSpec.describe 'Patients > Include form' do
 
       it 'sets the correct infection type' do
         patient.reload
-        expect(patient.uti_form_needed?).to eq(true)
-        expect(patient.ssi_form_needed?).to eq(true)
+        expect(patient.uti_form_needed?).to be(true)
+        expect(patient.ssi_form_needed?).to be(true)
       end
     end
   end

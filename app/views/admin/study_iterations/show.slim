@@ -10,6 +10,8 @@
         span.badge.badge-success.ml-3 Accepted
       - elsif @study_iteration.declined?
         span.badge.badge-danger.ml-3 Declined
+      - elsif @study_iteration.revoked?
+        span.badge.badge-danger.ml-3 Revoked
 
     ul.nav.nav-tabs
       li.nav-item= admin_study_iteration_nav_link("overview")
@@ -131,3 +133,20 @@
             p Allow regional admins to export patient data of this study iteration
           .card-footer
             = link_to "Make exportable", admin_study_iteration_toggle_exportable_path(@study_iteration), class: 'btn btn-success', method: :post
+    
+    - if @study_iteration.revokable?
+      .card.mb-3
+        .card-header.bg-danger.text-light
+          strong Revoke Study Iteration
+        .card-body
+          - if @study_iteration.pending?
+            p Instead of rejecting this study iteration you can revoke it, which will set it back to "Unsubmitted".
+          - elsif @study_iteration.accepted?
+            p When the study has no started yet you can still revoke this study iteration, which means the study will not be conducted.
+        .card-footer
+          = simple_form_for(@study_iteration, method: :post, url: admin_study_iteration_revoke_path(@study_iteration)) do |f|
+            .form-inputs
+              = f.error_notification
+              = f.input :revokation_reason
+              .form-actions
+                = f.button :submit, "Revoke", class: 'btn btn-danger'

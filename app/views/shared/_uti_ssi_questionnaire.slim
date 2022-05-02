@@ -1,110 +1,13 @@
-= render 'shared/appendix_comorbidity', f: f, appendix_comorbidity: questionnaire.appendix_comorbidity
+= f.fields_for :patient do |sub_form|
+  = sub_form.fields_for :uti_ssi_history do |sub_form2|
+    = render 'uti_ssi_histories/form', f: sub_form2, uti_ssi_history: questionnaire.patient.uti_ssi_history, questionnaire: questionnaire
 
-= sub_section t(".subsections.2.#{questionnaire.form_type}")
-  ol
-    li= f.input :previous, as: :radio_buttons, label: t(".previous.question.#{questionnaire.form_type}")
+- questionnaire.appendix_microbiological_information.valid?
+= render 'shared/sub_section', no: 5, name: t(".subsections.5.#{questionnaire.form_type}"), errors: questionnaire.appendix_microbiological_information.errors.count
+  = f.fields_for :appendix_microbiological_information do |sub_form|
+    = render 'shared/appendix_microbiological_information', f: sub_form, appendix_microbiological_information: questionnaire.appendix_microbiological_information, questionnaire: questionnaire
 
-    li= f.input :tractobstruction, as: :radio_buttons, label: t(".tractobstruction.question"), input_html: form_trigger("tractobstruction_question", "true")
-
-    ol#tractobstruction_question
-      li= f.input :tractobjstructionspecify, label: t('.tractobjstructionspeficy.question'), help: t('.tractobjstructionspeficy.help')
-
-    li
-      .font-weight-bold= t('.urinarystones.question')
-      ol
-        li= f.input :urinarystones_calyceal, label: t('.urinarystones.answers.calyceal')
-        li= f.input :urinarystones_renalpelvic, label: t('.urinarystones.answers.renalpelvic')
-        li= f.input :urinarystones_ureteral, label: t('.urinarystones.answers.ureteral')
-        li= f.input :urinarystones_bladder, label: t('.urinarystones.answers.bladder')
-
-    li= f.input :treatment, as: :radio_buttons, label: t('.treatment.question'), input_html: form_trigger("treatment_questions", "true")
-
-    ol#treatment_questions
-      li= f.input :treatmentspecify, label: t('.treatmentspeficy.question'), help: t('.treatmentspeficy.help')
-
-    li= f.input :hospitalisation, as: :radio_buttons, label: t('.hospitalisation.question')
-
-    li
-      .font-weight-bold= t(".catheter.question.#{questionnaire.form_type}")
-      ol
-        li= f.input :catheter_urethral,      label: t('.catheter.answers.urethral')
-        li= f.input :catheter_suprapubic,    label: t('.catheter.answers.suprapubic')
-        li= f.input :catheter_ureteralstent, label: t('.catheter.answers.ureteralstent')
-        li= f.input :catheter_nephrostomy,   label: t('.catheter.answers.nephrostomy')
-        li= f.input :catheter_others,        label: t('.catheter.answers.others')
-
-    li= f.input :catheterduration, label: t(".catheterduration.question.#{questionnaire.form_type.downcase}"), append: t('.catheterduration.append'), hint: t('.catheterduration.help')
-
-
-= sub_section t('.subsections.3.text')
-  .question= t(".subsections.3.question.#{questionnaire.form_type}")
-  ol
-    li= f.input :intervention_endoscopic, as: :radio_buttons, label: t('.intervention_endoscopic.quesion'), collection: radio_button_collection("intervention_endoscopic.answers", 'Cystoscopy', 'Diagnostic_ureterorenoscopy', 'TUR-P', 'TUR-BT', 'URS_with_stone_treatment', 'PCNL', 'ureteral_stent_placement'), label_method: :second, value_method: :first
-    li= f.input :intervention_percutaneous, as: :radio_buttons, label: t('.intervention_percutaneous.question'), collection: [["percutaneous", t('.intervention_percutaneous.answers')]], label_method: :second, value_method: :first
-    li= f.input :intervention_laparoscopic, as: :radio_buttons, label: t('.intervention_laparoscopic.question'), collection: radio_button_collection("intervention_laparoscopic.answers", 'kidney_abdominal_testis', 'Lymph_node_dissection', 'Prostatectomy', 'Cystectomy_and_urinary_diversion', 'Other'), label_method: :second, value_method: :first
-    li= f.input :intervention_opensurgery, as: :radio_buttons, label: t('.intervention_opensurgery.question'), collection: radio_button_collection("intervention_opensurgery.answers", 'Vasectomy', 'Inguinal_scrotal_and_penile', 'RPLND', 'Open_prostatectomy', 'Simple_nephrectomy', 'Radical_nephrectomy', 'RRP', 'Cystectomy_and_urinary_diversion'), label_method: :second, value_method: :first
-
-    - if questionnaire.uti?
-      li= f.input :protatebiopsy, as: :radio_buttons, label: t('.prostatebiopsy.question'), collection: radio_button_collection("prostatebiopsy.answers", 'transrectal', 'perineal'), label_method: :second, value_method: :first
-    - elsif questionnaire.ssi?
-      li= f.input :trus_biopsy, label: t('.trus_biopsy.quesion'), hint: t('.trus_biopsy.help')
-
-    li= f.input :intervention_others, as: :radio_buttons, label: t('.intervention_others.quesion'), collection: [["ESWL", t('.intervention_others.answers')]], label_method: :second, value_method: :first
-    li= f.input :intervention_contamination, as: :radio_buttons, label: t(".intervention_contamination.question.#{questionnaire.form_type.downcase}"), collection: radio_button_collection("intervention_contamination.answers", 'clean', 'cleancontaminated', 'cleancontaminatedbowel', 'contaminated', 'infected', 'nointervention'), label_method: :second, value_method: :first
-
-= sub_section t(".subsections.4.#{questionnaire.form_type}")
-  ol
-    li= f.input :diagnosedate, label: t(".diagnosedate.question.#{questionnaire.form_type}")
-    - if questionnaire.uti?
-      li= f.input :clinicaldiagnosis, as: :radio_buttons, label: t('.clinicaldiagnosis.quesion'), collection: radio_button_collection("clinicaldiagnosis.answers.uti", 'cystitis', 'pyelonephritis_moderate', 'pyelonephritis_severe', 'urosepsissimple', 'urosepsissevere', 'urosepsisshock', 'other'), label_method: :second, value_method: :first, input_html: form_trigger("clinicaldiagnosis_question", "other")
-    - elsif questionnaire.ssi?
-      li= f.input :clinicaldiagnosis, as: :radio_buttons, label: t('.clinicaldiagnosis.quesion'), collection: radio_button_collection("clinicaldiagnosis.answers.ssi", 'urosepsissimple', 'urosepsissevere', 'urosepsisshock', 'pyelonephritis_moderate', 'pyelonephritis_severe', 'cystitis', 'asymptomatic', 'epididymoorchitis', 'prostatitis', 'other'), label_method: :second, value_method: :first, input_html: form_trigger("clinicaldiagnosis_question", "other")
-
-    ol#clinicaldiagnosis_question
-      li= f.input :clinicaldiagnosisspecify, label: t('.clinicaldiagnosisspecify.quesion'), hint: t('.clinicaldiagnosisspecify.help')
-
-    li
-      - if questionnaire.uti?
-        p.question= t('.cdc.question.uti')
-        ol
-          li= f.input :symptomaticutiandbacteriuria, label: t('.symptomaticutiandbacteriuria.answers')
-          li= f.input :symptomaticutiandother, label: t('.symptomaticutiandother.answers')
-          li= f.input :asymptomaticbactcath, label: t('.asymptomaticbactcath.answers')
-          li= f.input :asymptomaticbactnocath, label: t('.asymptomaticbactnocath.answers')
-          li= f.input :otheruti, label: t('.otheruti.answers')
-      - elsif questionnaire.ssi?
-        p.question= t('.cdc.question.ssi')
-        ol
-          li= f.input :superficialssi, label: t('.superficialssi.answers')
-          li= f.input :deepssi, label: t('.deepssi.answers')
-          li= f.input :organssi, label: t('.organssi.answers')
-
-
-= sub_section t(".subsections.5.#{questionnaire.form_type}")
-  ol
-    li= f.input :provennauti, as: :radio_buttons, label: t(".provennauti.question.#{questionnaire.form_type.downcase}"), input_html: form_trigger("provennauti_questions", true)
-
-    ol#provennauti_questions
-      li= f.input :culturetissue_urine, label: t('.culturetissue_urine.answers')
-      li= f.input :culturetissue_blood, label: t('.culturetissue_blood.answers')
-      li= f.input :culturetissue_fluidswab, label: t(".culturetissue_fluidswab.answers.#{questionnaire.form_type}")
-      li
-        = f.input :culturetissue_other, label: t('.culturetissue_other.answers'), input_html: form_trigger("culturetissue_other_question", "true")
-
-      ol#culturetissue_other_question
-        li= f.input :culturetissue_specify, label: t('.culturetissue_specify.answers'), hint: t('.culturetissue_specify.help')
-
-    li= f.input :antibioticculture, as: :radio_buttons, label: t('.antibioticculture.question'), collection: radio_button_collection('antibioticculture.answers', 'yes', 'no', 'unknown'), label_method: :second, value_method: :first, input_html: form_trigger("antibioticculture_questions", "yes")
-
-    #antibioticculture_questions= render 'shared/appendix_antibiotic', f: f, appendix_antibiotic: f.object.get_appendix_antibiotics_at(0)
-
-    = render 'shared/appendix_culture', f: f, single: true, appendix_culture: f.object.appendix_culture_result
-
-= sub_section t(".subsections.6.#{questionnaire.form_type}")
-  ol
-    li
-      p.question= t('.antimicrobical_treatment.question')
-      = f.input :antimicrobial_treatment, label: "", as: :radio_buttons, collection: radio_button_collection("antimicrobical_treatment.answers", "none", "oral", "parenteral", "both"), value_method: :first, label_method: :second, input_html: form_trigger("treatment_antibiotics", "oral,parenteral,both")
-    li#treatment_antibiotics
-      p.question= t('.treatment_antibiotics.question')
-      = render 'shared/appendix_antibiotic', f: f, appendix_antibiotic: f.object.get_appendix_antibiotics_at(1)
+- questionnaire.appendix_antimicrobial_treatment.valid?
+= render 'shared/sub_section', no: 6, name: t(".subsections.6.#{questionnaire.form_type}"), errors: questionnaire.appendix_antimicrobial_treatment.errors.count
+  = f.fields_for :appendix_antimicrobial_treatment do |sub_form|
+    = render 'shared/appendix_antimicrobial_treatment', f: sub_form, appendix_antimicrobial_treatment: questionnaire.appendix_antimicrobial_treatment, questionnaire: questionnaire

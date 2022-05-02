@@ -1,0 +1,62 @@
+@startuml
+
+skinparam componentStyle uml2
+
+component Patient {
+}
+
+component UtiSsiQuestionnaire  {
+}
+
+component UtiQuestionnaire {
+}
+
+component SsiQuestionnaire {
+}
+
+component UtiSsiHistory {
+}
+
+component AppendixComorbidity {
+
+}
+component AppendixUrologicalRiskFactor {
+}
+
+/' component UrinaryTractObstructionUreter { '/
+/' } '/
+
+/' AppendixUrologicalRiskFactor "1" -- "2" UrinaryTractObstructionUreter '/
+
+component AppendixUrologicalIntervention {
+
+}
+component AppendixClinicalDiagnosis {
+}
+
+component AppendixMicrobiologicalInformation {
+}
+
+component AppendixAntimicrobialTreatment {
+}
+
+
+UtiSsiQuestionnaire <|-- UtiQuestionnaire
+UtiSsiQuestionnaire <|-- SsiQuestionnaire
+
+Patient "1" -- "1" UtiSsiHistory
+
+Patient "1" -- "1" UtiQuestionnaire
+Patient "1" -- "1" SsiQuestionnaire
+
+
+UtiSsiQuestionnaire "1" -- "1" AppendixMicrobiologicalInformation
+UtiSsiQuestionnaire "1" -- "1" AppendixAntimicrobialTreatment
+
+UtiSsiHistory "1" -- "1" AppendixComorbidity
+UtiSsiHistory "1" -- "1" AppendixUrologicalRiskFactor
+UtiSsiHistory "1" -- "1" AppendixUrologicalIntervention
+UtiSsiHistory "1" -- "1" AppendixClinicalDiagnosis
+
+@enduml
+

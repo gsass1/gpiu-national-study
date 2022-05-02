@@ -3,7 +3,7 @@ import toastr from 'toastr'
 
 export default class extends Controller {
   connect() {
-    document.querySelectorAll('.toast-message').forEach((elem) => {
+    this.element.querySelectorAll('.toast-message').forEach((elem) => {
       const type = elem.getAttribute('toast-type')
       const message = elem.getAttribute('toast-message')
 
@@ -25,6 +25,22 @@ export default class extends Controller {
         default:
           break
       }
+
+      elem.remove()
     }, this)
+
+    document.addEventListener('turbolinks:before-cache', this.removeCachedContainer)
+  }
+
+  disconnect() {
+    document.removeEventListener('turbolinks:before-cache', this.removeCachedContainer)
+  }
+
+  removeCachedContainer() {
+    const container = document.getElementById('toast-container').remove()
+
+    if(container) {
+      container.remove()
+    }
   }
 }

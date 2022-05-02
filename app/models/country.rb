@@ -30,6 +30,14 @@ class Country < ApplicationRecord
     @next_or_current_study_iteration ||= find_next_or_current_study_iteration
   end
 
+  def current_and_upcoming_study_iterations
+    @current_and_upcoming_study_iterations ||= find_current_and_upcoming_study_iterations
+  end
+
+  def all_study_ranges
+    study_iterations.sum(&:study_ranges)
+  end
+
   private
 
   def find_current_study_iteration
@@ -38,5 +46,9 @@ class Country < ApplicationRecord
 
   def find_next_or_current_study_iteration
     study_iterations.accepted.select { |si| si.active? || !si.passed? }.first
+  end
+
+  def find_current_and_upcoming_study_iterations
+    study_iterations.accepted.select { |si| si.active? || !si.passed? }
   end
 end

@@ -36,9 +36,9 @@ RSpec.describe 'Regional Admins > Export data' do
     end
 
     it 'is a CSV file' do
-      expect {
+      expect do
         CSV.read(download)
-      }.not_to raise_error
+      end.not_to raise_error
     end
   end
 

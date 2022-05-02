@@ -37,20 +37,8 @@ body {
   }
 }
 
-.landing-welcome {
-  background: asset-url("header.jpg") no-repeat center center fixed;
-  background-size: cover;
-  min-height: 600px;
-}
-
-.landing-description {
-  min-height: 500px;
-  background: #fff;
-
-  p {
-    line-height: 2;
-    padding-bottom: 2em;
-  }
+.underline {
+  text-decoration: underline;
 }
 
 .main-content {
@@ -154,12 +142,6 @@ p {
   transform: scale(2);
 }
 
-.landing-national-flag {
-  min-width: 150px;
-  min-height: 150px;
-  margin-right: 50px;
-}
-
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: #28a745 !important;
 }
@@ -193,8 +175,24 @@ p {
     }
 
     ol {
-      list-style-type: lower-latin;
       margin-bottom: 1em;
+      list-style-type: lower-latin;
+
+      ol {
+        list-style-type: decimal;
+
+        ol {
+          list-style-type: lower-roman;
+
+          ol {
+            list-style-type: lower-latin;
+
+            ol {
+              list-style-type: decimal;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -269,5 +267,27 @@ p {
 
   .nav-tabs {
     border: none !important;
+  }
+}
+
+ol > ol .form-group {
+  margin-bottom: 0;
+}
+
+.cookie-banner {
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  background: #f1f1f1;
+  line-height: 30px;
+}
+
+.force-decimal-list {
+  ol {
+    list-style-type: decimal !important;
   }
 }

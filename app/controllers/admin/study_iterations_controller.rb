@@ -9,7 +9,7 @@ module Admin
 
     add_breadcrumb 'Study Iterations', :admin_study_iterations_path
 
-    before_action :load_study_iteration, only: %i[approve reject export toggle_exportable]
+    before_action :load_study_iteration, only: %i[approve reject revoke export toggle_exportable]
 
     def index
       @filter = params[:filter] || 'all'
@@ -59,6 +59,22 @@ module Admin
       redirect_to admin_study_iteration_path(@study_iteration)
     end
 
+    def revoke
+      if @study_iteration.accepted?
+        @study_iteration.acceptance_state = :revoked
+      else
+        @study_iteration.acceptance_state = :unsubmitted
+      end
+
+      if @study_iteration.update(revokation_params)
+        flash[:success] = "Revoked study iteration \"#{@study_iteration.name}\""
+      else
+        flash[:danger] = 'Failed revoking study iteration'
+      end
+
+      redirect_to admin_study_iteration_path(@study_iteration)
+    end
+
     def toggle_exportable
       if @study_iteration.exportable?
         @study_iteration.exportable = false
@@ -83,6 +99,10 @@ module Admin
 
     def rejection_params
       params.require(:study_iteration).permit(:rejection_reason)
+    end
+    
+    def revokation_params
+      params.require(:study_iteration).permit(:revokation_reason)
     end
 
     def load_study_iteration
