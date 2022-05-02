@@ -38,7 +38,7 @@ RSpec.describe 'Notifications', type: :feature do
 
     click_link '✖'
     expect(page).to have_content('Removed notification')
-    expect(page).to_not have_content('Hospital Submitted For Approval')
+    expect(page).not_to have_content('Hospital Submitted For Approval')
   end
 
   describe 'notifications dropdown' do
@@ -56,6 +56,14 @@ RSpec.describe 'Notifications', type: :feature do
       within '#notifications-dropdown' do
         expect(page).to have_content('Hospital Submitted For Approval')
       end
+    end
+
+    it 'clears unread badge when opening' do
+      expect(page).to have_selector('.unread-notifications-badge')
+
+      find(:css, '#dropdownNotificationsLink').click
+
+      expect(page).not_to have_selector('.unread-notifications-badge')
     end
   end
 end

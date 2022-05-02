@@ -21,6 +21,12 @@ class Ability
       can :destroy, Employee, user_id: user.id
 
       can %i[create read update], Patient, creator_id: user.id, department: { users: { id: user.id } }
+
+      # Can toggle read-only lock of patients if the all questionnaires valid
+      can :toggle_lock, Patient do |patient|
+        patient.creator_id == user.id && patient.questionnaires_valid?
+      end
+
       can :edit, PatientIdentification, patient: { creator_id: user.id }
       can :update, PatientIdentification, patient: { creator_id: user.id, locked: false }
 

@@ -1,0 +1,7 @@
+en:
+  shared:
+    sub_section:
+      no_issues: No remaining issues
+      issues:
+        one: At least 1 remaining issue
+        other: At least %{count} remaining issues

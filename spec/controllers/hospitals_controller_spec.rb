@@ -122,7 +122,8 @@ RSpec.describe HospitalsController, type: :controller do
 
         it 'notifies regional admins' do
           perform_enqueued_jobs do
-            expect(Notifier).to receive(:notify).with(hash_including(recipient: regional_admin, action: 'hospitals.submission'))
+            expect(Notifier).to receive(:notify).with(hash_including(recipient: regional_admin,
+                                                                     action: 'hospitals.submission'))
 
             post_hospital
           end

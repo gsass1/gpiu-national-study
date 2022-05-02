@@ -64,7 +64,7 @@ RSpec.shared_examples_for 'regional admin resource' do |resource_class:|
   end
 
   def index_path(resource_class, country)
-    send("regional_admin_country_#{resource_class.name.underscore.pluralize}_path", country) 
+    send("regional_admin_country_#{resource_class.name.underscore.pluralize}_path", country)
   end
 
   def show_path(resource_class, country, resource)

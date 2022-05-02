@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StudyRange < ApplicationRecord
-  START_TRESHOLD = if (!Rails.env.production? || Gpiu.staging?) && !Rails.env.test?
+  START_TRESHOLD = if (!Rails.env.production? || GPIU.staging?) && !Rails.env.test?
                      0
                    else
                      14
@@ -57,9 +57,10 @@ class StudyRange < ApplicationRecord
   end
 
   def no_overlaps
-    study_iteration.study_ranges.each do |range|
+    study_iteration.country.all_study_ranges.each do |range|
       if id != range.id && start <= range.end && range.start <= self.end
-        errors.add(:start, 'is overlapping with another range. Please check above.')
+        errors.add(:start, 'Range is conflicting with another range.')
+        return
       end
     end
   end

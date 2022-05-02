@@ -30,6 +30,9 @@ en:
         rejected:
           title: 'Study Iteration Rejected'
           message_html: 'Your study iteration titled "%{name}" has been rejected due to following reason: %{rejection_reason}.'
+        revoked:
+          title: 'Study Iteration Revoked'
+          message_html: 'Your study iteration titled "%{name}" has been revoked due to following reason: %{revokation_reason}.'
         submission:
           title: 'Study Iteration Submitted For Approval'
           message_html: |

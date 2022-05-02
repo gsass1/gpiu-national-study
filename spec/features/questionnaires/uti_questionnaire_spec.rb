@@ -9,6 +9,19 @@ RSpec.describe 'Questionnaire > UTI Questionnaire', js: true do
   let(:patient) { create(:patient, creator: user, department: department, study_iteration: study_iteration) }
 
   before do
+    # FIX: we should use FactoryBot here but we wanna just update the existing
+    # PatientIdentification instead of creating a new one
+    patient.patient_identification.update(
+      birth_year: 2000,
+      sex: :male,
+      evidence_infection: false,
+      infection_type: :uti,
+      admission_date: Date.today
+    )
+
+    # HACK! For some reason this state is not calculated correctly
+    patient.update(identification_state: 'valid')
+
     sign_in(user)
     visit edit_patient_uti_questionnaire_path(patient, patient.uti_questionnaire)
   end

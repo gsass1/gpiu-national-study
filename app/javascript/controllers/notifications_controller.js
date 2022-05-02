@@ -2,7 +2,7 @@ import { Controller } from 'stimulus'
 import { get } from '@rails/request.js'
 
 export default class extends Controller {
-  static targets = [ "dropdown" ]
+  static targets = [ "dropdown", "badge" ]
 
   async load() {
     const elem = this.dropdownTarget
@@ -16,6 +16,10 @@ export default class extends Controller {
     if (response.ok) {
       const html = await response.html
       elem.innerHTML = html
+
+      if (this.hasBadgeTarget) {
+        this.badgeTarget.style.display = "none"
+      }
     }
   }
 }

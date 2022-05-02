@@ -1,0 +1,119 @@
+- appendix_urological_risk_factor.valid?
+
+ol
+  li= f.input :previous,
+    as: :radio_buttons,
+    required: true,
+    collection: [[false, 'No'], [true, 'Yes']],
+    label_method: :second,
+    value_method: :first,
+    label: t('.previous.question')
+
+  li= f.input :tract_obstruction,
+    as: :radio_buttons,
+    required: true,
+    collection: [[false, 'No'], [true, 'Yes']],
+    label_method: :second,
+    value_method: :first,
+    label: t(".tract_obstruction.question"),
+    input_html: form_trigger("tractobstruction_question", "true")
+
+  ol#tractobstruction_question
+    li= f.input :bladder_outlet_obstruction,
+      label: t('.bladder_outlet_obstruction.question')
+
+    li
+      strong Upper urinary tract
+
+    = f.input :tract_obstruction_left,
+      label: t('.tract_obstruction_left.question'),
+      input_html: form_trigger("tract_obstruction_left_question", true)
+
+    ol#tract_obstruction_left_question
+      = render 'shared/appendix_urinary_tract_obstruction', f: f, appendix_urinary_tract_obstruction: f.object.left_urinary_tract_obstruction
+    = f.input :tract_obstruction_right, label: t('.tract_obstruction_right.question'), input_html: form_trigger("tract_obstruction_right_question", true)
+    ol#tract_obstruction_right_question
+      = render 'shared/appendix_urinary_tract_obstruction', f: f, appendix_urinary_tract_obstruction: f.object.right_urinary_tract_obstruction
+
+  li= f.input :urinarystones,
+    as: :radio_buttons,
+    required: true,
+    label: t(".urinarystones.question"),
+    input_html: form_trigger("urinarystones_question", 'yes'),
+    collection: radio_button_collection('antibioticculture.answers', 'unknown', 'no', 'yes'),
+    label_method: :second, value_method: :first
+
+  ol#urinarystones_question
+    li= f.input :urinarystones_calyceal,
+      label: t('.urinarystones.answers.calyceal')
+    li= f.input :urinarystones_renalpelvic,
+      label: t('.urinarystones.answers.renalpelvic')
+    li= f.input :urinarystones_ureteral,
+      label: t('.urinarystones.answers.ureteral'),
+      input_html: form_trigger("urinarystrones_ureteral_question", true)
+    li= f.input :urinarystones_bladder,
+      label: t('.urinarystones.answers.bladder')
+
+  li= f.input :antibiotic_treatment,
+    as: :radio_buttons,
+    required: true,
+    collection: radio_button_collection('antibioticculture.answers', 'unknown', 'no', 'yes'),
+    label_method: :second,
+    value_method: :first,
+    label: t('.antibiotic_treatment.question'),
+    input_html: form_trigger("treatment_questions", "yes")
+
+  ol#treatment_questions
+    li
+      = f.input :antibiotic_treatment_type,
+        as: :radio_buttons,
+        collection: radio_button_collection('antibiotic_treatment_type.answers', 'uti', 'other', 'unknown'),
+        label_method: :second,
+        value_method: :first,
+        label: t('.antibiotic_treatment_type.question'),
+        input_html: form_trigger("treatment_specify", "other")
+
+      #treatment_specify= f.input :antibiotic_treatment_specify,
+        label: t('.antibiotic_treatment_specify.question'),
+        help: t('.antibiotic_treatment_specify.help')
+
+    li
+      p.question= t('.antibiotic_treatment_choose.question')
+      = render 'shared/appendix_antibiotic', f: f, single: true, appendix_antibiotic: f.object.appendix_antibiotic
+
+  li= f.input :hospitalisation,
+    as: :radio_buttons,
+    required: true,
+    collection: [[false, 'No'], [true, 'Yes']],
+    label_method: :second,
+    value_method: :first,
+    label: t('.hospitalisation.question'),
+    input_html: form_trigger("hospitalisation_question", true)
+
+  ol#hospitalisation_question
+    li= f.input :hospitalisation_specify, label: t(".hospitalisation_specify.question")
+
+  li= f.input :catheter,
+    as: :radio_buttons,
+    required: true,
+    collection: [['unknown', 'Unknown'], ['no', 'No'], ['yes', 'Yes']],
+    label_method: :second,
+    value_method: :first,
+    label: t('.catheter.question'),
+    input_html: form_trigger("catheter_question", "yes")
+
+  span#catheter_question
+    ol
+      li= f.input :catheter_urethral,      label: t('.catheter.answers.urethral')
+      li= f.input :catheter_suprapubic,    label: t('.catheter.answers.suprapubic')
+      li= f.input :catheter_ureteralstent, label: t('.catheter.answers.ureteralstent')
+      li= f.input :catheter_nephrostomy,   label: t('.catheter.answers.nephrostomy')
+      li
+        = f.input :catheter_others,        label: t('.catheter.answers.others'), input_html: form_trigger("catheter_other_specify_question", true)
+        #catheter_other_specify_question= f.input :catheter_other_specify, label: t(".catheter_specify.question")
+
+    li= f.input :catheterduration,
+      label: t(".catheterduration.question"),
+      append: t('.catheterduration.append'),
+      hint: t('.catheterduration.help'),
+      input_html: { min: 0 }

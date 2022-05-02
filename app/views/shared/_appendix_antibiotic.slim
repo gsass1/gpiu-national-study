@@ -8,4 +8,18 @@
 
   ol
     - AppendixAntibiotic::GROUPS.each do |group|
-      li= antibiotics_group(l, group)
+      - if group == :cephalosporin
+        li
+          - trigger_div = "#{l.object.id}_#{l.object.pos_id}_#{group}_div"
+          = l.input "#{group}_group", as: :boolean, label: t(".#{group}.group"), input_html: form_trigger(trigger_div, 'true')
+          div[id=trigger_div]
+            = l.hidden_field group.to_sym
+            - AppendixAntibiotic::CEPHALOSPORIN_GENERATIONS.each_with_index do |generation, index|
+              fieldset.form-group.radio_buttons.optional.form-group-valid
+                strong= t('.cephalosporin.generations')[index]
+                - generation.each do |antibiotic|
+                  .form-check
+                    = l.radio_button group, antibiotic, class: 'form-check-input radio_buttons'
+                    = l.label group, t(".cephalosporin.#{antibiotic}"), value: antibiotic, class: 'form-check-label collection_radio_buttons'
+      - else
+        li= antibiotics_group(l, group)

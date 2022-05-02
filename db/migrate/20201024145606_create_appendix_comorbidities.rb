@@ -6,25 +6,25 @@ class CreateAppendixComorbidities < ActiveRecord::Migration[6.0]
 
       t.integer "pos_id"
 
-      t.boolean "myocardialinfarction"
-      t.boolean "congestiveheartfailure"
-      t.boolean "vasculardisease"
-      t.boolean "cerebrovascular"
-      t.boolean "dementia"
-      t.boolean "pulmonary"
-      t.boolean "tissuedisease"
-      t.boolean "ulcerdisease"
-      t.boolean "mildliver"
-      t.boolean "diabetes"
-      t.boolean "hemiplegia"
-      t.boolean "renaldisease"
-      t.boolean "diabetesorgandamage"
-      t.boolean "tumor"
-      t.boolean "leukaemia"
-      t.boolean "lymphoma"
-      t.boolean "severeliverdamage"
-      t.boolean "metastatictumor"
-      t.boolean "aids"
+      t.boolean :myocardialinfarction, default: false
+      t.boolean :congestiveheartfailure, default: false
+      t.boolean :vasculardisease, default: false
+      t.boolean :cerebrovascular, default: false
+      t.boolean :dementia, default: false
+      t.boolean :pulmonary, default: false
+      t.boolean :tissuedisease, default: false
+      t.boolean :ulcerdisease, default: false
+      t.boolean :mildliver, default: false
+      t.boolean :diabetes, default: false
+      t.boolean :hemiplegia, default: false
+      t.boolean :renaldisease, default: false
+      t.boolean :diabetesorgandamage, default: false
+      t.boolean :tumor, default: false
+      t.boolean :leukaemia, default: false
+      t.boolean :lymphoma, default: false
+      t.boolean :severeliverdamage, default: false
+      t.boolean :metastatictumor, default: false
+      t.boolean :aids, default: false
 
       t.datetime "discarded_at"
 

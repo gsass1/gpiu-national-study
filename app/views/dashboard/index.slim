@@ -10,30 +10,60 @@
   .ml-auto.mr-auto
     .container
       .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
-        = render 'box', bg: 'info', text: 'light', icon: 'date_range', title: t('dashboard.calendar') do
-          div= t('dashboard.calendar_hint')
-          br
-          = link_to t('dashboard.calendar_link'), study_calendar_index_path
+        - if current_user.regional_admin?
+          = render 'box', bg: 'primary', text: 'light', icon: 'date_range', title: t('dashboard.study_iterations') do
+            - Country.with_role(:regional_admin, current_user).each do |country|
+              div.font-weight-bold= country.name
+              - if country.current_and_upcoming_study_iterations.any?
+                - country.current_and_upcoming_study_iterations.each do |study_iteration|
+                  = link_to "#{study_iteration.name}: #{l(study_iteration.first_date, format: :long)} - #{l(study_iteration.last_date, format: :long)}", edit_regional_admin_country_study_iteration_path(country, study_iteration), class: 'text-white underline'
+              - else
+                p= t('dashboard.study_iterations_none')
+              div
+              = link_to "New", new_regional_admin_country_study_iteration_path(country), class: "btn btn-md btn-outline-success mt-2"
+
+        = render 'box', bg: 'info', text: 'light', icon: 'date_range', title: t('dashboard.study_periods') do
+          - if current_and_upcoming_study_iterations.any?
+            - current_and_upcoming_study_iterations.each_with_index do |study_iteration, index|
+              div= "#{index+1}. #{l(study_iteration.first_date, format: :long)} - #{l(study_iteration.last_date, format: :long)}"
+            .mt-3= link_to t('dashboard.study_periods_button'), study_calendar_index_path, class: 'btn btn-md btn-primary'
+          - else
+            div= t('dashboard.study_periods_none')
 
         = render 'box', bg: 'primary', text: 'light', icon: 'local_hospital', title: t('dashboard.hospitals') do
           - unless current_user.employed?
             p= t('dashboard.no_hospitals')
           - else
-            = link_to t('dashboard.my_hospitals'), hospitals_path(tab: 'my')
+            - @departments.each do |department|
+              div
+                = link_to department, department.hospital
+            /= link_to t('dashboard.my_hospitals'), hospitals_path(tab: 'my')
             br
-          = link_to t('dashboard.hospital_search'), hospitals_path
+          = link_to t('dashboard.hospital_search'), hospitals_path, class: 'btn btn-outline-light'
 
         = render 'box', bg: 'success', text: 'dark', icon: 'accessibility', title: t('dashboard.patients') do
-          - unless current_user.patients.any?
+          - if @patients_count == 0
             p = t('dashboard.no_patients')
           - else
-            div= t('dashboard.patients_count', patients: current_user.patients.count)
-            div= t('dashboard.patients_questionnaires', valid_count: current_user.valid_patients_count, invalid_count: current_user.invalid_patients_count)
+            div= t('dashboard.patients_progress', count: @patients_count, valid_count: @valid_patients_count)
+            .progress[style="height: 3em;"]
+              .progress-bar.bg-primary[role='progressbar' style="width: #{@patient_progress}%" aria-valuenow="#{@patient_progress}" aria-valuemin="0" aria-valuemax="100"]
+                strong= "#{@valid_patients_count}/#{@patients_count}"
             br
-          = link_to t('dashboard.patients_site'), patients_path
+          = link_to t('dashboard.enter_patient'), patients_path, class: 'btn btn-outline-dark'
 
         = render 'box', bg: 'primary', text: 'light', icon: 'help', title: t('dashboard.support') do
           div= t('dashboard.support_hint')
-          br
-          = link_to t('dashboard.support_request'), new_support_request_path
+          .d-flex.flex-column
+            .mt-1
+              = link_to "/help/manual", class: 'btn btn-sm btn-info text-decoration-none' do
+                i.material-icons.mr-1[style="font-size: 1.2em;"] book
+                = t('site.help.read_manual')
+            .mt-1
+              = link_to "/help/faq", class: 'btn btn-sm btn-info text-decoration-none' do
+                i.material-icons.mr-1[style="font-size: 1.2em;"] help
+                = t('site.help.read_faq')
+          = link_to new_support_request_path, class: 'btn btn-md btn-success text-dark text-decoration-none mt-3' do
+            i.material-icons.mr-1[style="font-size: 1.2em;"] phone
+            = t('contact_us')
 

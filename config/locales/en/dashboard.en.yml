@@ -11,18 +11,24 @@ en:
     hospitals: 'Hospitals'
     no_hospitals: 'You have not checked into any hospital yet.'
     my_hospitals: 'View your hospitals here.'
-    hospital_search: 'Browse national hospitals here.'
+    hospital_search: 'Find'
+
     patients: 'Patients'
-    patients_count: 'You have entered %{patients} patients so far.'
+    patients_progress: 'Out of %{count} patient(s) you have finished entering %{valid_count} patient(s).'
     patients_questionnaires: '%{invalid_count} of your patients have incomplete/invalid questionnaires.'
+
     no_patients: 'You have not registered any patients yet.'
     patients_site: 'You can enter and edit patients here.'
+    enter_patient: 'Enter Patient'
 
     support: "Support"
     support_hint: "Please report any problems you have with using the site as well as any bugs."
-    support_request: "You can contact support here."
+    support_request: "Contact Us"
 
-    calendar: "Calendar"
-    calendar_hint: "Depending on the current date you may submit patient data into our database."
-    calendar_link: "Click here to check the current study dates for your country."
+    study_periods: "Study Dates"
+    study_periods_none: "There are currently no planned GPIU studies for your country."
+    study_periods_button: "View Calendar"
 
+
+    study_iterations: "Study Iter."
+    study_iterations_none: "There are no planned study iterations for your country."

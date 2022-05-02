@@ -34,7 +34,7 @@ module PatientsHelper
   end
 
   def patient_lock_button(patient)
-    if can?(:edit, patient)
+    if can?(:toggle_lock, patient)
       link_to patient_toggle_lock_path(patient), method: :post,
                                                  id: "#{patient.locked? ? 'unlock' : 'lock'}-patient-#{patient.id}",
                                                  title: (patient.locked? ? t('patients.index.uti_ssi.table.unlock_patient') : t('patients.index.uti_ssi.table.lock_patient')) do

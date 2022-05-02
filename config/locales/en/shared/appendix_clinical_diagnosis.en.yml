@@ -1,0 +1,52 @@
+en:
+  shared:
+    appendix_clinical_diagnosis:
+      diagnosedate:
+        question:
+          both: "Date of diagnosis"
+          uti: "Date when UTI was diagnosed (can be different from the Study-day)"
+          ssi: "Date when SSI was diagnosed (can be different from the Study-day)"
+      clinicaldiagnosis:
+        question:
+          both: "Clinical diagnoses for UTI/SSI"
+          uti: "Clinical diagnosis for UTI"
+          ssi: "Clinical diagnosis for SSI"
+        answers:
+          asymptomatic_bacteriuria: "Asymptomatic bacteriuria"
+          cystitis: "Cystitis (grade of severity:1)"
+          pyelonephritis_moderate: "Pyelonephritis, moderate (grade of severity:2)"
+          pyelonephritis_severe: "Pyelonephritis, severe/established (grade of severity:3)"
+          urosepsissimple: "Urosepsis (simple) (grade of severity:4)"
+          urosepsissevere: "Severe urosepsis (grade of severity:5)"
+          urosepsisshock: "Uroseptic shock (grade of severity:6)"
+          urethritis: "Urethritis"
+          prostatitis: "Acute Bacterial Prostatitis"
+          epididymitis: "Acute Infective Epididymitis/Epididymo-orchitis"
+          other: "Other"
+      clinicaldiagnosisspecify:
+        question: "Please specify clinical diagnosis"
+        help: "English text"
+      cdc:
+        question:
+          both: "CDC criteria"
+          uti: "Clinical definition of UTI according to CDC"
+          ssi: "Clinical definitions of SSI according to CDC"
+      symptomaticutiandbacteriuria:
+        answers: "Symptomatic UTI AND bacteriuria"
+      symptomaticutiandother:
+        answers: "Symptomatic UTI AND other signs of infection"
+      asymptomaticbactcath:
+        answers: "Asymptomatic bacteriuria catheter associated"
+      asymptomaticbactnocath:
+        answers: "Asymptomatic bacteriuria without catheter use"
+      otheruti:
+        answers: "Other infections of the urinary tract"
+      otheruti_specify:
+        question: "Please specify clinical definition"
+      superficialssi:
+        answers: "Superficial incisional SSI"
+      deepssi:
+        answers: "Deep incisional SSI"
+      organssi:
+        answers: "Organ/space SSI"
+

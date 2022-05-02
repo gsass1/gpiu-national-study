@@ -2,6 +2,7 @@
 
 class PatientIdentification < ApplicationRecord
   include Discard::Model
+  include Exportable
   include Questionnaire
   include SaveWithErrors
 
@@ -13,11 +14,20 @@ class PatientIdentification < ApplicationRecord
     edit.validates :birth_year, presence: true
     edit.validates :sex, presence: true
     edit.validates :pregnancy, inclusion: { in: [true, false] }, if: proc { |f| f.female? }
-    edit.validates :admission_date, presence: true
-    edit.validate :admission_date_is_in_past
+    edit.validates :admission_date, presence: true, prior: true
     edit.validates :evidence_infection, inclusion: { in: [true, false] }
     edit.validates :admission_infection, presence: true, if: proc { |f| f.evidence_infection? }
     edit.validates :infection_type, presence: true
+  end
+
+  exports_as do |e, p|
+    e.value 'i', p.birth_year
+    e.value 'ii', p.sex
+    e.value 'ii.a', p.pregnancy if p.female?
+    e.value 'iii', p.admission_date
+    e.value 'iv', p.evidence_infection
+    e.value 'iv.a', p.admission_infection if p.evidence_infection
+    e.value 'v', p.infection_type
   end
 
   def to_s
@@ -27,12 +37,6 @@ class PatientIdentification < ApplicationRecord
   before_save :sanitize_attributes
 
   private
-
-  def admission_date_is_in_past
-    return unless !admission_date.nil? && (admission_date > Date.today)
-
-    errors.add(:admission_date, 'Patient cannot be admitted in the future')
-  end
 
   def sanitize_attributes
     self.pregnancy = nil unless female?
