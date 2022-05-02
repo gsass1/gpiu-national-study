@@ -1,0 +1,75 @@
+en:
+  shared:
+    appendix_urological_intervention:
+      performed:
+        question:
+          uti: 'Urological intervention which according to the investigator lead to the current episode of UTI'
+          ssi: 'Urological intervention which according to the investigator lead to the current episode of SSI'
+        answers:
+          unknown: 'Unknown'
+          'no': 'No urological intervention was performed'
+          'yes': 'Following intervention(s):'
+      intervention_endoscopic:
+        question: "Endoscopic"
+        answers:
+          cystoscopy: "Cystoscopy"
+          diagnostic_ureterorenoscopy: "Diagnostic Ureterorenoscopy"
+          tur-p: "Transurethral resection of the prostate (TUR-P)"
+          tur-bt: "Transurethral resection of the bladder tumor (TUR-BT)"
+          urs_with_stone_treatment: "Ureterorenoscopy (URS) with stone treatment"
+          pcnl: "Percutaneous nephrolithotomy (PCNL)"
+          ureteral_stent_placement: "Ureteral stent placement"
+          other: "Other"
+          specify: "Please specify"
+      intervention_percutaneous:
+        question: "Percutaneous"
+        answers:
+          pnp: "Percutaneous nephrostomy placement (PNP)"
+          other: "Other"
+          specify: "Please specify"
+      intervention_laparoscopic:
+        question: "Laparoscopic and robot assisted procedures"
+        answers:
+          kidney_abdominal_testis: "On kidney and abdominal testis"
+          lymph_node_dissection: "Lymph node dissection"
+          prostatectomy: "Prostatectomy"
+          cystectomy_and_urinary_diversion: "Cystectomy and urinary diversion/bladder replacement with bowel segments"
+          other: "Other"
+          specify: "Please specify"
+      intervention_open_surgery:
+        question: "Open surgery"
+        answers:
+          vasectomy: "Vasectomy"
+          inguinal_scrotal_and_penile: "Inguinal, scrotal and penile"
+          rplnd: "Retroperitoneal lymph node dissection (RPLND)"
+          open_prostatectomy: "Open prostatectomy (for BPH)"
+          simple_nephrectomy: "Simple nephrectomy"
+          radical_nephrectomy: "Radical nephrectomy"
+          rrp: "Radical retropubic prostatectomy (RRP)"
+          cystectomy_and_urinary_diversion: "Cystectomy and urinary diversion/bladder replacement with bowel segments"
+          other: "Other"
+          specify: "Please specify"
+      intervention_prostate_biopsy:
+        question: "Prostate biopsy"
+        answers:
+          transrectal: "Transrectal"
+          perineal: "Perineal"
+          other: "Other"
+          specify: "Please specify"
+      trus_biopsy:
+        quesion: "TRUS biopsy"
+        help: "English text"
+      intervention_others:
+        question: "Others"
+        answers:
+          eswl: "Extracorporeal shock-wave lithotripsy (ESWL)"
+      intervention_contamination:
+        question:
+          uti: "Contamination status of the intervention which according to the investigator lead to the current episode of UTI"
+          ssi: "Contamination status of the intervention which according to the investigator lead to the current episode of SSI"
+        answers:
+          clean: "Clean (no infection present in the operative field or urinary tract, and bowel not opened)"
+          clean_contaminated: "Clean-contaminated (no infection present but urinary tract opened)"
+          clean_contaminated_bowel: "Clean-contaminated (bowel opened, little or `normal` spillage)"
+          contaminated: "Contaminated (e.g. bowel opened, gross spillage)"
+          infected: "Infected = Dirty (infection present in the operative field: skin; soft tissue; urinary tract, etc.)"

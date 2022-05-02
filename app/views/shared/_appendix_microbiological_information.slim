@@ -1,0 +1,36 @@
+- appendix_microbiological_information.valid?
+
+ol
+ li
+   = f.input :proven, as: :radio_buttons, label: t(".proven.question.#{questionnaire.form_type.downcase}"), input_html: form_trigger("provennauti_questions", 'yes'), collection: radio_button_collection('antibioticculture.answers', 'unknown', 'no', 'yes'), label_method: :second, value_method: :first
+
+ #provennauti_questions
+   p.question.pl-3= t('.culture_tissue_taken')
+   ol.pl-5
+     li
+       = f.input :culture_tissue_urine, label: t('.culture_tissue_urine.answers'), input_html: form_trigger('culture_result_urine', true)
+
+     ol#culture_result_urine= render 'shared/appendix_culture', f: f, appendix_culture: f.object.culture_result_urine
+
+     li
+       = f.input :culture_tissue_blood, label: t('.culture_tissue_blood.answers'), input_html: form_trigger('culture_result_blood', true)
+
+     ol#culture_result_blood= render 'shared/appendix_culture', f: f, appendix_culture: f.object.culture_result_blood
+
+     li
+       = f.input :culture_tissue_swab, label: t(".culture_tissue_swab.answers"), input_html: form_trigger('culture_result_swab', true)
+
+     ol#culture_result_swab= render 'shared/appendix_culture', f: f, appendix_culture: f.object.culture_result_swab
+
+     li
+       = f.input :culture_tissue_other, label: t('.culture_tissue_other.answers'), input_html: form_trigger("culturetissue_other_question", "true")
+
+     ol#culturetissue_other_question
+       li= f.input :culture_tissue_other_specify, label: t('.culture_tissue_other_specify.answers'), hint: t('.culture_tissue_other_specify.help')
+       = render 'shared/appendix_culture', f: f, appendix_culture: f.object.culture_result_other
+
+ li
+   = f.input :culture_antibiotics, as: :radio_buttons, label: t('.culture_antibiotics.question'), collection: radio_button_collection('antibioticculture.answers', 'unknown', 'no', 'yes'), label_method: :second, value_method: :first, input_html: form_trigger("antibioticculture_questions", "yes")
+   #antibioticculture_questions= render 'shared/appendix_antibiotic', f: f, single: true, appendix_antibiotic: f.object.appendix_antibiotic
+
+/= render 'shared/appendix_culture', f: f, single: true, appendix_culture: f.object.appendix_culture_result

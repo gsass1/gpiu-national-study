@@ -17,16 +17,16 @@ module Questionnaire
     belongs_to :patient
     validates :patient_id, presence: true, strict: true
 
-    before_update :set_state!, :set_state_in_patient!
+    after_save_commit :set_state!, :set_state_in_patient!
   end
 
   private
 
   def set_state!
-    self.state = if errors.any?
-                   :invalid
-                 else
+    self.state = if self.reload.valid?
                    :valid
+                 else
+                   :invalid
                  end
   end
 

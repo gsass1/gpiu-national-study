@@ -13,12 +13,12 @@ RSpec.describe DepartmentQuestionnaire do
       end
 
       it 'does not sanitize hospital_othertype if hospital type is other' do
-        expect(subject.reload.hospital_othertype).not_to be(nil)
+        expect(subject.reload.hospital_othertype).not_to be_nil
       end
 
       it 'sanitizes hospital_othertype if hospital is not other type' do
         subject.update(hospital_type: :university)
-        expect(subject.reload.hospital_othertype).to be(nil)
+        expect(subject.reload.hospital_othertype).to be_nil
       end
     end
   end

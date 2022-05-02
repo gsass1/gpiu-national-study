@@ -3,7 +3,8 @@ en:
     help:
       title: Help
       create_support_request: Create Support Request
-      read_manual: Read Manual
+      read_manual: Show Manual
+      read_faq: Show FAQ
     faq:
       title: "FAQ"
       questions: &all

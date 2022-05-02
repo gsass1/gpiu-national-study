@@ -1,0 +1,31 @@
+= render 'shared/appendix_comorbidity',
+  f: f,
+  appendix_comorbidity: uti_ssi_history.appendix_comorbidity,
+  uti_ssi_history: uti_ssi_history
+
+- uti_ssi_history.appendix_urological_risk_factor.valid?
+= render 'shared/sub_section',
+  no: 2,
+  name: t("shared.uti_ssi_questionnaire.subsections.2"),
+  errors: uti_ssi_history.appendix_urological_risk_factor.errors.count,
+  shared_section: uti_ssi_history.uti_and_ssi_form_needed?
+  = f.fields_for :appendix_urological_risk_factor do |g|
+    = render 'shared/appendix_urological_risk_factors', f: g, appendix_urological_risk_factor: uti_ssi_history.appendix_urological_risk_factor, questionnaire: questionnaire
+
+- uti_ssi_history.appendix_urological_intervention.valid?
+= render 'shared/sub_section',
+  no: 3,
+  name: t("shared.uti_ssi_questionnaire.subsections.3.text"),
+  errors: uti_ssi_history.appendix_urological_intervention.errors.count,
+  shared_section: uti_ssi_history.uti_and_ssi_form_needed?
+  = f.fields_for :appendix_urological_intervention do |g|
+    = render 'shared/appendix_urological_intervention', f: g, appendix_urological_intervention: uti_ssi_history.appendix_urological_intervention, questionnaire: questionnaire
+
+- uti_ssi_history.appendix_clinical_diagnosis.valid?
+= render 'shared/sub_section',
+  no: 4,
+  name: t("shared.uti_ssi_questionnaire.subsections.4"),
+  errors: uti_ssi_history.appendix_clinical_diagnosis.errors.count,
+  shared_section: uti_ssi_history.uti_and_ssi_form_needed?
+  = f.fields_for :appendix_clinical_diagnosis do |g|
+    = render 'shared/appendix_clinical_diagnosis', f: g, appendix_clinical_diagnosis: uti_ssi_history.appendix_clinical_diagnosis, questionnaire: questionnaire

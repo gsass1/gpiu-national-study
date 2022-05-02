@@ -1,0 +1,4 @@
+.cookie-banner[style="display: none;" data-controller="cookies"]
+  .text-center
+    span= t('cookie_banner.text')
+    span.btn.btn-primary.btn-sm.ml-3[data-action="click->cookies#accept"]= t('cookie_banner.button')

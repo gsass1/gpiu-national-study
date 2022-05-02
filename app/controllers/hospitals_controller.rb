@@ -11,7 +11,7 @@ class HospitalsController < ApplicationController
   add_breadcrumb I18n.t('hospitals.index.hospitals'), :hospitals_path
 
   tabbed :index, tabs: %i[all my], default: :all
-  tabbed :show, tabs: %i[overview departments employees], default: :overview
+  tabbed :show, tabs: %i[overview employees], default: :overview
 
   def index
     @hospitals = Hospitals::QueryService.call(current_user, params[:q])

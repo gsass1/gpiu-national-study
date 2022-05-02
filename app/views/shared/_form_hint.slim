@@ -1,17 +1,22 @@
-.mb-3
-  - if state == 'valid'
-    .form-hint.alert-success.form-valid
-      .container.pt-3
-        h3= "#{t("form_hints.valid.title")} ✓"
-        p= t("form_hints.valid.text")
-  - if state == 'missing'
-    .form-hint.alert-info.form-missing
-      .container.pt-3
-        h3= "#{t("form_hints.missing.title")}"
-        p= t("form_hints.missing.text")
-  - if state == 'invalid'
-    .form-hint.alert-danger.form-invalid
-      .container.pt-3
-        h3= "#{t("form_hints.invalid.title")} ✕"
-        p= t("form_hints.invalid.text", errors: model.errors.count)
+- content_for :before_content do
+  .span
+    - if state == 'valid'
+      .form-hint.alert-success.form-valid
+        .container.pt-3
+          - if model.try(:patient) && model.patient.try(:locked)
+            h3= "#{t("form_hints.locked.title")}"
+            p= t("form_hints.locked.text")
+          - else
+            h3= "#{t("form_hints.valid.title")} ✓"
+            p= t("form_hints.valid.text")
+    - if state == 'missing' || state.nil?
+      .form-hint.alert-info.form-missing
+        .container.pt-3
+          h3= "#{t("form_hints.missing.title")}"
+          p= t("form_hints.missing.text")
+    - if state == 'invalid'
+      .form-hint.alert-danger.form-invalid
+        .container.pt-3
+          h3= "#{t("form_hints.invalid.title")} ✕"
+          p= t("form_hints.invalid.text")
 

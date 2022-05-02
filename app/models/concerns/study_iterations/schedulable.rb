@@ -35,5 +35,17 @@ module StudyIterations
     def study_year
       study_ranges.first.start.year
     end
+
+    def first_date
+      study_ranges.first.start
+    end
+
+    def last_date
+      study_ranges.last.end
+    end
+
+    def revokable?
+      pending? || (accepted? && !study_ranges.any? { |si| si.active? || si.passed? })
+    end
   end
 end

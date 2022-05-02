@@ -30,7 +30,7 @@ RSpec.describe AppendixAntibiotic, type: :model do
           end
 
           it 'sanitizes the antibiotic' do
-            expect(subject.reload.send(group.to_s)).to eq(nil)
+            expect(subject.reload.send(group.to_s)).to be_nil
           end
         end
       end

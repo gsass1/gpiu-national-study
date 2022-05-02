@@ -8,16 +8,18 @@
 }
 
 .box.bg-primary {
-  a {
+  div a {
     color: #fff;
     text-decoration: underline;
   }
 }
 
 .box.bg-success {
-  a {
-    color: inherit;
-    text-decoration: underline;
+  div {
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
   }
 }
 

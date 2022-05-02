@@ -39,7 +39,7 @@ class PatientsController < ApplicationController
 
   def toggle_lock
     @patient = Patient.find(params[:patient_id])
-    authorize! :update, @patient
+    authorize! :toggle_lock, @patient
 
     @patient.locked = !@patient.locked?
     @patient.save!

@@ -42,7 +42,9 @@ module ApplicationHelper
   def unread_notifications_badge
     unread = current_user.unread_notifications_count
     if unread.positive?
-      content_tag :span, class: 'text-bold badge badge-pill badge-danger unread-notifications-badge' do
+      content_tag :span,
+        data: { target: 'notifications.badge' },
+        class: 'text-bold badge badge-pill badge-danger unread-notifications-badge' do
         unread.to_s
       end
     end
@@ -74,7 +76,7 @@ module ApplicationHelper
   end
 
   def antibiotics_group(form, group)
-    trigger_div = "#{form.object.pos_id}_#{group}_div"
+    trigger_div = "#{form.object.id}_#{form.object.pos_id}_#{group}_div"
 
     (content_tag :div do
       form.input "#{group}_group", as: :boolean, label: t(".#{group}.group"),
@@ -98,6 +100,14 @@ module ApplicationHelper
 
   def keycloak_authorize_path
     omniauth_authorize_path('user', 'keycloakopenid')
+  end
+
+  def primary_login_link(text, clazz)
+    if Keycloak.enabled?
+      link_to text, keycloak_authorize_path, class: clazz, method: :post
+    else
+      link_to text, new_user_session_path, class: clazz
+    end
   end
 
   def page_title

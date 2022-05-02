@@ -7,6 +7,7 @@ class UtiQuestionnairesController < ApplicationController
   include AppendixAntibioticParams
   include AppendixCultureResultParams
   include UtiQuestionnaireParams
+  include UtiSsiHistoryParams
 
   before_action :load_patient, :load_uti_questionnaire
 

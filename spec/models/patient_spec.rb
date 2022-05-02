@@ -3,15 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe StudyIteration do
-  let(:patient) { create(:patient) }
   subject { patient }
+
+  let(:patient) { create(:patient) }
 
   it 'validates initial' do
     patient.initial = nil
-    expect(patient).to_not be_valid
+    expect(patient).not_to be_valid
 
     patient.initial = '   '
-    expect(patient).to_not be_valid
+    expect(patient).not_to be_valid
 
     patient.initial = 'ABC'
     expect(patient).to be_valid

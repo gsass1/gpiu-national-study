@@ -1,4 +1,10 @@
 ul.sidepanel-sections
+  li[style="border-bottom: 1px solid #004b8e"]
+    a[href="/" class="sidepanel-section"]
+      .sidepanel-section-inner
+        .d-flex.flex-row.align-items-center
+          i.material-icons chevron_left
+          .pl-2 Back to Study Platform
   - sidepanel_sections.each do |section|
     li
       a[href=section[:path] class="sidepanel-section"]

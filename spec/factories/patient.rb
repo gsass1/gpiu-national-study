@@ -7,5 +7,7 @@ FactoryBot.define do
     department
     study_iteration
     patient_type { :uti_ssi }
+
+    after :create, &:create_questionnaires
   end
 end

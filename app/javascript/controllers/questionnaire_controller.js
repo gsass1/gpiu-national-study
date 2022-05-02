@@ -2,15 +2,64 @@
 
 import { Controller } from 'stimulus'
 
+const LEAVE_MESSAGE = 'You are attempting to leave this page. However if you have not clicked Submit then all changes you have made will be lost. Are you sure you want to leave this page?'
+
 export default class extends Controller {
   connect() {
-    document.querySelectorAll("form[questionnaire_locked='true'").forEach((elem) => {
+    this.element.querySelectorAll("form[questionnaire_locked='true'").forEach((elem) => {
       this.disableForm(elem);
     }, this);
 
-    document.querySelectorAll('[data-condition').forEach((elem) => {
+    this.element.querySelectorAll('[data-condition').forEach((elem) => {
       this.onTriggerChange({ target: elem, first: true });
     }, this);
+
+    this.element.querySelectorAll('input').forEach((input) => {
+      if(input.type == 'submit') {
+        input.addEventListener('click', this.allowSubmission.bind(this))
+      } else {
+        input.addEventListener('change', this.onInputChange.bind(this))
+      }
+    })
+
+    this.onPageLeave = this.onPageLeave.bind(this)
+
+    window.addEventListener('turbolinks:before-visit', this.onPageLeave)
+    window.addEventListener('beforeunload', this.onPageLeave)
+  }
+
+  disconnect() {
+    window.removeEventListener('turbolinks:before-visit', this.onPageLeave)
+    window.removeEventListener('beforeunload', this.onPageLeave)
+  }
+
+  allowSubmission() {
+    this.setChanged(false)
+  }
+
+  onInputChange() {
+    this.setChanged(true)
+  }
+
+  onPageLeave(e) {
+    if(this.hasFormBeenChanged()) {
+      if(e.type == 'turbolinks:before-visit') {
+        if (!window.confirm(LEAVE_MESSAGE)) {
+          e.preventDefault()
+        }
+      } else {
+        e.returnValue = LEAVE_MESSAGE
+        return event.returnValue
+      }
+    }
+  }
+
+  setChanged(changed) {
+    this.data.set('changed', changed)
+  }
+
+  hasFormBeenChanged() {
+    return this.data.get('changed') == 'true'
   }
 
   onTriggerChange(e) {

@@ -12,18 +12,14 @@ en:
         imipenem: "Imipenem"
         doripenem: "Doripenem"
         meropenem: "Meropenem"
-      first_generation_cephalosporin:
-        group: "1st generation Cephalosporins"
+      cephalosporin:
+        group: "Cephalosporins"
         cefadroxil: "Cefadroxil"
         cefazolin: "Cefazolin"
         cefalexin: "Cefalexin"
-      second_generation_cephalosporin:
-        group: "2nd generation Cephalosporins"
         cefaclor: "Cefaclor"
         cefprozil: "Cefprozil"
         cefuroxime: "Cefuroxime"
-      third_generation_cephalosporin:
-        group: "3rd generation Cephalosporins"
         cefixim: "Cefixim"
         cefdinir: "Cefdinir"
         cefotaxime: "Cefotaxime"
@@ -31,13 +27,15 @@ en:
         ceftazidime: "Ceftazidime"
         ceftibuten: "Ceftibuten"
         ceftriaxone: "Ceftriaxone"
-      fourth_generation_cephalosporin:
-        group: "4th generation Cephalosporins"
         cefepime: "Cefepime"
-      fifth_generation_cephalosporin:
-        group: "5th generation Cephalosporins"
         ceftaroline_fosamil: "Ceftaroline fosamil"
         ceftobiprole: "Ceftobiprole"
+        generations:
+          - 1st Generation
+          - 2nd Generation
+          - 3rd Generation
+          - 4th Generation
+          - 5th Generation
       glycopeptide:
         group: "Glycopeptides"
         teicoplanin: "Teicoplanin"
@@ -47,7 +45,6 @@ en:
         group: "Lincosamides"
         clindamycin: "Clindamycin"
         lincomycin: "Lincomycin"
-        group: Group
       macrolide:
         group: "Macrolides"
         azithromycin: "Azithromycin"
@@ -82,7 +79,7 @@ en:
         colistin: "Colistin"
         polymyxin_b: "Polymyxin-B"
       quinolone:
-        group: "Quinolones"
+        group: "Quinolone"
         ciprofloxacin: "Ciprofloxacin"
         enoxacin: "Enoxacin"
         gatifloxacin: "Gatifloxacin"
@@ -93,10 +90,9 @@ en:
         nalidixic_acid: "Nalidixic acid"
         norfloxacin: "Norfloxacin"
         ofloxacin: "Ofloxacin"
-      sulfonamide:
-        group: "Sulfonamides"
-        sulfamethoxazole: "Sulfamethoxazole"
-        trimephtoprim_sulfamethoxazole: "Trimephtoprim- Sulfamethoxazole"
+      trimethoprim_sulfamethoxazole:
+        group: "Trimethoprim-Sulfamethoxazole"
+        trimethoprim_sulfamethoxazole: "Trimethoprim-Sulfamethoxazole"
       tetracycline:
         group: "Tetracyclines"
         doxycycline: "Doxycycline"

@@ -7,14 +7,7 @@ ol
         ol[id="#{place}_#{group[:field]}_#{g.object.pos_id}"]
           - if group.has_key?(:sub_fields)
             - group[:sub_fields].each do |sub_field|
-              li
-                - if sub_field.has_key?(:cat)
-                  /= l.form_group "#{place}_#{sub_field[:cat]}", label: {text: sub_field[:cat] }
-                  ol
-                    - sub_field[:group].each do |sub_sub_field|
-                      li = render 'shared/appendix_culture_field', g: g, place: place, field: sub_sub_field
-                - else
-                  = render 'shared/appendix_culture_field',  g: g, place: place, field: sub_field
+              li= render 'shared/appendix_culture_field',  g: g, place: place, field: sub_field
           - else
             = render 'shared/appendix_culture_field',  g: g, place: place, field: group
 

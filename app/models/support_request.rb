@@ -14,7 +14,6 @@ class SupportRequest < ApplicationRecord
 
   enum support_type: { site_help: 0, bug: 1, other_reason: 2 }
 
-  validates :user_id, presence: true
   validates :message, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :support_type, presence: true

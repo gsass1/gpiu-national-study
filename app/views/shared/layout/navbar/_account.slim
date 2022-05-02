@@ -11,8 +11,9 @@ span.dropdown.show
     - if regional_admin
       .dropdown-divider
     = link_to t('application.nav.dashboard'), dashboard_index_path, class: "dropdown-item"
-    = link_to "Help", "/help", class: "dropdown-item"
+    = link_to "Hospitals", hospitals_path, class: "dropdown-item"
     = link_to "Settings", edit_user_registration_path, class: "dropdown-item"
+    = link_to "Help", "/help", class: "dropdown-item"
     .dropdown-divider
     = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
 

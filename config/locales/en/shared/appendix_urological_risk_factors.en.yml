@@ -1,0 +1,52 @@
+en:
+  shared:
+    appendix_urological_risk_factors:
+      previous:
+        question: 'Previous UTI/SSI (within last 12 months)'
+      tract_obstruction:
+        question: 'Urinary tract obstruction (any level) or reflux considered to be a significant risk factor for the current infection'
+      tract_obstruction_left:
+        question: "Left side"
+      tract_obstruction_right:
+        question: "Right side"
+      bladder_outlet_obstruction:
+        question: "Bladder outlet obstruction (including urethral strictures)"
+      urinarystones:
+        question: "Urinary stones (more than one location can be reported)"
+        answers:
+          calyceal: "Calcyceal"
+          renalpelvic: "Renal pelvic"
+          ureteral: "Ureteral"
+          bladder: "Bladder"
+      antibiotic_treatment:
+        question: "Antibiotic treatment for any reason within the previous three months"
+      antibiotic_treatment_type:
+        question: "Treatment"
+        answers:
+          uti: "For UTI"
+          other: "For other infections (please specify if possible)"
+          unknown: "For an unknown reason"
+      antibiotic_treatment_specify:
+        question: "Please specify diagnosis"
+        help: "English text"
+      antibiotic_treatment_choose:
+        question: 'Antibiotics used for treatment'
+      hospitalisation:
+        question: "Hospitalisation for any reason within the last 6 months"
+      hospitalisation_specify:
+        question: "Reason for hospitalisation (optional)"
+      catheter:
+        question: "Catheter at the time when UTI/SSI was diagnosed (more than one location can be reported)"
+        answers:
+          urethral: "Urethral"
+          suprapubic: "Suprapubic"
+          ureteralstent: "Ureteral stent"
+          nephrostomy: "Nephrostomy"
+          others: "Other"
+      catheter_specify:
+        question: "Please specify catheter"
+      catheterduration:
+        question: "Duration of catheter usage (in days) at the time UTI/SSI was diagnosed"
+        append: "days"
+        help: "(e.g. 20). Enter 0 if no catheter was used."
+
