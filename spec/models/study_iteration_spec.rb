@@ -48,4 +48,34 @@ RSpec.describe StudyIteration do
       end
     end
   end
+
+  describe '#revokable?' do
+    it 'is revokable if pending' do
+      study_iteration.update(acceptance_state: :pending)
+      expect(study_iteration.revokable?)
+    end
+
+    it 'is revokable when accepted but not yet active' do
+      study_iteration.study_ranges.create! start: 14.days.from_now, end: 30.days.from_now
+      study_iteration.update(acceptance_state: :accepted)
+      expect(study_iteration.revokable?)
+
+      travel 14.days
+      expect(!study_iteration.revokable?)
+
+      travel 30.days
+      expect(!study_iteration.revokable?)
+    end
+
+    it 'is not revokable otherwise' do
+      study_iteration.update(acceptance_state: :unsubmitted)
+      expect(!study_iteration.revokable?)
+
+      study_iteration.update(acceptance_state: :declined)
+      expect(!study_iteration.revokable?)
+
+      study_iteration.update(acceptance_state: :revoked)
+      expect(!study_iteration.revokable?)
+    end
+  end
 end

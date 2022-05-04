@@ -61,6 +61,7 @@ Rails.application.routes.draw do
         delete '/delete_study_range/:study_range_id' => 'study_iterations#delete_study_range', as: :delete_study_range
         get :export
         post :request_export_permission
+        post :revoke
       end
     end
   end

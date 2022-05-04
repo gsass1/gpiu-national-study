@@ -10,7 +10,7 @@ module RegionalAdmin
     load_and_authorize_resource
 
     before_action :load_si, :check_si_is_editable, only: %i[create_study_range delete_study_range submit]
-    before_action :load_si, only: %i[export request_export_permission]
+    before_action :load_si, only: %i[export revoke request_export_permission]
     before_action :check_has_ranges, only: [:submit]
 
     tabbed :edit, tabs: %i[overview data schedule calendar actions], default: :overview
@@ -103,6 +103,24 @@ module RegionalAdmin
       redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration)
     end
 
+    def revoke
+      redirect_back danger: 'Study iteration is not revokable', fallback_location: root_path and return unless @study_iteration.revokable?
+
+      if @study_iteration.accepted?
+        @study_iteration.acceptance_state = :revoked
+      else
+        @study_iteration.acceptance_state = :unsubmitted
+      end
+
+      if @study_iteration.update(revokation_params)
+        flash[:success] = "Revoked study iteration \"#{@study_iteration.name}\""
+      else
+        flash[:danger] = 'Failed revoking study iteration'
+      end
+
+      redirect_to edit_regional_admin_country_study_iteration_path(@country, @study_iteration, tab: 'actions')
+    end
+
     private
 
     def study_iteration_params
@@ -111,6 +129,10 @@ module RegionalAdmin
 
     def study_range_params
       params.require(:study_range).permit(:start, :end, :comment)
+    end
+
+    def revokation_params
+      params.require(:study_iteration).permit(:revokation_reason)
     end
 
     def load_si
