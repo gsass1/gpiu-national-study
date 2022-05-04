@@ -11,9 +11,9 @@ class ExportDataService < BaseService
   def call
     case type_of_data
     when 'uti_ssi_patients'
-      Patient.as_csv_collection(study_iteration.patients.uti_ssi)
+      Patient.export(study_iteration.patients.uti_ssi)
     when 'prostate_biopsy_patients'
-      Patient.as_csv_collection(study_iteration.patients.prostate_biopsy)
+      Patient.export(study_iteration.patients.prostate_biopsy)
     when 'hospitals'
       Department.as_csv_collection(study_iteration.departments)
     end

@@ -5,7 +5,7 @@ module StudyIterations
     extend ActiveSupport::Concern
 
     included do
-      enum acceptance_state: { unsubmitted: 0, pending: 1, accepted: 2, declined: 3 }
+      enum acceptance_state: { unsubmitted: 0, pending: 1, accepted: 2, declined: 3, revoked: 4 }
 
       scope :accepted, -> { where(acceptance_state: :accepted) }
       scope :pending, -> { where(acceptance_state: :pending) }
@@ -16,6 +16,7 @@ module StudyIterations
       after_save_commit :broadcast_submission, if: :was_submitted?
       after_save_commit :broadcast_announcement, :broadcast_approval_decision, if: :was_accepted?
       after_save_commit :broadcast_declination_decision, if: :was_declined?
+      after_save_commit :broadcast_revokation_decision, if: :was_revoked?
     end
 
     private
@@ -28,6 +29,7 @@ module StudyIterations
       @was_submitted = acceptance_state_previously_changed?(to: 'pending')
       @was_accepted  = acceptance_state_previously_changed?(to: 'accepted')
       @was_declined  = acceptance_state_previously_changed?(to: 'declined')
+      @was_revoked  = acceptance_state_previously_changed?(to: 'revoked')
     end
 
     def was_accepted?
@@ -40,6 +42,10 @@ module StudyIterations
 
     def was_submitted?
       @was_submitted
+    end
+
+    def was_revoked?
+      @was_revoked
     end
 
     def broadcast_submission
@@ -60,6 +66,10 @@ module StudyIterations
 
     def broadcast_declination_decision
       push_notifications 'study_iterations.rejected'
+    end
+
+    def broadcast_revokation_decision
+      push_notifications 'study_iterations.revoked'
     end
 
     def push_notifications(action)

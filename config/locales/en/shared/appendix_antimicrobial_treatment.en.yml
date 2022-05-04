@@ -1,0 +1,12 @@
+en:
+  shared:
+    appendix_antimicrobial_treatment:
+      treatment:
+        question: "Administration of antimicrobial treatment"
+        answers:
+          none: "No treatment"
+          oral: "Oral"
+          parenteral: "Parenteral"
+          both: "Both"
+      treatment_antibiotics:
+        question: "The antimicrobial drugs belong to the following groups"

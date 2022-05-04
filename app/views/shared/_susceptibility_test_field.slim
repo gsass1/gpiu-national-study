@@ -1,0 +1,11 @@
+- if defined?(parent_field)
+  = g.input field[:field],
+    label: t("shared.appendix_culture.susceptibility_fields.#{parent_field}_options.#{field[:field]}"),
+    input_html: form_trigger("#{field[:field]}_s_#{g.object.div_id}", "true")
+- else
+  = g.input field[:field],
+    label: t("shared.appendix_culture.susceptibility_fields.#{field[:field]}"),
+    input_html: form_trigger("#{field[:field]}_s_#{g.object.div_id}", "true")
+
+div[id="#{field[:field]}_s_#{g.object.div_id}"]
+  = g.input "#{field[:field]}_s", label: "", as: :radio_buttons, collection: [[t('shared.appendix_culture.field.answer.sensitive'), 0], [t('shared.appendix_culture.field.answer.intermediate'), 1], [t('shared.appendix_culture.field.answer.resistant'), 2]], value_method: :second, label_method: :first

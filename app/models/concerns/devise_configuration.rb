@@ -12,7 +12,7 @@ module DeviseConfiguration
       flags = BASE_FLAGS.dup
 
       if Keycloak.enabled?
-        flags.push(:recoverable) if Gpiu.allow_local_accounts?
+        flags.push(:recoverable) if GPIU.allow_local_accounts?
         flags.push(*KEYCLOAK_FLAGS)
       else
         flags.push(:recoverable)

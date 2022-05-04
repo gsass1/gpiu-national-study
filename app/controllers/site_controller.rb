@@ -3,11 +3,15 @@
 require 'asciidoctor'
 
 class SiteController < ApplicationController
+  layout 'landing_page', only: :index
+
   def index
     redirect_to dashboard_index_path if user_signed_in?
 
     @user = User.new
     @countries = Country.all.order(name: :asc)
+
+    @upcoming_studies = StudyIteration.accepted.select { |si| si.active? || !si.passed? }.first(5)
   end
 
   def contact; end

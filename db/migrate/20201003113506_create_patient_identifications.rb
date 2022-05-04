@@ -4,9 +4,9 @@ class CreatePatientIdentifications < ActiveRecord::Migration[6.0]
       t.references :patient, null: false, foreign_key: true
       t.integer :birth_year
       t.integer :sex
-      t.boolean :pregnancy
+      t.boolean :pregnancy, default: false
       t.date :admission_date
-      t.boolean :evidence_infection
+      t.boolean :evidence_infection, default: false
       t.integer :admission_infection
       t.integer :infection_type
       t.datetime :discarded_at

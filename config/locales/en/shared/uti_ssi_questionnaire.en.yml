@@ -2,18 +2,12 @@ en:
   shared:
     uti_ssi_questionnaire:
       subsections:
-        "2":
-          uti: "2. Urological risk factors (present at the time UTI was diagnosed)"
-          ssi: "2. Urological risk factors (present at the time SSI was diagnosed)"
+        "2": "2. Urological risk factors (present at the time UTI/SSI was diagnosed)"
 
         "3":
           text: "3. Urological intervention"
-          question:
-            uti: "Urological intervention which according to the investigator lead to the current episode of UTI"
-            ssi: "Urological intervention which according to the investigator lead to the current episode of SSI"
-        "4":
-          uti: "4. Clinical information about the UTI"
-          ssi: "4. Clinical information about the SSI"
+          question: "Urological intervention which according to the investigator lead to the current episode of UTI/SSI"
+        "4": "4. Clinical information about the UTI/SSI"
         "5":
           uti: "5. Microbiological information about the current episode of UTI"
           ssi: "5. Microbiological information about the current episode of SSI"

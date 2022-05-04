@@ -9,22 +9,22 @@
 # Setup participating countries
 puts "Seeding Database..."
 puts "Seeding participating countries"
-Country.create(iso_2: "GB", iso_3: "GBR", name: "United Kingdom", timezone: "Europe/London")
-Country.create(iso_2: "DE", iso_3: "DEU", name: "Germany", timezone: "Europe/Berlin")
-Country.create(iso_2: "ES", iso_3: "ESP", name: "Spain", timezone: "Europe/Madrid")
-Country.create(iso_2: "TR", iso_3: "TUR", name: "Turkey", timezone: "Europe/Istanbul")
-Country.create(iso_2: "NO", iso_3: "NOR", name: "Norway", timezone: "Europe/Oslo")
-Country.create(iso_2: "IR", iso_3: "IRN", name: "Iran", timezone: "Iran")
-Country.create(iso_2: "HU", iso_3: "HUN", name: "Hungary", timezone: "Europe/Budapest")
-Country.create(iso_2: "AU", iso_3: "AUS", name: "Australia", timezone: "Australia/Sydney")
-Country.create(iso_2: "FR", iso_3: "FRA", name: "France", timezone: "Europe/Paris")
-Country.create(iso_2: "GH", iso_3: "GHA", name: "Ghana", timezone: "GMT")
-Country.create(iso_2: "KZ", iso_3: "KAZ", name: "Kazakhstan", timezone: "Asia/Almaty")
-Country.create(iso_2: "MY", iso_3: "MYS", name: "Malaysia", timezone: "Asia/Kuala_Lumpur")
-Country.create(iso_2: "PT", iso_3: "PRT", name: "Portugal", timezone: "Europe/Lisbon")
-Country.create(iso_2: "RO", iso_3: "ROU", name: "Romania", timezone: "Europe/Bucharest")
+Country.find_or_create_by(iso_2: "GB", iso_3: "GBR", name: "United Kingdom", timezone: "Europe/London")
+Country.find_or_create_by(iso_2: "DE", iso_3: "DEU", name: "Germany", timezone: "Europe/Berlin")
+Country.find_or_create_by(iso_2: "ES", iso_3: "ESP", name: "Spain", timezone: "Europe/Madrid")
+Country.find_or_create_by(iso_2: "TR", iso_3: "TUR", name: "Turkey", timezone: "Europe/Istanbul")
+Country.find_or_create_by(iso_2: "NO", iso_3: "NOR", name: "Norway", timezone: "Europe/Oslo")
+Country.find_or_create_by(iso_2: "IR", iso_3: "IRN", name: "Iran", timezone: "Iran")
+Country.find_or_create_by(iso_2: "HU", iso_3: "HUN", name: "Hungary", timezone: "Europe/Budapest")
+Country.find_or_create_by(iso_2: "AU", iso_3: "AUS", name: "Australia", timezone: "Australia/Sydney")
+Country.find_or_create_by(iso_2: "FR", iso_3: "FRA", name: "France", timezone: "Europe/Paris")
+Country.find_or_create_by(iso_2: "GH", iso_3: "GHA", name: "Ghana", timezone: "GMT")
+Country.find_or_create_by(iso_2: "KZ", iso_3: "KAZ", name: "Kazakhstan", timezone: "Asia/Almaty")
+Country.find_or_create_by(iso_2: "MY", iso_3: "MYS", name: "Malaysia", timezone: "Asia/Kuala_Lumpur")
+Country.find_or_create_by(iso_2: "PT", iso_3: "PRT", name: "Portugal", timezone: "Europe/Lisbon")
+Country.find_or_create_by(iso_2: "RO", iso_3: "ROU", name: "Romania", timezone: "Europe/Bucharest")
 
-if Rails.env.development?
+if Rails.env.development? or GPIU.staging?
   NUM_USERS = 5
   NUM_HOSPITALS = 10
   NUM_MAX_DEPTS = 5

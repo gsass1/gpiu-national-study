@@ -5,19 +5,22 @@ module Bitmask
 
   class_methods do
     # NOTE: do NOT change order
-    def bitmask(name, states)
+    def bitmask(name, states, options = {})
+      suffix = options[:suffix] || ''
+
       states.each_with_index do |state, index|
         n = 2**index
+        attr = "#{state}#{suffix}"
 
-        define_method "#{state}?" do
+        define_method "#{attr}?" do
           (self[name] & n) == n
         end
 
-        define_method state do
+        define_method attr do
           (self[name] & n) == n
         end
 
-        define_method "#{state}=" do |flag|
+        define_method "#{attr}=" do |flag|
           if [true, 1, '1'].include?(flag)
             self[name] |= n
           else

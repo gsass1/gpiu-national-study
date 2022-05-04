@@ -52,8 +52,12 @@ RSpec.describe StudyRange do
   end
 
   context 'multiple study ranges' do
-    it 'cannot overlap' do
+    before do
       study_iteration.study_ranges.create(start: 15.days.from_now, end: 20.days.from_now)
+      study_iteration.country.reload
+    end
+
+    it 'cannot overlap' do
       subject.start = 15.days.from_now
       subject.end = 30.days.from_now
       expect(subject).not_to be_valid

@@ -1,0 +1,46 @@
+- appendix_clinical_diagnosis.valid?
+
+ol
+  li
+    p.question= t('.diagnosedate.question.both')
+    ol
+      - if questionnaire.uti_form_needed?
+        li= f.input :diagnosis_date_uti, label: t(".diagnosedate.question.uti")
+
+      - if questionnaire.ssi_form_needed?
+        li= f.input :diagnosis_date_ssi, label: t(".diagnosedate.question.ssi")
+
+  li
+    p.question= t('.clinicaldiagnosis.question.both')
+    ol
+      - if questionnaire.uti_form_needed?
+        li
+          = f.input :diagnosis_uti, as: :radio_buttons, label: t('.clinicaldiagnosis.question.uti'), collection: radio_button_collection("clinicaldiagnosis.answers",  'asymptomatic_bacteriuria', 'cystitis', 'pyelonephritis_moderate', 'pyelonephritis_severe', 'urosepsissimple', 'urosepsissevere', 'urosepsisshock',  'urethritis',  'prostatitis',  'epididymitis', 'other'), label_method: :second, value_method: :first, input_html: form_trigger("clinicaldiagnosis_uti_question", "other")
+          #clinicaldiagnosis_uti_question= f.input :diagnosis_specify_uti, label: t('.clinicaldiagnosisspecify.question'), hint: t('.clinicaldiagnosisspecify.help')
+
+      - if questionnaire.ssi_form_needed?
+        li
+          = f.input :diagnosis_ssi, as: :radio_buttons, label: t('.clinicaldiagnosis.question.ssi'), collection: radio_button_collection("clinicaldiagnosis.answers",  'asymptomatic_bacteriuria', 'cystitis', 'pyelonephritis_moderate', 'pyelonephritis_severe', 'urosepsissimple', 'urosepsissevere', 'urosepsisshock',  'urethritis',  'prostatitis',  'epididymitis', 'other'), label_method: :second, value_method: :first, input_html: form_trigger("clinicaldiagnosis_ssi_question", "other")
+          #clinicaldiagnosis_ssi_question= f.input :diagnosis_specify_ssi, label: t('.clinicaldiagnosisspecify.question'), hint: t('.clinicaldiagnosisspecify.help')
+
+  li
+    p.question= t('.cdc.question.both')
+    ol
+      - if questionnaire.uti_form_needed?
+        li
+          p.question= t('.cdc.question.uti')
+          ol
+            li= f.input :cdc_uti_symptomatic_uti_and_bacteria, label: t('.symptomaticutiandbacteriuria.answers')
+            li= f.input :cdc_uti_symptomatic_uti_and_other, label: t('.symptomaticutiandother.answers')
+            li= f.input :cdc_uti_asymptomatic_bact_cath, label: t('.asymptomaticbactcath.answers')
+            li= f.input :cdc_uti_asymptomatic_bact_nocatch, label: t('.asymptomaticbactnocath.answers')
+            li
+              = f.input :cdc_uti_other, label: t('.otheruti.answers'), input_html: form_trigger("cdc_uti_other_specify", true)
+              #cdc_uti_other_specify= f.input :cdc_uti_other_specify, label: t('.otheruti_specify.question')
+      - if questionnaire.ssi_form_needed?
+        li
+          p.question= t('.cdc.question.ssi')
+          ol
+            li= f.input :cdc_ssi_superficial, label: t('.superficialssi.answers')
+            li= f.input :cdc_ssi_deep, label: t('.deepssi.answers')
+            li= f.input :cdc_ssi_organ, label: t('.organssi.answers')

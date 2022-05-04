@@ -1,0 +1,26 @@
+en:
+  shared:
+    appendix_microbiological_information:
+      proven:
+        question:
+          uti: "Is the patient considered to have a microbiologically proven (culture-positive) UTI?"
+          ssi: "Is the patient considered to have a microbiologically proven (culture-positive) SSI?"
+      culture_tissue_taken: "Culture was taken from:"
+      culture_tissue_urine:
+        answers: "Urine"
+      culture_tissue_blood:
+        answers: "Blood"
+      culture_tissue_swab:
+        answers: "Discharge/swab from a wound"
+      culture_tissue_other:
+        answers: "Other"
+      culture_tissue_other_specify:
+        answers: "Please specify"
+        help: "English text"
+      culture_antibiotics:
+        question: "Was the patient receiving antibiotics when the culture was taken?"
+        answers:
+          "yes": 'Yes'
+          "no": 'No'
+          unknown: Unknown
+

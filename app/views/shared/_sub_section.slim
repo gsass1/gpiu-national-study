@@ -1,0 +1,16 @@
+.card.mb-3
+  .card-header.bg-primary.text-light
+    .float-right
+      - if defined?(errors)
+        - if errors == 0
+          span.badge.badge-success.mx-3= t('.no_issues')
+        - else
+          span.badge.badge-danger.mx-3= t('.issues', count: errors)
+      a.text-light[id="sub_section_toggle_#{no}" type="button" data-toggle="collapse" data-target="#sub_section_#{no}" aria-expanded="false" aria-controls="#sub_section_#{no}"]
+        i.material-icons.md-18 expand_more
+    strong[data-toggle="collapse" data-target="#sub_section_#{no}" role="button"]= name
+    - if defined?(shared_section) && shared_section
+      br
+      span.badge.badge-info= t('shared_section')
+  .card-body.collapse[id="sub_section_#{no}"]
+    = yield

@@ -7,5 +7,6 @@ FactoryBot.define do
     sex { :male }
     evidence_infection { false }
     infection_type { :both }
+    admission_date { Date.today }
   end
 end

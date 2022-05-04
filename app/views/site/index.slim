@@ -1,28 +1,94 @@
-.landing-welcome.d-flex.align-items-center.justify-content-center
-  .container.landing-box
-    .row
-      .bg-primary.col-lg-6.d-flex.align-items-center
-        .text-light.p-5
-          h4 = t('sites.landing.welcome')
-          p = t('sites.landing.description_short')
+span[data-controller="landing-page"]
 
-      .bg-light.col-lg-6.p-5
-        - if Keycloak::enabled?
-          h4.pt-5 Sign in
-          hr
-          = link_to "Sign in with #{Keycloak::host}", keycloak_authorize_path, class: 'btn btn-success', method: :post
-          - if Gpiu::allow_local_accounts?
-            = link_to "Sign in locally", new_user_session_path, class: 'btn btn-primary mt-2'
-        - else
-          h4 Sign in
-          = render 'devise/shared/login_form', user: User.new
-.landing-description
-  .container.my-5
-    h2.text-center = t('sites.landing.what')
-    p = t('sites.landing.description_long_html')
-  .bg-beige.mt-5
-    .container.py-5
-      h2.text-center = t('sites.landing.participating_countries')
-      .d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
-        - @countries.each do |country|
-          = flag_icon country.iso_2, class: 'landing-national-flag', title: country.name
+  .navbar.fixed-top.navbar-expand-lg.text-light.landing-navbar[data-target="landing-page.navbar"]
+    .container
+      h5.font-weight-normal.national-study[role='button' data-action="click->landing-page#scrollToTop"]
+        = "GPIU"
+        br
+        = "National Study"
+      nav.d-none.d-md-block
+        .my-2.my-md-0.mr-mid-3.d-flex.flex-row.align-items-center
+          h6.font-weight-bold[data-action="click->landing-page#scrollToTop" role='button'] About
+          h6.font-weight-bold.ml-5[data-action="click->landing-page#scrollToParticipation" role='button'] Participation
+          h6.font-weight-bold.ml-5[data-action="click->landing-page#scrollToCountries" role='button'] Countries
+          h6
+            = primary_login_link 'Sign In', 'btn btn-md btn-success font-weight-bold ml-5 px-3'
+
+  .landing-welcome.text-white.d-flex.align-items-center[data-target="landing-page.welcome"]
+    .container
+      .row
+        .col-lg-6.col-sm-9.pt-5
+          h2.font-weight-bold Help the fight against hospital-acquired infections in urology.
+          .lead.landing-emphasized The Global Prevalence Study on Infections in Urology aims to study Urinary Tract Infections (UTI) and Surgical Site Infections (SSI) in hospitalised urological patients.
+          .my-5
+            = primary_login_link 'Participate', 'btn btn-lg btn-success font-weight-bold px-4'
+            button.btn.btn-lg.btn-learn-more.font-weight-bold.px-4.ml-3[data-action="click->landing-page#scrollToContent"] Learn More
+        .offset-lg-1.col-lg-5
+          - if @upcoming_studies.any?
+            .upcoming-study-dates
+              strong.emphasized Upcoming Study Dates
+              .mt-2
+                - @upcoming_studies.each do |study|
+                  .row
+                    .col-sm-3
+                      strong= study.country.name
+                    .col-sm-9
+                      = "#{l(study.first_date, format: :long)} - #{l(study.last_date, format: :long)}"
+
+
+  .landing-what.text-white[data-target="landing-page.content"]
+    .what-box.p-5
+      h3.font-weight-bold What is the GPIU National Study?
+      span.lead
+        = "The national level of the Global Prevalence Study on Infections in Urology (GPIU-study) is an internet-based audit carried out through the portal of the EAU Section of Infections in Urology (ESIU). It aims to perform multiple independent "
+        .font-weight-bold= "studies on the prevalence of infections in the urology departments "
+        = "at the national level in many countries."
+      .lead
+        a.font-weight-bold.underline.text-white[href="https://gpiu.esiu.org/study_home" target="_blank" rel="noopener noreferrer"] Read more
+
+    .benefits.mt-5
+      h2.text-center.text-primary.font-weight-bold.my-5 Benefits of Participation
+
+      .reasons.d-flex.flex-row.flex-wrap.align-items-center.justify-content-center
+        = render 'reason', icon: 'local_hospital', title: 'Help Fight UTI', text: 'Be part of the world’s greatest international team fighting nosocomially acquired infections in urology departments. Each piece of information you collect will be thoroughly analysed by our research team and will serve as a small brick in the construction of future strategies for preventing and treating UTI.'
+        = render 'reason', icon: 'visibility', title: 'Gain Insights', text: 'Compare the prevalence of UTI and resistance rates of the causative uropathogens in your clinic, not only with those of other clinics in your country but also with those located in neighbouring countries and other parts of the world.'
+        = render 'reason', icon: 'info', title: 'Mutual Benefits', text: 'Better understand nosocomially acquired UTI, trends in different countries and time periods, identification of risk factors and outcomes, as well as new aspects of antimicrobial stewardship.'
+        = render 'reason', icon: 'people', title: 'Extend Your Circle', text: 'It\'s fun extending your circle of friends and acquaintances in the sphere of urology and intensive care.'
+        = render 'reason', icon: 'school', title: 'Academic Benefits', text: 'Automatic inclusion of your name in the list of authors of publications based on the results of these studies and CME credits to increase your academic level.'
+
+  .landing-participate.pt-5[data-target="landing-page.participation"]
+    h2.text-center.text-white.font-weight-bold.mb-5 How to Participate
+
+    .steps.d-flex.flex-row.flex-wrap.justify-content-center.pb-5
+      = render 'step', no: '1', text: 'After successful registration, you will be assigned to a team of participating clinics in your region or country.'
+      = render 'step', no: '2', text: 'Each National team is adminstered by the national co-ordinators who will set the Study-Days in each country and monitor the National study. Unline Annual GPIU-studies, National studies do not have fixed study days.'
+      = render 'step', no: '3', text: 'After the study dates have been set by your National co-ordinator, you will receive an email notification with the study days and practical instructions.'
+      = render 'step', no: '4', text: 'On the day of the study, the total number of patients in the selected department and/or units should be recorded.'
+      = render 'step', no: '5', text: 'The presence of UTI and/or SSI as defined by the CDC is documented and audited for their entire hospital stay.'
+      = render 'step', no: '6', text: 'The completed forms can then be submitted online to the patient study file before the deadline set by the National co-ordinator.'
+
+  .landing-countries.pt-5[data-target="landing-page.countries"]
+    h2.text-center.text-white.font-weight-bold.text-primary.mb-5 Participating countries
+
+    .container.d-flex.flex-row.flex-wrap.align-items-center.justify-content-center.pb-5
+      - @countries.each do |country|
+        = flag_icon country.iso_2, class: 'landing-national-flag', title: country.name
+
+  .landing-end.py-5
+    .end-box.text-white
+      h2.emphasized Going Further
+
+      p
+        = "You are welcome to see further information "
+        = link_to "about the GPIU study and study-related publications. ", "https://gpiu.esiu.org/study_home"
+        /= "Questions about the National GPIU-Study "
+        /= "can be sent through this link."
+      p We are very much looking forward to your participation in the GPIU-National study and welcome you onboard our research group.
+      p= "- The ESIU/GPIU-Team"
+
+  .landing-credits.d-none.d-lg-block.d-sm-none
+    .container
+      .row
+        .col-lg-4.offset-lg-2= image_tag 'esiu_logo.png'
+        .col-lg-4.offset-lg-2.mt-2= image_tag 'eau_logo.png', height: 118
+

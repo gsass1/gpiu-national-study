@@ -3,8 +3,10 @@
 require 'simplecov'
 require 'simplecov-cobertura'
 
-if ENV['SIMPLECOV_COBERTURA']
-  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter if ENV['SIMPLECOV_COBERTURA']
+Pathname.new(__FILE__).join('..', 'coverage').tap do |cov|
+  # clear old coverage results
+  FileUtils.rm_rf cov if cov.exist?
 end
 SimpleCov.start
 
@@ -71,7 +73,7 @@ RSpec.configure do |config|
   Capybara.register_driver :headless_chrome do |app|
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_preference(:download, prompt_for_download: false,
-                           default_directory: DownloadHelpers::PATH.to_s)
+                                      default_directory: DownloadHelpers::PATH.to_s)
     options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
 
     options.add_argument('--headless')
@@ -87,10 +89,10 @@ RSpec.configure do |config|
     bridge = driver.browser.send(:bridge)
     path = "/session/#{bridge.session_id}/chromium/send_command"
     bridge.http.call(:post, path, cmd: 'Page.setDownloadBehavior',
-                     params: {
-                       behavior: 'allow',
-                       downloadPath: DownloadHelpers::PATH.to_s
-                     })
+                                  params: {
+                                    behavior: 'allow',
+                                    downloadPath: DownloadHelpers::PATH.to_s
+                                  })
     driver
   end
 

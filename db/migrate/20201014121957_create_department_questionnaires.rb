@@ -42,11 +42,11 @@ class CreateDepartmentQuestionnaires < ActiveRecord::Migration[6.0]
       t.integer :patient_prophylaxis
 
       # 5
-      t.boolean :perioperative
-      t.boolean :urinary
-      t.boolean :nautireports
-      t.boolean :pathogens
-      t.boolean :resistance
+      t.boolean :perioperative, default: false
+      t.boolean :urinary, default: false
+      t.boolean :nautireports, default: false
+      t.boolean :pathogens, default: false
+      t.boolean :resistance, default: false
 
       # 6
       20.times do |i_group|

@@ -13,9 +13,11 @@ RSpec.describe Notifications::NotifyAdminsJob, type: :job do
 
   it 'creates notifications' do
     perform_enqueued_jobs do
-      expect(Notifier).to receive(:notify).with(hash_including(actor: actor, recipient: admin, notifiable: hospital, action: 'hospitals.submission'))
+      expect(Notifier).to receive(:notify).with(hash_including(actor: actor, recipient: admin, notifiable: hospital,
+                                                               action: 'hospitals.submission'))
 
-      Notifications::NotifyAdminsJob.perform_now(notification: { actor: actor, notifiable: hospital, action: 'hospitals.submission' })
+      described_class.perform_now(notification: { actor: actor, notifiable: hospital,
+                                                  action: 'hospitals.submission' })
     end
   end
 end

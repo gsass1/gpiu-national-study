@@ -33,6 +33,8 @@
             strong Accepted
           - if itr.declined?
             strong Declined
+          - if itr.revoked?
+            strong Revoked
         td
           - if itr.study_ranges.any?
             strong= l(itr.study_ranges.first.start, format: :long)

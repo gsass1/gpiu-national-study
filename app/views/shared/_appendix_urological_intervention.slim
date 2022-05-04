@@ -1,0 +1,271 @@
+ol
+  - if questionnaire.uti_form_needed?
+    li
+      = f.input :performed_uti, as: :radio_buttons, 
+          label: t('.performed.question.uti'),
+          collection: radio_button_collection("performed.answers", 'unknown', 'no', 'yes'),
+          label_method: :second,
+          value_method: :first,
+          input_html: form_trigger("performed_uti_questions", 'yes')
+
+    ol#performed_uti_questions
+      li= f.input :intervention_endoscopic_uti, as: :boolean, label: t('.intervention_endoscopic.question'), input_html: form_trigger("endoscopic_uti_questions", true)
+      ol#endoscopic_uti_questions
+        li= f.input :cystoscopy_uti, as: :boolean,
+          label: t('.intervention_endoscopic.answers.cystoscopy')
+
+        li= f.input :diagnostic_ureterorenoscopy_uti, as: :boolean,
+          label: t('.intervention_endoscopic.answers.diagnostic_ureterorenoscopy')
+
+        li= f.input :tur_p_uti, as: :boolean,
+          label: t('.intervention_endoscopic.answers.tur-p')
+
+        li= f.input :tur_bt_uti, as: :boolean,
+          label: t('.intervention_endoscopic.answers.tur-bt')
+
+        li= f.input :urs_with_stone_treatment_uti, as: :boolean,
+          label: t('.intervention_endoscopic.answers.urs_with_stone_treatment')
+
+        li= f.input :pcnl_uti, as: :boolean,
+          label: t('.intervention_endoscopic.answers.pcnl')
+
+        li= f.input :ureteral_stent_placement_uti, as: :boolean,
+          label: t('.intervention_endoscopic.answers.ureteral_stent_placement')
+
+        li
+          = f.input :endoscopic_other_uti, as: :boolean,
+            label: t('.intervention_endoscopic.answers.other'),
+            input_html: form_trigger("endoscopic_specify_uti", true)
+
+          #endoscopic_specify_uti= f.input :endoscopic_specify_uti, label: t('.intervention_endoscopic.answers.specify')
+
+      li= f.input :intervention_percutaneous_uti, as: :boolean, label: t('.intervention_percutaneous.question'), input_html: form_trigger("percutaneous_uti_questions", true)
+      ol#percutaneous_uti_questions
+        li= f.input :pnp_uti, as: :boolean,
+          label: t('.intervention_percutaneous.answers.pnp')
+
+        li
+          = f.input :percutaneous_other_uti, as: :boolean,
+            label: t('.intervention_percutaneous.answers.other'),
+            input_html: form_trigger("percutaneous_specify_uti", true)
+
+          #percutaneous_specify_uti= f.input :percutaneous_specify_uti,
+            label: t('.intervention_percutaneous.answers.specify')
+
+      li= f.input :intervention_laparoscopic_uti, as: :boolean, label: t('.intervention_laparoscopic.question'), input_html: form_trigger("laparoscopic_uti_questions", true)
+      ol#laparoscopic_uti_questions
+        li= f.input :kidney_abdominal_testis_uti, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.kidney_abdominal_testis')
+
+        li= f.input :lymph_node_dissection_uti, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.lymph_node_dissection')
+
+        li= f.input :prostatectomy_uti, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.prostatectomy')
+
+        li= f.input :cystectomy_and_urinary_diversion_uti, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.cystectomy_and_urinary_diversion')
+
+        li
+          = f.input :laparoscopic_other_uti, as: :boolean,
+            label: t('.intervention_laparoscopic.answers.other'),
+            input_html: form_trigger("laparoscopic_specify_uti", true)
+
+          #laparoscopic_specify_uti= f.input :laparoscopic_specify_uti,
+            label: t('.intervention_laparoscopic.answers.specify')
+          
+
+      li= f.input :intervention_open_surgery_uti, as: :boolean, label: t('.intervention_open_surgery.question'), input_html: form_trigger("open_surgery_uti_questions", true)
+      ol#open_surgery_uti_questions
+        li= f.input :vasectomy_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.vasectomy')
+
+        li= f.input :inguinal_scrotal_and_penile_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.inguinal_scrotal_and_penile')
+
+        li= f.input :rplnd_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.rplnd')
+
+        li= f.input :open_prostatectomy_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.open_prostatectomy')
+
+        li= f.input :simple_nephrectomy_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.simple_nephrectomy')
+
+        li= f.input :radical_nephrectomy_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.radical_nephrectomy')
+
+        li= f.input :rrp_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.rrp')
+
+        li= f.input :cystectomy_and_urinary_diversion_uti, as: :boolean,
+          label: t('.intervention_open_surgery.answers.cystectomy_and_urinary_diversion')
+
+        li
+          = f.input :open_surgery_other_uti, as: :boolean,
+            label: t('.intervention_open_surgery.answers.other'),
+            input_html: form_trigger("open_surgery_specify_uti", true)
+
+          #open_surgery_specify_uti= f.input :open_surgery_specify_uti,
+            label: t('.intervention_open_surgery.answers.specify')
+
+      li= f.input :intervention_prostate_biopsy_uti, as: :boolean, label: t('.intervention_prostate_biopsy.question'), input_html: form_trigger("prostate_biopsy_uti_questions", true)
+      ol#prostate_biopsy_uti_questions
+        li= f.input :transrectal_uti, as: :boolean,
+          label: t('.intervention_prostate_biopsy.answers.transrectal')
+
+        li= f.input :perineal_uti, as: :boolean,
+          label: t('.intervention_prostate_biopsy.answers.perineal')
+
+        li
+          = f.input :prostate_biopsy_other_uti, as: :boolean,
+            label: t('.intervention_prostate_biopsy.answers.other'),
+            input_html: form_trigger("prostate_biopsy_specify_uti", true)
+
+          #prostate_biopsy_specify_uti= f.input :prostate_biopsy_specify_uti,
+            label: t('.intervention_prostate_biopsy.answers.specify')
+
+      li= f.input :intervention_others_uti, as: :boolean, label: t('.intervention_others.question'), input_html: form_trigger("others_uti_questions", true)
+      ol#others_uti_questions
+        li= f.input :eswl_uti, as: :boolean,
+          label: t('.intervention_others.answers.eswl')
+
+
+      li= f.input :contamination_uti,
+        as: :radio_buttons,
+        label: t(".intervention_contamination.question.uti"),
+        collection: radio_button_collection("intervention_contamination.answers", 'clean', 'clean_contaminated', 'clean_contaminated_bowel', 'contaminated', 'infected'),
+        label_method: :second,
+        value_method: :first
+
+  - if questionnaire.ssi_form_needed?
+    li
+      p.question= t('.performed.question.ssi')
+    ol#performed_ssi_questions
+      li= f.input :intervention_endoscopic_ssi, as: :boolean, label: t('.intervention_endoscopic.question'), input_html: form_trigger("endoscopic_ssi_questions", true)
+      ol#endoscopic_ssi_questions
+        li= f.input :cystoscopy_ssi, as: :boolean,
+          label: t('.intervention_endoscopic.answers.cystoscopy')
+
+        li= f.input :diagnostic_ureterorenoscopy_ssi, as: :boolean,
+          label: t('.intervention_endoscopic.answers.diagnostic_ureterorenoscopy')
+
+        li= f.input :tur_p_ssi, as: :boolean,
+          label: t('.intervention_endoscopic.answers.tur-p')
+
+        li= f.input :tur_bt_ssi, as: :boolean,
+          label: t('.intervention_endoscopic.answers.tur-bt')
+
+        li= f.input :urs_with_stone_treatment_ssi, as: :boolean,
+          label: t('.intervention_endoscopic.answers.urs_with_stone_treatment')
+
+        li= f.input :pcnl_ssi, as: :boolean,
+          label: t('.intervention_endoscopic.answers.pcnl')
+
+        li= f.input :ureteral_stent_placement_ssi, as: :boolean,
+          label: t('.intervention_endoscopic.answers.ureteral_stent_placement')
+
+        li
+          = f.input :endoscopic_other_ssi, as: :boolean,
+            label: t('.intervention_endoscopic.answers.other'),
+            input_html: form_trigger("endoscopic_specify_ssi", true)
+          #endoscopic_specify_ssi
+            = f.input :endoscopic_specify_ssi, label: t('.intervention_endoscopic.answers.specify')
+
+      li= f.input :intervention_percutaneous_ssi, as: :boolean, label: t('.intervention_percutaneous.question'), input_html: form_trigger("percutaneous_ssi_questions", true)
+      ol#percutaneous_ssi_questions
+        li= f.input :pnp_ssi, as: :boolean,
+          label: t('.intervention_percutaneous.answers.pnp')
+
+        li
+          = f.input :percutaneous_other_ssi, as: :boolean,
+            label: t('.intervention_percutaneous.answers.other'),
+            input_html: form_trigger("percutaneous_specify_ssi", true)
+
+          #percutaneous_specify_ssi= f.input :percutaneous_specify_ssi,
+            label: t('.intervention_percutaneous.answers.specify')
+
+
+      li= f.input :intervention_laparoscopic_ssi, as: :boolean, label: t('.intervention_laparoscopic.question'), input_html: form_trigger("laparoscopic_ssi_questions", true)
+      ol#laparoscopic_ssi_questions
+        li= f.input :kidney_abdominal_testis_ssi, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.kidney_abdominal_testis')
+
+        li= f.input :lymph_node_dissection_ssi, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.lymph_node_dissection')
+
+        li= f.input :prostatectomy_ssi, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.prostatectomy')
+
+        li= f.input :cystectomy_and_urinary_diversion_ssi, as: :boolean,
+          label: t('.intervention_laparoscopic.answers.cystectomy_and_urinary_diversion')
+
+        li
+          = f.input :laparoscopic_other_ssi, as: :boolean,
+            label: t('.intervention_laparoscopic.answers.other'),
+            input_html: form_trigger("laparoscopic_specify_ssi", true)
+
+          #laparoscopic_specify_ssi= f.input :laparoscopic_specify_ssi,
+            label: t('.intervention_laparoscopic.answers.specify')
+
+      li= f.input :intervention_open_surgery_ssi, as: :boolean, label: t('.intervention_open_surgery.question'), input_html: form_trigger("open_surgery_ssi_questions", true)
+      ol#open_surgery_ssi_questions
+        li= f.input :vasectomy_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.vasectomy')
+
+        li= f.input :inguinal_scrotal_and_penile_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.inguinal_scrotal_and_penile')
+
+        li= f.input :rplnd_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.rplnd')
+
+        li= f.input :open_prostatectomy_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.open_prostatectomy')
+
+        li= f.input :simple_nephrectomy_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.simple_nephrectomy')
+
+        li= f.input :radical_nephrectomy_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.radical_nephrectomy')
+
+        li= f.input :rrp_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.rrp')
+
+        li= f.input :cystectomy_and_urinary_diversion_ssi, as: :boolean,
+          label: t('.intervention_open_surgery.answers.cystectomy_and_urinary_diversion')
+
+        li
+          = f.input :open_surgery_other_ssi, as: :boolean,
+            label: t('.intervention_open_surgery.answers.other'),
+            input_html: form_trigger("open_surgery_specify_ssi", true)
+
+          #open_surgery_specify_ssi= f.input :open_surgery_specify_ssi,
+            label: t('.intervention_open_surgery.answers.specify')
+
+      li= f.input :intervention_prostate_biopsy_ssi, as: :boolean, label: t('.intervention_prostate_biopsy.question'), input_html: form_trigger("prostate_biopsy_ssi_questions", true)
+      ol#prostate_biopsy_ssi_questions
+        li= f.input :transrectal_ssi, as: :boolean,
+          label: t('.intervention_prostate_biopsy.answers.transrectal')
+
+        li= f.input :perineal_ssi, as: :boolean,
+          label: t('.intervention_prostate_biopsy.answers.perineal')
+
+        li
+          = f.input :prostate_biopsy_other_ssi, as: :boolean,
+            label: t('.intervention_prostate_biopsy.answers.other'),
+            input_html: form_trigger("prostate_biopsy_specify_ssi", true)
+
+          #prostate_biopsy_specify_ssi= f.input :prostate_biopsy_specify_ssi,
+            label: t('.intervention_prostate_biopsy.answers.specify')
+
+      li= f.input :intervention_others_ssi, as: :boolean, label: t('.intervention_others.question'), input_html: form_trigger("others_ssi_questions", true)
+      ol#others_ssi_questions
+        li= f.input :eswl_ssi, as: :boolean,
+          label: t('.intervention_others.answers.eswl')
+
+      li= f.input :contamination_ssi,
+        as: :radio_buttons,
+        label: t(".intervention_contamination.question.ssi"),
+        collection: radio_button_collection("intervention_contamination.answers", 'clean', 'clean_contaminated', 'clean_contaminated_bowel', 'contaminated', 'infected'),
+        label_method: :second,
+        value_method: :first

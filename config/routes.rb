@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
     # Disable normal devise sign up page
     as :user do
-      if Gpiu.allow_local_accounts?
+      if GPIU.allow_local_accounts?
         get 'users/new' => 'registrations#new', as: 'new_user_registration'
         post 'users' => 'registrations#create'
       end
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :study_iterations, only: [:index, :show] do
       post :approve
       post :reject
+      post :revoke
       post :toggle_exportable
       get :export
     end
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
         delete '/delete_study_range/:study_range_id' => 'study_iterations#delete_study_range', as: :delete_study_range
         get :export
         post :request_export_permission
+        post :revoke
       end
     end
   end
@@ -87,7 +89,7 @@ Rails.application.routes.draw do
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
-  get '/faq' => 'site#faq'
+  get '/help/faq' => 'site#faq'
   get '/help' => 'site#help'
   get '/help/manual' => 'site#manual'
 

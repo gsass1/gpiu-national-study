@@ -9,5 +9,21 @@
         = link_to "Submit", regional_admin_country_study_iteration_submit_path(@country, @study_iteration), class: "btn btn-success", data: { confirm: "Submit study iteration? You will not be able to edit the study iteration during this process." }, method: :post
       - else
         button.btn.btn-success[disabled title="At least one study range is required."] Submit
+- elsif @study_iteration.revokable?
+  .card.mb-3
+    .card-header.bg-danger.text-light
+      strong Revoke Study Iteration
+    .card-body
+      - if @study_iteration.pending?
+        p If you accidentally submitted this study iteration for approval then you can still revoke it, which will set its state back to "Unsubmitted".
+      - elsif @study_iteration.accepted?
+        p When the study has no started yet you can still revoke this study iteration, which means the study will not be conducted.
+    .card-footer
+      = simple_form_for(@study_iteration, method: :post, url: regional_admin_country_study_iteration_revoke_path(@country, @study_iteration)) do |f|
+        .form-inputs
+          = f.error_notification
+          = f.input :revokation_reason
+          .form-actions
+            = f.button :submit, "Revoke", class: 'btn btn-danger'
 - else
   .alert.alert-info No actions available

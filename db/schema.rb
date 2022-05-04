@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_072343) do
+ActiveRecord::Schema.define(version: 2022_05_02_083136) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -23,16 +23,11 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   end
 
   create_table "appendix_antibiotics", force: :cascade do |t|
-    t.bigint "questionnaire_id"
+    t.integer "questionnaire_id"
     t.string "questionnaire_type", limit: 255
-    t.bigint "pos_id"
+    t.integer "pos_id"
     t.integer "aminoglycoside"
     t.integer "carbapenem"
-    t.integer "first_generation_cephalosporin"
-    t.integer "second_generation_cephalosporin"
-    t.integer "third_generation_cephalosporin"
-    t.integer "fourth_generation_cephalosporin"
-    t.integer "fifth_generation_cephalosporin"
     t.integer "glycopeptide"
     t.integer "lincosamide"
     t.integer "macrolide"
@@ -41,254 +36,190 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.integer "penicillin"
     t.integer "polypeptide"
     t.integer "quinolone"
-    t.integer "sulfonamide"
     t.integer "tetracycline"
     t.integer "antimycobacterial_drug"
     t.integer "other"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "cephalosporin"
+    t.integer "trimethoprim_sulfamethoxazole"
+  end
+
+  create_table "appendix_antimicrobial_treatments", force: :cascade do |t|
+    t.string "questionnaire_type", null: false
+    t.integer "questionnaire_id", null: false
+    t.string "treatment", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["questionnaire_type", "questionnaire_id"], name: "index_appendix_antimicrobial_treatments_on_questionnaire"
+  end
+
+  create_table "appendix_clinical_diagnoses", force: :cascade do |t|
+    t.integer "uti_ssi_history_id", null: false
+    t.date "diagnosis_date_uti"
+    t.date "diagnosis_date_ssi"
+    t.string "diagnosis_uti", limit: 255
+    t.string "diagnosis_ssi", limit: 255
+    t.text "diagnosis_specify_uti"
+    t.text "diagnosis_specify_ssi"
+    t.boolean "cdc_uti_symptomatic_uti_and_bacteria", default: false
+    t.boolean "cdc_uti_symptomatic_uti_and_other", default: false
+    t.boolean "cdc_uti_asymptomatic_bact_cath", default: false
+    t.boolean "cdc_uti_asymptomatic_bact_nocatch", default: false
+    t.boolean "cdc_uti_other", default: false
+    t.text "cdc_uti_other_specify"
+    t.boolean "cdc_ssi_superficial", default: false
+    t.boolean "cdc_ssi_deep", default: false
+    t.boolean "cdc_ssi_organ", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uti_ssi_history_id"], name: "index_appendix_clinical_diagnoses_on_uti_ssi_history_id"
   end
 
   create_table "appendix_comorbidities", force: :cascade do |t|
     t.integer "questionnaire_id"
     t.string "questionnaire_type", limit: 255
     t.integer "pos_id"
-    t.boolean "myocardialinfarction"
-    t.boolean "congestiveheartfailure"
-    t.boolean "vasculardisease"
-    t.boolean "cerebrovascular"
-    t.boolean "dementia"
-    t.boolean "pulmonary"
-    t.boolean "tissuedisease"
-    t.boolean "ulcerdisease"
-    t.boolean "mildliver"
-    t.boolean "diabetes"
-    t.boolean "hemiplegia"
-    t.boolean "renaldisease"
-    t.boolean "diabetesorgandamage"
-    t.boolean "tumor"
-    t.boolean "leukaemia"
-    t.boolean "lymphoma"
-    t.boolean "severeliverdamage"
-    t.boolean "metastatictumor"
-    t.boolean "aids"
+    t.boolean "myocardialinfarction", default: false
+    t.boolean "congestiveheartfailure", default: false
+    t.boolean "vasculardisease", default: false
+    t.boolean "cerebrovascular", default: false
+    t.boolean "dementia", default: false
+    t.boolean "pulmonary", default: false
+    t.boolean "tissuedisease", default: false
+    t.boolean "ulcerdisease", default: false
+    t.boolean "mildliver", default: false
+    t.boolean "diabetes", default: false
+    t.boolean "hemiplegia", default: false
+    t.boolean "renaldisease", default: false
+    t.boolean "diabetesorgandamage", default: false
+    t.boolean "tumor", default: false
+    t.boolean "leukaemia", default: false
+    t.boolean "lymphoma", default: false
+    t.boolean "severeliverdamage", default: false
+    t.boolean "metastatictumor", default: false
+    t.boolean "aids", default: false
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "severity_one", default: false
+    t.boolean "severity_two", default: false
+    t.boolean "severity_three", default: false
+    t.boolean "severity_four", default: false
   end
 
   create_table "appendix_culture_results", force: :cascade do |t|
     t.bigint "questionnaire_id"
     t.string "questionnaire_type", limit: 255
     t.bigint "pos_id"
-    t.string "first_pathogen", limit: 255
-    t.string "first_pathogen_specify", limit: 255
-    t.bigint "first_pathogen_enter_cfu_ml"
-    t.string "second_pathogen", limit: 255
-    t.string "second_pathogen_specify", limit: 255
-    t.bigint "second_pathogen_enter_cfu_ml"
     t.bigint "susceptibility_standard"
     t.string "susceptibility_standard_other_specify", limit: 255
-    t.boolean "first_susceptibility_test_aminoglycosides"
-    t.boolean "first_susceptibility_test_aminoglycosides_amikacin"
-    t.integer "first_susceptibility_test_aminoglycosides_amikacin_s", limit: 2
-    t.boolean "first_susceptibility_test_aminoglycosides_gentamicin"
-    t.integer "first_susceptibility_test_aminoglycosides_gentamicin_s", limit: 2
-    t.boolean "first_susceptibility_test_aminoglycosides_netilmicin"
-    t.integer "first_susceptibility_test_aminoglycosides_netilmicin_s", limit: 2
-    t.boolean "first_susceptibility_test_aminoglycosides_tobramicin"
-    t.integer "first_susceptibility_test_aminoglycosides_tobramicin_s", limit: 2
-    t.boolean "first_susceptibility_test_carbapenem"
-    t.boolean "first_susceptibility_test_carbapenem_doripenem"
-    t.integer "first_susceptibility_test_carbapenem_doripenem_s", limit: 2
-    t.boolean "first_susceptibility_test_carbapenem_ertapenem"
-    t.integer "first_susceptibility_test_carbapenem_ertapenem_s", limit: 2
-    t.boolean "first_susceptibility_test_carbapenem_imipenem"
-    t.integer "first_susceptibility_test_carbapenem_imipenem_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins"
-    t.boolean "first_susceptibility_test_cephalosporins_cefepime"
-    t.integer "first_susceptibility_test_cephalosporins_cefepime_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins_cefotaxime"
-    t.integer "first_susceptibility_test_cephalosporins_cefotaxime_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins_cefotetan"
-    t.integer "first_susceptibility_test_cephalosporins_cefotetan_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins_cefoxitin"
-    t.integer "first_susceptibility_test_cephalosporins_cefoxitin_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins_ceftaroline"
-    t.integer "first_susceptibility_test_cephalosporins_ceftaroline_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins_ceftazidime"
-    t.integer "first_susceptibility_test_cephalosporins_ceftazidime_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins_cefuroxime"
-    t.integer "first_susceptibility_test_cephalosporins_cefuroxime_s", limit: 2
-    t.boolean "first_susceptibility_test_cephalosporins_cephazolin"
-    t.integer "first_susceptibility_test_cephalosporins_cephazolin_s", limit: 2
-    t.boolean "first_susceptibility_test_clindamycin"
-    t.integer "first_susceptibility_test_clindamycin_s", limit: 2
-    t.boolean "first_susceptibility_test_daptomycin"
-    t.integer "first_susceptibility_test_daptomycin_s", limit: 2
-    t.boolean "first_susceptibility_test_erythromycin"
-    t.integer "first_susceptibility_test_erythromycin_s", limit: 2
-    t.boolean "first_susceptibility_test_fluoroquinolones"
-    t.boolean "first_susceptibility_test_fluoroquinolones_ciprofloxacin"
-    t.integer "first_susceptibility_test_fluoroquinolones_ciprofloxacin_s", limit: 2
-    t.boolean "first_susceptibility_test_fluoroquinolones_levofloxacin"
-    t.integer "first_susceptibility_test_fluoroquinolones_levofloxacin_s", limit: 2
-    t.boolean "first_susceptibility_test_fluoroquinolones_moxifloxacin"
-    t.integer "first_susceptibility_test_fluoroquinolones_moxifloxacin_s", limit: 2
-    t.boolean "first_susceptibility_test_fluoroquinolones_ofloxacin"
-    t.integer "first_susceptibility_test_fluoroquinolones_ofloxacin_s", limit: 2
-    t.boolean "first_susceptibility_test_fosfomycin"
-    t.integer "first_susceptibility_test_fosfomycin_s", limit: 2
-    t.boolean "first_susceptibility_test_fucidanes"
-    t.integer "first_susceptibility_test_fucidanes_s", limit: 2
-    t.boolean "first_susceptibility_test_glycopeptides"
-    t.boolean "first_susceptibility_test_glycopeptides_teicoplanin"
-    t.integer "first_susceptibility_test_glycopeptides_teicoplanin_s", limit: 2
-    t.boolean "first_susceptibility_test_glycopeptides_telavancin"
-    t.integer "first_susceptibility_test_glycopeptides_telavancin_s", limit: 2
-    t.boolean "first_susceptibility_test_glycopeptides_vancomycin"
-    t.integer "first_susceptibility_test_glycopeptides_vancomycin_s", limit: 2
-    t.boolean "first_susceptibility_test_linezolid"
-    t.integer "first_susceptibility_test_linezolid_s", limit: 2
-    t.boolean "first_susceptibility_test_monobactams"
-    t.integer "first_susceptibility_test_monobactams_s", limit: 2
-    t.boolean "first_susceptibility_test_nitrofurantoin"
-    t.integer "first_susceptibility_test_nitrofurantoin_s", limit: 2
-    t.boolean "first_susceptibility_test_penicillins"
-    t.boolean "first_susceptibility_test_penicillins_ampicillin"
-    t.boolean "first_susceptibility_test_penicillins_ampicillin_bli"
-    t.integer "first_susceptibility_test_penicillins_ampicillin_bli_s", limit: 2
-    t.integer "first_susceptibility_test_penicillins_ampicillin_s", limit: 2
-    t.boolean "first_susceptibility_test_penicillins_oxacillin"
-    t.integer "first_susceptibility_test_penicillins_oxacillin_s", limit: 2
-    t.boolean "first_susceptibility_test_penicillins_piperacillin"
-    t.boolean "first_susceptibility_test_penicillins_piperacillin_bli"
-    t.integer "first_susceptibility_test_penicillins_piperacillin_bli_s", limit: 2
-    t.integer "first_susceptibility_test_penicillins_piperacillin_s", limit: 2
-    t.boolean "first_susceptibility_test_penicillins_ticarcillin"
-    t.integer "first_susceptibility_test_penicillins_ticarcillin_s", limit: 2
-    t.boolean "first_susceptibility_test_phenicols"
-    t.integer "first_susceptibility_test_phenicols_s", limit: 2
-    t.boolean "first_susceptibility_test_polymixins"
-    t.boolean "first_susceptibility_test_polymixins_colistins"
-    t.integer "first_susceptibility_test_polymixins_colistins_s", limit: 2
-    t.boolean "first_susceptibility_test_polymixins_polymixin"
-    t.integer "first_susceptibility_test_polymixins_polymixin_s", limit: 2
-    t.boolean "first_susceptibility_test_rifampin"
-    t.integer "first_susceptibility_test_rifampin_s", limit: 2
-    t.boolean "first_susceptibility_test_tetracyclines"
-    t.boolean "first_susceptibility_test_tetracyclines_doxycyclin"
-    t.integer "first_susceptibility_test_tetracyclines_doxycyclin_s", limit: 2
-    t.boolean "first_susceptibility_test_tetracyclines_glycylcylines"
-    t.integer "first_susceptibility_test_tetracyclines_glycylcylines_s", limit: 2
-    t.boolean "first_susceptibility_test_tetracyclines_minocycline"
-    t.integer "first_susceptibility_test_tetracyclines_minocycline_s", limit: 2
-    t.boolean "first_susceptibility_test_tetracyclines_tetracycline"
-    t.integer "first_susceptibility_test_tetracyclines_tetracycline_s", limit: 2
-    t.boolean "first_susceptibility_test_trimethoprim"
-    t.integer "first_susceptibility_test_trimethoprim_s", limit: 2
-    t.boolean "second_susceptibility_test_aminoglycosides"
-    t.boolean "second_susceptibility_test_aminoglycosides_amikacin"
-    t.integer "second_susceptibility_test_aminoglycosides_amikacin_s", limit: 2
-    t.boolean "second_susceptibility_test_aminoglycosides_gentamicin"
-    t.integer "second_susceptibility_test_aminoglycosides_gentamicin_s", limit: 2
-    t.boolean "second_susceptibility_test_aminoglycosides_netilmicin"
-    t.integer "second_susceptibility_test_aminoglycosides_netilmicin_s", limit: 2
-    t.boolean "second_susceptibility_test_aminoglycosides_tobramicin"
-    t.integer "second_susceptibility_test_aminoglycosides_tobramicin_s", limit: 2
-    t.boolean "second_susceptibility_test_carbapenem"
-    t.boolean "second_susceptibility_test_carbapenem_doripenem"
-    t.integer "second_susceptibility_test_carbapenem_doripenem_s", limit: 2
-    t.boolean "second_susceptibility_test_carbapenem_ertapenem"
-    t.integer "second_susceptibility_test_carbapenem_ertapenem_s", limit: 2
-    t.boolean "second_susceptibility_test_carbapenem_imipenem"
-    t.integer "second_susceptibility_test_carbapenem_imipenem_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins"
-    t.boolean "second_susceptibility_test_cephalosporins_cefepime"
-    t.integer "second_susceptibility_test_cephalosporins_cefepime_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins_cefotaxime"
-    t.integer "second_susceptibility_test_cephalosporins_cefotaxime_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins_cefotetan"
-    t.integer "second_susceptibility_test_cephalosporins_cefotetan_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins_cefoxitin"
-    t.integer "second_susceptibility_test_cephalosporins_cefoxitin_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins_ceftaroline"
-    t.integer "second_susceptibility_test_cephalosporins_ceftaroline_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins_ceftazidime"
-    t.integer "second_susceptibility_test_cephalosporins_ceftazidime_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins_cefuroxime"
-    t.integer "second_susceptibility_test_cephalosporins_cefuroxime_s", limit: 2
-    t.boolean "second_susceptibility_test_cephalosporins_cephazolin"
-    t.integer "second_susceptibility_test_cephalosporins_cephazolin_s", limit: 2
-    t.boolean "second_susceptibility_test_clindamycin"
-    t.integer "second_susceptibility_test_clindamycin_s", limit: 2
-    t.boolean "second_susceptibility_test_daptomycin"
-    t.integer "second_susceptibility_test_daptomycin_s", limit: 2
-    t.boolean "second_susceptibility_test_erythromycin"
-    t.integer "second_susceptibility_test_erythromycin_s", limit: 2
-    t.boolean "second_susceptibility_test_fluoroquinolones"
-    t.boolean "second_susceptibility_test_fluoroquinolones_ciprofloxacin"
-    t.integer "second_susceptibility_test_fluoroquinolones_ciprofloxacin_s", limit: 2
-    t.boolean "second_susceptibility_test_fluoroquinolones_levofloxacin"
-    t.integer "second_susceptibility_test_fluoroquinolones_levofloxacin_s", limit: 2
-    t.boolean "second_susceptibility_test_fluoroquinolones_moxifloxacin"
-    t.integer "second_susceptibility_test_fluoroquinolones_moxifloxacin_s", limit: 2
-    t.boolean "second_susceptibility_test_fluoroquinolones_ofloxacin"
-    t.integer "second_susceptibility_test_fluoroquinolones_ofloxacin_s", limit: 2
-    t.boolean "second_susceptibility_test_fosfomycin"
-    t.integer "second_susceptibility_test_fosfomycin_s", limit: 2
-    t.boolean "second_susceptibility_test_fucidanes"
-    t.integer "second_susceptibility_test_fucidanes_s", limit: 2
-    t.boolean "second_susceptibility_test_glycopeptides"
-    t.boolean "second_susceptibility_test_glycopeptides_teicoplanin"
-    t.integer "second_susceptibility_test_glycopeptides_teicoplanin_s", limit: 2
-    t.boolean "second_susceptibility_test_glycopeptides_telavancin"
-    t.integer "second_susceptibility_test_glycopeptides_telavancin_s", limit: 2
-    t.boolean "second_susceptibility_test_glycopeptides_vancomycin"
-    t.integer "second_susceptibility_test_glycopeptides_vancomycin_s", limit: 2
-    t.boolean "second_susceptibility_test_linezolid"
-    t.integer "second_susceptibility_test_linezolid_s", limit: 2
-    t.boolean "second_susceptibility_test_monobactams"
-    t.integer "second_susceptibility_test_monobactams_s", limit: 2
-    t.boolean "second_susceptibility_test_nitrofurantoin"
-    t.integer "second_susceptibility_test_nitrofurantoin_s", limit: 2
-    t.boolean "second_susceptibility_test_penicillins"
-    t.boolean "second_susceptibility_test_penicillins_ampicillin"
-    t.boolean "second_susceptibility_test_penicillins_ampicillin_bli"
-    t.integer "second_susceptibility_test_penicillins_ampicillin_bli_s", limit: 2
-    t.integer "second_susceptibility_test_penicillins_ampicillin_s", limit: 2
-    t.boolean "second_susceptibility_test_penicillins_oxacillin"
-    t.integer "second_susceptibility_test_penicillins_oxacillin_s", limit: 2
-    t.boolean "second_susceptibility_test_penicillins_piperacillin"
-    t.boolean "second_susceptibility_test_penicillins_piperacillin_bli"
-    t.integer "second_susceptibility_test_penicillins_piperacillin_bli_s", limit: 2
-    t.integer "second_susceptibility_test_penicillins_piperacillin_s", limit: 2
-    t.boolean "second_susceptibility_test_penicillins_ticarcillin"
-    t.integer "second_susceptibility_test_penicillins_ticarcillin_s", limit: 2
-    t.boolean "second_susceptibility_test_phenicols"
-    t.integer "second_susceptibility_test_phenicols_s", limit: 2
-    t.boolean "second_susceptibility_test_polymixins"
-    t.boolean "second_susceptibility_test_polymixins_colistins"
-    t.integer "second_susceptibility_test_polymixins_colistins_s", limit: 2
-    t.boolean "second_susceptibility_test_polymixins_polymixin"
-    t.integer "second_susceptibility_test_polymixins_polymixin_s", limit: 2
-    t.boolean "second_susceptibility_test_rifampin"
-    t.integer "second_susceptibility_test_rifampin_s", limit: 2
-    t.boolean "second_susceptibility_test_tetracyclines"
-    t.boolean "second_susceptibility_test_tetracyclines_doxycyclin"
-    t.integer "second_susceptibility_test_tetracyclines_doxycyclin_s", limit: 2
-    t.boolean "second_susceptibility_test_tetracyclines_glycylcylines"
-    t.integer "second_susceptibility_test_tetracyclines_glycylcylines_s", limit: 2
-    t.boolean "second_susceptibility_test_tetracyclines_minocycline"
-    t.integer "second_susceptibility_test_tetracyclines_minocycline_s", limit: 2
-    t.boolean "second_susceptibility_test_tetracyclines_tetracycline"
-    t.integer "second_susceptibility_test_tetracyclines_tetracycline_s", limit: 2
-    t.boolean "second_susceptibility_test_trimethoprim"
-    t.integer "second_susceptibility_test_trimethoprim_s", limit: 2
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "appendix_microbiological_informations", force: :cascade do |t|
+    t.string "questionnaire_type", null: false
+    t.integer "questionnaire_id", null: false
+    t.string "proven", limit: 255
+    t.boolean "culture_tissue_urine", default: false
+    t.boolean "culture_tissue_blood", default: false
+    t.boolean "culture_tissue_swab", default: false
+    t.boolean "culture_tissue_other", default: false
+    t.text "culture_tissue_other_specify"
+    t.string "culture_antibiotics", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["questionnaire_type", "questionnaire_id"], name: "index_appendix_microbiological_informations_on_questionnaire"
+  end
+
+  create_table "appendix_urinary_tract_obstructions", force: :cascade do |t|
+    t.integer "appendix_urological_risk_factor_id", null: false
+    t.boolean "lower", default: false
+    t.boolean "middle", default: false
+    t.boolean "upper", default: false
+    t.boolean "ureteropelvic_junction", default: false
+    t.integer "pos_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appendix_urological_risk_factor_id"], name: "index_tract_obstructions_on_urological_risk_factors"
+  end
+
+  create_table "appendix_urological_interventions", force: :cascade do |t|
+    t.integer "uti_ssi_history_id", null: false
+    t.string "performed_uti", limit: 255
+    t.string "performed_ssi", limit: 255
+    t.boolean "intervention_endoscopic_uti", default: false
+    t.integer "endoscopic_uti", default: 0
+    t.text "endoscopic_specify_uti"
+    t.boolean "intervention_percutaneous_uti", default: false
+    t.integer "percutaneous_uti", default: 0
+    t.text "percutaneous_specify_uti"
+    t.boolean "intervention_laparoscopic_uti", default: false
+    t.integer "laparoscopic_uti", default: 0
+    t.text "laparoscopic_specify_uti"
+    t.boolean "intervention_open_surgery_uti", default: false
+    t.integer "open_surgery_uti", default: 0
+    t.text "open_surgery_specify_uti"
+    t.boolean "intervention_prostate_biopsy_uti", default: false
+    t.integer "prostate_biopsy_uti", default: 0
+    t.text "prostate_biopsy_specify_uti"
+    t.boolean "intervention_others_uti", default: false
+    t.integer "others_uti", default: 0
+    t.integer "contamination_uti"
+    t.boolean "intervention_endoscopic_ssi", default: false
+    t.integer "endoscopic_ssi", default: 0
+    t.text "endoscopic_specify_ssi"
+    t.boolean "intervention_percutaneous_ssi", default: false
+    t.integer "percutaneous_ssi", default: 0
+    t.text "percutaneous_specify_ssi"
+    t.boolean "intervention_laparoscopic_ssi", default: false
+    t.integer "laparoscopic_ssi", default: 0
+    t.text "laparoscopic_specify_ssi"
+    t.boolean "intervention_open_surgery_ssi", default: false
+    t.integer "open_surgery_ssi", default: 0
+    t.text "open_surgery_specify_ssi"
+    t.boolean "intervention_prostate_biopsy_ssi", default: false
+    t.integer "prostate_biopsy_ssi", default: 0
+    t.text "prostate_biopsy_specify_ssi"
+    t.boolean "intervention_others_ssi", default: false
+    t.integer "others_ssi", default: 0
+    t.integer "contamination_ssi"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uti_ssi_history_id"], name: "index_appendix_urological_interventions_on_uti_ssi_history_id"
+  end
+
+  create_table "appendix_urological_risk_factors", force: :cascade do |t|
+    t.integer "uti_ssi_history_id", null: false
+    t.boolean "previous"
+    t.boolean "tract_obstruction"
+    t.boolean "tract_obstruction_left", default: false
+    t.boolean "tract_obstruction_right", default: false
+    t.boolean "bladder_outlet_obstruction", default: false
+    t.string "urinarystones", limit: 255
+    t.boolean "urinarystones_calyceal", default: false
+    t.boolean "urinarystones_renalpelvic", default: false
+    t.boolean "urinarystones_ureteral", default: false
+    t.boolean "urinarystones_bladder", default: false
+    t.string "antibiotic_treatment", limit: 255
+    t.string "antibiotic_treatment_type", limit: 255
+    t.text "antibiotic_treatment_specify"
+    t.boolean "hospitalisation"
+    t.text "hospitalisation_specify"
+    t.string "catheter", limit: 255
+    t.boolean "catheter_urethral", default: false
+    t.boolean "catheter_suprapubic", default: false
+    t.boolean "catheter_ureteralstent", default: false
+    t.boolean "catheter_nephrostomy", default: false
+    t.boolean "catheter_others", default: false
+    t.string "catheter_other_specify"
+    t.integer "catheterduration"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uti_ssi_history_id"], name: "index_appendix_urological_risk_factors_on_uti_ssi_history_id"
   end
 
   create_table "biopsy_outcome_questionnaires", force: :cascade do |t|
@@ -300,20 +231,20 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.integer "outcome_analysis"
     t.string "outcome_analysis_form_control_visit", limit: 20
     t.integer "outcome_analysis_urinary_tract_infection"
-    t.boolean "outcome_analysis_dysuria"
-    t.boolean "outcome_analysis_frequency"
-    t.boolean "outcome_analysis_urgency"
-    t.boolean "outcome_analysis_prostate_pain"
-    t.boolean "outcome_analysis_rigor"
-    t.boolean "outcome_analysis_loin_pain"
-    t.boolean "outcome_analysis_fever"
+    t.boolean "outcome_analysis_dysuria", default: false
+    t.boolean "outcome_analysis_frequency", default: false
+    t.boolean "outcome_analysis_urgency", default: false
+    t.boolean "outcome_analysis_prostate_pain", default: false
+    t.boolean "outcome_analysis_rigor", default: false
+    t.boolean "outcome_analysis_loin_pain", default: false
+    t.boolean "outcome_analysis_fever", default: false
     t.integer "physician_visit"
     t.integer "physician_visit_care_clinician"
     t.integer "physician_visit_emergency_room"
     t.integer "physician_visit_admission_hospital"
-    t.boolean "physician_visit_admission_hospital_urology"
-    t.boolean "physician_visit_admission_hospital_internal_medicine"
-    t.boolean "physician_visit_admission_hospital_intensive_care"
+    t.boolean "physician_visit_admission_hospital_urology", default: false
+    t.boolean "physician_visit_admission_hospital_internal_medicine", default: false
+    t.boolean "physician_visit_admission_hospital_intensive_care", default: false
     t.integer "physician_visit_psa"
     t.bigint "physician_visit_psa_value"
     t.integer "physician_visit_wbc_count"
@@ -414,11 +345,11 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.integer "patient_suspecteduti"
     t.integer "patient_otherinfections"
     t.integer "patient_prophylaxis"
-    t.boolean "perioperative"
-    t.boolean "urinary"
-    t.boolean "nautireports"
-    t.boolean "pathogens"
-    t.boolean "resistance"
+    t.boolean "perioperative", default: false
+    t.boolean "urinary", default: false
+    t.boolean "nautireports", default: false
+    t.boolean "pathogens", default: false
+    t.boolean "resistance", default: false
     t.integer "b_1_99", limit: 1
     t.integer "b_1_0", limit: 1
     t.integer "b_1_1", limit: 1
@@ -832,9 +763,9 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.bigint "patient_id", null: false
     t.integer "birth_year"
     t.integer "sex"
-    t.boolean "pregnancy"
+    t.boolean "pregnancy", default: false
     t.date "admission_date"
-    t.boolean "evidence_infection"
+    t.boolean "evidence_infection", default: false
     t.integer "admission_infection"
     t.integer "infection_type"
     t.datetime "discarded_at"
@@ -884,6 +815,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "exportable", default: false
     t.datetime "requested_export_permission_at"
+    t.text "revokation_reason"
     t.index ["country_id"], name: "index_study_iterations_on_country_id"
     t.index ["discarded_at"], name: "index_study_iterations_on_discarded_at"
   end
@@ -910,6 +842,115 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_support_requests_on_user_id"
+  end
+
+  create_table "susceptibility_tests", force: :cascade do |t|
+    t.integer "appendix_culture_result_id", null: false
+    t.bigint "pos_id"
+    t.string "pathogen"
+    t.string "pathogen_specify"
+    t.integer "cfu"
+    t.boolean "aminoglycosides", default: false
+    t.boolean "aminoglycosides_amikacin", default: false
+    t.integer "aminoglycosides_amikacin_s", limit: 2
+    t.boolean "aminoglycosides_gentamicin", default: false
+    t.integer "aminoglycosides_gentamicin_s", limit: 2
+    t.boolean "aminoglycosides_netilmicin", default: false
+    t.integer "aminoglycosides_netilmicin_s", limit: 2
+    t.boolean "aminoglycosides_tobramicin", default: false
+    t.integer "aminoglycosides_tobramicin_s", limit: 2
+    t.boolean "carbapenem", default: false
+    t.boolean "carbapenem_doripenem", default: false
+    t.integer "carbapenem_doripenem_s", limit: 2
+    t.boolean "carbapenem_ertapenem", default: false
+    t.integer "carbapenem_ertapenem_s", limit: 2
+    t.boolean "carbapenem_imipenem", default: false
+    t.integer "carbapenem_imipenem_s", limit: 2
+    t.boolean "cephalosporins", default: false
+    t.boolean "cephalosporins_cefepime", default: false
+    t.integer "cephalosporins_cefepime_s", limit: 2
+    t.boolean "cephalosporins_cefotaxime", default: false
+    t.integer "cephalosporins_cefotaxime_s", limit: 2
+    t.boolean "cephalosporins_cefotetan", default: false
+    t.integer "cephalosporins_cefotetan_s", limit: 2
+    t.boolean "cephalosporins_cefoxitin", default: false
+    t.integer "cephalosporins_cefoxitin_s", limit: 2
+    t.boolean "cephalosporins_ceftaroline", default: false
+    t.integer "cephalosporins_ceftaroline_s", limit: 2
+    t.boolean "cephalosporins_ceftazidime", default: false
+    t.integer "cephalosporins_ceftazidime_s", limit: 2
+    t.boolean "cephalosporins_cefuroxime", default: false
+    t.integer "cephalosporins_cefuroxime_s", limit: 2
+    t.boolean "cephalosporins_cephazolin", default: false
+    t.integer "cephalosporins_cephazolin_s", limit: 2
+    t.boolean "clindamycin", default: false
+    t.integer "clindamycin_s", limit: 2
+    t.boolean "daptomycin", default: false
+    t.integer "daptomycin_s", limit: 2
+    t.boolean "erythromycin", default: false
+    t.integer "erythromycin_s", limit: 2
+    t.boolean "fluoroquinolones", default: false
+    t.boolean "fluoroquinolones_ciprofloxacin", default: false
+    t.integer "fluoroquinolones_ciprofloxacin_s", limit: 2
+    t.boolean "fluoroquinolones_levofloxacin", default: false
+    t.integer "fluoroquinolones_levofloxacin_s", limit: 2
+    t.boolean "fluoroquinolones_moxifloxacin", default: false
+    t.integer "fluoroquinolones_moxifloxacin_s", limit: 2
+    t.boolean "fluoroquinolones_ofloxacin", default: false
+    t.integer "fluoroquinolones_ofloxacin_s", limit: 2
+    t.boolean "fosfomycin", default: false
+    t.integer "fosfomycin_s", limit: 2
+    t.boolean "fucidanes", default: false
+    t.integer "fucidanes_s", limit: 2
+    t.boolean "glycopeptides", default: false
+    t.boolean "glycopeptides_teicoplanin", default: false
+    t.integer "glycopeptides_teicoplanin_s", limit: 2
+    t.boolean "glycopeptides_telavancin", default: false
+    t.integer "glycopeptides_telavancin_s", limit: 2
+    t.boolean "glycopeptides_vancomycin", default: false
+    t.integer "glycopeptides_vancomycin_s", limit: 2
+    t.boolean "linezolid", default: false
+    t.integer "linezolid_s", limit: 2
+    t.boolean "monobactams", default: false
+    t.integer "monobactams_s", limit: 2
+    t.boolean "nitrofurantoin", default: false
+    t.integer "nitrofurantoin_s", limit: 2
+    t.boolean "penicillins", default: false
+    t.boolean "penicillins_ampicillin", default: false
+    t.boolean "penicillins_ampicillin_bli", default: false
+    t.integer "penicillins_ampicillin_bli_s", limit: 2
+    t.integer "penicillins_ampicillin_s", limit: 2
+    t.boolean "penicillins_oxacillin", default: false
+    t.integer "penicillins_oxacillin_s", limit: 2
+    t.boolean "penicillins_piperacillin", default: false
+    t.boolean "penicillins_piperacillin_bli", default: false
+    t.integer "penicillins_piperacillin_bli_s", limit: 2
+    t.integer "penicillins_piperacillin_s", limit: 2
+    t.boolean "penicillins_ticarcillin", default: false
+    t.integer "penicillins_ticarcillin_s", limit: 2
+    t.boolean "phenicols", default: false
+    t.integer "phenicols_s", limit: 2
+    t.boolean "polymixins", default: false
+    t.boolean "polymixins_colistins", default: false
+    t.integer "polymixins_colistins_s", limit: 2
+    t.boolean "polymixins_polymixin", default: false
+    t.integer "polymixins_polymixin_s", limit: 2
+    t.boolean "rifampin", default: false
+    t.integer "rifampin_s", limit: 2
+    t.boolean "tetracyclines", default: false
+    t.boolean "tetracyclines_doxycyclin", default: false
+    t.integer "tetracyclines_doxycyclin_s", limit: 2
+    t.boolean "tetracyclines_glycylcylines", default: false
+    t.integer "tetracyclines_glycylcylines_s", limit: 2
+    t.boolean "tetracyclines_minocycline", default: false
+    t.integer "tetracyclines_minocycline_s", limit: 2
+    t.boolean "tetracyclines_tetracycline", default: false
+    t.integer "tetracyclines_tetracycline_s", limit: 2
+    t.boolean "trimethoprim", default: false
+    t.integer "trimethoprim_s", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appendix_culture_result_id"], name: "index_susceptibility_tests_on_appendix_culture_result_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -947,58 +988,27 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "uti_ssi_histories", force: :cascade do |t|
+    t.integer "patient_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_uti_ssi_histories_on_patient_id"
+  end
+
   create_table "uti_ssi_questionnaires", force: :cascade do |t|
     t.bigint "patient_id", null: false
     t.datetime "discarded_at"
     t.integer "form_type"
-    t.boolean "previous"
-    t.boolean "tractobstruction"
-    t.text "tractobjstructionspecify"
-    t.boolean "urinarystones_calyceal"
-    t.boolean "urinarystones_renalpelvic"
-    t.boolean "urinarystones_ureteral"
-    t.boolean "urinarystones_bladder"
-    t.boolean "treatment"
-    t.text "treatmentspecify"
-    t.boolean "hospitalisation"
-    t.boolean "catheter_urethral"
-    t.boolean "catheter_suprapubic"
-    t.boolean "catheter_ureteralstent"
-    t.boolean "catheter_nephrostomy"
-    t.boolean "catheter_others"
-    t.bigint "catheterduration"
-    t.string "intervention_endoscopic", limit: 255
-    t.string "intervention_laparoscopic", limit: 255
-    t.string "intervention_percutaneous", limit: 255
-    t.string "intervention_opensurgery", limit: 255
-    t.string "protatebiopsy", limit: 255
-    t.text "trus_biopsy"
-    t.string "intervention_others", limit: 255
-    t.string "intervention_contamination", limit: 255
-    t.date "diagnosedate"
-    t.string "clinicaldiagnosis", limit: 255
-    t.text "clinicaldiagnosisspecify"
-    t.boolean "symptomaticutiandbacteriuria"
-    t.boolean "symptomaticutiandother"
-    t.boolean "asymptomaticbactcath"
-    t.boolean "asymptomaticbactnocath"
-    t.boolean "otheruti"
-    t.boolean "superficialssi"
-    t.boolean "deepssi"
-    t.boolean "organssi"
-    t.boolean "provennauti"
-    t.boolean "culturetissue_urine"
-    t.boolean "culturetissue_blood"
-    t.boolean "culturetissue_fluidswab"
-    t.boolean "culturetissue_other"
-    t.text "culturetissue_specify"
-    t.string "antibioticculture", limit: 7
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "antimicrobial_treatment"
     t.index ["patient_id"], name: "index_uti_ssi_questionnaires_on_patient_id"
   end
 
+  add_foreign_key "appendix_clinical_diagnoses", "uti_ssi_histories"
+  add_foreign_key "appendix_urinary_tract_obstructions", "appendix_urological_risk_factors"
+  add_foreign_key "appendix_urological_interventions", "uti_ssi_histories"
+  add_foreign_key "appendix_urological_risk_factors", "uti_ssi_histories"
   add_foreign_key "biopsy_outcome_questionnaires", "patients"
   add_foreign_key "biopsy_questionnaires", "patients"
   add_foreign_key "department_questionnaires", "departments"
@@ -1015,5 +1025,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_072343) do
   add_foreign_key "study_iterations", "countries"
   add_foreign_key "study_ranges", "study_iterations"
   add_foreign_key "support_requests", "users"
+  add_foreign_key "susceptibility_tests", "appendix_culture_results"
+  add_foreign_key "uti_ssi_histories", "patients"
   add_foreign_key "uti_ssi_questionnaires", "patients"
 end

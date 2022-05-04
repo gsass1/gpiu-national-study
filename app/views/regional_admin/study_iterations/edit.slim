@@ -10,3 +10,4 @@
 .container
   = render 'shared/study_iterations/status_hint', study_iteration: @study_iteration
   = render "regional_admin/study_iterations/edit/#{current_tab}"
+  = render "regional_admin/study_iterations/steps", step: current_tab if @study_iteration.unsubmitted?

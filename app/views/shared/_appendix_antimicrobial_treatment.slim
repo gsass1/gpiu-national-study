@@ -1,0 +1,5 @@
+ol
+  li= f.input :treatment, label: t('.treatment.question'), as: :radio_buttons, collection: radio_button_collection("treatment.answers", "none", "oral", "parenteral", "both"), value_method: :first, label_method: :second, input_html: form_trigger("treatment_antibiotics", "oral,parenteral,both")
+  li#treatment_antibiotics
+    p.question= t('.treatment_antibiotics.question')
+    .force-decimal-list= render 'shared/appendix_antibiotic', f: f, single: true, appendix_antibiotic: f.object.appendix_antibiotic
