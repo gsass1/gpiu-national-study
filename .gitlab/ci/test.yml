@@ -26,7 +26,6 @@ rspec:
     SIMPLECOV_COBERTURA: "true"
   artifacts:
     reports:
-      cobertura: coverage/coverage.xml
       junit: coverage/rspec.xml
   tags:
     - esiu
