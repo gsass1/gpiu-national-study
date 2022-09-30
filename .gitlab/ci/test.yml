@@ -21,12 +21,12 @@ rspec:
   stage: test
   script:
     - mkdir -p $PWD/coverage
-    - docker run --rm -v $PWD/coverage:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation --format RspecJunitFormatter --out coverage/rspec.xml
+    - docker run --rm -v $PWD/coverage-$CI_COMMIT_SHORT_SHA:/app/coverage -e SIMPLECOV_COBERTURA gpiu-national-test:$CI_COMMIT_SHORT_SHA bundle exec rspec --format documentation --format RspecJunitFormatter --out coverage/rspec.xml
   variables:
     SIMPLECOV_COBERTURA: "true"
   artifacts:
     reports:
-      junit: coverage/rspec.xml
+      junit: coverage-$CI_COMMIT_SHORT_SHA/rspec.xml
   tags:
     - esiu
     - build
