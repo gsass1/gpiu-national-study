@@ -35,7 +35,7 @@ class Country < ApplicationRecord
   end
 
   def all_study_ranges
-    study_iterations.sum(&:study_ranges)
+    study_iterations.map(&:study_ranges).sum([])
   end
 
   private

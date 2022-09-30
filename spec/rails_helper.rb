@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-require 'simplecov-cobertura'
+# require 'simplecov'
+# require 'simplecov-cobertura'
 
-SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter if ENV['SIMPLECOV_COBERTURA']
-Pathname.new(__FILE__).join('..', 'coverage').tap do |cov|
-  # clear old coverage results
-  FileUtils.rm_rf cov if cov.exist?
-end
-SimpleCov.start
+# SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter if ENV['SIMPLECOV_COBERTURA']
+# Pathname.new(__FILE__).join('..', 'coverage').tap do |cov|
+#   # clear old coverage results
+#   FileUtils.rm_rf cov if cov.exist?
+# end
+# SimpleCov.start
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'

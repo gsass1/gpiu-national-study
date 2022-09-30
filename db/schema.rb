@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_083136) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_09_30_121221) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "zip_code"
     t.string "city"
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_addresses_on_discarded_at"
   end
 
@@ -39,9 +38,9 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.integer "tetracycline"
     t.integer "antimycobacterial_drug"
     t.integer "other"
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "cephalosporin"
     t.integer "trimethoprim_sulfamethoxazole"
   end
@@ -50,8 +49,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.string "questionnaire_type", null: false
     t.integer "questionnaire_id", null: false
     t.string "treatment", limit: 255
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["questionnaire_type", "questionnaire_id"], name: "index_appendix_antimicrobial_treatments_on_questionnaire"
   end
 
@@ -72,8 +71,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.boolean "cdc_ssi_superficial", default: false
     t.boolean "cdc_ssi_deep", default: false
     t.boolean "cdc_ssi_organ", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["uti_ssi_history_id"], name: "index_appendix_clinical_diagnoses_on_uti_ssi_history_id"
   end
 
@@ -100,9 +99,9 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.boolean "severeliverdamage", default: false
     t.boolean "metastatictumor", default: false
     t.boolean "aids", default: false
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "severity_one", default: false
     t.boolean "severity_two", default: false
     t.boolean "severity_three", default: false
@@ -115,9 +114,9 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.bigint "pos_id"
     t.bigint "susceptibility_standard"
     t.string "susceptibility_standard_other_specify", limit: 255
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "appendix_microbiological_informations", force: :cascade do |t|
@@ -130,8 +129,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.boolean "culture_tissue_other", default: false
     t.text "culture_tissue_other_specify"
     t.string "culture_antibiotics", limit: 255
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["questionnaire_type", "questionnaire_id"], name: "index_appendix_microbiological_informations_on_questionnaire"
   end
 
@@ -142,8 +141,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.boolean "upper", default: false
     t.boolean "ureteropelvic_junction", default: false
     t.integer "pos_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["appendix_urological_risk_factor_id"], name: "index_tract_obstructions_on_urological_risk_factors"
   end
 
@@ -187,8 +186,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.boolean "intervention_others_ssi", default: false
     t.integer "others_ssi", default: 0
     t.integer "contamination_ssi"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["uti_ssi_history_id"], name: "index_appendix_urological_interventions_on_uti_ssi_history_id"
   end
 
@@ -217,14 +216,14 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.boolean "catheter_others", default: false
     t.string "catheter_other_specify"
     t.integer "catheterduration"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["uti_ssi_history_id"], name: "index_appendix_urological_risk_factors_on_uti_ssi_history_id"
   end
 
   create_table "biopsy_outcome_questionnaires", force: :cascade do |t|
     t.bigint "patient_id", null: false
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.integer "histopathology_analysis"
     t.integer "histopathology_biopsy_material_change"
     t.integer "histopathology_biopsy_material_change_severity"
@@ -259,14 +258,14 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.bigint "antibiotics_duration"
     t.string "antibiotics_route", limit: 5
     t.string "outcome", limit: 15
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_biopsy_outcome_questionnaires_on_patient_id"
   end
 
   create_table "biopsy_questionnaires", force: :cascade do |t|
     t.bigint "patient_id", null: false
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.bigint "age"
     t.integer "antibiotics_preceding_months"
     t.string "antibiotics_type", limit: 255
@@ -297,8 +296,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.string "biopsy_anesthesia_type", limit: 45
     t.string "biopsy_route", limit: 15
     t.string "number_cores_taken", limit: 255
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_biopsy_questionnaires_on_patient_id"
   end
 
@@ -306,8 +305,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.string "iso_2", null: false
     t.string "iso_3", null: false
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "timezone", default: "UTC"
     t.index ["iso_2", "iso_3", "name"], name: "index_countries_on_iso_2_and_iso_3_and_name", unique: true
   end
@@ -316,9 +315,9 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.bigint "department_id"
     t.bigint "study_iteration_id", null: false
     t.integer "state", default: 0
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "hospital_beds"
     t.integer "hospital_type"
     t.string "hospital_othertype"
@@ -718,8 +717,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.bigint "hospital_id", null: false
     t.string "name"
     t.integer "patient_counter"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["hospital_id", "name"], name: "index_departments_on_hospital_id_and_name", unique: true
     t.index ["hospital_id"], name: "index_departments_on_hospital_id"
   end
@@ -727,8 +726,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
   create_table "employees", force: :cascade do |t|
     t.bigint "department_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
@@ -737,9 +736,9 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.string "name"
     t.bigint "country_id", null: false
     t.bigint "address_id", null: false
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "acceptance_state", default: 0
     t.integer "user_id"
     t.index ["address_id"], name: "index_hospitals_on_address_id"
@@ -751,12 +750,12 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
   create_table "notifications", force: :cascade do |t|
     t.integer "recipient_id"
     t.integer "actor_id"
-    t.datetime "read_at"
+    t.datetime "read_at", precision: nil
     t.string "action"
     t.integer "notifiable_id"
     t.string "notifiable_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "patient_identifications", force: :cascade do |t|
@@ -768,9 +767,9 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.boolean "evidence_infection", default: false
     t.integer "admission_infection"
     t.integer "infection_type"
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_patient_identifications_on_patient_id"
   end
 
@@ -780,14 +779,14 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.integer "department_id", null: false
     t.integer "creator_id", null: false
     t.integer "study_iteration_id", null: false
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.integer "identification_state", default: 0
     t.integer "uti_state", default: 0
     t.integer "ssi_state", default: 0
     t.integer "biopsy_state", default: 0
     t.integer "biopsy_outcome_state", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "locked", default: false
     t.index ["creator_id"], name: "index_patients_on_creator_id"
     t.index ["department_id"], name: "index_patients_on_department_id"
@@ -798,8 +797,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.string "name"
     t.string "resource_type"
     t.bigint "resource_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
@@ -810,11 +809,11 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.bigint "country_id", null: false
     t.integer "acceptance_state", default: 0
     t.string "rejection_reason"
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "exportable", default: false
-    t.datetime "requested_export_permission_at"
+    t.datetime "requested_export_permission_at", precision: nil
     t.text "revokation_reason"
     t.index ["country_id"], name: "index_study_iterations_on_country_id"
     t.index ["discarded_at"], name: "index_study_iterations_on_discarded_at"
@@ -825,8 +824,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.date "end"
     t.text "comment"
     t.bigint "study_iteration_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["study_iteration_id"], name: "index_study_ranges_on_study_iteration_id"
   end
 
@@ -838,9 +837,9 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.text "answer"
     t.string "email"
     t.integer "state", default: 0
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_support_requests_on_user_id"
   end
 
@@ -948,8 +947,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.integer "tetracyclines_tetracycline_s", limit: 2
     t.boolean "trimethoprim", default: false
     t.integer "trimethoprim_s", limit: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["appendix_culture_result_id"], name: "index_susceptibility_tests_on_appendix_culture_result_id"
   end
 
@@ -962,16 +961,16 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.datetime "discarded_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "notifications_mask"
     t.string "keycloak_uid"
     t.index ["country_id"], name: "index_users_on_country_id"
@@ -990,17 +989,17 @@ ActiveRecord::Schema.define(version: 2022_05_02_083136) do
 
   create_table "uti_ssi_histories", force: :cascade do |t|
     t.integer "patient_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_uti_ssi_histories_on_patient_id"
   end
 
   create_table "uti_ssi_questionnaires", force: :cascade do |t|
     t.bigint "patient_id", null: false
-    t.datetime "discarded_at"
+    t.datetime "discarded_at", precision: nil
     t.integer "form_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "antimicrobial_treatment"
     t.index ["patient_id"], name: "index_uti_ssi_questionnaires_on_patient_id"
   end

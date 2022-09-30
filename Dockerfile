@@ -1,4 +1,4 @@
-FROM ruby:2.7.5-alpine3.15 as BUILDER
+FROM ruby:3.1.2-alpine3.15 as BUILDER
 
 RUN apk update && apk -U upgrade \
     && apk add build-base \
@@ -36,7 +36,7 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production
 # Remove folders not needed in resulting image
 RUN rm -rf node_modules tmp/cache vendor/assets lib/assets spec
 
-FROM ruby:2.7.5-alpine3.15
+FROM ruby:3.1.2-alpine3.15
 
 RUN apk update && apk -U upgrade \
     && apk add tini \
